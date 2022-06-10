@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<!-- 652쪽 -->
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+	<security:http>
+		<security:csrf disabled="true" />
+		<security:form-login />
+	    <!-- <security:form-login always-use-default-target="true" login-page="/member/login" default-target-url="/board/list" />
+		<security:logout logout-success-url="/board/list"/>
+		<security:remember-me/>
+		
+		access 속성 작성 법 (673~674)	
+		게시글 권한 설정 create, update, delete
+		<security:intercept-url pattern="/board/insert" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/board/modify" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/board/delete" access="isAuthenticated()"/>
+		
+		댓글 권한 설정 create, update, delete
+		<security:intercept-url pattern="/reply/insert" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/reply/modify" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/reply/delete" access="isAuthenticated()"/>
+		
+		회원정보 권한 설정 read, update, delete
+		<security:intercept-url pattern="/member/list" access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/member/initpw"  access="hasRole('ADMIN')"/>
+		<security:intercept-url pattern="/member/get" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/remove" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/member/modify" access="isAuthenticated()"/> -->
+		
+	</security:http>
+	
+	<!-- 1. 인증 2. 권한 체크 -->
+	<!-- root-context.xml에 있는 dataSource를 사용 -->
+	<!-- username에 해당하는것 : id -->
+	<!-- users-by-username-query를 작성 -->
+	<!-- username, password, 사용가능한지 여부를 쿼리로 작성 -->
+	<!-- authorities-by-username-query를 작성 -->
+	<!-- 권한정보를 세팅하기위한 쿼리 작성 -->
+	
+	 <security:authentication-manager>
+	<!--	<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="
+					SELECT id, password, 1
+					FROM Member
+					WHERE id = ?
+				"
+				authorities-by-username-query="
+					SELECT memberId, role
+					FROM Auth
+					WHERE memberId = ?
+				"
+			/> 
+		</security:authentication-provider> -->
+		
+	</security:authentication-manager>
+	
+</beans>
