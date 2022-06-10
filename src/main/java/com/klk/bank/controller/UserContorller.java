@@ -14,6 +14,9 @@ public class UserContorller {
 	@GetMapping("signup")
 	public void signupPage() {}
 	
-	@GetMapping("userlist")
-	public void adminListPage() {}
+	@GetMapping("list")
+	public void userListPage() {}
+	
+	@GetMapping("info")
+	public void userInfoPage() {}
 }
