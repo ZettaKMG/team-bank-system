@@ -112,31 +112,32 @@
 			<div class="list-group">
 			  <a href="#" class="list-group-item list-group-item-action">
 			    <div class="d-flex w-100 justify-content-between">
-			      <h5 class="mb-1">List group item heading</h5>
+			      <h5 class="mb-1">수퍼 정기예금</h5>
 			      <small>3 days ago</small>
 			    </div>
-			    <p class="mb-1">Some placeholder content in a paragraph.</p>
-			    <small>And some small print.</small>
+			    <p class="mb-1">가입 조건을 직접 설정하는 예금</p>
+			    <small class="text-muted">이율 : 연 1.0%</small>
 			  </a>
 			  <a href="#" class="list-group-item list-group-item-action">
 			    <div class="d-flex w-100 justify-content-between">
-			      <h5 class="mb-1">List group item heading</h5>
+			      <h5 class="mb-1">보통 정기예금</h5>
 			      <small class="text-muted">3 days ago</small>
 			    </div>
-			    <p class="mb-1">Some placeholder content in a paragraph.</p>
-			    <small class="text-muted">And some muted small print.</small>
+			    <p class="mb-1">본 은행의 대표 정기예금</p>
+			    <small class="text-muted">이율 : 연 0.5%</small>
 			  </a>
 			  <a href="#" class="list-group-item list-group-item-action">
 			    <div class="d-flex w-100 justify-content-between">
-			      <h5 class="mb-1">List group item heading</h5>
+			      <h5 class="mb-1">첫 재테크예금</h5>
 			      <small class="text-muted">3 days ago</small>
 			    </div>
-			    <p class="mb-1">Some placeholder content in a paragraph.</p>
-			    <small class="text-muted">And some muted small print.</small>
+			    <p class="mb-1">재테크에 처음 도전하는 분들을 위한 예금</p>
+			    <small class="text-muted">이율 : 연 1.5%</small>
 			  </a>
 			</div>		
+			<tag:pagination></tag:pagination>
 		</div>
-	</div>
+	</div>	
 	
 </body>
 </html>
