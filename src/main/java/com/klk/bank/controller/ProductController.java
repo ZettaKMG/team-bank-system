@@ -28,7 +28,7 @@ public class ProductController {
 	// 상품 조회
 	@GetMapping("search")
 	public void searchPage(String keyword, String type, Model model) {
-		List<ProductDto> list = productService.listBoard(type, keyword);
+		List<ProductDto> list = productService.listProduct(type, keyword);
 		
 		model.addAttribute("product_list", list);
 	}	
@@ -41,12 +41,12 @@ public class ProductController {
 	
 	@PostMapping("registration")
 	public String registrationPage(ProductDto product, RedirectAttributes rttr) {
-		boolean success = productService.registrationBoard(product);
+		boolean success = productService.insertProduct(product);
 		
 		if (success) {
-			rttr.addFlashAttribute("message", "상품이 정상 등록되었습니다.");
+			rttr.addFlashAttribute("message", "상품정보가 정상 등록되었습니다.");
 		} else {
-			rttr.addFlashAttribute("message", "상품이 등록되지 않았습니다.");
+			rttr.addFlashAttribute("message", "상품정보가 등록되지 않았습니다.");
 		}
 		
 		return "redirect:/product/search";
@@ -72,6 +72,13 @@ public class ProductController {
 	@PostMapping("edit")
 	public String editPage(ProductDto product, RedirectAttributes rttr) {
 		
+		boolean success = productService.updateProduct(product);
+		
+		if (success) {
+			rttr.addFlashAttribute("message", "상품 정보가 수정되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "상품 정보가 수정되지 않았습니다.");
+		}
 		
 		return "redirect:/product/detail";
 		
@@ -81,6 +88,13 @@ public class ProductController {
 	@PostMapping("remove")
 	public String remove(ProductDto product, RedirectAttributes rttr) {
 		
+		boolean success = productService.deleteProduct(product.getId());
+		
+		if (success) {
+			rttr.addFlashAttribute("message", "상품 정보가 삭제되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "상품 정보가 삭제되지 않았습니다.");
+		}
 		
 		return "redirect:/product/search";
 	}
