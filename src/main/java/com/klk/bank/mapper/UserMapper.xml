@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.klk.bank.mapper.UserMapper">
+
+	<insert id="insertUser">
+		INSERT INTO User(user_id, user_pw, user_name, user_address, user_phone, user_email, user_birth)
+		VALUES (#{userId}, #{userPw}, #{userName}, #{userAddress}, #{userPhone}, #{userEmail}, #{userBirth})
+	</insert>
+	
+	<!-- 권한 추가 -->
+	<insert id="insertAuth">
+		INSERT INTO Auth(user_id, role)
+		VALUES (#{userId}, #{auth})
+	</insert>
+	
+	<select id="countUserId" resultType="int">
+		SELECT COUNT(user_id)
+		FROM User
+		WHERE user_id = #{userId}
+	</select>
+	
+	<select id="countUserEmail" resultType="int">
+		SELECT COUNT(user_email)
+		FROM User
+		WHERE user_email = #{userEmail}
+	</select>
+	
+</mapper>

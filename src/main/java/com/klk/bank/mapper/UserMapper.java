@@ -1,0 +1,17 @@
+package com.klk.bank.mapper;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.klk.bank.domain.UserDto;
+
+public interface UserMapper {
+
+	int insertUser(UserDto userDto);
+
+	int insertAuth(@Param("userId") String userId, @Param("auth") String auth);
+
+	int countUserId(String userId);
+
+	int countUserEmail(String userEmail);
+
+}
