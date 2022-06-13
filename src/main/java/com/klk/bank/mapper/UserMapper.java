@@ -16,4 +16,10 @@ public interface UserMapper {
 
 	UserDto selectUserById(String userId);
 
+	int updateUser(UserDto userDto);
+
+	void deleteAuthById(String userId);
+
+	int deleteUserById(String userId);
+
 }

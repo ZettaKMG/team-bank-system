@@ -84,4 +84,43 @@ public class UserContorller {
 	private boolean hasAuthOrAdmin(String userId, Principal principal, HttpServletRequest request) {
 		return request.isUserInRole("ROLE_ADMIN") || (principal != null && principal.getName().equals(userId));
 	}
+	
+	@PostMapping("modify")
+	public String modifyUser(UserDto userDto, String oldPassword, Principal principal, HttpServletRequest request, RedirectAttributes rttr) {
+				
+		if(hasAuthOrAdmin(userDto.getUserId(), principal, request)) {
+			boolean success = userService.modifyUser(userDto, oldPassword);
+			
+			if(success) {
+				rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
+			} else {
+				rttr.addFlashAttribute("message", "회원 정보가 수정되지 않았습니다.");
+			}
+			
+			rttr.addFlashAttribute("user", userDto); // model object
+			rttr.addAttribute("userId", userDto.getUserId()); // query string
+			
+			return "redirect:/user/info";
+		} else {
+			return "redirect:/user/login";			
+		}
+	}
+	
+	@PostMapping("remove")
+	public String removeMember(UserDto userDto, Principal principal, HttpServletRequest request, RedirectAttributes rttr) {
+		
+		if(hasAuthOrAdmin(userDto.getUserId(), principal, request)) {
+			boolean success = userService.removeUser(userDto);
+			
+			if(success) {
+				rttr.addFlashAttribute("message", "탈퇴되었습니다.");
+				return "redirect:/user/login";
+			} else {
+				rttr.addAttribute("userId", userDto.getUserId());
+				return "redirect:/user/info";
+			}
+		} else {
+			return "redirect:/user/login";
+		}
+	}
 }

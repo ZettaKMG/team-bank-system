@@ -33,4 +33,23 @@
 		WHERE user_id = #{userId}
 	</select>
 	
+	<update id="updateUser">
+		UPDATE User
+		SET user_pw = #{userPw},
+			user_address = #{userAddress},
+			user_phone = #{userPhone},
+		    user_email = #{userEmail}
+		WHERE user_id = #{userId}
+	</update>
+	
+	<delete id="deleteUserById" >
+		DELETE FROM User
+		WHERE user_id = #{userId}
+	</delete>
+	
+	<!-- 권한 삭제 -->
+	<delete id="deleteAuthById">
+		DELETE FROM Auth
+		WHERE user_id = #{userId}
+	</delete>
 </mapper>
