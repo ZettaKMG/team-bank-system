@@ -1,4 +1,4 @@
-package com.klk.bank.controller;
+package com.klk.bank.dummy;
 
 import java.security.Principal;
 import java.util.List;
@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.klk.bank.domain.ReplyDto;
-import com.klk.bank.service.ReplyService;
 
 @RestController
 @RequestMapping("reply")

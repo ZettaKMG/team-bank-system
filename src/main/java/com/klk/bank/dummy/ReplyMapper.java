@@ -1,10 +1,8 @@
-package com.klk.bank.mapper;
+package com.klk.bank.dummy;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-
-import com.klk.bank.domain.ReplyDto;
 
 public interface ReplyMapper {
 

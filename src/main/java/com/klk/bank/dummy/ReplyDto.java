@@ -1,4 +1,4 @@
-package com.klk.bank.domain;
+package com.klk.bank.dummy;
 
 import java.time.LocalDateTime;
 
