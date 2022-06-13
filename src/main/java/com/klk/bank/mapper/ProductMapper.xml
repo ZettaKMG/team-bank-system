@@ -4,5 +4,47 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.klk.bank.mapper.ProductMapper">
 
+	<select id="selectProductAll" resultType="com.klk.bank.domain.ProductDto">
+		SELECT p.id,
+			   p.item_name,
+			   p.date,
+			   COUNT(DISTINCT r.id) numOfReply		
+		FROM Product p LEFT JOIN Reply r ON p.id = r.product_id
+		
+		<if test="keyword != '%%'">
+			WHERE p.item_name LIKE #{keyword }			
+		</if>
+		
+		GROUP BY p.id
+		ORDER BY p.id DESC
+	</select>
+	
+	<insert id="insertProduct" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		INSERT INTO Product (item_name, detail, user_id)
+		VALUES (#{item_name), #{detail}, #{user_id})
+	</insert>
+	
+	<select id="selectProductById" resultType="com.klk.bank.domain.ProductDto">
+		SELECT p.id,
+			   p.item_name,
+			   p.detail,
+			   p.rate,
+			   p.date,
+			   COUNT(r.id) numOfReply
+		FROM Product p LEFT JOIN Reply r ON p.id = r.product_id
+		WHERE p.id = #{id}
+	</select>
 
+	<update id="updateProduct">
+		UPDATE Product
+		SET item_name = #{item_name},
+			   detail = #{detail}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteProduct">
+		DELETE FROM Product
+		WHERE id = #{id}
+	</delete>
+	
 </mapper>

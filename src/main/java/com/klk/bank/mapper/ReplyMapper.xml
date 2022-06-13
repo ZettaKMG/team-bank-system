@@ -4,5 +4,47 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.klk.bank.mapper.ReplyMapper">
 
+	<insert id="insertReply">
+		INSERT INTO Reply (product_id, content, user_id)
+		VALUES (#{product_id}, #{content}, #{user_id})
+	</insert>
 
+	<select id="selectAllProductId" resultType="com.klk.bank.domain.ReplyDto">
+		SELECT r.id,
+			   r.product_id,
+			   r.content,
+			   u.user_id,
+			   r.inserted,
+			   IF (m.id = #{user_id}, 1, 0) own
+		FROM Reply r JOIN User u ON r.user_id = p.id
+		WHERE r.product_id = #{product_id}
+		ORDER BY r.id			   
+	</select>
+	
+	<update id="updateReply">
+		UPDATE Reply
+		SET content = #{content}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteReply">
+		DELETE FROM Reply
+		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteByProductId">
+		DELETE FROM Reply
+		WHERE product_id = #{product_id}
+	</delete>
+	
+	<select id="selectReplyById">
+		SELECT id,
+			   product_id,
+			   content,
+			   user_id,
+			   date
+		FROM Reply
+		WHERE id = #{id}		
+	</select>
+	
 </mapper>
