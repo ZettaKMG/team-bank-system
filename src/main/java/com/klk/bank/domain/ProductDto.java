@@ -9,17 +9,17 @@ public class ProductDto {
 	
 	private int id;
 	
-	private String memberId;
+	private String user_id;
 	
-	private String itemName;
+	private String item_name;
 	
 	private int rate;
 	
-	private int expPeriod;
+	private int exp_period;
 	
 	private LocalDateTime date;
 	
-	private String savMethod;
+	private String sav_method;
 	
 	public String getPrettyDate() {
 		// 상품정보 올린지 24시간 이내면 시간만
@@ -31,4 +31,5 @@ public class ProductDto {
 			return date.toLocalDate().toString();
 		}
 	}
+	
 }

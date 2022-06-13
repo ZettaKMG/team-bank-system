@@ -9,13 +9,13 @@ public class ReplyDto {
 
 	private int id;
 	
-	private int productId;
+	private int product_id;
 	
 	private String detail;
 	
-	private String memberId;
+	private String user_id;
 	
-	private String writerNickname;
+	private String writer_nickname;
 	
 	private LocalDateTime date;
 	
@@ -29,4 +29,5 @@ public class ReplyDto {
 			return date.toLocalDate().toString();
 		}
 	}
+	
 }
