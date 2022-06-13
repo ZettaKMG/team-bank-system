@@ -14,4 +14,6 @@ public interface UserMapper {
 
 	int countUserEmail(String userEmail);
 
+	UserDto selectUserById(String userId);
+
 }

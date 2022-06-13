@@ -27,4 +27,10 @@
 		WHERE user_email = #{userEmail}
 	</select>
 	
+	<select id="selectUserById" resultType="com.klk.bank.domain.UserDto">
+		SELECT user_id userId, user_pw userPw, user_name userName, user_address userAddress, user_phone userPhone, user_email userEmail, user_birth userBirth 
+		FROM User
+		WHERE user_id = #{userId}
+	</select>
+	
 </mapper>

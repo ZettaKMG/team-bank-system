@@ -1,7 +1,12 @@
 package com.klk.bank.controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,5 +70,18 @@ public class UserContorller {
 	public void userListPage() {}
 	
 	@GetMapping("info")
-	public void userInfoPage() {}
+	public String getUser(String userId, Principal principal, HttpServletRequest request, Model model) {
+		if (hasAuthOrAdmin(userId, principal, request)) {
+			UserDto userDto = userService.getUserById(userId);
+			model.addAttribute("user", userDto);
+			
+			return null;
+		}
+
+		return "redirect:/user/login";
+	}
+
+	private boolean hasAuthOrAdmin(String userId, Principal principal, HttpServletRequest request) {
+		return request.isUserInRole("ROLE_ADMIN") || (principal != null && principal.getName().equals(userId));
+	}
 }

@@ -41,4 +41,8 @@ public class UserService {
 		return userMapper.countUserEmail(userEmail) > 0;
 	}
 
+	public UserDto getUserById(String userId) {
+		return userMapper.selectUserById(userId);
+	}
+
 }
