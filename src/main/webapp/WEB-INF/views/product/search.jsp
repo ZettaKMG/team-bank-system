@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="bank" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
 <title>상품조회 페이지</title>
 </head>
 <body>
-	<tag:navBar></tag:navBar>
+	<bank:navBar></bank:navBar>
 
 	<!-- 상품목록 조회 조건선택 -->
 	<div class="container">
@@ -135,7 +135,7 @@
 			    <small class="text-muted">이율 : 연 1.5%</small>
 			  </a>
 			</div>		
-			<tag:pagination></tag:pagination>
+			<bank:pagination></bank:pagination>
 		</div>
 	</div>	
 	

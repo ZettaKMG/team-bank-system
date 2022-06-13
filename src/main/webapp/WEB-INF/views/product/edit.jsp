@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="bank" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
@@ -13,19 +13,61 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"	referrerpolicy="no-referrer"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
+<script>
+	$(document).ready(function() {
+		$("#edit_button1").click(function() {
+			$("#product_name").removeAttr("readonly");
+			$("#product_summary").removeAttr("readonly");
+			$("#product_detail").removeAttr("readonly");
+			$("#modify_submit1").removeClass("d-none");
+			$("#delete_submit1").removeClass("d-none");			
+		});
+		
+		<!-- 수정 버튼 누를시 수정 여부 묻는 메세지 창 -->
+		$("#modify_submit1").click(function(e) {
+			e.preventDefault();
+			
+			if (confirm("상품 정보를 수정하시겠습니까?")) {
+				let form1 = $("#form1");
+				let actionAttr1 = "${appRoot}/product/remove";
+				form1.attr("action1", actionAttr1);
+				
+				form1.submit();
+			}
+		});
+		
+		<!-- 삭제 버튼 누를시 삭제 여부 묻는 메세지 창 -->
+		$("#delete_submit1").click(function(e) {
+			e.preventDefault();
+			
+			if (confirm("상품 정보를 삭제하시겠습니까?")) {
+				let form2 = $("#form2");
+				let actionAttr2 = "${appRoot}/product/remove";
+				form2.attr("action2", actionAttr2);
+				
+				form2.submit();
+			}
+		});
+	});
+</script>		
+	
 <title>상품수정 및 삭제 페이지</title>
 </head>
 <body>
-	<tag:navBar></tag:navBar>
+	<bank:navBar></bank:navBar>
 
 	<div class="container">
 		<div class="mt-5 mb-3">
-			<label for="productName" class="form-label"><h4>상품명</h4></label>
-	  		<input type="text" class="form-control" id="productName" placeholder="000예금/000적금">
+			<label for="product_name" class="form-label"><h4>상품명</h4></label>
+			<!-- 편집버튼(권한 있는 유저에게만 보이게끔) -->
+	    	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+			  <button id="edit_button1" type="button" class="btn btn-warning">편집하기</button>			
+			</div>
+	  		<input type="text" class="form-control" id="product_name" placeholder="000예금/000적금">
 		</div>
 	  	<div class="mt-1 mb-3">
-			<label for="productSummary" class="form-label"><h4>상품요약</h4></label>
-	  		<input type="text" class="form-control" id="productSummary" placeholder="~~~를 위한 예금">
+			<label for="product_summary" class="form-label"><h4>상품요약</h4></label>
+	  		<input type="text" class="form-control" id="product_summary" placeholder="~~~를 위한 예금">
 		</div>
 	    <div class="mt-3">
 			<table class="table table-borderless">					  
@@ -101,8 +143,8 @@
 			</table>					
 		</div>
 		<div class="mt-3 mb-3">
-			<label for="productDetail" class="form-label"><h4>상품 상세내용</h4></label>
-		    <textarea class="form-control" id="productDetail" rows="10"></textarea>
+			<label for="product_detail" class="form-label"><h4>상품 상세내용</h4></label>
+		    <textarea class="form-control" id="product_detail" rows="10"></textarea>
 		</div>
 		
 		<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
