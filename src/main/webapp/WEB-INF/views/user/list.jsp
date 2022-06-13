@@ -90,45 +90,22 @@
 					</div>
 				</div>
 
-				<div class="my-3 p-3 bg-body rounded shadow-sm">
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#e83e8c"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							Some representative placeholder content, with some information
-							about this user. Imagine this being some sort of status update,
-							perhaps?
-						</p>
-					</div>
-
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#e83e8c"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							Some more representative placeholder content, related to this
-							other user. Another status update, perhaps.
-						</p>
-					</div>
-
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#e83e8c"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							This user also gets some representative placeholder content.
-							Maybe they did something interesting, and you really want to
-							highlight this in the recent updates.
-						</p>
-					</div>
-				</div>
+				<c:forEach items="${userList }" var="user">
+					<c:if test="${user.userRole == 'ROLE_ADMIN'}">
+						<div class="my-3 p-3 bg-body rounded shadow-sm">
+							<div class="d-flex text-muted">
+								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+										<rect width="100%" height="100%" fill="#dd3c54"></rect>
+								</svg>
+							
+								<p class="mb-0 small lh-sm border-bottom">
+									<strong class="d-block text-gray-dark">${user.userId }</strong>
+									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
+								</p>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
 
 				<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
 					<div class="lh-1">
@@ -137,43 +114,22 @@
 					</div>
 				</div>
 
-				<div class="my-3 p-3 bg-body rounded shadow-sm">
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#007bff"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							Some representative placeholder content, with some information
-							about this user. Imagine this being some sort of status update,
-							perhaps?
-						</p>
-					</div>
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#007bff"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							Some more representative placeholder content, related to this
-							other user. Another status update, perhaps.
-						</p>
-					</div>
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#007bff"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							This user also gets some representative placeholder content.
-							Maybe they did something interesting, and you really want to
-							highlight this in the recent updates.
-						</p>
-					</div>
-				</div>
+				<c:forEach items="${userList }" var="user">
+					<c:if test="${user.userRole == 'ROLE_PRODUCT'}">
+						<div class="my-3 p-3 bg-body rounded shadow-sm">
+							<div class="d-flex text-muted">
+								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+										<rect width="100%" height="100%" fill="#007bff"></rect>
+								</svg>
+							
+								<p class="mb-0 small lh-sm border-bottom">
+									<strong class="d-block text-gray-dark">${user.userId }</strong>
+									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
+								</p>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
 
 				<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
 					<div class="lh-1">
@@ -182,43 +138,22 @@
 					</div>
 				</div>
 
-				<div class="my-3 p-3 bg-body rounded shadow-sm">
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#6f42c1"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							Some representative placeholder content, with some information
-							about this user. Imagine this being some sort of status update,
-							perhaps?
-						</p>
-					</div>
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#6f42c1"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							Some more representative placeholder content, related to this
-							other user. Another status update, perhaps.
-						</p>
-					</div>
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-							<rect width="100%" height="100%" fill="#6f42c1"></rect>
-						</svg>
-
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							This user also gets some representative placeholder content.
-							Maybe they did something interesting, and you really want to
-							highlight this in the recent updates.
-						</p>
-					</div>
-				</div>
+				<c:forEach items="${userList }" var="user">
+					<c:if test="${user.userRole == 'ROLE_SERVICE'}">
+						<div class="my-3 p-3 bg-body rounded shadow-sm">
+							<div class="d-flex text-muted">
+								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+										<rect width="100%" height="100%" fill="#6f42c1"></rect>
+								</svg>
+							
+								<p class="mb-0 small lh-sm border-bottom">
+									<strong class="d-block text-gray-dark">${user.userId }</strong>
+									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
+								</p>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
 
 				<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
 					<div class="lh-1">
@@ -227,20 +162,22 @@
 					</div>
 				</div>
 				
-				<div class="my-3 p-3 bg-body rounded shadow-sm">
-					<div class="d-flex text-muted pt-3">
-						<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-								<rect width="100%" height="100%" fill="#4eca6d"></rect>
-						</svg>
-					
-						<p class="pb-3 mb-0 small lh-sm border-bottom">
-							<strong class="d-block text-gray-dark">@username</strong>
-							This user also gets some representative placeholder content. Maybe
-							they did something interesting, and you really want to highlight
-							this in the recent updates.
-						</p>
-					</div>
-				</div>
+				<c:forEach items="${userList }" var="user">
+					<c:if test="${user.userRole == 'ROLE_USER'}">
+						<div class="my-3 p-3 bg-body rounded shadow-sm">
+							<div class="d-flex text-muted">
+								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+										<rect width="100%" height="100%" fill="#4eca6d"></rect>
+								</svg>
+							
+								<p class="mb-0 small lh-sm border-bottom">
+									<strong class="d-block text-gray-dark">${user.userId }</strong>
+									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
+								</p>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

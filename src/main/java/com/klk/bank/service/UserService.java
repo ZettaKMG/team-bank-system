@@ -1,5 +1,7 @@
 package com.klk.bank.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -79,6 +81,10 @@ public class UserService {
 			return cnt == 1;
 		}
 		return false;
+	}
+
+	public List<UserDto> getUserList() {
+		return userMapper.selectAllUserList();
 	}
 
 }

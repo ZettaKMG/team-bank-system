@@ -1,6 +1,7 @@
 package com.klk.bank.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,7 +68,10 @@ public class UserContorller {
 	}
 	
 	@GetMapping("list")
-	public void userListPage() {}
+	public void userListPage(Model model) {
+		List<UserDto> userList = userService.getUserList();
+		model.addAttribute("userList", userList);	
+	}
 	
 	@GetMapping("info")
 	public String getUser(String userId, Principal principal, HttpServletRequest request, Model model) {

@@ -1,5 +1,7 @@
 package com.klk.bank.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.klk.bank.domain.UserDto;
@@ -21,5 +23,7 @@ public interface UserMapper {
 	void deleteAuthById(String userId);
 
 	int deleteUserById(String userId);
+
+	List<UserDto> selectAllUserList();
 
 }
