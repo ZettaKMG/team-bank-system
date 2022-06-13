@@ -13,6 +13,8 @@ public class ProductDto {
 	
 	private String item_name;
 	
+	private String detail;
+	
 	private int rate;
 	
 	private int exp_period;

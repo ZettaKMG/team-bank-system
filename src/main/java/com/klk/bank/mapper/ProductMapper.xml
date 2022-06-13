@@ -7,9 +7,9 @@
 	<select id="selectProductAll" resultType="com.klk.bank.domain.ProductDto">
 		SELECT p.id,
 			   p.item_name,
-			   p.date,
-			   COUNT(DISTINCT r.id) numOfReply		
-		FROM Product p LEFT JOIN Reply r ON p.id = r.product_id
+			   p.date<!-- ,
+			   COUNT(DISTINCT r.id) numOfReply -->		
+		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->
 		
 		<if test="keyword != '%%'">
 			WHERE p.item_name LIKE #{keyword }			
@@ -29,9 +29,9 @@
 			   p.item_name,
 			   p.detail,
 			   p.rate,
-			   p.date,
-			   COUNT(r.id) numOfReply
-		FROM Product p LEFT JOIN Reply r ON p.id = r.product_id
+			   p.date<!-- ,
+			   COUNT(r.id) numOfReply -->
+		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->
 		WHERE p.id = #{id}
 	</select>
 

@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.klk.bank.domain.ProductDto;
 import com.klk.bank.mapper.ProductMapper;
-import com.klk.bank.mapper.ReplyMapper;
 
 @Service
 public class ProductService {
@@ -16,8 +15,8 @@ public class ProductService {
 	@Autowired
 	private ProductMapper productMapper;
 	
-	@Autowired
-	private ReplyMapper replyMapper;
+//	@Autowired
+//	private ReplyMapper replyMapper;
 
 	public List<ProductDto> listProduct(String keyword) {
 		
@@ -50,8 +49,8 @@ public class ProductService {
 	@Transactional
 	public boolean deleteProduct(int id) {
 		
-		// Reply 테이블 삭제
-		replyMapper.deleteByProductId(id);
+//		// Reply 테이블 삭제
+//		replyMapper.deleteByProductId(id);
 		
 		return productMapper.deleteProduct(id) == 1;
 	}

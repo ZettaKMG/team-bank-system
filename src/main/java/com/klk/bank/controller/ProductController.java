@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klk.bank.domain.ProductDto;
-import com.klk.bank.domain.ReplyDto;
 import com.klk.bank.service.ProductService;
-import com.klk.bank.service.ReplyService;
 
 @Controller
 @RequestMapping("products")
@@ -24,8 +22,8 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private ReplyService replyService;
+//	@Autowired
+//	private ReplyService replyService;
 	
 	// 상품 조회
 	@GetMapping("search")
@@ -61,9 +59,9 @@ public class ProductController {
 	public void searchDetailPage(int id, Model model) {
 		
 		ProductDto product = productService.getProductById(id);
-		List<ReplyDto> replyList = replyService.getReplyByProductId(id);
+//		List<ReplyDto> replyList = replyService.getReplyByProductId(id);
 		model.addAttribute("product", product);
-		model.addAttribute("reply_list", replyList);
+//		model.addAttribute("reply_list", replyList);
 		
 	}
 
