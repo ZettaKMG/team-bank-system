@@ -15,7 +15,7 @@
 			   r.content,
 			   u.user_id,
 			   r.inserted,
-			   IF (m.id = #{user_id}, 1, 0) own
+			   IF (u.id = #{user_id}, 1, 0) own
 		FROM Reply r JOIN User u ON r.user_id = p.id
 		WHERE r.product_id = #{product_id}
 		ORDER BY r.id			   
