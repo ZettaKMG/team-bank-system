@@ -19,9 +19,9 @@ public class ProductService {
 	@Autowired
 	private ReplyMapper replyMapper;
 
-	public List<ProductDto> listProduct(String type, String keyword) {
+	public List<ProductDto> listProduct(String keyword) {
 		
-		return productMapper.selectProductAll(type, "%" + keyword + "%");
+		return productMapper.selectProductAll(keyword);
 	}
 
 	@Transactional
@@ -38,13 +38,21 @@ public class ProductService {
 		return product;
 	}
 
+	@Transactional
 	public boolean updateProduct(ProductDto product) {
-		// TODO Auto-generated method stub
-		return false;
+
+		// Product 테이블 update
+		int count = productMapper.updateProduct(product);
+		
+		return count == 1;
 	}
 
+	@Transactional
 	public boolean deleteProduct(int id) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		// Reply 테이블 삭제
+		replyMapper.deleteByProductId(id);
+		
+		return productMapper.deleteProduct(id) == 1;
 	}
 }
