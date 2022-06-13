@@ -18,21 +18,21 @@
 			
 				<h1>로그인</h1>
 				
-				<form action="" method="post">
+				<form action="${appRoot }/login" method="post">
 					<div class="row">
-						<label for="" class="form-label">
+						<label for="userIdInput1" class="form-label">
 							ID 
 						</label>
-						<input id="" class="form-control" type="text" name=""/>
+						<input id="userIdInput1" class="form-control" type="text" name="username"/>
 					</div>
 					
 					<div class="row">
-						<label for="" class="form-label">
+						<label for="userPwInput1" class="form-label">
 							Password
 						</label>
-						<input id="" class="form-control" type="password" name=""/>
+						<input id="userPwInput1" class="form-control" type="password" name="password"/>
 					</div>
-					
+					<br />
 					<div class="form-check">
 						<input class="btn btn-primary" type="submit" value="로그인"/>
 					</div>

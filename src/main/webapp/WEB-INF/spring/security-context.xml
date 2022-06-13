@@ -11,7 +11,8 @@
 	<security:http>
 		<security:csrf disabled="true" />
 		<security:form-login />
-	    <!-- <security:form-login always-use-default-target="true" login-page="/member/login" default-target-url="/board/list" />
+	    <security:form-login always-use-default-target="true" login-page="/user/login" default-target-url="/user/list" />
+	    <!-- 
 		<security:logout logout-success-url="/board/list"/>
 		<security:remember-me/>
 		
@@ -44,20 +45,20 @@
 	<!-- 권한정보를 세팅하기위한 쿼리 작성 -->
 	
 	 <security:authentication-manager>
-	<!--	<security:authentication-provider>
+		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="
-					SELECT id, password, 1
-					FROM Member
-					WHERE id = ?
+					SELECT user_id, user_pw, 1
+					FROM User
+					WHERE user_id = ?
 				"
 				authorities-by-username-query="
-					SELECT memberId, role
+					SELECT user_id, role
 					FROM Auth
-					WHERE memberId = ?
+					WHERE user_id = ?
 				"
 			/> 
-		</security:authentication-provider> -->
+		</security:authentication-provider>
 		
 	</security:authentication-manager>
 	
