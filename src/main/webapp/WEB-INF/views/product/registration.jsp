@@ -15,97 +15,59 @@
 <title>상품등록 페이지</title>
 </head>
 <body>
-	<bank:navBar></bank:navBar>
+	<bank:navBar current="registration"></bank:navBar>
 	
 	<div class="container">
-		<div class="mt-5 mb-3">
-			<label for="productName" class="form-label"><h4>상품명</h4></label>
-	  		<input type="text" class="form-control" id="productName" placeholder="000예금/000적금">
-		</div>
-		<div class="mt-1 mb-3">
-			<label for="productSummary" class="form-label"><h4>상품요약</h4></label>
-	  		<input type="text" class="form-control" id="productSummary" placeholder="~~~를 위한 예금">
-		</div>
-	    <div class="mt-3">
-			<table class="table table-borderless">					  
-				<tbody class="table-group-divider">
-					<tr>					
-						<th scope="row">상품종류</th>
+		<form action="${appRoot }/product/registration" method="post">
+			<div class="mt-5 mb-3">
+				<label for="name" class="form-label"><h4>상품명</h4></label>
+		  		<input type="text" class="form-control" name="item_name" id="name" placeholder="000예금/000적금" required />
+			</div>
+			<div class="mt-1 mb-3">
+				<label for="summary" class="form-label"><h4>상품요약</h4></label>
+		  		<input type="text" class="form-control" name="item_summary" id="summary" placeholder="~~~를 위한 예금" required />
+			</div>
+		    <div class="mt-3">
+				<table class="table table-borderless">					  
+					<tbody class="table-group-divider">
+						<tr>					
 							<td>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="type" id="deposit" value="option1">
-		 							<label class="form-check-label" for="deposit">예금</label>
+								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
+								<div class="input-group mb-3">
+								  <span class="input-group-text" id="type">상품종류</span>
+								  <input type="text" class="form-control" name="sav_method" placeholder="예금 01/적금 02" aria-label="Username" aria-describedby="type">
 								</div>
-		                    	<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="type" id="savings" value="option2">
-									<label class="form-check-label" for="savings">적금</label>
+							</td>	
+						</tr>
+						<tr>
+							<td>
+								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
+								<div class="input-group mb-3">
+								  <span class="input-group-text" id="period">가입기간</span>
+								  <input type="text" class="form-control" name="exp_period" placeholder="공란(예금)/1년/2년/3년" aria-label="Username" aria-describedby="period">
 								</div>
 							</td>
-					</tr>
-					<tr>
-						<th scope="row">가입기간</th>
+						</tr>
+						<tr>
 							<td>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="date" id="oneyear" value="option1">
-									<label class="form-check-label" for="oneyear">1년</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="date" id="twoyears" value="option2">
-		 							<label class="form-check-label" for="twoyears">2년</label>
-								</div>
-		                    	<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="date" id="threeyears" value="option3">
-									<label class="form-check-label" for="threeyears">3년</label>
+								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
+								<div class="input-group mb-3">
+								  <span class="input-group-text" id="rate">이자율</span>
+								  <input type="text" class="form-control" name="deposit_rate" placeholder="0.5% 단위씩 변동" aria-label="Username" aria-describedby="rate">
 								</div>
 							</td>
-					</tr>
-					<tr>
-						<th scope="row">이자율</th>
-							<td>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="0.5" value="option1">
-		 							<label class="form-check-label" for="0.5">연 0.5%</label>
-								</div>
-		                    	<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="1.0" value="option2">
-									<label class="form-check-label" for="1.0">연 1.0%</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="1.5" value="option3">
-		 							<label class="form-check-label" for="1.5">연 1.5%</label>
-								</div>
-		                    	<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="2.0" value="option4">
-									<label class="form-check-label" for="2.0">연 2.0%</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="2.5" value="option5">
-									<label class="form-check-label" for="2.5">연 2.5%</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="3.0" value="option6">
-		 							<label class="form-check-label" for="3.0">연 3.0%</label>
-								</div>
-		                    	<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="3.5" value="option7">
-									<label class="form-check-label" for="3.5">연 3.5%</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="4.0" value="option8">
-									<label class="form-check-label" for="4.0">연 4.0%</label>
-								</div>
-							</td>
-					</tr>
-				</tbody>					
-			</table>					
-		</div>
-		<div class="mt-3 mb-3">
-			<label for="productDetail" class="form-label"><h4>상품 상세내용</h4></label>
-		    <textarea class="form-control" id="productDetail" rows="10"></textarea>
-		</div>
-		<div class="mt-1 d-md-flex justify-content-md-center">
-		    <button type="submit" class="btn btn-success">상품등록</button>
-		</div>		
+						</tr>
+					</tbody>					
+				</table>					
+			</div>
+			<div class="mt-3 mb-3">
+				<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
+			    <textarea class="form-control" name="product_detail" id="detail" rows="10"></textarea>
+			</div>
+			<div class="mt-1 d-md-flex justify-content-md-center">
+			    <button type="submit" class="btn btn-success">상품등록</button>
+			</div>		
+		</form>
 	</div>
 
 </body>

@@ -51,8 +51,8 @@
 							<th scope="row">가입기간</th>
 						    <td>
 						    	<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="date" id="all" value="option1">
-	 							    <label class="form-check-label" for="all">전체</label>
+									<input class="form-check-input" type="radio" name="date" id="none" value="option1">
+	 							    <label class="form-check-label" for="none">없음</label>
 								</div>
 	                    		<div class="form-check form-check-inline">
 								    <input class="form-check-input" type="radio" name="date" id="oneyear" value="option2">
@@ -72,28 +72,20 @@
 							<th scope="row">이자율</th>
 						    <td>
 						    	<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="all" value="option1">
-	 							    <label class="form-check-label" for="all">전체</label>
+									<input class="form-check-input" type="radio" name="rate" id="all" value="option0">
+	 							    <label class="form-check-label" for="none">전체</label>
 								</div>
 	                    		<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="rate" id="1.0" value="option2">
-								    <label class="form-check-label" for="1.0">~ 연 1.0%</label>
+									<input class="form-check-input" type="radio" name="rate" id="opt1" value="option1">
+								    <label class="form-check-label" for="opt1">~ 연 1.5%</label>
 								</div>
 								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="rate" id="2.0" value="option3">
-	 							  <label class="form-check-label" for="2.0">연 1.1 ~ 2.0%</label>
+								  <input class="form-check-input" type="radio" name="rate" id="opt2" value="option2">
+	 							  <label class="form-check-label" for="opt2">연 1.6 ~ 3.0%</label>
 								</div>
 	                    		<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="rate" id="3.0" value="option4">
-								  <label class="form-check-label" for="3.0">연 2.1% ~ 3.0%</label>
-								</div>
-								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="rate" id="4.0" value="option4">
-								  <label class="form-check-label" for="4.0">연 3.1% ~ 4.0%</label>
-								</div>
-								<div class="form-check form-check-inline">
-								  <input class="form-check-input" type="radio" name="rate" id="5.0" value="option4">
-								  <label class="form-check-label" for="5.0">연 4.1% ~ </label>
+								  <input class="form-check-input" type="radio" name="rate" id="opt3" value="option3">
+								  <label class="form-check-label" for="opt3">연 3.1% ~</label>
 								</div>
 							</td>
 						</tr>
@@ -110,31 +102,20 @@
 	<div class="container">
 		<div class="border border-success p-3 mt-5">
 			<div class="list-group">
-			  <a href="#" class="list-group-item list-group-item-action">
-			    <div class="d-flex w-100 justify-content-between">
-			      <h5 class="mb-1">수퍼 정기예금</h5>
-			      <small>3 days ago</small>
-			    </div>
-			    <p class="mb-1">가입 조건을 직접 설정하는 예금</p>
-			    <small class="text-muted">이율 : 연 1.0%</small>
-			  </a>
-			  <a href="#" class="list-group-item list-group-item-action">
-			    <div class="d-flex w-100 justify-content-between">
-			      <h5 class="mb-1">보통 정기예금</h5>
-			      <small class="text-muted">3 days ago</small>
-			    </div>
-			    <p class="mb-1">본 은행의 대표 정기예금</p>
-			    <small class="text-muted">이율 : 연 0.5%</small>
-			  </a>
-			  <a href="#" class="list-group-item list-group-item-action">
-			    <div class="d-flex w-100 justify-content-between">
-			      <h5 class="mb-1">첫 재테크예금</h5>
-			      <small class="text-muted">3 days ago</small>
-			    </div>
-			    <p class="mb-1">재테크에 처음 도전하는 분들을 위한 예금</p>
-			    <small class="text-muted">이율 : 연 1.5%</small>
-			  </a>
-			</div>		
+				<c:forEach items="${product_list }" var="product">
+				  <c:url value="/product/detail" var="detailUrl">
+				  	<c:param name="id" value="${product.id }"></c:param>
+				  </c:url>
+				  <a href="${detailUrl }" class="list-group-item list-group-item-action">
+				    <div class="d-flex w-100 justify-content-between">
+				      <h5 class="mb-1"><c:out value="${product.item_name }" /></h5>
+				    </div>
+				    <p class="mb-1"><c:out value="${product.item_summary }" /></p>
+				    <small class="text-muted">이율 : <c:out value="${product.rate }" /></small>
+				    <small class="text-muted">가입기간 : <c:out value="${product.exp_period }" /></small>
+				  </a>
+				</c:forEach>
+			</div>	
 			<bank:pagination></bank:pagination>
 		</div>
 	</div>	
