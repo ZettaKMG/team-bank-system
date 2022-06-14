@@ -81,7 +81,7 @@
 			</div>
 			<div class="mt-1 mb-3">
 				<label for="summary" class="form-label"><h4>상품요약</h4></label>
-		  		<input type="text" class="form-control" name="item_summary" id="summary" value="${product.summary }" required readonly />
+		  		<input type="text" class="form-control" name="item_summary" id="summary" value="${product.item_summary }" required readonly />
 			</div>
 		    <div class="mt-3">
 				<table class="table table-borderless">					  
