@@ -114,6 +114,7 @@
 			// submit
 			form2.submit();
 		});
+		
 	});
 </script>
 </head>
@@ -181,6 +182,7 @@
 				<div class="mt-3">
 					<button id="editButton1" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modifyModal" disabled>수정</button>
 					<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeModal">삭제</button>
+					<button id="authModalBtn" type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-id="${user.user_id }">권한 변경</button>
 				</div>
 			</div>
 		</div>
@@ -239,6 +241,33 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">Close</button>
 					<button id="editSubmitButton1" form="form2" type="submit" class="btn btn-primary">수정</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- auth Modal -->
+	<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="authModalLabel">${user.user_id } 의 권한 변경</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"	aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="authForm" action="${appRoot }/user/auth" method="post">
+						<input id="authModalIdInput" type="hidden" value="${user.user_id }" name="user_id"/>
+						<select class="form-select" name="user_role">
+							<option value="ROLE_ADMIN">총괄 관리자</option>
+							<option value="ROLE_PRODUCT">상품 관리자</option>
+							<option value="ROLE_SERVICE">문의 관리자</option>
+							<option value="ROLE_USER">일반 회원</option>
+						</select>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="authModalSubmitButton" form="authForm" type="submit" class="btn btn-primary">변경</button>
+					<button type="button" class="btn btn-secondary"	data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>

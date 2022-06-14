@@ -74,11 +74,6 @@
 						        	</li>
 						        </sec:authorize>
 							</ul>
-							<form class="d-flex">
-								<input class="form-control me-2" type="search"
-									placeholder="Search" aria-label="Search">
-								<button class="btn btn-outline-primary" type="submit">Search</button>
-							</form>
 						</div>
 					</div>
 				</nav>
@@ -92,7 +87,7 @@
 
 				<c:forEach items="${userList }" var="user">
 					<c:if test="${user.user_role == 'ROLE_ADMIN'}">
-						<div class="my-3 p-3 bg-body rounded shadow-sm">
+						<div class="my-3 p-3 bg-body rounded shadow-sm d-flex">
 							<c:url value="/user/info" var="getUserUrl">
 								<c:param name="user_id" value="${user.user_id }"></c:param>
 							</c:url>
@@ -121,7 +116,7 @@
 
 				<c:forEach items="${userList }" var="user">
 					<c:if test="${user.user_role == 'ROLE_PRODUCT'}">
-						<div class="my-3 p-3 bg-body rounded shadow-sm">
+						<div class="my-3 p-3 bg-body rounded shadow-sm d-flex">
 							<c:url value="/user/info" var="getUserUrl">
 								<c:param name="user_id" value="${user.user_id }"></c:param>
 							</c:url>
@@ -150,7 +145,7 @@
 
 				<c:forEach items="${userList }" var="user">
 					<c:if test="${user.user_role == 'ROLE_SERVICE'}">
-						<div class="my-3 p-3 bg-body rounded shadow-sm">
+						<div class="my-3 p-3 bg-body rounded shadow-sm d-flex">
 							<c:url value="/user/info" var="getUserUrl">
 								<c:param name="user_id" value="${user.user_id }"></c:param>
 							</c:url>
@@ -179,7 +174,7 @@
 				
 				<c:forEach items="${userList }" var="user">
 					<c:if test="${user.user_role == 'ROLE_USER'}">
-						<div class="my-3 p-3 bg-body rounded shadow-sm">
+						<div class="my-3 p-3 bg-body rounded shadow-sm d-flex">
 							<c:url value="/user/info" var="getUserUrl">
 								<c:param name="user_id" value="${user.user_id }"></c:param>
 							</c:url>
@@ -198,6 +193,7 @@
 						</div>
 					</c:if>
 				</c:forEach>
+	
 			</div>
 		</div>
 	</div>

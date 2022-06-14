@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -126,5 +127,11 @@ public class UserContorller {
 		} else {
 			return "redirect:/user/login";
 		}
+	}
+	
+	@PostMapping("auth")
+	public String modifyAuth(@RequestParam("user_id") String user_id, @RequestParam("user_role") String user_role) {
+		userService.modifyUserRole(user_id, user_role);
+		return "redirect:/user/list";
 	}
 }

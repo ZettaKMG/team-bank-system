@@ -87,4 +87,8 @@ public class UserService {
 		return userMapper.selectAllUserList();
 	}
 
+	public void modifyUserRole(String user_id, String user_role) {
+		userMapper.updateAuth(user_id, user_role);
+	}
+
 }

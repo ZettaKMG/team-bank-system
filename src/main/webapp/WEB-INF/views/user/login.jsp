@@ -32,8 +32,8 @@
 						</label>
 						<input id="userPwInput1" class="form-control" type="password" name="password"/>
 					</div>
-					<br />
-					<div class="form-check">
+					
+					<div class="form-check mt-3">
 						<input class="btn btn-primary" type="submit" value="로그인"/>
 					</div>
 				</form>

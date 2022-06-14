@@ -26,4 +26,6 @@ public interface UserMapper {
 
 	List<UserDto> selectAllUserList();
 
+	void updateAuth(@Param("user_id") String user_id, @Param("user_role") String user_role);
+
 }
