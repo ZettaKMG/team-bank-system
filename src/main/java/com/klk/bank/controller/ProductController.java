@@ -16,7 +16,7 @@ import com.klk.bank.domain.ProductDto;
 import com.klk.bank.service.ProductService;
 
 @Controller
-@RequestMapping("products")
+@RequestMapping("product")
 public class ProductController {
 	
 	@Autowired
