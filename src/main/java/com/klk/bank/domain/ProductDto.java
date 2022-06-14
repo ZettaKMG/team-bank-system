@@ -13,6 +13,8 @@ public class ProductDto {
 	
 	private String item_name;
 	
+	private String item_summary;
+	
 	private String detail;
 	
 	private int rate;
