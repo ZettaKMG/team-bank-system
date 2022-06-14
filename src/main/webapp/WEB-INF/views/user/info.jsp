@@ -17,25 +17,20 @@
 		
 		let passwordCheck = true;
 		let emailCheck = true;
-		let nickNameCheck = true;
+		
+		const oldEmail = $("#emailInput1").val();
 		
 		// 주소 변경시 새로운 주소 값
-		const oldAddress = $("#addressInput1").val();
-		
 		$("#addressInput1").keyup(function() {
 			const newAddress = $("#addressInput1").val();
 		});
 		
 		// 전화번호 변경시 새로운 번호 값
-		const oldPhone = $("#phoneInput1").val();
-		
 		$("#phoneInput1").keyup(function() {
 			const newPhone = $("#phoneInput1").val();
 		});
 		
 		// 이메일 변경시 버튼 활성화
-		const oldEmail = $("#emailInput1").val();
-		
 		$("#emailInput1").keyup(function() {
 			const newEmail = $("#emailInput1").val();
 			
@@ -51,7 +46,7 @@
 		$("#checkEmailButton1").click(function(e) {
 			e.preventDefault();
 			
-			const data = {userEmail : $("#emailInput1").val()};
+			const data = {user_email : $("#emailInput1").val()};
 			
 			emailCheck = false;
 			
@@ -111,10 +106,10 @@
 			const form2 = $("#form2");
 			
 			// input 값
-			form2.find("[name=userPw]").val($("#passwordInput1").val());
-			form2.find("[name=userEmail]").val($("#emailInput1").val());
-			form2.find("[name=userAddress]").val($("#addressInput1").val());
-			form2.find("[name=userPhone]").val($("#phoneInput1").val());
+			form2.find("[name=user_pw]").val($("#passwordInput1").val());
+			form2.find("[name=user_email]").val($("#emailInput1").val());
+			form2.find("[name=user_address]").val($("#addressInput1").val());
+			form2.find("[name=user_phone]").val($("#phoneInput1").val());
 			
 			// submit
 			form2.submit();
@@ -137,7 +132,7 @@
 					<label for="idInput1" class="form-label">
 						ID
 					</label>
-					<input id="idInput1" class="form-control" type="text" value="${user.userId }" readonly/>
+					<input id="idInput1" class="form-control" type="text" value="${user.user_id }" readonly/>
 					
 					<label for="passwordInput1" class="form-label">
 						비밀번호
@@ -154,29 +149,29 @@
 					<label for="nameInput1" class="form-label">
 						이름
 					</label>
-					<input id="nickNameInput1" class="form-control" type="text" value="${user.userName }" readonly/>
+					<input id="nickNameInput1" class="form-control" type="text" value="${user.user_name }" readonly/>
 					
 					<label for="birthInput1" class="form-label">
 						생년월일
 					</label>
-					<input id="birthInput1" class="form-control" type="date" value="${user.userBirth }" readonly />
+					<input id="birthInput1" class="form-control" type="date" value="${user.user_birth }" readonly />
 					
 					<label for="addressInput1" class="form-label">
 						주소
 					</label>
-					<input id="addressInput1" class="form-control" type="text" value="${user.userAddress }" />
+					<input id="addressInput1" class="form-control" type="text" value="${user.user_address }" />
 					
 					<label for="phoneInput1" class="form-label">
 						전화번호
 					</label>
-					<input id="phoneInput1" class="form-control" type="text" value="${user.userPhone }" />
+					<input id="phoneInput1" class="form-control" type="text" value="${user.user_phone }" />
 					
 					<label for="emailInput1" class="form-label">
 						Email
 					</label>
 					<div class="input-group">
-						<input id="emailInput1" class="form-control" type="email" value="${user.userEmail }" /> 
-						<button id="emailCheckButton1"  class="btn btn-secondary" disabled>이메일 중복확인</button>
+						<input id="emailInput1" class="form-control" type="email" value="${user.user_email }" /> 
+						<button id="checkEmailButton1"  class="btn btn-secondary" disabled>이메일 중복확인</button>
 					</div>
 					
 					<p class="form-text" id="emailMessage1"></p>
@@ -203,11 +198,11 @@
 				</div>
 				<div class="modal-body">
 					<form id="form1" action="${appRoot }/user/remove" method="post">
-						<input type="hidden" value="${user.userId }" name="userId"/>
+						<input type="hidden" value="${user.user_id }" name="user_id"/>
 						<label for="passwordInput3" class="form-label">
 				        	비밀번호
 				        </label>
-				        <input id="passwordInput3" class="form-control" type="text" name="userPw" />
+				        <input id="passwordInput3" class="form-control" type="text" name="user_pw" />
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -230,11 +225,11 @@
 				</div>
 				<div class="modal-body">
 					<form id="form2" action="${appRoot }/user/modify" method="post">
-						<input type="hidden" value="${user.userId }" name="userId"/>
-						<input type="hidden" name="userPw"/>
-						<input type="hidden" name="userEmail"/>
-						<input type="hidden" name="userAddress"/>
-						<input type="hidden" name="userPhone"/>
+						<input type="hidden" value="${user.user_id }" name="user_id"/>
+						<input type="hidden" name="user_pw"/>
+						<input type="hidden" name="user_email"/>
+						<input type="hidden" name="user_address"/>
+						<input type="hidden" name="user_phone"/>
 						<label for="passwordInput4" class="form-label">
 		     				비밀번호 
 	        			</label>

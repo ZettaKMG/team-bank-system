@@ -10,19 +10,19 @@ public interface UserMapper {
 
 	int insertUser(UserDto userDto);
 
-	int insertAuth(@Param("userId") String userId, @Param("auth") String auth);
+	int insertAuth(@Param("user_id") String user_id, @Param("auth") String auth);
 
-	int countUserId(String userId);
+	int countUserId(String user_id);
 
-	int countUserEmail(String userEmail);
+	int countUserEmail(String user_email);
 
-	UserDto selectUserById(String userId);
+	UserDto selectUserById(String user_id);
 
 	int updateUser(UserDto userDto);
 
-	void deleteAuthById(String userId);
+	void deleteAuthById(String user_id);
 
-	int deleteUserById(String userId);
+	int deleteUserById(String user_id);
 
 	List<UserDto> selectAllUserList();
 

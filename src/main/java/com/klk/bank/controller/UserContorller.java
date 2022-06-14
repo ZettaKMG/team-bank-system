@@ -44,10 +44,10 @@ public class UserContorller {
 		}
 	}
 	
-	@GetMapping(path="check", params="userId")
+	@GetMapping(path="check", params="user_id")
 	@ResponseBody
-	public String idCheck(String userId) {
-		boolean exist = userService.hasUserId(userId);
+	public String idCheck(String user_id) {
+		boolean exist = userService.hasUserId(user_id);
 		
 		if(exist) {
 			return "unavailable";
@@ -55,10 +55,10 @@ public class UserContorller {
 			return "available";
 		}
 	}
-	@GetMapping(path="check", params="userEmail")
+	@GetMapping(path="check", params="user_email")
 	@ResponseBody
-	public String emailCheck(String userEmail) {
-		boolean exist = userService.hasUserEmail(userEmail);
+	public String emailCheck(String user_email) {
+		boolean exist = userService.hasUserEmail(user_email);
 		
 		if(exist) {
 			return "unavailable";
@@ -74,9 +74,9 @@ public class UserContorller {
 	}
 	
 	@GetMapping("info")
-	public String getUser(String userId, Principal principal, HttpServletRequest request, Model model) {
-		if (hasAuthOrAdmin(userId, principal, request)) {
-			UserDto userDto = userService.getUserById(userId);
+	public String getUser(String user_id, Principal principal, HttpServletRequest request, Model model) {
+		if (hasAuthOrAdmin(user_id, principal, request)) {
+			UserDto userDto = userService.getUserById(user_id);
 			model.addAttribute("user", userDto);
 			
 			return null;
@@ -85,14 +85,14 @@ public class UserContorller {
 		return "redirect:/user/login";
 	}
 
-	private boolean hasAuthOrAdmin(String userId, Principal principal, HttpServletRequest request) {
-		return request.isUserInRole("ROLE_ADMIN") || (principal != null && principal.getName().equals(userId));
+	private boolean hasAuthOrAdmin(String user_id, Principal principal, HttpServletRequest request) {
+		return request.isUserInRole("ROLE_ADMIN") || (principal != null && principal.getName().equals(user_id));
 	}
 	
 	@PostMapping("modify")
 	public String modifyUser(UserDto userDto, String oldPassword, Principal principal, HttpServletRequest request, RedirectAttributes rttr) {
 				
-		if(hasAuthOrAdmin(userDto.getUserId(), principal, request)) {
+		if(hasAuthOrAdmin(userDto.getUser_id(), principal, request)) {
 			boolean success = userService.modifyUser(userDto, oldPassword);
 			
 			if(success) {
@@ -102,7 +102,7 @@ public class UserContorller {
 			}
 			
 			rttr.addFlashAttribute("user", userDto); // model object
-			rttr.addAttribute("userId", userDto.getUserId()); // query string
+			rttr.addAttribute("user_id", userDto.getUser_id()); // query string
 			
 			return "redirect:/user/info";
 		} else {
@@ -113,14 +113,14 @@ public class UserContorller {
 	@PostMapping("remove")
 	public String removeMember(UserDto userDto, Principal principal, HttpServletRequest request, RedirectAttributes rttr) {
 		
-		if(hasAuthOrAdmin(userDto.getUserId(), principal, request)) {
+		if(hasAuthOrAdmin(userDto.getUser_id(), principal, request)) {
 			boolean success = userService.removeUser(userDto);
 			
 			if(success) {
 				rttr.addFlashAttribute("message", "탈퇴되었습니다.");
 				return "redirect:/user/login";
 			} else {
-				rttr.addAttribute("userId", userDto.getUserId());
+				rttr.addAttribute("user_id", userDto.getUser_id());
 				return "redirect:/user/info";
 			}
 		} else {

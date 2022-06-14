@@ -65,7 +65,7 @@
 								<sec:authorize access="isAuthenticated()">
 									<sec:authentication property="principal" var="principal"/>
 									<c:url value="/user/info" var="userInfoUrl">
-										<c:param name="userId" value="${principal.username }" />
+										<c:param name="user_id" value="${principal.username }" />
 									</c:url>
 								</sec:authorize>
 								<sec:authorize access="isAuthenticated()">
@@ -91,18 +91,23 @@
 				</div>
 
 				<c:forEach items="${userList }" var="user">
-					<c:if test="${user.userRole == 'ROLE_ADMIN'}">
+					<c:if test="${user.user_role == 'ROLE_ADMIN'}">
 						<div class="my-3 p-3 bg-body rounded shadow-sm">
-							<div class="d-flex text-muted">
-								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-										<rect width="100%" height="100%" fill="#dd3c54"></rect>
-								</svg>
-							
-								<p class="mb-0 small lh-sm border-bottom">
-									<strong class="d-block text-gray-dark">${user.userId }</strong>
-									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
-								</p>
-							</div>
+							<c:url value="/user/info" var="getUserUrl">
+								<c:param name="user_id" value="${user.user_id }"></c:param>
+							</c:url>
+							<a href="${getUserUrl }">
+								<div class="d-flex text-muted">
+									<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+											<rect width="100%" height="100%" fill="#dd3c54"></rect>
+									</svg>
+								
+									<p class="mb-0 small lh-sm border-bottom">
+										<strong class="d-block text-gray-dark">${user.user_id }</strong>
+										<i class="fa-solid fa-mobile-screen mx-1"></i>${user.user_phone } <i class="fa-solid fa-envelope mx-1"></i>${user.user_email }
+									</p>
+								</div>
+							</a>
 						</div>
 					</c:if>
 				</c:forEach>
@@ -115,18 +120,23 @@
 				</div>
 
 				<c:forEach items="${userList }" var="user">
-					<c:if test="${user.userRole == 'ROLE_PRODUCT'}">
+					<c:if test="${user.user_role == 'ROLE_PRODUCT'}">
 						<div class="my-3 p-3 bg-body rounded shadow-sm">
-							<div class="d-flex text-muted">
-								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-										<rect width="100%" height="100%" fill="#007bff"></rect>
-								</svg>
-							
-								<p class="mb-0 small lh-sm border-bottom">
-									<strong class="d-block text-gray-dark">${user.userId }</strong>
-									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
-								</p>
-							</div>
+							<c:url value="/user/info" var="getUserUrl">
+								<c:param name="user_id" value="${user.user_id }"></c:param>
+							</c:url>
+							<a href="${getUserUrl }">
+								<div class="d-flex text-muted">
+									<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+											<rect width="100%" height="100%" fill="#007bff"></rect>
+									</svg>
+								
+									<p class="mb-0 small lh-sm border-bottom">
+										<strong class="d-block text-gray-dark">${user.user_id }</strong>
+										<i class="fa-solid fa-mobile-screen mx-1"></i>${user.user_phone } <i class="fa-solid fa-envelope mx-1"></i>${user.user_email }
+									</p>
+								</div>
+							</a>
 						</div>
 					</c:if>
 				</c:forEach>
@@ -139,18 +149,23 @@
 				</div>
 
 				<c:forEach items="${userList }" var="user">
-					<c:if test="${user.userRole == 'ROLE_SERVICE'}">
+					<c:if test="${user.user_role == 'ROLE_SERVICE'}">
 						<div class="my-3 p-3 bg-body rounded shadow-sm">
-							<div class="d-flex text-muted">
-								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-										<rect width="100%" height="100%" fill="#6f42c1"></rect>
-								</svg>
-							
-								<p class="mb-0 small lh-sm border-bottom">
-									<strong class="d-block text-gray-dark">${user.userId }</strong>
-									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
-								</p>
-							</div>
+							<c:url value="/user/info" var="getUserUrl">
+								<c:param name="user_id" value="${user.user_id }"></c:param>
+							</c:url>
+							<a href="${getUserUrl }">
+								<div class="d-flex text-muted">
+									<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+											<rect width="100%" height="100%" fill="#6f42c1"></rect>
+									</svg>
+								
+									<p class="mb-0 small lh-sm border-bottom">
+										<strong class="d-block text-gray-dark">${user.user_id }</strong>
+										<i class="fa-solid fa-mobile-screen mx-1"></i>${user.user_phone } <i class="fa-solid fa-envelope mx-1"></i>${user.user_email }
+									</p>
+								</div>
+							</a>
 						</div>
 					</c:if>
 				</c:forEach>
@@ -163,18 +178,23 @@
 				</div>
 				
 				<c:forEach items="${userList }" var="user">
-					<c:if test="${user.userRole == 'ROLE_USER'}">
+					<c:if test="${user.user_role == 'ROLE_USER'}">
 						<div class="my-3 p-3 bg-body rounded shadow-sm">
-							<div class="d-flex text-muted">
-								<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
-										<rect width="100%" height="100%" fill="#4eca6d"></rect>
-								</svg>
-							
-								<p class="mb-0 small lh-sm border-bottom">
-									<strong class="d-block text-gray-dark">${user.userId }</strong>
-									<i class="fa-solid fa-mobile-screen mx-1"></i>${user.userPhone } <i class="fa-solid fa-envelope mx-1"></i>${user.userEmail }
-								</p>
-							</div>
+							<c:url value="/user/info" var="getUserUrl">
+								<c:param name="user_id" value="${user.user_id }"></c:param>
+							</c:url>
+							<a href="${getUserUrl }">
+								<div class="d-flex text-muted">
+									<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+											<rect width="100%" height="100%" fill="#4eca6d"></rect>
+									</svg>
+								
+									<p class="mb-0 small lh-sm border-bottom">
+										<strong class="d-block text-gray-dark">${user.user_id }</strong>
+										<i class="fa-solid fa-mobile-screen mx-1"></i>${user.user_phone } <i class="fa-solid fa-envelope mx-1"></i>${user.user_email }
+									</p>
+								</div>
+							</a>
 						</div>
 					</c:if>
 				</c:forEach>

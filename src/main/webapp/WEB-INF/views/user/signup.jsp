@@ -25,7 +25,7 @@
 			
 			$(this).attr("disabled", "");
 			const data = {
-					userId : $("#form1").find("[name=userId]").val()
+					user_id : $("#form1").find("[name=user_id]").val()
 			};
 			
 			idOk = false;
@@ -77,7 +77,7 @@
 			
 			$(this).attr("disabled", "");
 			const data = {
-					userEmail : $("#form1").find("[name=userEmail]").val()
+					user_email : $("#form1").find("[name=user_email]").val()
 			};
 			
 			emailOk = false;
@@ -129,7 +129,7 @@
 						ID
 					</label>
 					<div class="input-group">
-						<input id="idInput1" class="form-control" type="text" name="userId"/>
+						<input id="idInput1" class="form-control" type="text" name="user_id"/>
 						<button id="checkIdButton1" class="btn btn-secondary" type="button">아이디 중복 확인</button>
 					</div>
 					
@@ -138,7 +138,7 @@
 					<label for="passwordInput1" class="form-label">
 						비밀번호
 					</label>		 
-					<input id="passwordInput1" class="form-control" type="text" name="userPw" /> 
+					<input id="passwordInput1" class="form-control" type="text" name="user_pw" /> 
 					
 					<label for="passwordInput2" class="form-label">
 						비밀번호 확인
@@ -150,28 +150,28 @@
 					<label for="nameInput1" class="form-label">
 						이름
 					</label>
-					<input id="nameInput1" class="form-control" type="text" name="userName" /> 
+					<input id="nameInput1" class="form-control" type="text" name="user_name" /> 
 					
 					<label for="birthInput1" class="form-label">
 						생년월일
 					</label>
-					<input id="birthInput1" class="form-control" type="date" name="userBirth"/>
+					<input id="birthInput1" class="form-control" type="date" name="user_birth"/>
 									
 					<label for="addressInput1" class="form-label">
 						주소
 					</label>
-					<input id="addressInput1" class="form-control" type="text" name="userAddress" /> 
+					<input id="addressInput1" class="form-control" type="text" name="user_address" /> 
 					
 					<label for="phoneInput1" class="form-label">
 						전화번호
 					</label>
-					<input id="phoneInput1" class="form-control" type="text" name="userPhone" /> 
+					<input id="phoneInput1" class="form-control" type="text" name="user_phone" /> 
 					
 					<label for="emailInput1" class="form-label">
 						Email
 					</label>
 					<div class="input-group mb-3">
-						<input id="emailInput1" class="form-control" type="email" name="userEmail"/>
+						<input id="emailInput1" class="form-control" type="email" name="user_email"/>
 						<button id="checkEmailButton1" class="btn btn-secondary" type="button">이메일 중복 확인</button>
 					</div>
 					
