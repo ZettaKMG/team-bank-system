@@ -20,8 +20,8 @@
 	</select>
 	
 	<insert id="insertProduct" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		INSERT INTO Product (item_name, detail, user_id)
-		VALUES (#{item_name), #{detail}, #{user_id})
+		INSERT INTO Product (item_name, detail)
+		VALUES (#{item_name}, #{detail})
 	</insert>
 	
 	<select id="selectProductById" resultType="com.klk.bank.domain.ProductDto">
