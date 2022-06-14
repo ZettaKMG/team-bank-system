@@ -23,5 +23,20 @@ public class AccountService {
 		int cnt = account_mapper.insertAccount(account);
 		return cnt == 1;
 	}
+
+	public AccountDto getAccount(String account_num) {
+		
+		return account_mapper.selectAccount(account_num);
+	}
+
+	public boolean modifyAccount(AccountDto account) {
+		int cnt = account_mapper.updateAccount(account);
+		return cnt == 1;
+	}
+
+	public boolean removeAccount(String account_num) {
+		int cnt = account_mapper.deleteAccount(account_num);
+		return cnt == 1;
+	}
 	
 }

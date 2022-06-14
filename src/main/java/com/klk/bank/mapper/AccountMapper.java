@@ -12,4 +12,10 @@ public interface AccountMapper {
 
 	int insertAccount(AccountDto account);
 
+	AccountDto selectAccount(String account_num);
+
+	int updateAccount(AccountDto account);
+
+	int deleteAccount(String account_num);
+
 }

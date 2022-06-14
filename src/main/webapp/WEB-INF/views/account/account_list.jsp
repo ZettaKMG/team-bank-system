@@ -24,7 +24,7 @@
                 <table class="table table-bordered caption-top align-middle">
                     <caption style="text-align: center;">계좌리스트</caption>
                     <thead>
-                        <tr style="text-align: center;">
+                        <tr class="text-center">
                             <th>계좌번호</th>
                             <th>유저번호</th>
                             <th>상품번호</th>
@@ -37,11 +37,10 @@
 
                     <tbody>
 						<c:forEach items="${account_list }" var="account">
-							<tr style="text-align: center;">
+							<tr class="text-center">
 								<td>
-									<c:url value="account_get" var="get_url">
-										<c:param name="account_num" value="${account.account_num }"></c:param>
-									</c:url>
+									<c:url value="${account.account_num }" var="get_url" />
+																		
 									<a href="${get_url }">${account.account_num }</a>
 								</td>
 								<td>${account.account_user_id }</td>

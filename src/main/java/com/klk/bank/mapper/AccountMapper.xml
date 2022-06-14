@@ -9,10 +9,30 @@
 		FROM Account 
 		ORDER BY account_user_id
 	</select>
-
+	
+	<select id="selectAccount" resultType="com.klk.bank.domain.AccountDto">
+		SELECT account_num, account_user_id, account_item_id, account_pw, account_balance, account_date
+		FROM Account 
+		WHERE account_num = #{account_num}
+	</select>
+	
 	<insert id="insertAccount">
 		INSERT INTO Account(account_num, account_user_id, account_item_id, account_pw)
 		VALUES (#{account_num}, #{account_user_id}, #{account_item_id}, #{account_pw})
 	</insert>
-
+	
+	<update id="updateAccount">
+		UPDATE Account
+		SET account_user_id = #{account_user_id},
+		    account_item_id = #{account_item_id},
+		    account_pw = #{account_pw},
+		    account_balance = #{account_balance}
+		WHERE account_num = #{account_num}    
+	</update>
+	
+	<delete id="deleteAccount">
+		DELETE FROM Account
+		WHERE account_num = #{account_num}
+	</delete>
+	
 </mapper>

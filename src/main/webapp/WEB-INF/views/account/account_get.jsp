@@ -14,6 +14,35 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 
+<script>
+	$(function () {
+		$("#account_update_start").click(function() {
+			$("#input1").removeAttr("disabled");
+			$("#input2").removeAttr("disabled");
+			/* $("#input3").removeAttr("disabled"); */
+			$("#input4").removeAttr("disabled");
+			$("#input5").removeAttr("disabled");
+			$("#input6").removeAttr("disabled");
+			
+		});
+		
+		$("#account_delete_execute").click(function(e) {
+			e.preventDefault();
+			
+			if (confirm("삭제하시겠습니까")) {
+				let form1 = $("#form1");
+				let action1 = "${appRoot }/account/account_remove";
+
+				form1.attr("action", action1);
+
+				form1.submit();
+			}
+		});
+		
+	});
+
+</script>
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -21,52 +50,60 @@
     <div class="container">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
-
+			
+				<form action="${appRoot }/account/account_modify" id="form1" method="post">
+					<input type="hidden" name="account_num" value="${account.account_num }"/>
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
-						<input id="input1" class="form-control" type="text" disabled/> 
+						<input id="input1" class="form-control" type="text"
+							value="${account.account_num }" disabled />
 						<div class="d-none">
-							<button class="btn btn-secondary" type="button">계좌번호 중복 확인</button>
+							<button class="btn btn-secondary" type="button">계좌번호 중복
+								확인</button>
 						</div>
 					</div>
-					
-                    <div class="d-none mb-3">
-                        <label for="passwordInput1" class="form-label">패스워드</label>
-                        <input class="form-control" id="passwordInput1" type="text" name="account_pw" />
-                        
-                        <label for="passwordInput2" class="form-label">패스워드 확인</label>
-                        <input class="form-control" id="passwordInput2" type="text" name="account_pw_confirm" /> 
+
+					<div class="d-none mb-3">
+						<label for="passwordInput1" class="form-label">패스워드</label> <input
+							class="form-control" id="passwordInput1" type="text"
+							name="account_pw" /> <label for="passwordInput2"
+							class="form-label">패스워드 확인</label> <input class="form-control"
+							id="passwordInput2" type="text" name="account_pw_confirm" />
 					</div>
 
-					<label for="input2" class="form-label">유저번호</label> 
+					<label for="input2" class="form-label">유저번호</label>
 					<div class="input-group mb-3">
-						<input id="input2" class="form-control" type="text" disabled/> 
+						<input id="input2" class="form-control" type="text"
+							value="${account.account_user_id }" disabled />
 					</div>
 
-                    <label for="input3" class="form-label">계좌주</label> 
+					<!-- <label for="input3" class="form-label">계좌주</label>
 					<div class="input-group mb-3">
-						<input id="input3" class="form-control" type="text" disabled/> 
-					</div>
-					
+						<input id="input3" class="form-control" type="text" disabled />
+					</div> -->
+
 					<label for="input4" class="form-label">상품명</label>
 					<div class="input-group mb-3">
-						<input id="input4" class="form-control" type="text" disabled/>
+						<input id="input4" class="form-control" type="text"
+							value="${account.account_item_id }" disabled />
 					</div>
 
-                    <label for="input5" class="form-label">잔고</label> 
+					<label for="input5" class="form-label">잔고</label>
 					<div class="input-group mb-3">
-						<input id="input5" class="form-control" type="text" disabled/> 
+						<input id="input5" class="form-control" type="text"
+							value="${account.account_balance }" disabled />
 					</div>
 
-                    <label for="input6" class="form-label">계좌생성일</label> 
+					<label for="input6" class="form-label">계좌생성일</label>
 					<div class="input-group mb-3">
-						<input id="input6" class="form-control" type="text" disabled/> 
+						<input id="input6" class="form-control" type="text"
+							value="${account.account_date }" disabled />
 					</div>
-                    
-                   <button class="mt-3 btn btn-primary">계좌수정시작</button>
-                   <button class="mt-3 btn btn-success">계좌수정완료</button>
-                   <button class="mt-3 btn btn-danger">계좌삭제</button>                  
-                    
+
+					<!-- <button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button> -->
+					<button class="mt-3 btn btn-success">계좌수정완료</button>
+					<button id="account_delete_execute" class="mt-3 btn btn-danger">계좌삭제</button>
+				</form>
 			</div>
 		</div>
     </div>
