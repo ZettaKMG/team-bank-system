@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.klk.bank.mapper.PageInfoMapper">
+
+	<select id="listProductPage" resultType="com.klk.bank.domain.ProductDto">
+		SELECT p.id, 
+			   p.item_name, 
+			   p.date<!-- ,
+			   COUNT(DISTINCT r.id) numOfReply,
+			   m.nickName writerNickName,
+			   COUNT(f.id) hasFile -->
+		FROM Product p <!-- LEFT JOIN Reply r ON b.id = r.boardId
+						  JOIN Member m ON b.memberId = m.id
+					 LEFT JOIN File f ON b.id = f.boardId -->
+		GROUP BY p.id 
+		ORDER BY p.id
+		LIMIT #{from}, #{rowPerPage}
+	</select>
+	
+	<select id="countProduct" resultType="int">
+		SELECT Count(id) 
+		FROM Product
+	</select>
+
+</mapper>
