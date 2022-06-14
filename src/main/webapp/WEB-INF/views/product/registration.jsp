@@ -35,7 +35,7 @@
 								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="type">상품종류</span>
-								  <input type="text" class="form-control" name="sav_method" placeholder="예금 01/적금 02" aria-label="Username" aria-describedby="type">
+								  <input type="text" class="form-control" name="sav_method" placeholder="예금/적금" aria-label="Username" aria-describedby="type" required />
 								</div>
 							</td>	
 						</tr>
@@ -44,7 +44,7 @@
 								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" placeholder="공란(예금)/1년/2년/3년" aria-label="Username" aria-describedby="period">
+								  <input type="text" class="form-control" name="exp_period" aria-label="Username" aria-describedby="period" />
 								</div>
 							</td>
 						</tr>
@@ -52,8 +52,8 @@
 							<td>
 								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
 								<div class="input-group mb-3">
-								  <span class="input-group-text" id="rate">이자율</span>
-								  <input type="text" class="form-control" name="deposit_rate" placeholder="0.5% 단위씩 변동" aria-label="Username" aria-describedby="rate">
+								  <span class="input-group-text" id="rate">이율</span>
+								  <input type="text" class="form-control" name="deposit_rate" aria-label="Username" aria-describedby="rate" required />
 								</div>
 							</td>
 						</tr>
