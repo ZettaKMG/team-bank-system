@@ -26,7 +26,19 @@ public class UserContorller {
 	UserService userService;
 	
 	@GetMapping("login")
-	public void loginPage() {}
+	public void loginPage(String error, String logout, Model model) {
+		if(error != null) {
+			model.addAttribute("error", "로그인 오류, 계정을 확인해 주세요.");
+		}
+		if(logout != null) {
+			model.addAttribute("logout", "로그아웃 되었습니다.");
+		}		
+	}
+	
+	@GetMapping("logout")
+	public void logout() {
+		
+	}
 	
 	@GetMapping("signup")
 	public void signupPage() {}

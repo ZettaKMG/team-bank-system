@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="bank" tagdir="/WEB-INF/tags" %>
 <%@ page import="java.util.*" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
@@ -119,6 +121,8 @@
 </script>
 </head>
 <body>
+	<bank:userNavBar current="info"></bank:userNavBar>
+
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-6">
@@ -181,8 +185,10 @@
 				
 				<div class="mt-3">
 					<button id="editButton1" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modifyModal" disabled>수정</button>
-					<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeModal">삭제</button>
-					<button id="authModalBtn" type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-id="${user.user_id }">권한 변경</button>
+					<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeModal">탈퇴</button>
+					<sec:authorize access="hasRole('ADMIN')">
+						<button id="authModalBtn" type="button" class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-id="${user.user_id }">권한 변경</button>
+					</sec:authorize>
 				</div>
 			</div>
 		</div>
