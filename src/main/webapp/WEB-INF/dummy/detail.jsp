@@ -14,6 +14,27 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	
 
+
+<!-- 상품 수정 성공 여부 표시 modal 설정 -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		var result = '<c:out value="${result}"/>';
+		
+		check_modal(result);
+		
+		function check_modal(result) {
+			if (result === '') {
+				return ;
+			}
+			
+			if (parseInt(result) > 0) {
+				$(".modal-body").html("상품" + parseInt(result) + " 번이 등록되었습니다.");
+			}
+			
+			$("#my_modal").modal("show");
+		}
+	});
+</script>		
 	
 <title>상품 상세 정보 페이지</title>
 </head>
