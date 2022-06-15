@@ -42,7 +42,7 @@ public class ProductController {
 	@PostMapping("registration")
 	public String registrationPage(ProductDto product, Principal principal, RedirectAttributes rttr) {
 				
-		product.setUser_id(principal.getName());
+//		product.setUser_id(principal.getName());
 		boolean success = productService.insertProduct(product);
 		
 		if (success) {
@@ -78,7 +78,7 @@ public class ProductController {
 		ProductDto oldProduct = productService.getProductById(product.getId());
 		
 		// 상품 정보 작성자와 principal의 name과 비교해서 같을 때만 수정
-		if (oldProduct.getUser_id().equals(principal.getName())) {
+//		if (oldProduct.getUser_id().equals(principal.getName())) {
 			
 			boolean success = productService.updateProduct(product);
 			
@@ -88,13 +88,13 @@ public class ProductController {
 				rttr.addFlashAttribute("message", "상품 정보가 수정되지 않았습니다.");
 			}
 			
-		} else {
-			rttr.addFlashAttribute("message", "상품 정보 수정 권한이 없습니다.");
-		}
+//		} else {
+//			rttr.addFlashAttribute("message", "상품 정보 수정 권한이 없습니다.");
+//		}
 		
 		rttr.addAttribute("id", product.getId());
 		
-		return "redirect:/product/detail";
+		return "redirect:/product/detail?id=" + product.getId();
 		
 	}
 	
@@ -106,7 +106,7 @@ public class ProductController {
 		ProductDto oldProduct = productService.getProductById(product.getId());
 		
 		// 상품 정보 작성자와 principal의 name과 비교해서 같을 때만 삭제
-		if (oldProduct.getUser_id().equals(principal.getName())) {
+//		if (oldProduct.getUser_id().equals(principal.getName())) {
 			
 			boolean success = productService.deleteProduct(product.getId());
 			
@@ -116,12 +116,12 @@ public class ProductController {
 				rttr.addFlashAttribute("message", "상품 정보가 삭제되지 않았습니다.");
 			}
 			
-		} else {
-			
-			rttr.addFlashAttribute("message", "상품 정보 삭제 권한이 없습니다.");
-			rttr.addAttribute("id", product.getId());
-			return "redirect:/product/detail";
-		}
+//		} else {
+//			
+//			rttr.addFlashAttribute("message", "상품 정보 삭제 권한이 없습니다.");
+//			rttr.addAttribute("id", product.getId());
+//			return "redirect:/product/detail";
+//		}
 		
 		return "redirect:/product/search";
 	}
