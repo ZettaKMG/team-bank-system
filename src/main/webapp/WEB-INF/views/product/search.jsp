@@ -12,6 +12,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		var result = '<c:out value="${result}"/>';
+		
+		check_modal(result);
+		
+		function check_modal(result) {
+			if (result === '') {
+				return ;
+			}
+			
+			if (parseInt(result) > 0) {
+				$(".modal-body").html("상품" + parseInt(result) + " 번이 등록되었습니다.");
+			}
+			
+			$("#my_modal").modal("show");
+		}
+	});
+</script>
+
 <title>상품조회 페이지</title>
 </head>
 <body>
@@ -98,21 +118,42 @@
 		</div>
 	</div>
 	
+	<!-- 상품 등록/삭제 여부 표시 modal -->
+	<c:if test="${not empty message }">
+		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="my_modal_lable">상품 등록/삭제 여부</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+		      </div>
+		      <div class="modal-body">
+		        <p>${message }</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>		        
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+	</c:if>
+	
 	<!-- 상품목록 조회 결과표시(조건 선택 안하면 그냥 전체 결과 표시) -->
 	<div class="container">
 		<div class="border border-success p-3 mt-5">
 			<div class="list-group">
 				<c:forEach items="${product_list }" var="product">
-				  <c:url value="/product/detail" var="detailUrl">
+				  <c:url value="/product/detail" var="detail_url">
 				  	<c:param name="id" value="${product.id }"></c:param>
 				  </c:url>
-				  <a href="${detailUrl }" class="list-group-item list-group-item-action">
+				  <a href="${detail_url }" class="list-group-item list-group-item-action">
 				    <div class="d-flex w-100 justify-content-between">
 				      <h5 class="mb-1"><c:out value="${product.item_name }" /></h5>
 				    </div>
 				    <p class="mb-1"><c:out value="${product.item_summary }" /></p>
-				    <small class="text-muted">이율 : <c:out value="${product.rate }" /></small>
 				    <small class="text-muted">가입기간 : <c:out value="${product.exp_period }" /></small>
+				    <small class="text-muted">이율 : <c:out value="${product.rate } %" /></small>
 				  </a>
 				</c:forEach>
 			</div>	
