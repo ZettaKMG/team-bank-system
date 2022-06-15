@@ -16,14 +16,17 @@
 
 <script>
 	$(function () {
+		let pw_ok = false;
+		
 		$("#account_update_start").click(function() {
-			$("#input1").removeAttr("disabled");
-			$("#input2").removeAttr("disabled");
-			/* $("#input3").removeAttr("disabled"); */
-			$("#input4").removeAttr("disabled");
-			$("#input5").removeAttr("disabled");
-			$("#input6").removeAttr("disabled");
+			$("#input2").removeAttr("readonly");
+			$("#input3").removeAttr("readonly"); 
+			$("#input4").removeAttr("readonly");
+			$("#input5").removeAttr("readonly");
+			$("#input6").removeAttr("readonly");
+			$("#password_input1, #password_input2").removeAttr("readonly");
 			
+			$("#account_update_start").addClass("d-none");
 		});
 		
 		$("#account_delete_execute").click(function(e) {
@@ -38,6 +41,29 @@
 				form1.submit();
 			}
 		});
+		
+		$("#password_input1, #password_input2").keyup(function() {
+			const pw1 = $("#password_input1").val();
+			const pw2 = $("#password_input2").val();
+			
+			pw_ok = false;
+			if(pw1 === pw2){
+				$("#pw_check").text("패스워드가 일치합니다.");
+				pw_ok = true;
+			} else {
+				$("#pw_check").text("패스워드가 일치하지 않습니다.");
+			}
+			
+			enable_submit();
+		});
+		
+		const enable_submit = function() {
+			if(pw_ok) {
+				$("#account_update_execute").removeAttr("disabled");
+			} else {
+				$("#account_update_execute").attr("disabled", "");
+			}
+		};
 		
 	});
 
@@ -56,52 +82,43 @@
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
 						<input id="input1" class="form-control" type="text"
-							value="${account.account_num }" disabled />
-						<div class="d-none">
-							<button class="btn btn-secondary" type="button">계좌번호 중복
-								확인</button>
-						</div>
+							value="${account.account_num }" readonly />
 					</div>
 
-					<div class="d-none mb-3">
-						<label for="passwordInput1" class="form-label">패스워드</label> <input
-							class="form-control" id="passwordInput1" type="text"
-							name="account_pw" /> <label for="passwordInput2"
-							class="form-label">패스워드 확인</label> <input class="form-control"
-							id="passwordInput2" type="text" name="account_pw_confirm" />
+					<label for="passwordInput1" class="form-label">패스워드</label> 
+					<input class="form-control" id="password_input1" type="text" name="account_pw" value="${account.account_pw }" readonly /> 
+					<label for="passwordInput2" class="form-label">패스워드 확인</label> 
+					<input class="form-control"	id="password_input2" type="text" name="account_pw_confirm" readonly />
+					<p class="form-text" id="pw_check"></p>
+					
+					<label for="input2" class="form-label">고객번호</label>
+					<div class="input-group mb-3">
+						<input id="input2" class="form-control" type="text" name="account_user_id" value="${account.account_user_id }" readonly />
 					</div>
 
-					<label for="input2" class="form-label">유저번호</label>
+					<label for="input3" class="form-label">계좌주</label>
 					<div class="input-group mb-3">
-						<input id="input2" class="form-control" type="text"
-							value="${account.account_user_id }" disabled />
-					</div>
+						<input id="input3" class="form-control" type="text" value="${account.account_user_name }" readonly />
+					</div> 
 
-					<!-- <label for="input3" class="form-label">계좌주</label>
+					<label for="input4" class="form-label">상품번호</label>
 					<div class="input-group mb-3">
-						<input id="input3" class="form-control" type="text" disabled />
-					</div> -->
-
-					<label for="input4" class="form-label">상품명</label>
-					<div class="input-group mb-3">
-						<input id="input4" class="form-control" type="text"
-							value="${account.account_item_id }" disabled />
+						<input id="input4" class="form-control" type="text" name="account_item_id" value="${account.account_item_id }" readonly />
 					</div>
 
 					<label for="input5" class="form-label">잔고</label>
 					<div class="input-group mb-3">
-						<input id="input5" class="form-control" type="text"
-							value="${account.account_balance }" disabled />
+						<input id="input5" class="form-control" type="text" name="account_balance" value="${account.account_balance }" readonly />
 					</div>
 
 					<label for="input6" class="form-label">계좌생성일</label>
 					<div class="input-group mb-3">
 						<input id="input6" class="form-control" type="text"
-							value="${account.account_date }" disabled />
+							value="${account.account_date }" readonly />
 					</div>
 
-					<!-- <button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button> -->
-					<button class="mt-3 btn btn-success">계좌수정완료</button>
+					<button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button>
+					<button id="account_update_execute" class="mt-3 btn btn-success" disabled="disabled">계좌수정완료</button>
 					<button id="account_delete_execute" class="mt-3 btn btn-danger">계좌삭제</button>
 				</form>
 			</div>

@@ -26,7 +26,8 @@
                     <thead>
                         <tr class="text-center">
                             <th>계좌번호</th>
-                            <th>유저번호</th>
+                            <th>고객번호</th>
+                            <th>고객명</th>
                             <th>상품번호</th>
                             <th>비밀번호</th>
                             <th>잔고</th>
@@ -44,6 +45,7 @@
 									<a href="${get_url }">${account.account_num }</a>
 								</td>
 								<td>${account.account_user_id }</td>
+								<td>${account.account_user_name }</td>
 								<td>${account.account_item_id }</td>
 								<td>${account.account_pw }</td>
 								<td>${account.account_balance }</td>
@@ -56,6 +58,24 @@
             </div>
         </div>
     </div>
+	
+	<bank:account_page_nav current="account_list"/>
+
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid justify-content-center">
+			<form class="d-flex" action="${appRoot }/account/account_list">
+				<select name="type" class="form-select w-50">
+					<option value="account_num">계좌번호</option>
+					<option value="account_user_name">계좌주</option>
+				</select>
+
+				<input class="form-control me-2" type="search" name="keyword"
+					placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
 
 </body>
 

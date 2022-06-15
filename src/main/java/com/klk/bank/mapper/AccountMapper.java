@@ -8,7 +8,7 @@ import com.klk.bank.domain.AccountDto;
 
 public interface AccountMapper {
 
-	List<AccountDto> selectAllAccount(@Param("type") String type, @Param("keyword")String keyword);
+	List<AccountDto> selectAllAccount(@Param("from")int from, @Param("row_per_page")int row_per_page, @Param("type") String type, @Param("keyword")String keyword);
 
 	int insertAccount(AccountDto account);
 
@@ -17,5 +17,9 @@ public interface AccountMapper {
 	int updateAccount(AccountDto account);
 
 	int deleteAccount(String account_num);
+
+	int selectSearchCountAccount(@Param("type") String type, @Param("keyword")String keyword);
+
+	int countAccountNum(String account_num);
 
 }

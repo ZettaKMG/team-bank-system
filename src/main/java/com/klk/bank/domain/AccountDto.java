@@ -9,6 +9,7 @@ import lombok.Data;
 public class AccountDto {
 	private String account_num;
 	private String account_user_id;
+	private String account_user_name;
 	private Integer account_item_id;
 	private String account_pw;
 	private BigDecimal account_balance;

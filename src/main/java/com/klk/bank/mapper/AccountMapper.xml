@@ -5,14 +5,37 @@
 <mapper namespace="com.klk.bank.mapper.AccountMapper">
 
 	<select id="selectAllAccount" resultType="com.klk.bank.domain.AccountDto">
-		SELECT account_num, account_user_id, account_item_id, account_pw, account_balance, account_date
-		FROM Account 
-		ORDER BY account_user_id
+		SELECT a.account_num,
+			   a.account_user_id, 
+			   a.account_item_id, 
+			   a.account_pw, 
+			   a.account_balance, 
+			   a.account_date, 
+			   u.user_name account_user_name 
+		FROM Account a JOIN User u ON a.account_user_id = u.id
+		<if test="type != '%%'">
+			<choose>
+				<when test="type == 'account_num'">
+					WHERE a.account_num LIKE #{keyword}
+				</when>
+				<when test="type == 'account_user_name'">
+					WHERE u.user_name LIKE #{keyword}
+				</when>
+			</choose>
+		</if>
+		
+		LIMIT #{from}, #{row_per_page}
 	</select>
 	
 	<select id="selectAccount" resultType="com.klk.bank.domain.AccountDto">
-		SELECT account_num, account_user_id, account_item_id, account_pw, account_balance, account_date
-		FROM Account 
+		SELECT a.account_num,
+			   a.account_user_id, 
+			   a.account_item_id, 
+			   a.account_pw, 
+			   a.account_balance, 
+			   a.account_date, 
+			   u.user_name account_user_name 
+		FROM Account a JOIN User u ON a.account_user_id = u.id
 		WHERE account_num = #{account_num}
 	</select>
 	
@@ -34,5 +57,16 @@
 		DELETE FROM Account
 		WHERE account_num = #{account_num}
 	</delete>
+	
+	<select id="selectSearchCountAccount" resultType = "int">
+		SELECT COUNT(*)
+		FROM Account
+	</select>
+	
+	<select id="countAccountNum" resultType="int">
+		SELECT COUNT(account_num)
+		FROM Account
+		WHERE account_num = #{account_num}
+	</select>
 	
 </mapper>
