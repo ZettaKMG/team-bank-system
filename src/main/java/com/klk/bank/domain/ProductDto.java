@@ -13,17 +13,17 @@ public class ProductDto {
 	
 	private String item_name;
 	
-	private String item_summary;
+	private String summary;
 	
-	private String detail;
-	
-	private int rate;
+	private String sav_method;
 	
 	private int exp_period;
 	
-	private LocalDateTime date;
+	private int rate;
 	
-	private String sav_method;
+	private String detail;
+	
+	private LocalDateTime date;
 	
 	public String getPrettyDate() {
 		// 상품정보 올린지 24시간 이내면 시간만

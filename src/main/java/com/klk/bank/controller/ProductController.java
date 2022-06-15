@@ -94,7 +94,7 @@ public class ProductController {
 		
 		rttr.addAttribute("id", product.getId());
 		
-		return "redirect:/product/detail?id=" + product.getId();
+		return "redirect:/product/detail" + product.getId();
 		
 	}
 	
