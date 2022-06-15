@@ -43,6 +43,7 @@
 			<figure class="text-center">
 				<h2>상 품 목 록 조 회</h2>
 			</figure>
+			<form action="${appRoot }/product/search" method="post">
 			<div class="mt-3">
 				<table class="table table-borderless">					  
 					<tbody class="table-group-divider">
@@ -115,6 +116,7 @@
 				<button type="button" class="btn btn-secondary">조회</button>
 				</figure>
 			</div>		
+			</form>
 		</div>
 	</div>
 	
@@ -141,20 +143,24 @@
 	
 	<!-- 상품목록 조회 결과표시(조건 선택 안하면 그냥 전체 결과 표시) -->
 	<div class="container">
-		<div class="border border-success p-3 mt-5">
-			<div class="list-group">
-				<c:forEach items="${product_list }" var="product">
-				  <c:url value="/product/detail" var="detail_url">
-				  	<c:param name="id" value="${product.id }"></c:param>
-				  </c:url>
-				  <a href="${detail_url }" class="list-group-item list-group-item-action">
-				    <div class="d-flex w-100 justify-content-between">
-				      <h5 class="mb-1"><c:out value="${product.item_name }" /></h5>
-				    </div>
-				    <p class="mb-1"><c:out value="${product.item_summary }" /></p>
-				    <small class="text-muted">가입기간 : <c:out value="${product.exp_period }" /></small>
-				    <small class="text-muted">이율 : <c:out value="${product.rate } %" /></small>
-				  </a>
+		<div class="border border-success p-3 mt-5">			
+			<div class="list-group">				
+				<c:forEach items="${product_list }" var="product">				
+				  <ul class="product_list">
+					  <li>
+					  <c:url value="/product/detail" var="detail_url">
+					  	<c:param name="id" value="${product.id }"></c:param>
+					  </c:url>
+					  <a href="${detail_url }" class="list-group-item list-group-item-action">
+					    <div class="d-flex w-100 justify-content-between">
+					      <h5 class="mb-1"><c:out value="${product.item_name }" /></h5>
+					    </div>
+					    <p class="mb-1"><c:out value="${product.summary }" /></p>
+					    <small class="text-muted">가입기간 : <c:out value="${product.exp_period }" /></small>
+					    <small class="text-muted">이율 : <c:out value="${product.rate } %" /></small>
+					  </a>
+					  </li>
+				  </ul>
 				</c:forEach>
 			</div>	
 			<bank:pagination></bank:pagination>

@@ -66,10 +66,10 @@ public class ProductController {
 	}
 
 	// 상품 수정
-//	@GetMapping("edit")
-//	public void editPage() {
-//		
-//	}
+	@GetMapping("edit")
+	public void editPage() {
+		
+	}
 	
 	@PostMapping("edit")
 	public String editPage(ProductDto product, Principal principal, RedirectAttributes rttr) {
@@ -94,7 +94,7 @@ public class ProductController {
 		
 		rttr.addAttribute("id", product.getId());
 		
-		return "redirect:/product/detail" + product.getId();
+		return "redirect:/product/detail";
 		
 	}
 	

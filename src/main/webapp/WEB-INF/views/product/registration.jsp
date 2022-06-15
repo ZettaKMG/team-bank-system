@@ -27,8 +27,8 @@
 			</div>
 			<div class="form-group">
 			<div class="mt-1 mb-3">
-				<label for="item_summary" class="form-label"><h4>상품요약</h4></label>
-		  		<input type="text" class="form-control" name="item_summary" id="item_summary" placeholder="~~~를 위한 예금" required />
+				<label for="summary" class="form-label"><h4>상품요약</h4></label>
+		  		<input type="text" class="form-control" name="summary" id="summary" placeholder="~~~를 위한 예금" required />
 			</div>
 			</div>
 			

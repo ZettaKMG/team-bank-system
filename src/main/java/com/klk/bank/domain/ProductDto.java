@@ -17,9 +17,9 @@ public class ProductDto {
 	
 	private String sav_method;
 	
-	private int exp_period;
+	private Integer exp_period;
 	
-	private int rate;
+	private double rate;
 	
 	private String detail;
 	
