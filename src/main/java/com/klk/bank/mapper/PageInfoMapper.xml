@@ -7,6 +7,9 @@
 	<select id="listProductPage" resultType="com.klk.bank.domain.ProductDto">
 		SELECT p.id, 
 			   p.item_name, 
+			   p.summary,
+			   p.rate,
+			   p.exp_period,
 			   p.date<!-- ,
 			   COUNT(DISTINCT r.id) numOfReply,
 			   m.nickName writerNickName,

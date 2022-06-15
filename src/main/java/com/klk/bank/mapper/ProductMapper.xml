@@ -7,6 +7,9 @@
 	<select id="selectProductAll" resultType="com.klk.bank.domain.ProductDto">
 		SELECT p.id,
 			   p.item_name,
+			   p.summary,
+			   p.rate,
+			   p.exp_period,
 			   p.date<!-- ,
 			   COUNT(DISTINCT r.id) numOfReply -->		
 		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->
@@ -20,15 +23,17 @@
 	</select>
 	
 	<insert id="insertProduct" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		INSERT INTO Product (item_name, detail)
-		VALUES (#{item_name}, #{detail})
+		INSERT INTO Product (item_name, summary, sav_method, exp_period, rate, detail)
+		VALUES (#{item_name}, #{summary}, #{sav_method}, #{exp_period}, #{rate}, #{detail})
 	</insert>
 	
 	<select id="selectProductById" resultType="com.klk.bank.domain.ProductDto">
 		SELECT p.id,
 			   p.item_name,
-			   p.detail,
+			   p.summary,
 			   p.rate,
+			   p.exp_period,
+			   p.detail,			  
 			   p.date<!-- ,
 			   COUNT(r.id) numOfReply -->
 		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->
@@ -38,6 +43,10 @@
 	<update id="updateProduct">
 		UPDATE Product
 		SET item_name = #{item_name},
+			  summary = #{summary},
+		   sav_method = #{sav_method},
+		   exp_period = #{exp_period},
+		   		 rate = #{rate},
 			   detail = #{detail}
 		WHERE id = #{id}
 	</update>
