@@ -81,9 +81,14 @@ public class UserContorller {
 	}
 	
 	@GetMapping("list")
-	public void userListPage(Model model) {
+	public void userListPage(Model model, String role) {
 		List<UserDto> userList = userService.getUserList();
 		model.addAttribute("userList", userList);	
+	}
+	
+	@GetMapping("listSelect")
+	public List<UserDto> list(String role) {
+		return userService.getUserListByRole(role);
 	}
 	
 	@GetMapping("info")

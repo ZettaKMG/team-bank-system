@@ -91,4 +91,8 @@ public class UserService {
 		userMapper.updateAuth(user_id, user_role);
 	}
 
+	public List<UserDto> getUserListByRole(String role) {
+		return userMapper.selectUserByRole(role);
+	}
+
 }
