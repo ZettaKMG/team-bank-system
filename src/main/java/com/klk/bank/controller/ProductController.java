@@ -133,27 +133,27 @@ public class ProductController {
 	}
 	
 	// pagination 코드
-//	@GetMapping("search")
-//	public String pageInfoProcess(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
-//		int row_per_page = 5;
-//		
-//		List<ProductDto> list = pageInfoService.listProductPage(page, row_per_page);
-//		int total_records = pageInfoService.countProduct();
-//		
-//		int end = (total_records - 1) / (row_per_page) + 1;
-//		
-//		PageInfoDto page_info = new PageInfoDto();
-//		page_info.setCurrent(page);
-//		page_info.setEnd(end);
-//			
-////		System.out.println(pageInfo);
-////		System.out.println(pageInfo.getLeft());
-////		System.out.println(pageInfo.getRight());
-//			
-//		model.addAttribute("product_list", list);
-//		model.addAttribute("page_info", page_info);
-//		
-//		return "redirect:/product/search";
-//	}
+	@GetMapping("search_page")
+	public String pageInfoProcess(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+		int row_per_page = 5;
+		
+		List<ProductDto> list = pageInfoService.listProductPage(page, row_per_page);
+		int total_records = pageInfoService.countProduct();
+		
+		int end = (total_records - 1) / (row_per_page) + 1;
+		
+		PageInfoDto page_info = new PageInfoDto();
+		page_info.setCurrent(page);
+		page_info.setEnd(end);
+			
+//		System.out.println(pageInfo);
+//		System.out.println(pageInfo.getLeft());
+//		System.out.println(pageInfo.getRight());
+			
+		model.addAttribute("product_list", list);
+		model.addAttribute("page_info", page_info);
+		
+		return "/product/search?page=" + page;
+	}
 	
 }
