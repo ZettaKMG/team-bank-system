@@ -54,9 +54,9 @@ public class ProductController {
 		return "redirect:/product/search";
 	}
 
-	// 상품 상세정보
-	@GetMapping("detail")
-	public void searchDetailPage(Integer id, Model model) {
+	// 상품 상세정보, 수정
+	@GetMapping({"detail", "edit"})
+	public void searchDetailPage(@RequestParam("id") Integer id, Model model) {
 		
 		ProductDto product = productService.getProductById(id);
 //		List<ReplyDto> replyList = replyService.getReplyByProductId(id);
@@ -66,11 +66,12 @@ public class ProductController {
 	}
 
 	// 상품 수정
-	@GetMapping("edit")
-	public void editPage() {
-		
-	}
+//	@GetMapping("edit")
+//	public void editPage() {
+//		
+//	}
 	
+	// 상품 수정
 	@PostMapping("edit")
 	public String editPage(ProductDto product, Principal principal, RedirectAttributes rttr) {
 		
