@@ -18,6 +18,8 @@
 	$(function() {
 		let account_ok = false;
 		let pw_ok = false;
+		let user_num_ok = false;
+		let item_num_ok = false;
 		
 		$("#account_num_check").click(function(e) {
 			e.preventDefault();
@@ -69,8 +71,20 @@
 				enable_submit();
 			});
 			
+			$("#input2").keyup(function() {
+				user_num_ok = true;
+				
+				enable_submit();
+			});
+			
+			$("#input3").keyup(function() {
+				item_num_ok = true;
+				
+				enable_submit();
+			});
+			
 			const enable_submit = function() {
-				if(pw_ok && account_ok) {
+				if(pw_ok && account_ok && user_num_ok && item_num_ok) {
 					$("#account_register_execute").removeAttr("disabled");
 				} else {
 					$("#account_register_execute").attr("disabled", "");
@@ -113,7 +127,7 @@
 						<input id="input3" class="form-control" type="text" name="account_item_id"/>
 					</div>
 
-					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit">계좌등록</button>
+					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>
 				</form>
 			</div>
 		</div>

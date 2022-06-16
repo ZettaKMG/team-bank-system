@@ -29,6 +29,8 @@ public class AccountController {
 							@RequestParam(name = "keyword", defaultValue = "") String keyword, 
 							Model model) {
 		
+		
+		
 		AccountPageInfoDto page_info = new AccountPageInfoDto();
 		page_info.setCurrent_page(page);
 		
@@ -91,9 +93,17 @@ public class AccountController {
 		}
 	}
 	
-	@RequestMapping("account_transfer")
+	@GetMapping("account_transfer")
 	public void accountTransfer() {
 		
 	}
 	
+	@PostMapping("account_transfer")
+	public String accountTransfer(String send_account_num, String send_account_cost, String receive_account_num) {
+		boolean success = account_service.transferAccount(send_account_num, send_account_cost, receive_account_num);
+		
+		return "redirect:/account/account_list";
+	}
+	
+
 }

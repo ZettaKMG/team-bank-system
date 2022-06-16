@@ -48,7 +48,7 @@
 								<td>${account.account_user_name }</td>
 								<td>${account.account_item_id }</td>
 								<td>${account.account_pw }</td>
-								<td>${account.account_balance }</td>
+								<td>${account.account_balance }원</td>
 								<td>${account.account_date }</td>
 							</tr>
 						</c:forEach>

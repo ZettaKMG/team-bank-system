@@ -13,7 +13,7 @@
 			   a.account_date, 
 			   u.user_name account_user_name 
 		FROM Account a JOIN User u ON a.account_user_id = u.id
-		<if test="type != '%%'">
+		<if test="type != null">
 			<choose>
 				<when test="type == 'account_num'">
 					WHERE a.account_num LIKE #{keyword}
@@ -60,7 +60,18 @@
 	
 	<select id="selectSearchCountAccount" resultType = "int">
 		SELECT COUNT(*)
-		FROM Account
+		FROM Account a JOIN User u ON a.account_user_id = u.id
+		<if test="type != null">
+			<choose>
+				<when test="type == 'account_num'">
+					WHERE a.account_num LIKE #{keyword}
+				</when>
+				<when test="type == 'account_user_name'">
+					WHERE u.user_name LIKE #{keyword}
+				</when>
+			</choose>
+		</if>
+		
 	</select>
 	
 	<select id="countAccountNum" resultType="int">
