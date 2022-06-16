@@ -4,7 +4,10 @@ DESC Product;
 SELECT * FROM Product;
 
 ALTER TABLE Product
-ADD Detail VARCHAR(1000) NOT NULL;
+ADD summary VARCHAR(200) NOT NULL AFTER item_name;
+
+ALTER TABLE Product
+ADD detail VARCHAR(1000) NOT NULL;
 
 ALTER TABLE Product
 MODIFY COLUMN detail VARCHAR(1000) AFTER rate;
@@ -32,21 +35,3 @@ VALUES ('기본적금1', '기본적인 적금1', '적금', 24, 3.5, '가장 기�
 
 DESC Product;
 SELECT * FROM Product ORDER BY 1 DESC;
-
-
-
-
-
-
-
-DESC User;
-
-
-
-USE mydb6;
-
-DESC Board;
-SELECT * FROM Board;
-
-DESC Reply;
-SELECT * FROM Reply;
