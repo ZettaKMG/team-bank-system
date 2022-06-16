@@ -8,6 +8,7 @@
 		SELECT p.id,
 			   p.item_name,
 			   p.summary,
+			   p.sav_method,
 			   p.rate,
 			   p.exp_period,
 			   p.date<!-- ,
@@ -19,6 +20,7 @@
 			WHERE p.item_name LIKE #{keyword }			
 		</if>
 		 -->
+		
 		
 		GROUP BY p.id
 		ORDER BY p.id DESC
@@ -33,6 +35,7 @@
 		SELECT p.id,
 			   p.item_name,
 			   p.summary,
+			   p.sav_method,
 			   p.rate,
 			   p.exp_period,
 			   p.detail,			  
