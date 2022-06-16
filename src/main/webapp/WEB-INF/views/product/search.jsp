@@ -162,7 +162,11 @@
 					    </div>
 					    <p class="mb-1"><c:out value="${product.summary }" /></p>
 					    <small class="text-muted">상품종류 : <c:out value="${product.sav_method }, " /></small>
-					    <small class="text-muted">가입기간 : <c:out value="${product.exp_period }개월 , " /></small>
+					    <small class="text-muted">
+					    	<c:if test="${not empty product.exp_period }">
+						   		가입기간 : <c:out value="${product.exp_period }개월 , " />
+					    	</c:if>
+					    </small>
 					    <small class="text-muted">이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong></small>
 					  </a>
 					  </li>
