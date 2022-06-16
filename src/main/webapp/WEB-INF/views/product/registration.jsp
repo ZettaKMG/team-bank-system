@@ -52,7 +52,7 @@
 								<div class="form-group">
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" placeholder="공란(예금)/1년/2년/3년" aria-label="Username" aria-describedby="exp_period" />
+								  <input type="text" class="form-control" name="exp_period" placeholder="공란(예금)/12/24/36(개월 단위로 작성, 숫자만)" aria-label="Username" aria-describedby="exp_period" />
 								</div>
 								</div>
 							</td>
@@ -63,7 +63,7 @@
 								<div class="form-group">
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="rate">이율</span>
-								  <input type="text" class="form-control" name="rate" placeholder="0.5%부터 0.5% 단위로 입력" aria-label="Username" aria-describedby="rate" required />
+								  <input type="text" class="form-control" name="rate" placeholder="소수로 표시, 0.5%->0.005(숫자만)" aria-label="Username" aria-describedby="rate" required />
 								</div>
 								</div>
 							</td>

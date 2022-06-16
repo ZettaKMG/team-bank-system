@@ -13,79 +13,29 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"	referrerpolicy="no-referrer"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<!-- 
 <script>
 	$(document).ready(function() {
-		$("#edit_button1").click(function() {
-			$("#item_name").removeAttr("readonly");
-			$("#item_summary").removeAttr("readonly");
-			$("#detail").removeAttr("readonly");
-			$("#sav_method").removeAttr("readonly");
-			$("#exp_period").removeAttr("readonly");
-			$("#rate").removeAttr("readonly");
-			$("#edit_submit1").removeClass("d-none");
-			$("#delete_submit1").removeClass("d-none");			
-		});
- -->
-
-		<!-- 수정 버튼 누를시 수정 여부 묻는 메세지 창  -->
-		<!-- 
-		$("#edit_submit1").click(function(e) {
-			e.preventDefault();
-			
-			if (confirm("상품 정보를 수정하시겠습니까?")) {
-				let form1 = $("#form1");
-				let actionAttr1 = "${appRoot}/product/edit";
-				form1.attr("action1", actionAttr1);
+			<!-- 수정 모드 진입 여부 묻는 메세지 창  -->
+			$("#into_edit_mode_button").click(function(e) {
+				e.preventDefault();
 				
-				form1.submit();
-			}
-		});		
-		 -->
-		
-		<!-- 삭제 버튼 누를시 삭제 여부 묻는 메세지 창 -->
-		<!-- 
-		$("#delete_submit1").click(function(e) {
-			e.preventDefault();
-			
-			if (confirm("상품 정보를 삭제하시겠습니까?")) {
-				let form2 = $("#form2");
-				let actionAttr2 = "${appRoot}/product/remove";
-				form2.attr("action2", actionAttr2);
-				
-				form2.submit();
-			}
-		});
+				if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) {
+					let form1 = $("#form1");
+					let actionAttr1 = "${appRoot}/product/edit";
+					form1.attr("action1", actionAttr1);
+					
+					form1.submit();
+				}
+			});	
 	});
 </script>
-		 -->
 	
 <title>상품 상세정보 페이지</title>
 </head>
 <body>
 	<bank:navBar></bank:navBar>
-
-	<div class="container">
-		<div class="mt-5 mb-3">
-			<!-- 편집버튼(권한 있는 유저에게만 보이게끔, 나중에 합치고 구현) -->
-			<!-- 
-			<sec:authorize access="isAuthenticated()">
-				<sec:authentication property="principal" var="principal" />
-				
-				<c:if test="${principal.user_id == product.user_id }">
-			    	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button id="edit_button1" class="btn btn-warning">편집하기</button>			
-					</div>
-				</c:if>
-			</sec:authorize>
-			 -->
-			 <form action="/product/edit }" method="post">
-				 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					<button class="btn btn-warning">편집하기</button>			
-				 </div>
-			 </form>
-		</div>
-		
+	
+	<div class="container">		
 		<!-- 상품 수정 여부 modal -->
 		<!-- 
 		<c:if test="${not empty message }">			
@@ -134,7 +84,7 @@
 							<td>								
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period }" aria-label="Username" aria-describedby="exp_period" readonly />
+								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period } 개월" aria-label="Username" aria-describedby="exp_period" readonly />
 								</div>									
 							</td>
 						</tr>
@@ -142,7 +92,7 @@
 							<td>								
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="rate">이율</span>
-								  <input type="text" class="form-control" name="rate" value="${product.rate }" aria-label="Username" aria-describedby="rate" required readonly />
+								  <input type="text" class="form-control" name="rate" value="연 ${product.rate * 100 } %" aria-label="Username" aria-describedby="rate" required readonly />
 								</div>									
 							</td>
 						</tr>
@@ -156,8 +106,10 @@
 			
 			<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
 			  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
-			  <button type="submit" data-oper="edit" onclick="location.href='${appRoot}/product/edit?id=<c:out value="${product.id }" />'" class="btn btn-warning">상품정보 수정</button>
-			  <button type="submit" data-oper="remove" onclick="location.href='${appRoot}/product/remove?id=<c:out value="${product.id }" />'" class="btn btn-danger">상품정보 삭제</button>
+			  			  
+			  <!-- 추후 관리자 권한 있는 사용자만 보이게끔 조치 예정 -->
+			  <button type="submit" id="into_edit_mode_button" data-oper="edit" onclick="location.href='${appRoot}/product/edit?id=<c:out value="${product.id }" />'" class="btn btn-warning">상품정보 수정/삭제모드</button>
+			  			  
 			</div>			
 		
 	</div>

@@ -16,6 +16,7 @@
 
 <script>
 	$(document).ready(function() {
+		/*
 		$("#edit_button1").click(function() {
 			$("#item_name").removeAttr("readonly");
 			$("#item_summary").removeAttr("readonly");
@@ -26,8 +27,9 @@
 			$("#edit_submit1").removeClass("d-none");
 			$("#delete_submit1").removeClass("d-none");			
 		});
+		*/
 
-		<!-- 수정 버튼 누를시 수정 여부 묻는 메세지 창  -->
+		// <!-- 수정 버튼 누를시 수정 여부 묻는 메세지 창  -->
 		$("#edit_submit1").click(function(e) {
 			e.preventDefault();
 			
@@ -40,8 +42,8 @@
 			}
 		});		
 		
-		<!-- 삭제 버튼 누를시 삭제 여부 묻는 메세지 창 -->
-		$("#delete_submit1").click(function(e) {
+		// <!-- 삭제 버튼 누를시 삭제 여부 묻는 메세지 창 -->
+		$("#remove_submit1").click(function(e) {
 			e.preventDefault();
 			
 			if (confirm("상품 정보를 삭제하시겠습니까?")) {
@@ -51,6 +53,30 @@
 				
 				form2.submit();
 			}
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("form");
+		$('button').on("click", function(e) {
+			e.preventDefault();
+			
+			var operation = $(this).data("oper");
+			console.log(operation);
+			if (operation === 'remove') {
+				formObj.attr("action", "${appRoot}/product/remove");
+			} else if (operation === 'modify') {
+				// detail창으로 이동
+				// self.location = "${appRoot}/product/detail?id=" + ${product.id };
+				// return;
+			} else if (operation === 'search') {
+				// search창으로 이동
+				self.location = "${appRoot}/product/search";
+				return;
+			}
+			formObj.submit();
 		});
 	});
 </script>
@@ -84,7 +110,7 @@
 		</c:if>
 		 -->
 				
-		<form role="form" action="${appRoot }/product/edit?id=${product.id }" method="post">
+		<form role="form" id="form1" action="${appRoot }/product/edit?id=${product.id }" method="post">
 			<div class="form-group">
 			<input type="hidden" name="id" value="${product.id }" />
 			</div>
@@ -145,8 +171,9 @@
 			</div>
 			
 			<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
-			  <button type="submit" id="edit_submit1" class="btn btn-warning">상품정보 수정</button>
-			  <button type="submit" id="delete_submit1" class="btn btn-danger">상품정보 삭제</button>
+			  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
+			  <button type="submit" id="edit_submit1" data-oper='modify' class="btn btn-warning">상품정보 수정</button>
+			  <button type="submit" id="remove_submit1" data-oper='remove' class="btn btn-danger">상품정보 삭제</button>
 			</div>
 		</form>		
 	</div>
