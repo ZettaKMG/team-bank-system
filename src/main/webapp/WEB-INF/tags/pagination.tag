@@ -6,28 +6,28 @@
 <div class="mt-3">
 	<nav aria-label="page navigation example">
 		<ul class="pagination pagination-sm justify-content-center">
-			<c:if test="${pageInfo.left > 1 }">
+			<c:if test="${page_info.left > 1 }">
 				<c:url value="${current }" var="link">
-					<c:param name="page" value="${pageInfo.left - 1 }"></c:param>
+					<c:param name="page" value="${page_info.left - 1 }"></c:param>
 				</c:url>
 				<li class="page-item">
 					<a class="page-link" href="${link }">이전</a>
 				</li>
 			</c:if>
 	
-			<c:forEach begin="${pageInfo.left }" end="${pageInfo.right }" var="pageNum">
+			<c:forEach begin="${page_info.left }" end="${page_info.right }" var="page_num">
 				<c:url value="${current }" var="link">
-					<c:param name="page" value="${pageNum }"></c:param>
+					<c:param name="page" value="${page_num }"></c:param>
 				</c:url>
 	
-				<li class="page-item ${pageInfo.current == pageNum ? 'active' : '' }">
-					<a class="page-link" href="${link }">${pageNum }</a>
+				<li class="page-item ${page_info.current == page_num ? 'active' : '' }">
+					<a class="page-link" href="${link }">${page_num }</a>
 				</li>
 			</c:forEach>
 	
-			<c:if test="${pageInfo.right < pageInfo.end }">
+			<c:if test="${page_info.right < page_info.end }">
 				<c:url value="${current }" var="link">
-					<c:param name="page" value="${pageInfo.right + 1 }"></c:param>
+					<c:param name="page" value="${page_info.right + 1 }"></c:param>
 				</c:url>
 				<li class="page-item">
 					<a class="page-link" href="${link }">다음</a>

@@ -14,10 +14,10 @@ public class PageInfoService {
 	@Autowired
 	private PageInfoMapper pageInfoMapper;
 	
-	public List<ProductDto> listProductPage(int page, int rowPerPage){
-		int from = (page - 1) * rowPerPage;
+	public List<ProductDto> listProductPage(int page, int row_per_page){
+		int from = (page - 1) * row_per_page;
 		
-		return pageInfoMapper.listProductPage(from, rowPerPage);
+		return pageInfoMapper.listProductPage(from, row_per_page);
 	}
 	
 	public int countProduct() {

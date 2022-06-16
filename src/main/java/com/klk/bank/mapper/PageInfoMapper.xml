@@ -8,8 +8,9 @@
 		SELECT p.id, 
 			   p.item_name, 
 			   p.summary,
-			   p.rate,
+			   p.sav_method,			   
 			   p.exp_period,
+			   p.rate,
 			   p.date<!-- ,
 			   COUNT(DISTINCT r.id) numOfReply,
 			   m.nickName writerNickName,
@@ -19,7 +20,7 @@
 					 LEFT JOIN File f ON b.id = f.boardId -->
 		GROUP BY p.id 
 		ORDER BY p.id
-		LIMIT #{from}, #{rowPerPage}
+		LIMIT #{from}, #{row_per_page}
 	</select>
 	
 	<select id="countProduct" resultType="int">

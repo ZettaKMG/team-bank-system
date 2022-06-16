@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.klk.bank.domain.PageInfoDto;
 import com.klk.bank.domain.ProductDto;
+import com.klk.bank.service.PageInfoService;
 import com.klk.bank.service.ProductService;
 
 @Controller
@@ -21,6 +23,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private PageInfoService pageInfoService;
 	
 //	@Autowired
 //	private ReplyService replyService;
@@ -126,5 +131,29 @@ public class ProductController {
 		
 		return "redirect:/product/search";
 	}
+	
+	// pagination 코드
+//	@GetMapping("search")
+//	public String pageInfoProcess(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+//		int row_per_page = 5;
+//		
+//		List<ProductDto> list = pageInfoService.listProductPage(page, row_per_page);
+//		int total_records = pageInfoService.countProduct();
+//		
+//		int end = (total_records - 1) / (row_per_page) + 1;
+//		
+//		PageInfoDto page_info = new PageInfoDto();
+//		page_info.setCurrent(page);
+//		page_info.setEnd(end);
+//			
+////		System.out.println(pageInfo);
+////		System.out.println(pageInfo.getLeft());
+////		System.out.println(pageInfo.getRight());
+//			
+//		model.addAttribute("product_list", list);
+//		model.addAttribute("page_info", page_info);
+//		
+//		return "redirect:/product/search";
+//	}
 	
 }
