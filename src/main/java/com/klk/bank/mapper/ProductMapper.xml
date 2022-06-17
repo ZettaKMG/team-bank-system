@@ -14,8 +14,7 @@
 			   p.date<!-- ,
 			   COUNT(DISTINCT r.id) numOfReply -->		
 		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->		
-		WHERE 1 = 1
-		
+		WHERE 1 = 1		
 		
 		<if test="keyword != '%%'">
 			AND p.item_name LIKE #{keyword }			
@@ -28,15 +27,14 @@
 		</if>
 		<if test="rate == 'rate1'">	
 			<![CDATA[
-			AND p.rate <= 0.02		
+				AND p.rate <= 0.02		
 			]]>	
 		</if>
 		<if test="rate == 'rate2'">	
 			<![CDATA[
-			AND p.rate > 0.02				  		
+				AND p.rate > 0.02				  		
 			]]>	
-		</if>
-		
+		</if>		
 			
 		GROUP BY p.id
 		ORDER BY p.id DESC
