@@ -33,6 +33,12 @@ public class ProductController {
 	// 상품 조회
 	@GetMapping("search")
 	public void searchPage(@RequestParam(name = "keyword", defaultValue = "") String keyword, @RequestParam(name = "sav_method", defaultValue = "") String sav_method, @RequestParam(name = "exp_period", defaultValue = "") String exp_period, @RequestParam(name = "rate", defaultValue = "") String rate, Model model) {
+//		System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+//		
+//		System.out.println(keyword);
+//		System.out.println(sav_method);
+//		System.out.println(exp_period);
+//		System.out.println(rate);
 		List<ProductDto> list = productService.listProduct(keyword, sav_method, exp_period, rate);
 		
 		model.addAttribute("product_list", list);

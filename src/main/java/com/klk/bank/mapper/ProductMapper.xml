@@ -14,27 +14,29 @@
 			   p.date<!-- ,
 			   COUNT(DISTINCT r.id) numOfReply -->		
 		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->		
+		WHERE 1 = 1
 		
-		<!-- <choose>
-		<when test="keyword != '%%'">
-			WHERE p.item_name LIKE #{keyword }			
-		</when>
-		<when test="sav_method != '%%'">
-			WHERE p.sav_method LIKE #{sav_method}
-		</when>
-		<when test="exp_period != '%%'">
-			WHERE p.exp_period LIKE #{exp_period}
-		</when>
-		<when test="rate != '%%'">			
-			WHERE p.rate LIKE #{rate}			
-		</when>
-		<when test="rate != '%%'">	
+		
+		<if test="keyword != '%%'">
+			AND p.item_name LIKE #{keyword }			
+		</if>
+		<if test="sav_method != ''">
+			AND p.sav_method = #{sav_method}
+		</if>
+		<if test="exp_period != ''">
+			AND p.exp_period = #{exp_period}
+		</if>
+		<if test="rate == 'rate1'">	
 			<![CDATA[
-			WHERE p.rate LIKE #{rate} <= 0.02 OR
-				  p.rate LIKE #{rate} > 0.02		
+			AND p.rate <= 0.02		
 			]]>	
-		</when>
-		</choose> -->
+		</if>
+		<if test="rate == 'rate2'">	
+			<![CDATA[
+			AND p.rate > 0.02				  		
+			]]>	
+		</if>
+		
 			
 		GROUP BY p.id
 		ORDER BY p.id DESC

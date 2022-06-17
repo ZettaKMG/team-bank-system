@@ -8,7 +8,7 @@ import com.klk.bank.domain.ProductDto;
 
 public interface ProductMapper {
 
-	List<ProductDto> selectProductAll(@Param("keyword") String keyword, @Param("sav_method") String sav_method, @Param("exp_method") String exp_period, @Param("rate") String rate);
+	List<ProductDto> selectProductAll(@Param("keyword") String keyword, @Param("sav_method") String sav_method, @Param("exp_period") String exp_period, @Param("rate") String rate);
 
 	int insertProduct(ProductDto product);
 

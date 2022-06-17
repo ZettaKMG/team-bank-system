@@ -33,7 +33,8 @@
 	});
 </script>
 
-<script type="text/javascript">
+<!-- 구글링 하다가 따라해본 방법인데 이 스크립트 부분은 없어도 됨 -->
+<!-- <script type="text/javascript">
 	// 상품종류, 가입기간, 이자율 옵션 선택시 그 값 가져오기
 	$(document).ready(function(e){
 		e.preventDefault();
@@ -68,7 +69,7 @@
 			})			
 		}
 	});
-</script>
+</script> -->
 
 <title>상품조회 페이지</title>
 </head>
@@ -89,7 +90,7 @@
 								<th scope="row">상품명</th>															
 							    <td>
 							    	<div id="item_name" class="input-group input-group-sm mb-3">
-							     		<input type="text" name="keyword" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+							     		<input type="text" value="${param.keyword }" name="keyword" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 							     	</div>
 							    </td>
 							</tr>						  
@@ -98,11 +99,11 @@
 							    <td>
 							    	<div id="sav_method" name="sav_method">
 							    	<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="sav_method" id="deposit" value="00">
+										<input ${param.sav_method == "예금" ? "checked" : "" } class="form-check-input" type="radio" name="sav_method" id="deposit" value="예금">
 		 							    <label class="form-check-label" for="deposit">예금</label>
 		 							</div>
 		                    		<div class="form-check form-check-inline">
-		 							    <input class="form-check-input" type="radio" name="sav_method" id="savings" value="01">
+		 							    <input ${param.sav_method == "적금" ? "checked" : "" } class="form-check-input" type="radio" name="sav_method" id="savings" value="적금">
 									    <label class="form-check-label" for="savings">적금</label>
 									</div>
 							    	</div>
@@ -113,19 +114,19 @@
 							    <td>
 							    	<div id="exp_period" name="exp_period">
 							    	<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="exp_period" id="none" value="exp_period00">
+										<input ${param.exp_period == "" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="none" value="">
 		 							    <label class="form-check-label" for="none">없음</label>
 									</div>
 		                    		<div class="form-check form-check-inline">
-									    <input class="form-check-input" type="radio" name="exp_period" id="one_year" value="exp_period12">
+									    <input ${param.exp_period == "12" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="one_year" value="12">
 									    <label class="form-check-label" for="one_year">12개월</label>
 									</div>
 									<div class="form-check form-check-inline">
-									    <input class="form-check-input" type="radio" name="exp_period" id="two_years" value="exp_period24">
+									    <input ${param.exp_period == "24" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="two_years" value="24">
 		 							    <label class="form-check-label" for="two_years">24개월</label>
 									</div>
 		                    		<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="exp_period" id="three_years" value="exp_period36">
+										<input ${param.exp_period == "36" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="three_years" value="36">
 									    <label class="form-check-label" for="three_years">36개월</label>
 									</div>
 							    	</div>
@@ -136,15 +137,15 @@
 							    <td>
 							    	<div id="rate" name="rate">
 							    	<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="rate" id="all" value="rate_all">
+										<input ${param.rate == "rate_all" ? "checked" : "" } class="form-check-input" type="radio" name="rate" id="all" value="rate_all">
 		 							    <label class="form-check-label" for="all">전체</label>
 									</div>
 		                    		<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="rate" id="opt1" value="rate1">
+										<input ${param.rate == "rate1" ? "checked" : "" } class="form-check-input" type="radio" name="rate" id="opt1" value="rate1">
 									    <label class="form-check-label" for="opt1">~ 연 2.0%</label>
 									</div>
 									<div class="form-check form-check-inline">
-									  <input class="form-check-input" type="radio" name="rate" id="opt2" value="rate2">
+									  <input ${param.rate == "rate2" ? "checked" : "" } class="form-check-input" type="radio" name="rate" id="opt2" value="rate2">
 		 							  <label class="form-check-label" for="opt2">연 2.1 ~</label>
 									</div>
 							    	</div>
