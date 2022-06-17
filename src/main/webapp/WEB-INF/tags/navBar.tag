@@ -13,10 +13,10 @@
 							상품 </a>
 						<ul class="dropdown-menu" aria-labelledby="product">
 							<li>
-								<a class="dropdown-item" href="${appRoot }/product/search">상품조회</a>
+								<a class="dropdown-item" href="#">상품조회</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="${appRoot }/product/registration">상품등록</a>
+								<a class="dropdown-item" href="#">상품등록</a>
 							</li>
 						</ul>
 					</li>
