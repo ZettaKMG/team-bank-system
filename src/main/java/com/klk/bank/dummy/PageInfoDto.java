@@ -1,10 +1,9 @@
-package com.klk.bank.domain;
+package com.klk.bank.dummy;
 
-import lombok.Getter;
 import lombok.ToString;
 
 @ToString
-public class PageInfoDto {	
+public class PageInfoDto {
 	private int current;
 	private int end;
 	

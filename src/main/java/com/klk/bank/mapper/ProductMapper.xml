@@ -13,18 +13,15 @@
 			   p.exp_period,
 			   p.date<!-- ,
 			   COUNT(DISTINCT r.id) numOfReply -->		
-		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->
-		
+		FROM Product p <!-- LEFT JOIN Reply r ON p.id = r.product_id -->		
 		<!-- 
 		<if test="keyword != '%%'">
 			WHERE p.item_name LIKE #{keyword }			
 		</if>
-		 -->
-		
-		
+		 -->		
 		GROUP BY p.id
 		ORDER BY p.id DESC
-	</select>
+	</select>	
 	
 	<insert id="insertProduct" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 		INSERT INTO Product (item_name, summary, sav_method, exp_period, rate, detail)
