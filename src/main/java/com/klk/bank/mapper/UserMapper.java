@@ -24,10 +24,8 @@ public interface UserMapper {
 
 	int deleteUserById(String user_id);
 
-	List<UserDto> selectAllUserList();
+	List<UserDto> selectAllUserList(@Param("role") String role);
 
 	void updateAuth(@Param("user_id") String user_id, @Param("user_role") String user_role);
-
-	List<UserDto> selectUserByRole(@Param("role") String role);
 
 }
