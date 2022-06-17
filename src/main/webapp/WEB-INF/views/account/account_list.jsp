@@ -17,7 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<bank:navbar current="account_list"/>
+	<bank:navBar current="account_list"/>
     <div class="container">
         <div class="row">
             <div class="col">
