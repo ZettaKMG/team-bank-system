@@ -12,10 +12,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<%--
 <script type="text/javascript">
 	$(document).ready(function(){
-		var result = '<c:out value="${result}"/>';
+		var result = '<c:out value="${message}"/>';
 		
 		check_modal(result);
 		
@@ -25,15 +24,13 @@
 			}
 			
 			if (parseInt(result) > 0) {
-				$(".modal-body").html("상품" + parseInt(result) + " 번이 등록되었습니다.");
+				$(".modal-body").html("${message}");
 			}
 			
 			$("#my_modal").modal("show");
 		}
 	});
 </script>
- --%>
-
 
 <title>상품조회 페이지</title>
 </head>
@@ -50,8 +47,8 @@
 				<div class="mt-3">
 					<table class="table table-borderless">					  
 						<tbody class="table-group-divider">
-							<tr>
-								<th scope="row">상품명</th>
+							<tr>								
+								<th scope="row">상품명</th>															
 							    <td>
 							    	<div class="input-group input-group-sm mb-3">
 							     		<input type="search" name="keyword" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
@@ -101,15 +98,11 @@
 									</div>
 		                    		<div class="form-check form-check-inline">
 										<input class="form-check-input" type="radio" name="rate" id="opt1" value="${product.rate }">
-									    <label class="form-check-label" for="opt1">~ 연 1.5%</label>
+									    <label class="form-check-label" for="opt1">~ 연 2.0%</label>
 									</div>
 									<div class="form-check form-check-inline">
 									  <input class="form-check-input" type="radio" name="rate" id="opt2" value="${product.rate }">
-		 							  <label class="form-check-label" for="opt2">연 1.6 ~ 3.0%</label>
-									</div>
-		                    		<div class="form-check form-check-inline">
-									  <input class="form-check-input" type="radio" name="rate" id="opt3" value="${product.rate }">
-									  <label class="form-check-label" for="opt3">연 3.1% ~</label>
+		 							  <label class="form-check-label" for="opt2">연 2.1 ~</label>
 									</div>
 								</td>
 							</tr>
@@ -121,9 +114,8 @@
 				</div>		
 			</form>
 		</div>
-	</div>
+	</div>	
 	
-	<%--
 	<!-- 상품 등록/삭제 여부 표시 modal -->
 	<c:if test="${not empty message }">
 		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
@@ -142,9 +134,7 @@
 		    </div>
 		  </div>
 		</div>		
-	</c:if>
-	 --%>
-	
+	</c:if>	
 	
 	<!-- 상품목록 조회 결과표시(조건 선택 안하면 그냥 전체 결과 표시) -->
 	<div class="container">
@@ -168,7 +158,7 @@
 					    			이율 : <strong><c:out value="연 ${product.rate * 100 }%, " /></strong>
 					    		</c:when>
 					    		<c:otherwise>
-					    			이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong>
+					    			이율 : <strong><c:out value="연 ${product.rate * 100}%" /></strong>
 					    		</c:otherwise>
 					    	</c:choose>
 					    </small>

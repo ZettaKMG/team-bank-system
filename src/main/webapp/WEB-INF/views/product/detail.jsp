@@ -29,35 +29,53 @@
 			});	
 	});
 </script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var result = '<c:out value="${message}"/>';
+		
+		check_modal(result);
+		
+		function check_modal(result) {
+			if (result === '') {
+				return ;
+			}
+			
+			if (parseInt(result) > 0) {
+				$(".modal-body").html("${message}");
+			}
+			
+			$("#my_modal").modal("show");
+		}
+	});
+</script>
 	
 <title>상품 상세정보 페이지</title>
 </head>
 <body>
 	<bank:navBar></bank:navBar>
 	
-	<div class="container">		
-		<!-- 상품 수정 여부 modal -->
-		<!-- 
-		<c:if test="${not empty message }">			
-			<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="my_modal_lable">상품 수정 여부</h5>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
-			      </div>
-			      <div class="modal-body">
-			        <p>${message }</p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>		        
-			      </div>
-			    </div>
-			  </div>
-			</div>					
-		</c:if>
-		 -->
-		 
+	<!-- 상품 수정 여부 표시 modal -->
+	<c:if test="${not empty message }">
+		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="my_modal_lable">상품 수정 여부</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
+		      </div>
+		      <div class="modal-body">
+		        <p>${message }</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>		        
+		      </div>
+		    </div>
+		  </div>
+		</div>		
+	</c:if>	
+	
+	<div class="container">				 
 			<input type="hidden" name="id" value="${product.id }" />
 			
 			<div class="mt-5 mb-3">
@@ -94,7 +112,7 @@
 							<td>								
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="rate">이율</span>
-								  <input type="text" class="form-control" name="rate" value="연 ${product.rate * 100 } %" aria-label="Username" aria-describedby="rate" required readonly />
+								  <input type="text" class="form-control" name="rate" value="연 ${product.rate * 100} %" aria-label="Username" aria-describedby="rate" required readonly />
 								</div>									
 							</td>
 						</tr>
