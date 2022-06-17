@@ -1,5 +1,6 @@
 package com.klk.bank.domain;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -19,7 +20,7 @@ public class ProductDto {
 	
 	private Integer exp_period;
 	
-	private double rate;
+	private BigDecimal rate;
 	
 	private String detail;
 	
