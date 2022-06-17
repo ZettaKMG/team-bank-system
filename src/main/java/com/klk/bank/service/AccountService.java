@@ -55,28 +55,36 @@ public class AccountService {
 	}
 	
 	@Transactional
-	public boolean transferAccount(String send_account_num, String send_account_cost, String receive_account_num) {
+	public boolean transferAccount(String send_account_num, String send_account_cost, String account_num) {
 		
-		AccountDto account1 = account_mapper.selectAccount(send_account_num);
-		AccountDto account2 = account_mapper.selectAccount(receive_account_num);
-		
+		int cnt1 = 0, cnt2 = 0;
 		BigDecimal b1 = new BigDecimal(send_account_cost);
 		BigDecimal b2 = new BigDecimal(send_account_cost);
 		
-		b1 = account1.getAccount_balance().subtract(b1);
+		AccountDto account1 = account_mapper.selectAccount(send_account_num);
+		if(send_account_num.equals(account_num)) {
+			b1 = account1.getAccount_balance().subtract(b1);
+			b1 = b1.add(b2);
+						
+			account1.setAccount_balance(b1);
+			cnt1 = account_mapper.updateAccount(account1);
+			
+			return cnt1 == 1;
+		} else {
+			
+			AccountDto account2 = account_mapper.selectAccount(account_num);
+				
+			b1 = account1.getAccount_balance().subtract(b1);
+			b2 = account2.getAccount_balance().add(b2);
+				
+			account1.setAccount_balance(b1);
+			account2.setAccount_balance(b2);
 		
-		
-		b2 = account2.getAccount_balance().add(b2);
-		
-		
-		
-		account1.setAccount_balance(b1);
-		account2.setAccount_balance(b2);
-		
-		int cnt1 = account_mapper.updateAccount(account1);
-		int cnt2 = account_mapper.updateAccount(account2);
-		
-		return (cnt1 == 1) && (cnt2 == 1);
+			cnt1 = account_mapper.updateAccount(account1);
+			cnt2 = account_mapper.updateAccount(account2);
+			
+			return (cnt1 == 1) && (cnt2 == 1);
+		}
 	}
 	
 }

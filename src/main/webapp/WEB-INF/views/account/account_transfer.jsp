@@ -19,48 +19,44 @@
 		let account1_ok = false;
 		let account2_ok = false;
 		
-		$("#account_num_check1").click(function(e) {
+		$("#account1_num_check").click(function(e) {
 			e.preventDefault();
 			
 			$(this).attr("disabled", "");
 			
 			const data = {
-					account_num : $("#input2").val()
+					send_account_num : $("#input2").val()
 			};
 			
 			$.ajax({
-				url : "${appRoot}/account/account_check",
+				url : "${appRoot}/account/account_send_check",
 				type : "post",
 				data : data,
 				
 				success : function(data) {
-					switch (data) {
-						case "ok" :
-							$("#account1_num_message").text("사용 가능한 계좌번호입니다.");
-							account1_ok = true;
-							break;
-						case "notOk" : 
-							$("#account1_num_message").text("사용 불가능한 계좌번호 입니다.");
-							break;	
-					}
+					$("#account1_num_message").text("사용가능한 계좌번호입니다.");
+					$("#send_enable_cost").text("송금가능한 금액 : " + data + "원");	
+					$("#send_account1").val($("#input2").val());
+					account1_ok = true;
+					
 				},
 				error : function() {
-					$("#account1_num_message").text("중복 확인 중 문제 발생, 다시 시도해 주세요");
+					$("#account1_num_message").text("없는계좌번호 입니다. 다시 시도해 주세요.");
 				},
 				complete : function() {
 					$("#account1_num_check").removeAttr("disabled");
 					enable_submit();				
 				}
-				
 			});
-			
-			$("#account_num_check2").click(function(e) {
+		});	
+		
+		$("#account2_num_check").click(function(e) {
 				e.preventDefault();
 				
 				$(this).attr("disabled", "");
 				
 				const data = {
-						account_num : $("#input5").val()
+					account_num : $("#input5").val()
 				};
 				
 				$.ajax({
@@ -71,11 +67,11 @@
 					success : function(data) {
 						switch (data) {
 							case "ok" :
-								$("#account2_num_message").text("사용 가능한 계좌번호입니다.");
-								account1_ok = true;
+								$("#account2_num_message").text("사용 불가능한 계좌번호 입니다.");
 								break;
 							case "notOk" : 
-								$("#account2_num_message").text("사용 불가능한 계좌번호 입니다.");
+								$("#account2_num_message").text("사용 가능한 계좌번호입니다.");
+								account2_ok = true;
 								break;	
 						}
 					},
@@ -88,15 +84,50 @@
 					}
 					
 				});
+		});	
+		
+		$("#account_pw_check1").click(function(e) {
+			e.preventDefault();
 			
-			const enable_submit = function() {
-				if(account1_ok && account2_ok) {
-					$("#account_register_execute").removeAttr("disabled");
-				} else {
-					$("#account_register_execute").attr("disabled", "");
-				}
+			const data = {
+				send_account_num : $("#send_account1").val(),
+				send_account_pw : $("#account_pw_input1").val()
 			};
+			
+			$.ajax({
+				url : "${appRoot}/account/account_pw_check",
+				type : "post",
+				data : data,
+				
+				success : function(data) {
+					switch (data) {
+						case "ok" :
+							$("#account_pw_check_result").text("비밀번호가 일치합니다.");
+							$("#account_transfer_notice").text("계좌이체를 실행하시겠습니까?");
+							$("#account_transter_submit").removeClass("d-none");
+							break;
+						case "notOk" : 
+							$("#account_pw_check_result").text("비밀번호가 일치하지 않습니다.");
+							break;	
+					}
+				},
+				error : function() {
+					$("#account2_num_message").text("중복 확인 중 문제 발생, 다시 시도해 주세요");
+				},
+				complete : function() {
+									
+				}
+
+			});
 		});
+		
+		const enable_submit = function() {
+			if(account1_ok && account2_ok) {
+				$("#account_transfer_execute").removeAttr("disabled");
+			} else {
+				$("#account_transfer_execute").attr("disabled", "");
+			}
+		};
 		
 	});
 </script>
@@ -108,7 +139,7 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
-				<form action="${appRoot }/account/account_transfer" method="post">
+				<form id="form1" action="${appRoot }/account/account_transfer" method="post">
 				<label for="input1" class="form-label">보내는사람</label>
 				<div class="input-group mb-3">
 					<input id="input1" class="form-control" type="text" name="account_user_name1" />
@@ -117,10 +148,11 @@
 				<label for="input2" class="form-label">계좌번호</label>
 				<div class="input-group mb-3">
 					<input id="input2" class="form-control" type="text" name="send_account_num"/>
-					<button class="btn btn-secondary" type="button" id="account_num_check1">계좌확인</button>
+					<button class="btn btn-secondary" type="button" id="account1_num_check">계좌확인</button>
 				</div>
 				<div class="form-text" id="account1_num_message"></div>
 				
+				<div id="send_enable_cost" class="form-text"></div>				
 				<label for="input3" class="form-label">송금액</label>
 				<div class="input-group mb-3">
 					<input id="input3" class="form-control" type="text" name="send_account_cost" />
@@ -133,16 +165,18 @@
 
 				<label for="input5" class="form-label">계좌번호</label>
 				<div class="input-group mb-3">
-					<input id="input5" class="form-control" type="text" name="receive_account_num"/>
-					<button class="btn btn-secondary" type="button" id="account_num_check2">계좌확인</button>
+					<input id="input5" class="form-control" type="text" name="account_num"/>
+					<button class="btn btn-secondary" type="button" id="account2_num_check">계좌확인</button>
 				</div>
-
-				<button class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal2">계좌이체</button>
+				<div class="form-text" id="account2_num_message"></div>
+				
+				<button id="account_transfer_execute" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal1" type="button" disabled>계좌이체</button>
 				</form>
 			</div>
 		</div>
 	</div>
-<!-- 
+
+<!-- 비밀번호 체크 모달 -->
 	<div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="ModalLabel1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -151,18 +185,18 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>비밀번호를 입력하세요</p>
-					<input type="password" name="" id="">
+						<input id="send_account1" type="hidden" />
+						<input type="text" id="account_pw_input1" />
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal2">확인</button>
+					<button id="account_pw_check1" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal2">확인</button>
 					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
-
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div> 
 
+<!-- 계좌이체 모달 -->
 	<div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="ModalLabel2" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -171,19 +205,18 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					
-					<p>계좌이체를 진행하시겠습니까?</p>	 
+					<p id="account_pw_check_result"></p>
+					<p id="account_transfer_notice"></p>	 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">진행</button>
+					<button id="account_transter_submit" form="form1" type="submit" class="btn btn-primary d-none">진행</button>
 					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
-
 				</div>
 			</div>
 		</div>
 	</div>
 
-
+	
 
 </body>
 

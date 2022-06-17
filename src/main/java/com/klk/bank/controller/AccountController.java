@@ -3,6 +3,8 @@ package com.klk.bank.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,14 +95,41 @@ public class AccountController {
 		}
 	}
 	
+	@PostMapping(path = "account_pw_check", params = {"send_account_num", "send_account_pw"})
+	@ResponseBody
+	public String sendAccountPwCheck(String send_account_num, String send_account_pw) {
+		
+		AccountDto send_account = account_service.getAccount(send_account_num);
+		if(send_account.getAccount_pw().equals(send_account_pw)) {
+			return "ok";
+		} else {
+			return "notOk";
+		}
+		
+	}
+	
+	@PostMapping(path = "account_send_check", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> accountSendCheck(String send_account_num){
+		boolean exist = account_service.hasAccountNum(send_account_num);
+				
+		if(exist) {
+			AccountDto send_account = account_service.getAccount(send_account_num);
+			return ResponseEntity.ok(send_account.getAccount_balance().toPlainString());	
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+		}
+		
+	}
+	
+	
 	@GetMapping("account_transfer")
 	public void accountTransfer() {
 		
 	}
 	
 	@PostMapping("account_transfer")
-	public String accountTransfer(String send_account_num, String send_account_cost, String receive_account_num) {
-		boolean success = account_service.transferAccount(send_account_num, send_account_cost, receive_account_num);
+	public String accountTransfer(String send_account_num, String send_account_cost, String account_num) {
+		boolean success = account_service.transferAccount(send_account_num, send_account_cost, account_num);
 		
 		return "redirect:/account/account_list";
 	}

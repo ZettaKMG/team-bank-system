@@ -7,7 +7,7 @@ public class AccountPageInfoDto {
 	
 	private int current_page;
 	private int end_page;
-	private static final int row_per_page = 2;
+	private static final int row_per_page = 20;
 	
 	public int getLeft() {
 		return Math.max(1, current_page - 2);
