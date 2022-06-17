@@ -81,11 +81,13 @@
 							</td>	
 						</tr>
 						<tr>
-							<td>								
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period } 개월" aria-label="Username" aria-describedby="exp_period" readonly />
-								</div>									
+							<td>
+								<c:if test="${not empty product.exp_period }">
+									<div class="input-group mb-3">
+									  <span class="input-group-text" id="exp_period">가입기간</span>
+									  <input type="text" class="form-control" name="exp_period" value="${product.exp_period } 개월" aria-label="Username" aria-describedby="exp_period" readonly />
+									</div>									
+								</c:if>								
 							</td>
 						</tr>
 						<tr>
