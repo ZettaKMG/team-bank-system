@@ -33,44 +33,6 @@
 	});
 </script>
 
-<!-- 구글링 하다가 따라해본 방법인데 이 스크립트 부분은 없어도 됨 -->
-<!-- <script type="text/javascript">
-	// 상품종류, 가입기간, 이자율 옵션 선택시 그 값 가져오기
-	$(document).ready(function(e){
-		e.preventDefault();
-		
-		// 상품종류
-		function get_sav_method() {
-			const sav_method_node_list = document.getElementsByName("sav_method");
-			sav_method_node_list.forEach((node) => {
-				if (node.checked) {
-					document.getElementById("sav_method").innerText = node.value();
-				}
-			})			
-		}
-		
-		// 가입기간
-		function get_exp_period() {
-			const exp_period_node_list = document.getElementsByName("exp_period");
-			exp_period_node_list.forEach((node) => {
-				if (node.checked) {
-					document.getElementById("exp_period").innerText = node.value();
-				}
-			})			
-		}
-		
-		// 이율
-		function get_rate() {
-			const rate_node_list = document.getElementsByName("rate");
-			rate_node_list.forEach((node) => {
-				if (node.checked) {
-					document.getElementById("rate").innerText = node.value();
-				}
-			})			
-		}
-	});
-</script> -->
-
 <title>상품조회 페이지</title>
 </head>
 <body>
@@ -146,7 +108,7 @@
 									</div>
 									<div class="form-check form-check-inline">
 									  <input ${param.rate == "rate2" ? "checked" : "" } class="form-check-input" type="radio" name="rate" id="opt2" value="rate2">
-		 							  <label class="form-check-label" for="opt2">연 2.1 ~</label>
+		 							  <label class="form-check-label" for="opt2">연 2.1% ~</label>
 									</div>
 							    	</div>
 								</td>
@@ -154,7 +116,7 @@
 						</tbody>					
 					</table>
 					<figure class="text-center">
-					<button id="condition_search_button" type="submit" class="btn btn-secondary" onclick="get_sav_method()" onclick="get_exp_period()" onclick="get_rate()">조회</button>
+					<button id="condition_search_button" type="submit" class="btn btn-secondary">조회</button>
 					</figure>
 				</div>		
 			</form>
