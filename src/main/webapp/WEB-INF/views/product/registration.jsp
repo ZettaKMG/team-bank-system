@@ -52,7 +52,7 @@
 								<div class="form-group">
 								<div class="input-group mb-3">
 								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" placeholder="공란(예금)/12/24/36(개월 단위로 작성, 숫자만)" aria-label="Username" aria-describedby="exp_period" />
+								  <input type="text" class="form-control" name="exp_period" placeholder="0(예금)/12/24/36(개월 단위로 작성, 숫자만)" aria-label="Username" aria-describedby="exp_period" />
 								</div>
 								</div>
 							</td>
