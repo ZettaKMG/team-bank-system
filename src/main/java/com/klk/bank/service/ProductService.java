@@ -18,9 +18,9 @@ public class ProductService {
 //	@Autowired
 //	private ReplyMapper replyMapper;
 
-	public List<ProductDto> listProduct(String keyword) {
+	public List<ProductDto> listProduct(String keyword, String sav_method, String exp_period, String rate) {
 		
-		return productMapper.selectProductAll(keyword);
+		return productMapper.selectProductAll("%" + keyword + "%", sav_method, exp_period, rate);
 	}
 
 	@Transactional
