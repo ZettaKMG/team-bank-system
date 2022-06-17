@@ -76,7 +76,7 @@
 							    <td>
 							    	<div id="exp_period" name="exp_period">
 							    	<div class="form-check form-check-inline">
-										<input ${param.exp_period == "" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="none" value="">
+										<input ${param.exp_period == "0" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="none" value="0">
 		 							    <label class="form-check-label" for="none">없음</label>
 									</div>
 		                    		<div class="form-check form-check-inline">
