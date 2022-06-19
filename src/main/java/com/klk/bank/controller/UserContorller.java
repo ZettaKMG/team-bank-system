@@ -80,10 +80,16 @@ public class UserContorller {
 		}
 	}
 	
+//	@GetMapping("list")
+//	public void userListPage(Model model, @RequestParam(name = "role", defaultValue = "") String role) {
+//		List<UserDto> userList = userService.getUserList(role);
+//		model.addAttribute("userList", userList);	
+//	}
+	
 	@GetMapping("list")
-	public void userListPage(Model model, @RequestParam(name = "role", defaultValue = "") String role) {
-		List<UserDto> userList = userService.getUserList(role);
-		model.addAttribute("userList", userList);	
+	public List<UserDto> list(@RequestParam(name = "role", defaultValue = "") String role) {
+		System.out.println("controller ajax user role : " + role);
+		return userService.getUserList(role);
 	}
 	
 	@GetMapping("info")

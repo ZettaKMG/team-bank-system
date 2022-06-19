@@ -24,6 +24,52 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 	referrerpolicy="no-referrer"></script>
+	
+<script>
+	$(document).ready(function() {
+		const listUser = function() {
+			var data = {role : $("#selectUserRole").val()};
+			$.ajax({
+				url : "${appRoot}/user/list",
+				type : "get",
+				data : data,
+				success : function(list){
+					const userListElement = $("#divUserList");
+					userListElement.empty();
+					
+					for(let i = 0; i < list.length; i++) {
+						const userElement = $("<div class='my-3 p-3 bg-body rounded shadow-sm d-flex' />");
+						userElement.html('
+							<div class="my-3 p-3 bg-body rounded shadow-sm d-flex">
+								<c:url value="/user/info" var="getUserUrl">
+									<c:param name="user_id" value="\${list[i].user_id }"></c:param>
+								</c:url>
+								<a href="${getUserUrl }">
+									<div class="d-flex text-muted">
+										<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+												<rect width="100%" height="100%" fill="#007bff"></rect>
+										</svg>
+									
+										<p class="mb-0 small lh-sm border-bottom">
+											<c:choose>
+												<c:when test="\${list[i].user_role == 'ROLE_ADMIN'}"> <strong class="d-flex text-gray-dark my-1"> 총괄 관리자 </strong> </c:when>
+												<c:when test="\${list[i].user_role == 'ROLE_PRODUCT'}"> <strong class="d-flex text-gray-dark my-1"> 상품 관리자 </strong> </c:when>
+												<c:when test="\${list[i].user_role == 'ROLE_SERVICE'}"> <strong class="d-flex text-gray-dark my-1"> 문의 관리자 </strong> </c:when>
+												<c:when test="\${list[i].user_role == 'ROLE_USER'}"> <strong class="d-flex text-gray-dark my-1"> 일반 회원 </strong> </c:when>
+											</c:choose>
+											<strong class="d-flex text-gray-dark">${list[i].user_id }</strong>
+											<i class="fa-solid fa-mobile-screen mx-1"></i>${list[i].user_phone } <i class="fa-solid fa-envelope mx-1"></i>${list[i].user_email }
+										</p>
+									</div>
+								</a>
+						');
+						
+					}
+				}
+			});
+		}
+	});
+</script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -37,10 +83,19 @@
 					<div class="lh-1 d-flex">
 						<h1 class="h6 text-white">회원 목록</h1>
 					</div>
+					<div>
+						<select name="selectUserRole" id="selectUserRole" onchange="listUser();">
+							<option value="ALL">전체</option>
+							<option value="ROLE_ADMIN">총괄 관리자</option>
+							<option value="ROLE_PRODUCT">상품 관리자</option>
+							<option value="ROLE_SERVICE">문의 관리자</option>
+							<option value="ROLE_USER">일반 회원</option>
+						</select>
+					</div>
 				</div>
 				
 				<div id="divUserList">
-					<c:forEach items="${userList }" var="user">
+					<%-- <c:forEach items="${userList }" var="user">
 							<div class="my-3 p-3 bg-body rounded shadow-sm d-flex">
 								<c:url value="/user/info" var="getUserUrl">
 									<c:param name="user_id" value="${user.user_id }"></c:param>
@@ -64,7 +119,7 @@
 									</div>
 								</a>
 							</div>
-					</c:forEach>
+					</c:forEach> --%>
 				</div>
 	
 			</div>
