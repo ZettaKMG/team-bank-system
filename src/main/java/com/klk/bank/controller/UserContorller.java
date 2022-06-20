@@ -89,6 +89,7 @@ public class UserContorller {
 	@GetMapping("list")
 	public List<UserDto> list(@RequestParam(name = "role", defaultValue = "") String role) {
 		System.out.println("controller ajax user role : " + role);
+		System.out.println(userService.getUserList(role));
 		return userService.getUserList(role);
 	}
 	
