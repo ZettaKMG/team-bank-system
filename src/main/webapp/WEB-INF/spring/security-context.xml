@@ -36,6 +36,11 @@
 		<security:intercept-url pattern="/user/modify" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/user/remove" access="isAuthenticated()"/>
 		
+		<!-- 상품정보 등록/수정/삭제 권한 관련 설정(총괄 관리자, 상품정보 관리자에게만 권한 부여) -->
+		<security:intercept-url pattern="/product/registration" access="hasAnyRole('ADMIN, PRODUCT')"/>
+		<security:intercept-url pattern="/product/edit" access="hasAnyRole('ADMIN, PRODUCT')"/>
+		<security:intercept-url pattern="/product/remove" access="hasAnyRole('ADMIN, PRODUCT')"/>
+		
 	</security:http>
 	
 	<!-- 1. 인증 2. 권한 체크 -->

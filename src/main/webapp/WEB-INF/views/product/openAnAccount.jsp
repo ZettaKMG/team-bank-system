@@ -15,7 +15,7 @@
 
 <script>
 	$(document).ready(function() {
-		<!-- 수정 모드 진입 여부 묻는 메세지 창  -->
+		/* <!-- 수정 모드 진입 여부 묻는 메세지 창  -->
 		$("#into_edit_mode_button").click(function(e) {
 			e.preventDefault();
 			
@@ -35,17 +35,17 @@
 			if (confirm("계좌개설 메뉴로 이동하시겠습니까?")) {
 				let form2 = $("#form2");
 				let actionAttr2 = "${appRoot}/product/openAnAccount";
-				form2.attr("action2", actionAttr2);
+				form2.attr("action2", actionAttr1);
 				
 				form2.submit();
 			}
-		});	
+		});	 */
 	});
 </script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		var result = '<c:out value="${message}"/>';
+		/* var result = '<c:out value="${message}"/>';
 		
 		check_modal(result);
 		
@@ -59,7 +59,7 @@
 			}
 			
 			$("#my_modal").modal("show");
-		}
+		} */
 	});
 </script>
 	
@@ -68,7 +68,7 @@
 <body>
 	<bank:navBar></bank:navBar>
 	
-	<!-- 상품 수정 여부 표시 modal -->
+	<%-- <!-- 상품 수정 여부 표시 modal -->
 	<c:if test="${not empty message }">
 		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
 		  <div class="modal-dialog">
@@ -86,69 +86,54 @@
 		    </div>
 		  </div>
 		</div>		
-	</c:if>	
-	
+	</c:if>	 --%>
+
+	<form role="form" id="form1" action="${appRoot }/product/openAnAccount?id=${product.id }" method="post">	
 	<div class="container">				 
 		<input type="hidden" name="id" value="${product.id }" />
 		
 		<div class="mt-5 mb-3">
 			<label for="item_name" class="form-label"><h4>상품명</h4></label>
-	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required readonly />
+	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${open_an_account.item_name }" required readonly />
 		</div>
 		<div class="mt-1 mb-3">
-			<label for="summary" class="form-label"><h4>상품요약</h4></label>
-	  		<input type="text" class="form-control" name="summary" id="summary" value="${product.summary }" required readonly />
+			<label for="user_id" class="form-label"><h4>계좌보유 ID</h4></label>
+	  		<input type="text" class="form-control" name="user_id" id="user_id" value="${open_an_account.user_id }" required readonly />
 		</div>
-	    <div class="mt-3">
-			<table class="table table-borderless">					  
-				<tbody class="table-group-divider">
-					<!-- 상품코드로 상품종류 구분 가능하니 그냥 상품코드->상품종류로 통합 -->
-					<tr>					
-						<td>								
-							<div class="input-group mb-3">
-							  <span class="input-group-text" id="sav_method">상품종류</span>
-							  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required readonly />
-							</div>									
-						</td>	
-					</tr>
-					<c:if test="${product.exp_period != 0 }">
-						<tr>
-							<td>
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period } 개월" aria-label="Username" aria-describedby="exp_period" readonly />
-								</div>									
-							</td>
-						</tr>
-					</c:if>								
-					<tr>
-						<td>								
-							<div class="input-group mb-3">
-							  <span class="input-group-text" id="rate">이율</span>
-							  <input type="text" class="form-control" name="rate" value="연 ${product.rate * 100} %" aria-label="Username" aria-describedby="rate" required readonly />
-							</div>									
-						</td>
-					</tr>
-				</tbody>					
-			</table>					
+		<div class="mt-1 mb-3">
+			<label for="user_name" class="form-label"><h4>예금주 명</h4></label>
+	  		<input type="text" class="form-control" name="user_name" id="user_name" value="${open_an_account.user_name }" required readonly />
 		</div>
-		<div class="mt-3 mb-3">
-			<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
-		    <textarea class="form-control" name="detail" id="detail" rows="10" readonly>${product.detail }</textarea>
-		</div>			
-		
-		<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
-		  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>			  			  
-	
-		  <sec:authorize access="hasAnyRole('ADMIN, PRODUCT')">
-		  	<button type="submit" id="into_edit_mode_button" data-oper="edit" onclick="location.href='${appRoot}/product/edit?id=<c:out value="${product.id }" />'" class="btn btn-warning">상품정보 수정/삭제모드</button>
-		  </sec:authorize>			  			  
-		
-		  <sec:authorize access="isAuthenticated()">
-		  	<button type="submit" id="open_an_account_button" data-oper="open_an_account" onclick="location.href='${appRoot}/product/openAnAccount?id=<c:out value="${product.id }" />'" class="btn btn-info">계좌개설하기</button>
-		  </sec:authorize>		
+		<div class="mt-1 mb-3">
+			<label for="sav_method" class="form-label"><h4>상품종류</h4></label>
+	  		<input type="text" class="form-control" name="sav_method" id="sav_method" value="${open_an_account.sav_method == 00 ? '예금' : '적금' }" required readonly />
+		</div>
+		<div class="mt-1 mb-3">
+			  <label for="account_num" class="form-label"><h4>계좌번호</h4></label>
+	  		<input type="text" class="form-control" name="account_num" id="account_num" value="${open_an_account.account_num }" required readonly />
+	  		
+	  		<div class="input-group mt-1 mb-3">
+			  <input type="number" class="form-control" placeholder="000000-00-000000" aria-label="000000" aria-describedby="account_num">
+			  <button class="btn btn-outline-secondary" type="button" id="account_num">계좌번호 생성하기</button>
+			  <button class="btn btn-outline-secondary" type="button" id="account_num">계좌번호 중복확인</button>
+			</div>
+		</div>
+		<div class="mt-1 mb-3">
+			<label for="account_pw1" class="form-label"><h4>계좌비밀번호</h4></label>
+	  		<input type="password" class="form-control" name="account_pw1" id="account_pw1" required />
 		</div>	
+		<div class="mt-1 mb-3">
+			<label for="account_pw2" class="form-label"><h4>계좌비밀번호 재확인</h4></label>
+	  		<input type="password" class="form-control" name="account_pw2" id="account_pw2" required />
+		</div>	    			
+		
+   	    <sec:authorize access="isAuthenticated()">
+			<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
+		  		<button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록으로 돌아가기</button>
+		  		<button type="submit" id="open_an_account_button" data-oper="open_an_account" onclick="location.href='${appRoot}/product/openAnAccount?id=<c:out value="${product.id }" />'" class="btn btn-warning">계좌개설하기</button>
+			</div>	
+	    </sec:authorize>		
 	</div>
-
+	</form>
 </body>
 </html>
