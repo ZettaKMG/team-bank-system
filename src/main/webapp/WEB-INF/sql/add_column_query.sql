@@ -35,3 +35,11 @@ SELECT * FROM Product;
 
 DESC Product;
 SELECT * FROM Product ORDER BY 1 DESC;
+
+DESC User;
+SELECT * FROM User ORDER BY 1 DESC;
+
+DESC Auth;
+SELECT * FROM Auth ORDER BY 1 DESC;
+
+DESC Account;
