@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="bank" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
@@ -161,7 +162,7 @@
 					    <small class="text-muted">상품종류 : <c:out value="${product.sav_method }, " /></small>
 					    <small class="text-muted">
 					    	<c:choose>
-					    		<c:when test="${not empty product.exp_period }">
+					    		<c:when test="${product.exp_period != 0 }">
 					    			이율 : <strong><c:out value="연 ${product.rate * 100 }%, " /></strong>
 					    		</c:when>
 					    		<c:otherwise>
@@ -170,7 +171,7 @@
 					    	</c:choose>
 					    </small>
 					    <small class="text-muted">
-					    	<c:if test="${not empty product.exp_period }">
+					    	<c:if test="${product.exp_period != 0 }">
 						   		가입기간 : <c:out value="${product.exp_period }개월" />
 					    	</c:if>
 					    </small>

@@ -15,18 +15,31 @@
 
 <script>
 	$(document).ready(function() {
-			<!-- 수정 모드 진입 여부 묻는 메세지 창  -->
-			$("#into_edit_mode_button").click(function(e) {
-				e.preventDefault();
+		<!-- 수정 모드 진입 여부 묻는 메세지 창  -->
+		$("#into_edit_mode_button").click(function(e) {
+			e.preventDefault();
+			
+			if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) {
+				let form1 = $("#form1");
+				let actionAttr1 = "${appRoot}/product/edit";
+				form1.attr("action1", actionAttr1);
 				
-				if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) {
-					let form1 = $("#form1");
-					let actionAttr1 = "${appRoot}/product/edit";
-					form1.attr("action1", actionAttr1);
-					
-					form1.submit();
-				}
-			});	
+				form1.submit();
+			}
+		});	
+		
+		<!-- 계좌개설 메뉴 이동 여부 묻는 메세지 창  -->
+		$("#open_an_account_button").click(function(e) {
+			e.preventDefault();
+			
+			if (confirm("계좌개설 메뉴로 이동하시겠습니까?")) {
+				let form2 = $("#form2");
+				let actionAttr2 = "${appRoot}/product/openAnAccount";
+				form2.attr("action2", actionAttr1);
+				
+				form2.submit();
+			}
+		});	
 	});
 </script>
 
@@ -76,62 +89,65 @@
 	</c:if>	
 	
 	<div class="container">				 
-			<input type="hidden" name="id" value="${product.id }" />
-			
-			<div class="mt-5 mb-3">
-				<label for="item_name" class="form-label"><h4>상품명</h4></label>
-		  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required readonly />
-			</div>
-			<div class="mt-1 mb-3">
-				<label for="summary" class="form-label"><h4>상품요약</h4></label>
-		  		<input type="text" class="form-control" name="summary" id="summary" value="${product.summary }" required readonly />
-			</div>
-		    <div class="mt-3">
-				<table class="table table-borderless">					  
-					<tbody class="table-group-divider">
-						<!-- 상품코드로 상품종류 구분 가능하니 그냥 상품코드->상품종류로 통합 -->
-						<tr>					
-							<td>								
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="sav_method">상품종류</span>
-								  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required readonly />
-								</div>									
-							</td>	
-						</tr>
+		<input type="hidden" name="id" value="${product.id }" />
+		
+		<div class="mt-5 mb-3">
+			<label for="item_name" class="form-label"><h4>상품명</h4></label>
+	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required readonly />
+		</div>
+		<div class="mt-1 mb-3">
+			<label for="summary" class="form-label"><h4>상품요약</h4></label>
+	  		<input type="text" class="form-control" name="summary" id="summary" value="${product.summary }" required readonly />
+		</div>
+	    <div class="mt-3">
+			<table class="table table-borderless">					  
+				<tbody class="table-group-divider">
+					<!-- 상품코드로 상품종류 구분 가능하니 그냥 상품코드->상품종류로 통합 -->
+					<tr>					
+						<td>								
+							<div class="input-group mb-3">
+							  <span class="input-group-text" id="sav_method">상품종류</span>
+							  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required readonly />
+							</div>									
+						</td>	
+					</tr>
+					<c:if test="${product.exp_period != 0 }">
 						<tr>
 							<td>
-								<c:if test="${not empty product.exp_period }">
-									<div class="input-group mb-3">
-									  <span class="input-group-text" id="exp_period">가입기간</span>
-									  <input type="text" class="form-control" name="exp_period" value="${product.exp_period } 개월" aria-label="Username" aria-describedby="exp_period" readonly />
-									</div>									
-								</c:if>								
-							</td>
-						</tr>
-						<tr>
-							<td>								
 								<div class="input-group mb-3">
-								  <span class="input-group-text" id="rate">이율</span>
-								  <input type="text" class="form-control" name="rate" value="연 ${product.rate * 100} %" aria-label="Username" aria-describedby="rate" required readonly />
+								  <span class="input-group-text" id="exp_period">가입기간</span>
+								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period } 개월" aria-label="Username" aria-describedby="exp_period" readonly />
 								</div>									
 							</td>
 						</tr>
-					</tbody>					
-				</table>					
-			</div>
-			<div class="mt-3 mb-3">
-				<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
-			    <textarea class="form-control" name="detail" id="detail" rows="10" readonly>${product.detail }</textarea>
-			</div>			
-			
-			<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
-			  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
-			  			  
-			  <!-- 추후 관리자 권한 있는 사용자만 보이게끔 조치 예정 -->
-			  <button type="submit" id="into_edit_mode_button" data-oper="edit" onclick="location.href='${appRoot}/product/edit?id=<c:out value="${product.id }" />'" class="btn btn-warning">상품정보 수정/삭제모드</button>
-			  			  
-			</div>			
+					</c:if>								
+					<tr>
+						<td>								
+							<div class="input-group mb-3">
+							  <span class="input-group-text" id="rate">이율</span>
+							  <input type="text" class="form-control" name="rate" value="연 ${product.rate * 100} %" aria-label="Username" aria-describedby="rate" required readonly />
+							</div>									
+						</td>
+					</tr>
+				</tbody>					
+			</table>					
+		</div>
+		<div class="mt-3 mb-3">
+			<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
+		    <textarea class="form-control" name="detail" id="detail" rows="10" readonly>${product.detail }</textarea>
+		</div>			
 		
+		<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
+		  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>			  			  
+	
+		  <sec:authorize access="hasAnyRole('ADMIN, PRODUCT')">
+		  	<button type="submit" id="into_edit_mode_button" data-oper="edit" onclick="location.href='${appRoot}/product/edit?id=<c:out value="${product.id }" />'" class="btn btn-warning">상품정보 수정/삭제모드</button>
+		  </sec:authorize>			  			  
+		
+		  <sec:authorize access="isAuthenticated()">
+		  	<button type="submit" id="open_an_account_button" data-oper="open_an_account" onclick="location.href='${appRoot}/product/openAnAccount?id=<c:out value="${product.id }" />'" class="btn btn-warning">계좌개설하기</button>
+		  </sec:authorize>		
+		</div>	
 	</div>
 
 </body>
