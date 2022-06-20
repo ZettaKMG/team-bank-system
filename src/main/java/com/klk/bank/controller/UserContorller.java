@@ -96,8 +96,6 @@ public class UserContorller {
 	@PostMapping("search")
 	@ResponseBody
 	public List<UserDto> searchUserList(@RequestParam(name = "role", defaultValue = "") String role, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
-		System.out.println("user search controller, role : " + role +" / keyword : " + keyword);
-		System.out.println("result : " + userService.getUserListById(role, keyword));
 		return userService.getUserListById(role, keyword);
 	}
 	
