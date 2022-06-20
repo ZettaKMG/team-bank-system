@@ -17,35 +17,44 @@
 <script>
 	$(document).ready(function() {
 		const listUser = function() {
-			const data = {role : $("#selectUserRole").val()};
-			console.log($("#selectUserRole").val());
+			var data = {role : $("#selectUserRole").val()};
 			$.ajax({
 				url : "${appRoot}/user/list",
-				type : "get",
+				type : "post",
 				data : data,
+				dataType : "json",
 				success : function(list){
 					const userListElement = $("#divUserList");
 					userListElement.empty();
 					
 					for(let i = 0; i < list.length; i++) {
 						const userElement = $("<div class='my-3 p-3 bg-body rounded shadow-sm d-flex' />");
+						var roleName = "";
+						
+						switch (list[i].user_role) {
+						case 'ROLE_ADMIN':
+							roleName = "총괄 관리자";
+							break;
+						case 'ROLE_PRODUCT':
+							roleName = "상품 관리자";
+							break;
+						case 'ROLE_SERVICE':
+							roleName = "문의 관리자";
+							break;
+						case 'ROLE_USER':
+							roleName = "일반 회원";
+							break;
+						}
 						userElement.html(`
-								<c:url value="/user/info" var="getUserUrl">
-									<c:param name="user_id" value="\${list[i].user_id }"></c:param>
-								</c:url>
-								<a href="\${getUserUrl }">
+
+								<a href="${appRoot}/user/info?user_id=\${list[i].user_id }">
 									<div class="d-flex text-muted">
 										<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
 											<rect width="100%" height="100%" fill="#007bff"></rect>
 										</svg>
 									
 										<p class="mb-0 small lh-sm border-bottom">
-											<c:choose>
-												<c:when test="\${list[i].user_role == 'ROLE_ADMIN'}"> <strong class="d-flex text-gray-dark my-1"> 총괄 관리자 </strong> </c:when>
-												<c:when test="\${list[i].user_role == 'ROLE_PRODUCT'}"> <strong class="d-flex text-gray-dark my-1"> 상품 관리자 </strong> </c:when>
-												<c:when test="\${list[i].user_role == 'ROLE_SERVICE'}"> <strong class="d-flex text-gray-dark my-1"> 문의 관리자 </strong> </c:when>
-												<c:when test="\${list[i].user_role == 'ROLE_USER'}"> <strong class="d-flex text-gray-dark my-1"> 일반 회원 </strong> </c:when>
-											</c:choose>
+												<strong class="d-flex text-gray-dark my-1"> \${roleName} </strong>
 											<strong class="d-flex text-gray-dark">\${list[i].user_id }</strong>
 											<i class="fa-solid fa-mobile-screen mx-1"></i>\${list[i].user_phone } <i class="fa-solid fa-envelope mx-1"></i>\${list[i].user_email }
 										</p>
@@ -54,6 +63,12 @@
 						`);
 						userListElement.append(userElement);
 					}
+				},
+				error : function() {
+					console.log("목록 조회 문제 발생");
+				},
+				complete : function() {
+					console.log("목록 조회 완료");
 				}
 			});
 		}
@@ -85,7 +100,7 @@
 				</div>
 				
 				<div id="divUserList">
-					<%-- <c:forEach items="${userList }" var="user">
+					<c:forEach items="${userList }" var="user">
 							<div class="my-3 p-3 bg-body rounded shadow-sm d-flex">
 								<c:url value="/user/info" var="getUserUrl">
 									<c:param name="user_id" value="${user.user_id }"></c:param>
@@ -109,7 +124,7 @@
 									</div>
 								</a>
 							</div>
-					</c:forEach> --%>
+					</c:forEach>
 				</div>
 	
 			</div>

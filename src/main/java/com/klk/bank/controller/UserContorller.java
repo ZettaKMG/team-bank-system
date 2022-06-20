@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.klk.bank.domain.UserDto;
 import com.klk.bank.service.UserService;
 
@@ -80,13 +81,14 @@ public class UserContorller {
 		}
 	}
 	
-//	@GetMapping("list")
-//	public void userListPage(Model model, @RequestParam(name = "role", defaultValue = "") String role) {
-//		List<UserDto> userList = userService.getUserList(role);
-//		model.addAttribute("userList", userList);	
-//	}
-	
 	@GetMapping("list")
+	public void userListPage(Model model, @RequestParam(name = "role", defaultValue = "") String role) {
+		List<UserDto> userList = userService.getUserList(role);
+		model.addAttribute("userList", userList);	
+	}
+	
+	@PostMapping("list")
+	@ResponseBody
 	public List<UserDto> list(@RequestParam(name = "role", defaultValue = "") String role) {
 		System.out.println("controller ajax user role : " + role);
 		System.out.println(userService.getUserList(role));

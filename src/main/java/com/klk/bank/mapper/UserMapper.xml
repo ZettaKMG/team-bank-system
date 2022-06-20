@@ -37,7 +37,7 @@
 		SELECT u.user_id, u.user_pw, u.user_name, u.user_address, u.user_phone, u.user_email, u.user_birth, a.role user_role
 		FROM User u JOIN Auth a 
 		ON u.user_id = a.user_id
-		<if test="role != 'ALL' and role != '%%' and role != null">
+		<if test="role != 'ALL' and role != '%%' and role != null and role != ''">
 			WHERE a.role = #{role}
 		</if>
 	</select>
