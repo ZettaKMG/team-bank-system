@@ -16,6 +16,7 @@
 	
 <script>
 	$(document).ready(function() {
+		// select box 변경에 따라 회원 목록 변경
 		const listUser = function() {
 			var data = {role : $("#selectUserRole").val()};
 			$.ajax({
@@ -73,6 +74,67 @@
 			});
 		}
 		$("#selectUserRole").change(listUser);
+		
+		// 회원 ID 검색
+		const userSearch = function() {
+			var data = {
+					role : $("#selectUserRole").val(),
+					keyword : $("#idSearchInput").val()
+			};
+			$.ajax({
+				url : "${appRoot}/user/search",
+				type : "post",
+				data : data,
+				dataType : "json",
+				success : function(list){
+					const userListElement = $("#divUserList");
+					userListElement.empty();
+					
+					for(let i = 0; i < list.length; i++) {
+						const userElement = $("<div class='my-3 p-3 bg-body rounded shadow-sm d-flex' />");
+						var roleName = "";
+						
+						switch (list[i].user_role) {
+						case 'ROLE_ADMIN':
+							roleName = "총괄 관리자";
+							break;
+						case 'ROLE_PRODUCT':
+							roleName = "상품 관리자";
+							break;
+						case 'ROLE_SERVICE':
+							roleName = "문의 관리자";
+							break;
+						case 'ROLE_USER':
+							roleName = "일반 회원";
+							break;
+						}
+						userElement.html(`
+								<a href="${appRoot}/user/info?user_id=\${list[i].user_id }">
+									<div class="d-flex text-muted">
+										<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32">
+											<rect width="100%" height="100%" fill="#007bff"></rect>
+										</svg>
+									
+										<p class="mb-0 small lh-sm border-bottom">
+												<strong class="d-flex text-gray-dark my-1"> \${roleName} </strong>
+											<strong class="d-flex text-gray-dark">\${list[i].user_id }</strong>
+											<i class="fa-solid fa-mobile-screen mx-1"></i>\${list[i].user_phone } <i class="fa-solid fa-envelope mx-1"></i>\${list[i].user_email }
+										</p>
+									</div>
+								</a>
+						`);
+						userListElement.append(userElement);
+					}	
+				},
+				error : function() {
+					console.log("ID 검색 문제 발생");
+				},
+				complete : function() {
+					console.log("ID 검색 완료");
+				}
+			});
+		}
+		$("#idSearchBtn").click(userSearch);
 	});
 </script>
 <title>Insert title here</title>
@@ -89,13 +151,17 @@
 						<h1 class="h6 text-white">회원 목록</h1>
 					</div>
 					<div>
-						<select name="selectUserRole" id="selectUserRole" >
+						<select class="form-select mx-2" name="selectUserRole" id="selectUserRole" >
 							<option value="ALL">전체</option>
 							<option value="ROLE_ADMIN">총괄 관리자</option>
 							<option value="ROLE_PRODUCT">상품 관리자</option>
 							<option value="ROLE_SERVICE">문의 관리자</option>
 							<option value="ROLE_USER">일반 회원</option>
 						</select>
+					</div>
+					<div class="d-flex">
+				      	<input id="idSearchInput" type="search" class="form-control mx-3" name="keyword"/>
+				      	<button id="idSearchBtn" class="btn btn-outline-light"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
 				</div>
 				

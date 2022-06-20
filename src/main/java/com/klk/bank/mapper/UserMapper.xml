@@ -37,8 +37,24 @@
 		SELECT u.user_id, u.user_pw, u.user_name, u.user_address, u.user_phone, u.user_email, u.user_birth, a.role user_role
 		FROM User u JOIN Auth a 
 		ON u.user_id = a.user_id
-		<if test="role != 'ALL' and role != '%%' and role != null and role != ''">
+		<if test="role != 'ALL' and role != '%%' and role != ''">
 			WHERE a.role = #{role}
+		</if>
+	</select>
+	
+	<select id="selectUserListById" resultType="com.klk.bank.domain.UserDto">
+		SELECT u.user_id, u.user_pw, u.user_name, u.user_address, u.user_phone, u.user_email, u.user_birth, a.role user_role
+		FROM User u JOIN Auth a 
+		ON u.user_id = a.user_id
+		<if test="keyword != '%%' and keyword != ''">
+			<choose>
+				<when test="role == 'ALL'">
+					WHERE u.user_id LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<otherwise>
+					WHERE a.role = #{role} AND u.user_id LIKE CONCAT('%', #{keyword}, '%')
+				</otherwise>
+			</choose>
 		</if>
 	</select>
 	

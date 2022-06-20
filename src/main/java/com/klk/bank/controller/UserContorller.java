@@ -90,9 +90,15 @@ public class UserContorller {
 	@PostMapping("list")
 	@ResponseBody
 	public List<UserDto> list(@RequestParam(name = "role", defaultValue = "") String role) {
-		System.out.println("controller ajax user role : " + role);
-		System.out.println(userService.getUserList(role));
 		return userService.getUserList(role);
+	}
+	
+	@PostMapping("search")
+	@ResponseBody
+	public List<UserDto> searchUserList(@RequestParam(name = "role", defaultValue = "") String role, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+		System.out.println("user search controller, role : " + role +" / keyword : " + keyword);
+		System.out.println("result : " + userService.getUserListById(role, keyword));
+		return userService.getUserListById(role, keyword);
 	}
 	
 	@GetMapping("info")
@@ -155,4 +161,5 @@ public class UserContorller {
 		userService.modifyUserRole(user_id, user_role);
 		return "redirect:/user/list";
 	}
+	
 }
