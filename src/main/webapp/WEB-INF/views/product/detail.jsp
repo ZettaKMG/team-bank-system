@@ -15,7 +15,7 @@
 
 <script>
 	$(document).ready(function() {
-		<!-- 수정 모드 진입 여부 묻는 메세지 창  -->
+		/* 수정 모드 진입 여부 묻는 메세지 창 */
 		$("#into_edit_mode_button").click(function(e) {
 			e.preventDefault();
 			
@@ -28,7 +28,7 @@
 			}
 		});	
 		
-		<!-- 계좌개설 메뉴 이동 여부 묻는 메세지 창  -->
+		/* 계좌개설 메뉴 이동 여부 묻는 메세지 창 */
 		$("#open_an_account_button").click(function(e) {
 			e.preventDefault();
 			

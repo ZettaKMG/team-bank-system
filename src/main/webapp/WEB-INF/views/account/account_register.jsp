@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="bank" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -28,6 +30,54 @@
 			var account_num = Math.floor((Math.random()+1)*200000000000);			
 			$("#input1").attr("value", account_num);
 			
+		});
+		
+		// 로그인 한 유저번호(user_id) 가져오기
+		$("#input2").keyup(function(e) {
+			e.preventDefault();
+			
+			$.ajax({
+				url : "${appRoot}/user/info",
+				type : "post",
+				data : ${user.user_id}
+				
+			});
+		});
+		
+		// 해당 상품번호(product.id) 가져오기
+		$("#input3").keyup(function(e) {
+			e.preventDefault();
+			
+			$.ajax({
+				url : "${appRoot}/product/detail",
+				type : "post",
+				data : ${product.id}
+				
+			});
+		});
+		
+		// 해당 상품명(product.item_name) 가져오기
+		$("#input4").keyup(function(e) {
+			e.preventDefault();
+			
+			$.ajax({
+				url : "${appRoot}/product/detail",
+				type : "post",
+				data : ${product.item_name}
+				
+			});
+		});
+		
+		// 해당 상품 이율(product.rate) 가져오기
+		$("#input5").keyup(function(e) {
+			e.preventDefault();
+			
+			$.ajax({
+				url : "${appRoot}/product/detail",
+				type : "post",
+				data : ${product.rate * 100} %
+				
+			});
 		});
 		
 		$("#account_num_check").click(function(e) {
@@ -103,11 +153,13 @@
 	});
 </script>
 
-<title>Insert title here</title>
+<title>계좌개설 메뉴 페이지</title>
 </head>
 <body>
+
+	<bank:navBar></bank:navBar>
     
-    <div class="container">
+    <div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
 
@@ -136,6 +188,18 @@
 					<label for="input3" class="form-label">상품번호</label>
 					<div class="input-group mb-3">
 						<input id="input3" class="form-control" type="text" name="account_item_id" value="${product.id }" required readonly />
+					</div>
+					
+					<!-- DB 미반영 항목 -->
+					<label for="input4" class="form-label">상품명</label>
+					<div class="input-group mb-3">
+						<input id="input4" class="form-control" type="text" name="product_item_name" value="${product.item_name }" required readonly />
+					</div>
+					
+					<!-- DB 미반영 항목 -->
+					<label for="input5" class="form-label">이율</label>
+					<div class="input-group mb-3">
+						<input id="input5" class="form-control" type="text" name="product_rate" value="${product.rate }" required readonly />
 					</div>
 
 					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>
