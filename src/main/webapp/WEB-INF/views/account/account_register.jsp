@@ -21,6 +21,17 @@
 		let user_num_ok = false;
 		let item_num_ok = false;
 		
+		$("#account_num_create").click(function(e) {
+			e.preventDefault();
+			
+			$(this).attr("disabled", "");
+			
+			const data = {
+						
+			};
+			
+		});
+		
 		$("#account_num_check").click(function(e) {
 			e.preventDefault();
 			
@@ -106,25 +117,26 @@
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
 						<input id="input1" class="form-control" type="text" name="account_num" />
+						<button class="btn btn-secondary" id="account_num_create" type="button">계좌번호 생성</button>
 						<button class="btn btn-secondary" id="account_num_check" type="button">계좌번호 중복 확인</button>
 					</div>
 					<div class="form-text" id="account_num_message"></div>
 
 					<label for="password_input1" class="form-label">패스워드</label>
-					<input class="form-control" id="password_input1" type="text" name="account_pw" />
+					<input class="form-control" id="password_input1" type="text" name="account_pw" required />
 
 					<label for="password_input2" class="form-label">패스워드 확인</label>
-					<input class="form-control" id="password_input2" type="text" name="account_pw_confirm" />
+					<input class="form-control" id="password_input2" type="text" name="account_pw_confirm" required />
 					<p class="form-text" id="pw_check"></p>
 					
 					<label for="input2" class="form-label">유저번호</label>
 					<div class="input-group mb-3">
-						<input id="input2" class="form-control" type="text" name="account_user_id"/>
+						<input id="input2" class="form-control" type="text" name="account_user_id" value="${user.user_id }" required readonly />
 					</div>
 
 					<label for="input3" class="form-label">상품번호</label>
 					<div class="input-group mb-3">
-						<input id="input3" class="form-control" type="text" name="account_item_id"/>
+						<input id="input3" class="form-control" type="text" name="account_item_id" value="${product.id }" required readonly />
 					</div>
 
 					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>

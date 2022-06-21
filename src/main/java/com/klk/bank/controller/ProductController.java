@@ -16,8 +16,10 @@ import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.PageInfoDto;
 import com.klk.bank.domain.ProductDto;
 import com.klk.bank.domain.UserDto;
+import com.klk.bank.service.AccountService;
 import com.klk.bank.service.PageInfoService;
 import com.klk.bank.service.ProductService;
+import com.klk.bank.service.UserService;
 
 @Controller
 @RequestMapping("product")
@@ -28,6 +30,12 @@ public class ProductController {
 	
 	@Autowired
 	private PageInfoService pageInfoService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AccountService accountService;
 	
 //	@Autowired
 //	private ReplyService replyService;
@@ -160,7 +168,6 @@ public class ProductController {
 		model.addAttribute("page_info", page_info);
 		
 		return "/product/search?page=" + page;
-	}
-	
+	}	
 	
 }

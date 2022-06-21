@@ -145,7 +145,7 @@
 		  </sec:authorize>			  			  
 		
 		  <sec:authorize access="isAuthenticated()">
-		  	<button type="submit" id="open_an_account_button" data-oper="open_an_account" onclick="location.href='${appRoot}/product/openAnAccount?id=<c:out value="${product.id }" />'" class="btn btn-info">계좌개설하기</button>
+		  	<button type="submit" id="open_an_account_button" data-oper="open_an_account" onclick="location.href='${appRoot}/account/account_register<%-- ?id=<c:out value="${product.id }" /> --%>'" class="btn btn-info">계좌개설하기</button>
 		  </sec:authorize>		
 		</div>	
 	</div>
