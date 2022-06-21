@@ -21,14 +21,12 @@
 		let user_num_ok = false;
 		let item_num_ok = false;
 		
+		// 무작위 계좌번호 생성버튼 추가(정수 12자리)
 		$("#account_num_create").click(function(e) {
 			e.preventDefault();
-			
-			$(this).attr("disabled", "");
-			
-			const data = {
-						
-			};
+			// 2000억 이상 4000억 미만의 정수
+			var account_num = Math.floor((Math.random()+1)*200000000000);			
+			$("#input1").attr("value", account_num);
 			
 		});
 		
@@ -116,7 +114,8 @@
 				<form action="${appRoot }/account/account_register" method="post">
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
-						<input id="input1" class="form-control" type="text" name="account_num" />
+						<input id="input1" class="form-control" type="text" name="account_num" value="${account_num }" required readonly/>
+						<!-- 정수 12자리 무작위 번호 생성 버튼 추가 -->
 						<button class="btn btn-secondary" id="account_num_create" type="button">계좌번호 생성</button>
 						<button class="btn btn-secondary" id="account_num_check" type="button">계좌번호 중복 확인</button>
 					</div>
