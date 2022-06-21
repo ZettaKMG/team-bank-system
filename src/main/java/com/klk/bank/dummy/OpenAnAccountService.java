@@ -1,4 +1,4 @@
-package com.klk.bank.service;
+package com.klk.bank.dummy;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,10 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.AccountPageInfoDto;
-import com.klk.bank.domain.OpenAnAccountDto;
 import com.klk.bank.domain.ProductDto;
 import com.klk.bank.domain.UserDto;
-import com.klk.bank.mapper.OpenAnAccountMapper;
 
 @Service
 public class OpenAnAccountService {

@@ -1,11 +1,10 @@
-package com.klk.bank.mapper;
+package com.klk.bank.dummy;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.klk.bank.domain.AccountDto;
-import com.klk.bank.domain.OpenAnAccountDto;
 import com.klk.bank.domain.ProductDto;
 import com.klk.bank.domain.UserDto;
 

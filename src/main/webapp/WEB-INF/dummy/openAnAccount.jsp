@@ -15,31 +15,22 @@
 
 <script>
 	$(document).ready(function() {
-		/* <!-- 수정 모드 진입 여부 묻는 메세지 창  -->
-		$("#into_edit_mode_button").click(function(e) {
-			e.preventDefault();
-			
-			if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) {
-				let form1 = $("#form1");
-				let actionAttr1 = "${appRoot}/product/edit";
-				form1.attr("action1", actionAttr1);
-				
-				form1.submit();
-			}
-		});	
+		// 계좌번호 중복 여부 확인, 암호 일치 여부 확인
+		/* let account_number_ok = false;
+		let password_ok = false; */
 		
-		<!-- 계좌개설 메뉴 이동 여부 묻는 메세지 창  -->
-		$("#open_an_account_button").click(function(e) {
+		// 계좌번호 중복확인 버튼 클릭시
+		/* $("#account_num").click(function(e) {
 			e.preventDefault();
 			
-			if (confirm("계좌개설 메뉴로 이동하시겠습니까?")) {
-				let form2 = $("#form2");
-				let actionAttr2 = "${appRoot}/product/openAnAccount";
-				form2.attr("action2", actionAttr1);
-				
-				form2.submit();
-			}
-		});	 */
+			$(this).attr("disabled", "");
+			const data = { account_number : $("#form1").find("[name=account_num]").val()};
+			account_number_ok = false;
+			$.ajax({
+					url : "${appRoot}/product/openAnAccount",
+					
+			})
+		}); */		
 	});
 </script>
 
@@ -94,26 +85,24 @@
 		
 		<div class="mt-5 mb-3">
 			<label for="item_name" class="form-label"><h4>상품명</h4></label>
-	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${open_an_account.item_name }" required readonly />
+	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required readonly />
 		</div>
 		<div class="mt-1 mb-3">
 			<label for="user_id" class="form-label"><h4>계좌보유 ID</h4></label>
-	  		<input type="text" class="form-control" name="user_id" id="user_id" value="${open_an_account.user_id }" required readonly />
+	  		<input type="text" class="form-control" name="user_id" id="user_id" value="${user.user_id }" required readonly />
 		</div>
 		<div class="mt-1 mb-3">
-			<label for="user_name" class="form-label"><h4>예금주 명</h4></label>
-	  		<input type="text" class="form-control" name="user_name" id="user_name" value="${open_an_account.user_name }" required readonly />
+			<label for="user_name" class="form-label"><h4>예금주명</h4></label>
+	  		<input type="text" class="form-control" name="user_name" id="user_name" value="${user.user_name }" required readonly />
 		</div>
 		<div class="mt-1 mb-3">
 			<label for="sav_method" class="form-label"><h4>상품종류</h4></label>
-	  		<input type="text" class="form-control" name="sav_method" id="sav_method" value="${open_an_account.sav_method == 00 ? '예금' : '적금' }" required readonly />
+	  		<input type="text" class="form-control" name="sav_method" id="sav_method" value="${product.sav_method == 00 ? '예금' : '적금' }" required readonly />
 		</div>
 		<div class="mt-1 mb-3">
-			  <label for="account_num" class="form-label"><h4>계좌번호</h4></label>
-	  		<input type="text" class="form-control" name="account_num" id="account_num" value="${open_an_account.account_num }" required readonly />
-	  		
+			<label for="account_num" class="form-label"><h4>계좌번호</h4></label>
 	  		<div class="input-group mt-1 mb-3">
-			  <input type="number" class="form-control" placeholder="000000-00-000000" aria-label="000000" aria-describedby="account_num">
+			  <input type="number" class="form-control" placeholder="00000000000000(14자리)" aria-label="" aria-describedby="account_num">
 			  <button class="btn btn-outline-secondary" type="button" id="account_num">계좌번호 생성하기</button>
 			  <button class="btn btn-outline-secondary" type="button" id="account_num">계좌번호 중복확인</button>
 			</div>

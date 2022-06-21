@@ -1,4 +1,4 @@
-package com.klk.bank.controller;
+package com.klk.bank.dummy;
 
 import java.security.Principal;
 
@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.klk.bank.domain.OpenAnAccountDto;
 import com.klk.bank.service.AccountService;
-import com.klk.bank.service.OpenAnAccountService;
 import com.klk.bank.service.ProductService;
 import com.klk.bank.service.UserService;
 
@@ -40,24 +38,20 @@ public class OpenAnAccountController {
 	}
 	
 	@PostMapping("openAnAccount")
-	public String openAnAccountPage(@RequestParam("id") Integer id, OpenAnAccountDto open_an_account, Principal principal, RedirectAttributes rttr, Model model) {
-		System.out.println(open_an_account);
-		
-		open_an_account = openAnAccountService.getProductById(id);
-		model.addAttribute("open_an_account", open_an_account);
-		
-		open_an_account.setUser_id(principal.getName());
+	public String openAnAccountPageProcess(OpenAnAccountDto open_an_account, Principal principal, RedirectAttributes rttr, Model model) {
+		System.out.println(open_an_account);		
 		
 		boolean success = openAnAccountService.openAnAccount(open_an_account);
 		
 		if (success) {
 			rttr.addFlashAttribute("message", "계좌가 개설되었습니다.");
+			return "redirect:/product/search";
 		} else {
 			rttr.addFlashAttribute("message", "계좌가 개설되지 않았습니다.");
+			return "redirect:/product/openAnAccount";
 		}
 		
-		rttr.addAttribute("id", open_an_account.getId());
 		
-		return "redirect:/product/detail";
+		
 	}
 }
