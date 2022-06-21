@@ -72,7 +72,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <bank:navbar current="account_get"/>
+    <bank:navBar current="account_get"/>
     <div class="container">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
@@ -85,9 +85,9 @@
 							value="${account.account_num }" readonly />
 					</div>
 
-					<label for="passwordInput1" class="form-label">패스워드</label> 
+					<label for="passwordInput1" class="form-label">계좌비밀번호</label> 
 					<input class="form-control" id="password_input1" type="text" name="account_pw" value="${account.account_pw }" readonly /> 
-					<label for="passwordInput2" class="form-label">패스워드 확인</label> 
+					<label for="passwordInput2" class="form-label">계좌비밀번호확인</label> 
 					<input class="form-control"	id="password_input2" type="text" name="account_pw_confirm" readonly />
 					<p class="form-text" id="pw_check"></p>
 					
@@ -117,6 +117,7 @@
 							value="${account.account_date }" readonly />
 					</div>
 
+					<button id="account_withdraw_deposit" class="mt-3 btn btn-info" form="form2" type="submit">계좌이력</button>
 					<button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button>
 					<button id="account_update_execute" class="mt-3 btn btn-success" disabled="disabled">계좌수정완료</button>
 					<button id="account_delete_execute" class="mt-3 btn btn-danger">계좌삭제</button>
@@ -124,6 +125,11 @@
 			</div>
 		</div>
     </div>
+	
+	<form id="form2" action="${appRoot }/account/account_history" method="post">
+		<input type="hidden" name="account_num" value="${account.account_num }"/>
+	</form>   
+   
    
 </body>
 </html>
