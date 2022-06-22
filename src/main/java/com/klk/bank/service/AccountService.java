@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +19,25 @@ public class AccountService {
 	@Autowired
 	private AccountMapper account_mapper;
 	
+	@Autowired
+	private BCryptPasswordEncoder password_encoder;
+	
 	public List<AccountDto> listAccount(AccountPageInfoDto page_info, String type, String keyword) {
 		
 		int row_per_page = page_info.getRowPerPage();
 		int from = (page_info.getCurrent_page() - 1) * row_per_page;
 		
 		return account_mapper.selectAllAccount(from, row_per_page, type, "%" + keyword + "%");
-	}
-
+	}	
+	
 	public boolean addAccount(AccountDto account) {
+		// 평문암호를 암호화(encoding)
+		String encodedPassword = password_encoder.encode(account.getAccount_pw());
+		
+		// 암호화된 암호를 다시 세팅
+		account.setAccount_pw(encodedPassword);
+		
+		// addAccount
 		int cnt = account_mapper.insertAccount(account);
 		return cnt == 1;
 	}
