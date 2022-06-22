@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.klk.bank.domain.AccountDto;
+import com.klk.bank.domain.TransferDto;
 
 public interface AccountMapper {
 
@@ -21,5 +22,11 @@ public interface AccountMapper {
 	int selectSearchCountAccount(@Param("type") String type, @Param("keyword")String keyword);
 
 	int countAccountNum(String account_num);
+
+	int insertTransfer(TransferDto transfer_send);
+
+	List<TransferDto> selectTransferAccount(String account_num);
+
+	
 
 }

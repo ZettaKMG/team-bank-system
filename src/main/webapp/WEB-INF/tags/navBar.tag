@@ -18,8 +18,12 @@
 </sec:authorize>
 
 <div class="border border-success container mt-3">
-	<nav class="navbar navbar-expand-lg">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
+		<a class="navbar-brand" href="#"><i class="fa-solid fa-house"></i></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      			<span class="navbar-toggler-icon"></span>
+    		</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-5 mb-lg-0">
 					<li class="nav-item dropdown">
@@ -28,10 +32,10 @@
 							상품 </a>
 						<ul class="dropdown-menu" aria-labelledby="product">
 							<li>
-								<a class="dropdown-item" href="#">상품조회</a>
+								<a class="dropdown-item" href="${appRoot }/product/search">상품조회</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="#">상품등록</a>
+								<a class="dropdown-item" href="${appRoot }/product/registration">상품등록</a>
 							</li>
 						</ul>
 					</li>
@@ -44,7 +48,8 @@
 								<a class="dropdown-item" href="${appRoot }/account/account_list">계좌조회</a>
 							</li>
 							<li>
-								<a class="dropdown-item" href="${appRoot }/account/account_register">계좌등록</a>
+								<a class="dropdown-item"
+									href="${appRoot }/account/account_register">계좌등록</a>
 							</li>
 						</ul>
 					</li>
