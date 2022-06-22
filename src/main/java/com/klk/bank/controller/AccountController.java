@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.AccountPageInfoDto;
@@ -53,12 +54,19 @@ public class AccountController {
 	}
 	
 	@PostMapping("account_register")
-	public String accountRegister(AccountDto account) {
+	public String accountRegister(AccountDto account, RedirectAttributes rttr) {
 		
 		boolean success = account_service.addAccount(account);
 		
+		if (success) {
+			rttr.addAttribute("message", "계좌가 개설되었습니다.");
+			return "redirect:/product/search";
+		} else {
+			rttr.addAttribute("message", "계좌가 개설되지 않았습니다.");
+			return "redirect:/account/account_list";
+		}
+		
 //		return "redirect:/account/account_list";
-		return "redirect:/product/search";
 	}
 	
 	@GetMapping("{account_num}")
