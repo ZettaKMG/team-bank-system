@@ -33,6 +33,23 @@
 	});
 </script>
 
+<!-- 상품 만기도래시 예상 수령액 계산 -->
+<script>
+	$(function() {
+		$("#calculate").click(function(e) {
+			e.preventDefault();
+						
+			const rate = $("#yearly_rate").val();
+			const term = $("#term").val();
+			const payment = $("#monthly_payment").val();
+			
+			var result = payment * term * (term + 1) / 2 * (rate / 100) / 12;				
+			$("#calculate_result").attr("value", result);
+						
+		});			
+	});
+</script>
+
 <title>상품조회 페이지</title>
 </head>
 <body>
@@ -142,6 +159,32 @@
 		  </div>
 		</div>		
 	</c:if>	
+	
+	<!-- 상품 가입 만기일 도래시 예상 수령액 계산 메뉴 -->	
+	<div class="container">
+		<div class="border border-success p-1 mt-5">
+		<figure class="text-center">
+			<h5>상품 만기시 예상 수령액 계산</h5>
+		</figure>
+		<div class="input-group">
+		  <span class="input-group-text" id="basic-addon1">연 이율 입력</span>
+		  <input id="yearly_rate" type="text" class="form-control" placeholder="숫자만 입력(예시 : 5.0% -> 5)">
+		</div>
+		<div class="input-group mt-1">
+		  <span class="input-group-text" id="basic-addon1">납입기간 입력</span>
+		  <input id="term" type="text" class="form-control" placeholder="숫자만 입력(예시 : 12개월 -> 12)">
+		</div>
+		<div class="input-group mt-1">
+		  <span class="input-group-text" id="basic-addon1">월 납입금 입력</span>
+		  <input id="monthly_payment" type="text" class="form-control" placeholder="숫자만 입력(예시 : 100만원 -> 1000000)">
+		  <button id="calculate" type="button" class="btn btn-secondary">계산하기</button>
+		</div>
+		<div class="input-group mt-3">
+		  <span class="input-group-text" id="basic-addon1">예상수령액 결과</span>
+		  <input id="calculate_result" type="text" name="result" value="" class="form-control" readonly >
+		</div>
+		</div>
+	</div>
 	
 	<!-- 상품목록 조회 결과표시(조건 선택 안하면 그냥 전체 결과 표시) -->
 	<div class="container">
