@@ -11,7 +11,7 @@
 	<security:http>
 		<security:csrf disabled="true" />
 		<security:form-login />
-	    <security:form-login always-use-default-target="true" login-page="/user/login" default-target-url="/user/info" />
+	    <security:form-login always-use-default-target="true" login-page="/user/login" default-target-url="/home" />
 		<security:logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true"/>
 	    <!-- 
 		<security:remember-me/>

@@ -16,7 +16,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<bank:userNavBar current="login"></bank:userNavBar>
+	<bank:navBar current="login"></bank:navBar>
 
 	<div class="container">
 		<div class="row justify-content-center">
