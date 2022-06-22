@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.PageInfoDto;
 import com.klk.bank.domain.ProductDto;
+import com.klk.bank.domain.UserDto;
+import com.klk.bank.service.AccountService;
 import com.klk.bank.service.PageInfoService;
 import com.klk.bank.service.ProductService;
+import com.klk.bank.service.UserService;
 
 @Controller
 @RequestMapping("product")
@@ -27,14 +31,18 @@ public class ProductController {
 	@Autowired
 	private PageInfoService pageInfoService;
 	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private AccountService accountService;
+	
 //	@Autowired
 //	private ReplyService replyService;
 	
 	// 상품 조회
 	@GetMapping("search")
 	public void searchPage(@RequestParam(name = "keyword", defaultValue = "") String keyword, @RequestParam(name = "sav_method", defaultValue = "") String sav_method, @RequestParam(name = "exp_period", defaultValue = "") String exp_period, @RequestParam(name = "rate", defaultValue = "") String rate, Model model) {
-//		System.out.println("iiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-//		
 //		System.out.println(keyword);
 //		System.out.println(sav_method);
 //		System.out.println(exp_period);
@@ -53,7 +61,7 @@ public class ProductController {
 	@PostMapping("registration")
 	public String registrationPage(ProductDto product, Principal principal, RedirectAttributes rttr) {
 				
-//		product.setUser_id(principal.getName());
+		product.setUser_id(principal.getName());
 		boolean success = productService.insertProduct(product);
 		
 		if (success) {
@@ -136,8 +144,8 @@ public class ProductController {
 //		}
 		
 		return "redirect:/product/search";
-	}
-	
+	}	
+
 	// pagination 코드
 	@GetMapping("search_page")
 	public String pageInfoProcess(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
@@ -160,6 +168,6 @@ public class ProductController {
 		model.addAttribute("page_info", page_info);
 		
 		return "/product/search?page=" + page;
-	}
+	}	
 	
 }

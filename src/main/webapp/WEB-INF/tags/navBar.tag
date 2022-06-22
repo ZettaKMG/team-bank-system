@@ -3,13 +3,25 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ attribute name = "current" %>
 
+
+<!-- 상품 게시판 관련 링크 -->
+<c:url value="/product/search" var="searchUrl" />
+<c:url value="/product/registration" var="registrationUrl" />
+
+<!-- 회원 정보 관련 링크 -->
+
+
 <c:url value="/user/list" var="userListUrl"></c:url>
 <c:url value="/user/info" var="userInfoUrl"></c:url>
 <c:url value="/user/signup" var="signUpUrl"></c:url>
 <c:url value="/user/login" var="loginUrl"></c:url>
 <c:url value="/logout" var="logoutUrl"></c:url>
 
+
+
+
 <%-- 회원정보링크 --%>
+
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal"/>
 	<c:url value="/user/info" var="userInfoUrl">
@@ -18,12 +30,14 @@
 </sec:authorize>
 
 <div class="border border-success container mt-3">
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 		<a class="navbar-brand" href="#"><i class="fa-solid fa-house"></i></a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       			<span class="navbar-toggler-icon"></span>
     		</button>
+
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-5 mb-lg-0">
 					<li class="nav-item dropdown">
@@ -32,11 +46,13 @@
 							상품 </a>
 						<ul class="dropdown-menu" aria-labelledby="product">
 							<li>
-								<a class="dropdown-item" href="${appRoot }/product/search">상품조회</a>
+								<a class="dropdown-item" href="${searchUrl }">상품조회</a>
 							</li>
-							<li>
-								<a class="dropdown-item" href="${appRoot }/product/registration">상품등록</a>
-							</li>
+							<sec:authorize access="hasAnyRole('ADMIN, PRODUCT')">
+								<li>
+									<a class="dropdown-item" href="${registrationUrl }">상품등록</a>
+								</li>
+							</sec:authorize>
 						</ul>
 					</li>
 					<li class="nav-item dropdown">
@@ -44,28 +60,61 @@
 							role="button" data-bs-toggle="dropdown" aria-expanded="false">
 							계좌 </a>
 						<ul class="dropdown-menu" aria-labelledby="account">
-							<li>
-								<a class="dropdown-item" href="${appRoot }/account/account_list">계좌조회</a>
-							</li>
-							<li>
-								<a class="dropdown-item"
-									href="${appRoot }/account/account_register">계좌등록</a>
-							</li>
+
+							<sec:authorize access="isAuthenticated()">
+								<li>
+									<a class="dropdown-item" href="${appRoot }/account/account_list">계좌조회</a>
+								</li>
+							</sec:authorize>
+							<sec:authorize access="hasAnyRole('ADMIN, SERVICE')">
+								<li>
+									<a class="dropdown-item" href="${appRoot }/account/account_register">계좌등록</a>
+								</li>
+							</sec:authorize>
 						</ul>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="${appRoot }/account/account_transfer">계좌이체</a>
-					</li>
+					<sec:authorize access="hasRole('ADMIN')">
+						<li class="nav-item">
+							<a class="nav-link" href="${appRoot }/user/list">멤버조회</a>
+						</li>
+					</sec:authorize>
+					<sec:authorize access="not isAuthenticated()">
+						<li class="nav-item">
+							<a class="nav-link" href="${appRoot }/account/account_transfer">계좌이체</a>
+						</li>
+					</sec:authorize>
+					<sec:authorize access="isAuthenticated()">
+						<li class="nav-item">
+							<a class="nav-link" ${current == 'info' ? 'active' : '' } href="${userInfoUrl }">마이페이지</a>
+						</li>
+					</sec:authorize>
+										
+				</ul>
+				<!-- 로그인시에는 "로그인한 ID 님 환영합니다!!!" 메세지를, 비로그인시에는 "비로그인 상태입니다!"메세지 출력  -->
+				<c:choose>	
+					<c:when test="${not empty principal.username }">
+						<div class="grid">					 
+						  <div class="g-col-3 g-start-9">
+						  	<input class="form-control" type="text" value="${principal.username } 님 환영합니다!" aria-label="readonly input example" readonly>
+						  </div>
+						</div>
+					</c:when>									
+					<c:when test="${empty principal.username }">
+						<div class="grid">					 
+						  <div class="g-col-3 g-start-9">
+						  	<input class="form-control" type="text" value="비로그인 상태입니다" aria-label="readonly input example" readonly>
+						  </div>
+						</div>
+					</c:when>		
+				</c:choose>								 
+
+						
 					<sec:authorize access="hasRole('ADMIN')">
 					    <li class="nav-item">
 					      	<a class="nav-link ${current == 'userList' ? 'active' : '' }" href="${userListUrl }">회원 목록</a>
 						</li>
 			        </sec:authorize>
-					<sec:authorize access="isAuthenticated()">
-			      		<li class="nav-item">
-			      			<a class="nav-link ${current == 'info' ? 'active' : '' }" href="${userInfoUrl }">마이페이지</a>
-			      		</li>
-			        </sec:authorize>
+			
 					<sec:authorize access="not isAuthenticated()">
 				      	<li class="nav-item">
 				        	<a class="nav-link ${current == 'signup' ? 'active' : '' }" href="${signUpUrl }">회원 가입</a>
@@ -84,6 +133,7 @@
 				<div class="d-none">
 			    	<form action="${logoutUrl }" id="logoutForm" method="post"></form>
 			    </div>
+
 			</div>
 		</div>
 	</nav>

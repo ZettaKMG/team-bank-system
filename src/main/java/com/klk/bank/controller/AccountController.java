@@ -57,7 +57,8 @@ public class AccountController {
 		
 		boolean success = account_service.addAccount(account);
 		
-		return "redirect:/account/account_list";
+//		return "redirect:/account/account_list";
+		return "redirect:/product/search";
 	}
 	
 	@GetMapping("{account_num}")
