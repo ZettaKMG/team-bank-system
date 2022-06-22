@@ -32,7 +32,7 @@
 			
 		});
 		
-		// 로그인 한 유저번호(user_id) 가져오기
+		/* // 로그인 한 유저번호(user_id) 가져오기
 		$("#input2").keyup(function(e) {
 			e.preventDefault();
 			
@@ -78,7 +78,7 @@
 				data : ${product.rate * 100} %
 				
 			});
-		});
+		}); */
 		
 		$("#account_num_check").click(function(e) {
 			e.preventDefault();
@@ -166,7 +166,7 @@
 				<form action="${appRoot }/account/account_register" method="post">
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
-						<input id="input1" class="form-control" type="text" name="account_num" value="${account_num }" required readonly/>
+						<input id="input1" class="form-control" type="text" name="account_num" value="" required readonly/>
 						<!-- 정수 12자리 무작위 번호 생성 버튼 추가 -->
 						<button class="btn btn-secondary" id="account_num_create" type="button">계좌번호 생성</button>
 						<button class="btn btn-secondary" id="account_num_check" type="button">계좌번호 중복 확인</button>
