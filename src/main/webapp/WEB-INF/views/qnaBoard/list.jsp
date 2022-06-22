@@ -30,12 +30,14 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:forEach items="${qnaList }" var="qna">
 						<tr>
-							<td>1</td>
-							<td>title</td>
-							<td>writer</td>
-							<td>date</td>
+							<td>${qna.id }</td>
+							<td>${qna.title }</td>
+							<td>${qna.user_id }</td>
+							<td>${qna.newInserted }</td>
 						</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>

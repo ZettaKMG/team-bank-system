@@ -1,5 +1,7 @@
 package com.klk.bank.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class QnaService {
 
 	public void insertQnaBoard(QnaDto qna) {
 		qnaMapper.insertQnaBoard(qna);
+	}
+
+	public List<QnaDto> qnaBoardList() {
+		return qnaMapper.selectQnaBoardAll();
 	}
 	
 	

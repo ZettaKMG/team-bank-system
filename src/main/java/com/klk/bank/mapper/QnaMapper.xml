@@ -8,4 +8,9 @@
 		INSERT INTO Qna (title, body, user_id)
 		VALUES (#{title}, #{body}, #{user_id})
 	</insert>
+	
+	<select id="selectQnaBoardAll" resultType="com.klk.bank.domain.QnaDto">
+		SELECT id, title, user_id, inserted
+		FROM Qna
+	</select>
 </mapper>
