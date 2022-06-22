@@ -12,6 +12,7 @@
 	<select id="selectQnaBoardAll" resultType="com.klk.bank.domain.QnaDto">
 		SELECT id, title, user_id, inserted
 		FROM Qna
+		ORDER BY id DESC
 	</select>
 	
 	<select id="selectQnaBoardById" resultType="com.klk.bank.domain.QnaDto">
@@ -19,4 +20,10 @@
 		FROM Qna
 		WHERE id = #{id}
 	</select>
+	
+	<update id="updateQnaBoard">
+		UPDATE Qna
+		SET title = #{title}, body = #{body}
+		WHERE id = #{id}
+	</update>
 </mapper>

@@ -35,7 +35,7 @@ public class QnaController {
 	public String qnaWrite(QnaDto qna, Principal principal) {
 		qna.setUser_id(principal.getName());
 		qnaService.insertQnaBoard(qna);
-		return "redirect:/qnaBoard/list";
+		return "redirect:/qnaBoard/get?id=" + qna.getId();
 	}
 	
 	
@@ -43,5 +43,16 @@ public class QnaController {
 	public void qnaGetPage(int id, Model model) {
 		QnaDto qna = qnaService.getQnaBoardById(id);
 		model.addAttribute("qna", qna);
+	}
+	
+	@PostMapping("modify")
+	public String qnaModify(QnaDto qna, Principal principal) {
+		System.out.println("controller" + qna.getId() + qna.getTitle() + qna.getBody());
+		QnaDto oldQna = qnaService.getQnaBoardById(qna.getId());
+		if(oldQna.getUser_id().equals(principal.getName())) {
+			qnaService.updateQnaBoard(qna);			
+		}
+		
+		return "redirect:/qnaBoard/get?id=" + qna.getId();
 	}
 }

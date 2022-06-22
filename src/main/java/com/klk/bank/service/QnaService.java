@@ -25,6 +25,10 @@ public class QnaService {
 	public QnaDto getQnaBoardById(int id) {
 		return qnaMapper.selectQnaBoardById(id);
 	}
+
+	public void updateQnaBoard(QnaDto qna) {
+		qnaMapper.updateQnaBoard(qna);
+	}
 	
 	
 }

@@ -12,4 +12,6 @@ public interface QnaMapper {
 
 	QnaDto selectQnaBoardById(int id);
 
+	void updateQnaBoard(QnaDto qna);
+
 }

@@ -13,14 +13,36 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+<script>
+	$(document).ready(function() {
+		$("#qna-modify-button").click(function() {
+			$("#qna-modify-button").addClass("d-none");
+			$("#inputTitle").removeAttr("readonly");
+			$("#inputText").removeAttr("readonly");
+			$("#qna-modify-submit").removeClass("d-none");
+		});
+		
+		$("#qna-modify-submit").click(function(e) {
+			e.preventDefault();
+			
+			if(confirm("수정하시겠습니까?")) {
+				let qnaForm = $("#qnaContentForm");
+				let actionAttr = "${appRoot}/qnaBoard/modify";
+				qnaForm.attr("action", actionAttr);
+				qnaForm.submit();
+			}
+		});
+	});
+</script>
 <title>Insert title here</title>
 </head>
 <body>
 	<bank:navBar current="qnaWrite"></bank:navBar>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12 col-lg-10">
-				<form action="">
+			<div class="col-12 col-lg-10 mt-3">
+				<form id="qnaContentForm" action="" method="post">
+					<input type="hidden" name="id" value="${qna.id }"/>
 					<div>
 						<label class="form-label" for="inputTitle">제목</label>
 						<input class="form-control" type="text" name="title" id="inputTitle" value="${qna.title }" readonly/>
@@ -32,8 +54,10 @@
 					</div>
 					
 					<div class="button-group mt-3">
-						<button id="modify-submit1" class="btn btn-primary">수정</button>
-						<button id="delete-submit1" class="btn btn-danger">삭제</button>
+						<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
+						<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
+						<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
+						<button id="qna-delete-submit" class="btn btn-danger">삭제</button>
 					</div>
 				</form>
 			</div>
