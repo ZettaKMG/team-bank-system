@@ -10,15 +10,19 @@
 
 <!-- 회원 정보 관련 링크 -->
 
-
 <c:url value="/user/list" var="userListUrl"></c:url>
 <c:url value="/user/info" var="userInfoUrl"></c:url>
 <c:url value="/user/signup" var="signUpUrl"></c:url>
 <c:url value="/user/login" var="loginUrl"></c:url>
 <c:url value="/logout" var="logoutUrl"></c:url>
 
+<!-- 문의 관련 링크 -->
+<c:url value="/qnaBoard/list" var="qnaUrl"></c:url>
 
-
+<!-- 계좌 관련 링크 -->
+<c:url value="/account/account_list" var="accountListUrl"></c:url>
+<c:url value="/account/account_register" var="accountRegUrl"></c:url>
+<c:url value="/account/account_transfer" var="accountTransUrl"></c:url>
 
 <%-- 회원정보링크 --%>
 
@@ -63,52 +67,31 @@
 
 							<sec:authorize access="isAuthenticated()">
 								<li>
-									<a class="dropdown-item" href="${appRoot }/account/account_list">계좌조회</a>
+									<a class="dropdown-item" href="${accountListUrl }">계좌조회</a>
 								</li>
 							</sec:authorize>
 							<sec:authorize access="hasAnyRole('ADMIN, SERVICE')">
 								<li>
-									<a class="dropdown-item" href="${appRoot }/account/account_register">계좌등록</a>
+									<a class="dropdown-item" href="${accountRegUrl }">계좌등록</a>
 								</li>
 							</sec:authorize>
 						</ul>
 					</li>
-					<sec:authorize access="hasRole('ADMIN')">
-						<li class="nav-item">
-							<a class="nav-link" href="${appRoot }/user/list">멤버조회</a>
-						</li>
-					</sec:authorize>
-					<sec:authorize access="not isAuthenticated()">
-						<li class="nav-item">
-							<a class="nav-link" href="${appRoot }/account/account_transfer">계좌이체</a>
-						</li>
-					</sec:authorize>
+					
+					<li class="nav-item">
+						<a class="nav-link" ${current == 'transfer' ? 'active' : '' } href="${accountTransUrl }">계좌이체</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link" ${current == 'qna' ? 'active' : '' } href="${qnaUrl }">문의</a>
+					</li>
+					
 					<sec:authorize access="isAuthenticated()">
 						<li class="nav-item">
 							<a class="nav-link" ${current == 'info' ? 'active' : '' } href="${userInfoUrl }">마이페이지</a>
 						</li>
 					</sec:authorize>
-										
-				</ul>
-				<!-- 로그인시에는 "로그인한 ID 님 환영합니다!!!" 메세지를, 비로그인시에는 "비로그인 상태입니다!"메세지 출력  -->
-				<c:choose>	
-					<c:when test="${not empty principal.username }">
-						<div class="grid">					 
-						  <div class="g-col-3 g-start-9">
-						  	<input class="form-control" type="text" value="${principal.username } 님 환영합니다!" aria-label="readonly input example" readonly>
-						  </div>
-						</div>
-					</c:when>									
-					<c:when test="${empty principal.username }">
-						<div class="grid">					 
-						  <div class="g-col-3 g-start-9">
-						  	<input class="form-control" type="text" value="비로그인 상태입니다" aria-label="readonly input example" readonly>
-						  </div>
-						</div>
-					</c:when>		
-				</c:choose>								 
-
-						
+					
 					<sec:authorize access="hasRole('ADMIN')">
 					    <li class="nav-item">
 					      	<a class="nav-link ${current == 'userList' ? 'active' : '' }" href="${userListUrl }">회원 목록</a>
@@ -124,15 +107,38 @@
 				        	<a class="nav-link ${current == 'login' ? 'active' : '' }" href="${loginUrl }">로그인</a>
 				        </li>
 			        </sec:authorize>
+			        
 			        <sec:authorize access="isAuthenticated()">
 			        	<li class="nav-item">
 			        		<button class="btn btn-link nav-link" type="submit" form="logoutForm">로그아웃</button>
 			        	</li>
 			        </sec:authorize>
+										
 				</ul>
+				<!-- 로그인시에는 "로그인한 ID 님 환영합니다!!!" 메세지를, 비로그인시에는 "비로그인 상태입니다!"메세지 출력  -->
+				<div class="d-flex justify-content-right">
+					<c:choose>	
+						<c:when test="${not empty principal.username }">
+							<div class="grid">					 
+							  <div class="g-col-3 g-start-9">								  	
+							  	<input class="form-control" type="text" value="${principal.username } 님 환영합니다!" aria-label="readonly input example" readonly>
+							  </div>
+							</div>
+						</c:when>									
+						<c:when test="${empty principal.username }">
+							<div class="grid">					 
+							  <div class="g-col-3 g-start-9">
+							  	<input class="form-control" type="text" value="비로그인 상태입니다" aria-label="readonly input example" readonly>
+							  </div>
+							</div>
+						</c:when>		
+					</c:choose>								 
+				</div>
+
 				<div class="d-none">
 			    	<form action="${logoutUrl }" id="logoutForm" method="post"></form>
 			    </div>
+						
 
 			</div>
 		</div>
