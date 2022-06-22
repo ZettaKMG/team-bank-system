@@ -32,14 +32,24 @@
 					<tbody>
 						<c:forEach items="${qnaList }" var="qna">
 						<tr>
-							<td>${qna.id }</td>
-							<td>${qna.title }</td>
+							<td>${qna.id }</td>							
+							<c:url value="/qnaBoard/get" var="getUrl">
+								<c:param name="id" value="${qna.id }"></c:param>
+							</c:url>
+							<td onClick="location.href='${getUrl }'" style="cursor:pointer;">
+								<c:out value="${qna.title }" /> 
+							</td>
 							<td>${qna.user_id }</td>
 							<td>${qna.newInserted }</td>
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				<div class="submit-button-group">
+					<form action="${appRoot }/qnaBoard/write">
+						<button class="btn btn-primary" type="submit"><i class="fa-solid fa-pencil"></i> 글쓰기</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -23,20 +23,18 @@
 				<form action="">
 					<div>
 						<label class="form-label" for="inputTitle">제목</label>
-						<input class="form-control" type="text" name="title" required id="inputTitle" readonly/>
+						<input class="form-control" type="text" name="title" id="inputTitle" value="${qna.title }" readonly/>
 					</div>
 					
 					<div>
 						<label class="form-label" for="inputText">본문</label>
-						<textarea class="form-control" name="body" id="inputText" cols="30" rows="10" readonly></textarea>
-					</div>
-					<div>
-						파일
-						<input multiple="multiple" type="file" name="file" accept="image/*"/>
+						<textarea class="form-control" name="body" id="inputText" cols="30" rows="10" readonly>${qna.body }</textarea>
 					</div>
 					
-					<button id="modify-submit1" class="btn btn-primary">수정</button>
-					<button id="delete-submit1" class="btn btn-danger">삭제</button>
+					<div class="button-group mt-3">
+						<button id="modify-submit1" class="btn btn-primary">수정</button>
+						<button id="delete-submit1" class="btn btn-danger">삭제</button>
+					</div>
 				</form>
 			</div>
 		</div>

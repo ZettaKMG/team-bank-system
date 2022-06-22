@@ -19,7 +19,7 @@
 	<bank:navBar current="qnaWrite"></bank:navBar>
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12 col-lg-10">
+			<div class="col-12 col-lg-10 mt-3">
 				<h3>문의</h3>
 				<form action="${appRoot }/qnaBoard/write" method="post">
 					<div>
@@ -32,7 +32,9 @@
 						<textarea class="form-control" name="body" id="inputText" cols="30" rows="10"></textarea>
 					</div>
 					
-					<button class="btn btn-primary">작성</button>
+					<div class="button-group mt-3">
+						<button class="btn btn-primary">작성</button>
+					</div>
 				</form>
 			</div>
 		</div>

@@ -40,7 +40,8 @@ public class QnaController {
 	
 	
 	@GetMapping("get")
-	public void qnaGetPage() {
-		
+	public void qnaGetPage(int id, Model model) {
+		QnaDto qna = qnaService.getQnaBoardById(id);
+		model.addAttribute("qna", qna);
 	}
 }

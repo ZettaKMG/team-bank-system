@@ -13,4 +13,10 @@
 		SELECT id, title, user_id, inserted
 		FROM Qna
 	</select>
+	
+	<select id="selectQnaBoardById" resultType="com.klk.bank.domain.QnaDto">
+		SELECT id, title, body, user_id
+		FROM Qna
+		WHERE id = #{id}
+	</select>
 </mapper>

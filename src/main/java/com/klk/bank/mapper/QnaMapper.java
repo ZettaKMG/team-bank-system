@@ -10,4 +10,6 @@ public interface QnaMapper {
 
 	List<QnaDto> selectQnaBoardAll();
 
+	QnaDto selectQnaBoardById(int id);
+
 }
