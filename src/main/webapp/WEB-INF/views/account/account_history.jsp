@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "bank" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,39 +18,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<bank:navBar current="account_list"/>
-    <div class="container">
+	<bank:navBar current="account_history"/>
+	<div class="container">
         <div class="row">
             <div class="col">
                 <table class="table table-bordered caption-top align-middle">
-                    <caption style="text-align: center;">계좌리스트</caption>
+                    <caption style="text-align: center;">계좌이력</caption>
                     <thead>
                         <tr class="text-center">
+                            <th>번호</th>
                             <th>계좌번호</th>
-                            <th>고객번호</th>
-                            <th>고객명</th>
-                            <th>상품번호</th>
-                            <th>비밀번호</th>
-                            <th>잔고</th>
-                            <th>계좌생성일</th>
+                            <th>입출금구분</th>
+                            <th>금액</th>
+                            <th>입출금날짜</th>
                         </tr>
-
                     </thead>
 
                     <tbody>
-						<c:forEach items="${account_list }" var="account">
+						<c:forEach items="${account_history }" var="transfer">
 							<tr class="text-center">
-								<td>
-									<c:url value="${account.account_num }" var="get_url" />
-																		
-									<a href="${get_url }">${account.account_num }</a>
-								</td>
-								<td>${account.account_user_id }</td>
-								<td>${account.account_user_name }</td>
-								<td>${account.account_item_id }</td>
-								<td>${account.account_pw }</td>
-								<td>${account.account_balance }원</td>
-								<td>${account.account_date }</td>
+								
+								<td>${transfer.trans_id}</td>
+								<td>${transfer.trans_account_num}</td>
+								<td>${transfer.trans_div }</td>
+								<td>${transfer.trans_cost }원</td>
+								<td>${transfer.trans_date }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -58,25 +51,5 @@
             </div>
         </div>
     </div>
-	
-	<bank:account_page_nav current="account_list"/>
-
-	<nav class="navbar navbar-light bg-light">
-		<div class="container-fluid justify-content-center">
-			<form class="d-flex" action="${appRoot }/account/account_list">
-				<select name="type" class="form-select w-50">
-					<option value="account_num">계좌번호</option>
-					<option value="account_user_name">계좌주</option>
-				</select>
-
-				<input class="form-control me-2" type="search" name="keyword"
-					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
-		</div>
-	</nav>
-
-
 </body>
-
 </html>
