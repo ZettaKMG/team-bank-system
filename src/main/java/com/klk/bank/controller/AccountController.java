@@ -60,7 +60,7 @@ public class AccountController {
 		
 		if (success) {
 			rttr.addAttribute("message", "계좌가 개설되었습니다.");
-			return "redirect:/product/search";
+			return "redirect:/account/account_get";
 		} else {
 			rttr.addAttribute("message", "계좌가 개설되지 않았습니다.");
 			return "redirect:/account/account_list";
