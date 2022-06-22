@@ -17,9 +17,11 @@
 			<choose>
 				<when test="type == 'account_num'">
 					WHERE a.account_num LIKE #{keyword}
+					ORDER BY a.account_num 
 				</when>
 				<when test="type == 'account_user_name'">
 					WHERE u.user_name LIKE #{keyword}
+					ORDER BY u.user_name
 				</when>
 			</choose>
 		</if>
@@ -78,6 +80,22 @@
 		SELECT COUNT(account_num)
 		FROM Account
 		WHERE account_num = #{account_num}
+	</select>
+	
+	<insert id="insertTransfer"> 
+		INSERT INTO Transfer(trans_account_num, trans_div, trans_cost)
+		VALUES (#{trans_account_num}, #{trans_div}, #{trans_cost})
+	</insert>
+	
+	<select id="selectTransferAccount" resultType="com.klk.bank.domain.TransferDto">
+		SELECT trans_id,
+			   trans_account_num,
+			   trans_div,
+			   trans_cost,
+			   trans_date
+		FROM Transfer
+		WHERE trans_account_num = #{account_num}
+	
 	</select>
 	
 </mapper>

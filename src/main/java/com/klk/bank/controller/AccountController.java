@@ -1,5 +1,6 @@
 package com.klk.bank.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.AccountPageInfoDto;
+import com.klk.bank.domain.TransferDto;
 import com.klk.bank.service.AccountService;
 
 @Controller
@@ -30,8 +32,6 @@ public class AccountController {
 							@RequestParam(name = "type", defaultValue = "") String type,
 							@RequestParam(name = "keyword", defaultValue = "") String keyword, 
 							Model model) {
-		
-		
 		
 		AccountPageInfoDto page_info = new AccountPageInfoDto();
 		page_info.setCurrent_page(page);
@@ -109,6 +109,26 @@ public class AccountController {
 		
 	}
 	
+	@PostMapping(path = "send_cost_check", params = {"send_account_num", "send_account_cost"})
+	@ResponseBody
+	public String sendCostCheck(String send_account_num, String send_account_cost){
+		boolean exist = account_service.hasAccountNum(send_account_num);
+				
+		if(exist) {
+			AccountDto send_account = account_service.getAccount(send_account_num);
+			BigDecimal b1 = new BigDecimal(send_account_cost);
+			
+			int cnt1 = send_account.getAccount_balance().compareTo(b1);
+			if(cnt1 < 0) {
+				return "notOk";
+			} else {
+				return "ok";
+			}			
+		} 
+		
+		return "";
+	}
+	
 	@PostMapping(path = "account_send_check", produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> accountSendCheck(String send_account_num){
 		boolean exist = account_service.hasAccountNum(send_account_num);
@@ -122,7 +142,6 @@ public class AccountController {
 		
 	}
 	
-	
 	@GetMapping("account_transfer")
 	public void accountTransfer() {
 		
@@ -135,5 +154,11 @@ public class AccountController {
 		return "redirect:/account/account_list";
 	}
 	
+	@PostMapping("account_history")
+	public void accountHistory(String account_num, Model model) {
+		List<TransferDto> list = account_service.getAccountHistory(account_num);
+		
+		model.addAttribute("account_history", list);
+	}
 
 }

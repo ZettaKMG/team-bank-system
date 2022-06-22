@@ -86,6 +86,10 @@ public class UserService {
 	public List<UserDto> getUserList(String role) {
 		return userMapper.selectAllUserList(role);
 	}
+	
+	public List<UserDto> getUserListById(String role, String keyword) {
+		return userMapper.selectUserListById(role, keyword);
+	}
 
 	public void modifyUserRole(String user_id, String user_role) {
 		userMapper.updateAuth(user_id, user_role);

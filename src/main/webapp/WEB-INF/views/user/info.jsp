@@ -121,13 +121,17 @@
 </script>
 </head>
 <body>
-	<bank:userNavBar current="info"></bank:userNavBar>
+	<bank:navBar current="info"></bank:navBar>
 
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12 col-lg-6">
+			<div class="col-12 col-lg-10">
 			
-				<h1>회원 정보 보기</h1>
+				<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
+					<div class="lh-1 d-flex">
+						<h1 class="h6 text-white">회원 정보</h1>
+					</div>
+				</div>
 				
 				<div>
 					<p>${message }</p>

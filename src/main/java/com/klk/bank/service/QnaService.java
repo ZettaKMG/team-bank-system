@@ -1,0 +1,38 @@
+package com.klk.bank.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.klk.bank.domain.QnaDto;
+import com.klk.bank.mapper.QnaMapper;
+
+@Service
+public class QnaService {
+	
+	@Autowired
+	QnaMapper qnaMapper;
+
+	public void insertQnaBoard(QnaDto qna) {
+		qnaMapper.insertQnaBoard(qna);
+	}
+
+	public List<QnaDto> qnaBoardList() {
+		return qnaMapper.selectQnaBoardAll();
+	}
+
+	public QnaDto getQnaBoardById(int id) {
+		return qnaMapper.selectQnaBoardById(id);
+	}
+
+	public void updateQnaBoard(QnaDto qna) {
+		qnaMapper.updateQnaBoard(qna);
+	}
+
+	public void deleteQnaBoard(QnaDto qna) {
+		qnaMapper.deleteQnaBoard(qna);
+	}
+	
+	
+}
