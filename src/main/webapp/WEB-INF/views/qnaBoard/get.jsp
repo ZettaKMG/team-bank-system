@@ -32,6 +32,17 @@
 				qnaForm.submit();
 			}
 		});
+		
+		$("#qna-remove-submit").click(function(e) {
+			e.preventDefault();
+			
+			if(confirm("삭제하시겠습니까?")) {
+				let qnaForm = $("#qnaContentForm");
+				let actionAttr = "${appRoot}/qnaBoard/remove";
+				qnaForm.attr("action", actionAttr);
+				qnaForm.submit();
+			}
+		});
 	});
 </script>
 <title>Insert title here</title>
@@ -57,7 +68,7 @@
 						<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
 						<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
 						<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
-						<button id="qna-delete-submit" class="btn btn-danger">삭제</button>
+						<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
 					</div>
 				</form>
 			</div>

@@ -29,6 +29,10 @@ public class QnaService {
 	public void updateQnaBoard(QnaDto qna) {
 		qnaMapper.updateQnaBoard(qna);
 	}
+
+	public void deleteQnaBoard(QnaDto qna) {
+		qnaMapper.deleteQnaBoard(qna);
+	}
 	
 	
 }

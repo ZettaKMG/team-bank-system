@@ -14,4 +14,6 @@ public interface QnaMapper {
 
 	void updateQnaBoard(QnaDto qna);
 
+	void deleteQnaBoard(QnaDto qna);
+
 }

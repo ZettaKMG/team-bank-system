@@ -47,12 +47,21 @@ public class QnaController {
 	
 	@PostMapping("modify")
 	public String qnaModify(QnaDto qna, Principal principal) {
-		System.out.println("controller" + qna.getId() + qna.getTitle() + qna.getBody());
 		QnaDto oldQna = qnaService.getQnaBoardById(qna.getId());
 		if(oldQna.getUser_id().equals(principal.getName())) {
 			qnaService.updateQnaBoard(qna);			
 		}
 		
 		return "redirect:/qnaBoard/get?id=" + qna.getId();
+	}
+	
+	@PostMapping("remove")
+	public String qnaRemove(QnaDto qna, Principal principal) {
+		QnaDto oldQna = qnaService.getQnaBoardById(qna.getId());
+		if(oldQna.getUser_id().equals(principal.getName())) {
+			qnaService.deleteQnaBoard(qna);			
+		}
+		
+		return "redirect:/qnaBoard/list";
 	}
 }
