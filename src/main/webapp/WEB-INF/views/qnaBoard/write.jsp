@@ -20,7 +20,8 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-10">
-				<form action="">
+				<h3>문의</h3>
+				<form action="${appRoot }/qnaBoard/write" method="post">
 					<div>
 						<label class="form-label" for="inputTitle">제목</label>
 						<input class="form-control" type="text" name="title" required id="inputTitle" />
@@ -29,10 +30,6 @@
 					<div>
 						<label class="form-label" for="inputText">본문</label>
 						<textarea class="form-control" name="body" id="inputText" cols="30" rows="10"></textarea>
-					</div>
-					<div>
-						파일
-						<input multiple="multiple" type="file" name="file" accept="image/*"/>
 					</div>
 					
 					<button class="btn btn-primary">작성</button>
