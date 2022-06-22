@@ -89,23 +89,24 @@
 							<a class="nav-link" ${current == 'signup' ? 'active' : '' } href="${signUpUrl }">회원가입</a>
 						</li>
 					</sec:authorize>
-					<c:choose>	
-						<c:when test="${principal.username != '' }">
-							<div class="grid">					 
-							  <div class="g-col-3 g-start-9">
-							  	<input class="form-control" type="text" value="${principal.username } 님 환영합니다!" aria-label="readonly input example" readonly>
-							  </div>
-							</div>
-						</c:when>									
-						<c:when test="${principal.username == '' }">
-							<div class="grid">					 
-							  <div class="g-col-3 g-start-9">
-							  	<input class="form-control" type="text" value="익명의 고객님 반갑습니다!" aria-label="readonly input example" readonly>
-							  </div>
-							</div>
-						</c:when>		
-					</c:choose>								 
 				</ul>
+				<!-- 로그인시에는 "로그인한 ID 님 환영합니다!!!" 메세지를, 비로그인시에는 "비로그인 상태입니다!"메세지 출력  -->
+				<c:choose>	
+					<c:when test="${not empty principal.username }">
+						<div class="grid">					 
+						  <div class="g-col-3 g-start-9">
+						  	<input class="form-control" type="text" value="${principal.username } 님 환영합니다!" aria-label="readonly input example" readonly>
+						  </div>
+						</div>
+					</c:when>									
+					<c:when test="${empty principal.username }">
+						<div class="grid">					 
+						  <div class="g-col-3 g-start-9">
+						  	<input class="form-control" type="text" value="비로그인 상태입니다" aria-label="readonly input example" readonly>
+						  </div>
+						</div>
+					</c:when>		
+				</c:choose>								 
 			</div>
 		</div>
 	</nav>
