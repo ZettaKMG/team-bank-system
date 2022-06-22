@@ -16,8 +16,10 @@
 
 <script>
 	$(function() {
+		
 		let account1_ok = false;
 		let account2_ok = false;
+		let send_cost_ok = false;
 		
 		$("#account1_num_check").click(function(e) {
 			e.preventDefault();
@@ -37,6 +39,7 @@
 					$("#account1_num_message").text("사용가능한 계좌번호입니다.");
 					$("#send_enable_cost").text("송금가능한 금액 : " + data + "원");	
 					$("#send_account1").val($("#input2").val());
+					$("#input3").removeAttr("disabled");
 					account1_ok = true;
 					
 				},
@@ -49,6 +52,51 @@
 				}
 			});
 		});	
+		
+		$("#send_cost_check").click(function(e) {
+			e.preventDefault();
+			
+			$(this).attr("disabled", "");
+			
+			const data = {
+				send_account_num : $("#input2").val(),
+				send_account_cost : $("#input3").val()
+			};
+			
+			$.ajax({
+				url : "${appRoot}/account/send_cost_check",
+				type : "post",
+				data : data,
+				
+				success : function(data) {
+					switch(data){
+						case "ok" : 
+							$("#send_enable_cost1").text("가능한 금액입니다.");
+							send_cost_ok = true;
+							break;
+						
+						case "notOk" : 
+							$("#send_enable_cost1").text("불가능한 금액입니다.");
+							send_cost_ok = false;
+							break;
+						
+						case "" :
+							$("#send_enable_cost1").text("계좌가 존재하지 않습니다.");
+							break;
+							
+					}
+					
+				},
+				error : function() {
+					$("#send_enable_cost1").text("금액확인 중 오류가 발생하였습니다.");
+				},
+				complete : function() {
+					$("#send_cost_check").removeAttr("disabled");
+					enable_submit();
+				}
+			});
+			
+		});
 		
 		$("#account2_num_check").click(function(e) {
 				e.preventDefault();
@@ -122,7 +170,7 @@
 		});
 		
 		const enable_submit = function() {
-			if(account1_ok && account2_ok) {
+			if(account1_ok && account2_ok && send_cost_ok) {
 				$("#account_transfer_execute").removeAttr("disabled");
 			} else {
 				$("#account_transfer_execute").attr("disabled", "");
@@ -151,12 +199,14 @@
 					<button class="btn btn-secondary" type="button" id="account1_num_check">계좌확인</button>
 				</div>
 				<div class="form-text" id="account1_num_message"></div>
-				
-				<div id="send_enable_cost" class="form-text"></div>				
+				<div id="send_enable_cost" class="form-text"></div>
+								
 				<label for="input3" class="form-label">송금액</label>
 				<div class="input-group mb-3">
-					<input id="input3" class="form-control" type="text" name="send_account_cost" />
+					<input id="input3" class="form-control" type="text" name="send_account_cost" disabled/>
+					<button class="btn btn-secondary" type="button" id="send_cost_check">송금액확인</button>
 				</div>
+				<div class="form-text" id="send_enable_cost1"></div>
 
 				<label for="input4" class="form-label">받는사람</label>
 				<div class="input-group mb-3">

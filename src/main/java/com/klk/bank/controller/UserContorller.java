@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 import com.klk.bank.domain.UserDto;
 import com.klk.bank.service.UserService;
 
@@ -86,6 +87,18 @@ public class UserContorller {
 		model.addAttribute("userList", userList);	
 	}
 	
+	@PostMapping("list")
+	@ResponseBody
+	public List<UserDto> list(@RequestParam(name = "role", defaultValue = "") String role) {
+		return userService.getUserList(role);
+	}
+	
+	@PostMapping("search")
+	@ResponseBody
+	public List<UserDto> searchUserList(@RequestParam(name = "role", defaultValue = "") String role, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+		return userService.getUserListById(role, keyword);
+	}
+	
 	@GetMapping("info")
 	public String getUser(String user_id, Principal principal, HttpServletRequest request, Model model) {
 		if (hasAuthOrAdmin(user_id, principal, request)) {
@@ -146,4 +159,5 @@ public class UserContorller {
 		userService.modifyUserRole(user_id, user_role);
 		return "redirect:/user/list";
 	}
+	
 }

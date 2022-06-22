@@ -121,7 +121,7 @@
 </script>
 </head>
 <body>
-	<bank:userNavBar current="signup"></bank:userNavBar>
+	<bank:navBar current="signup"></bank:navBar>
 
 	<div class="container">
 		<div class="row justify-content-center">
