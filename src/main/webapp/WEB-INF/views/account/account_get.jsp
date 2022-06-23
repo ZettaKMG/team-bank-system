@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix = "bank" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
@@ -19,11 +20,13 @@
 		let pw_ok = false;
 		
 		$("#account_update_start").click(function() {
-			$("#input2").removeAttr("readonly");
-			$("#input3").removeAttr("readonly"); 
-			$("#input4").removeAttr("readonly");
-			$("#input5").removeAttr("readonly");
-			$("#input6").removeAttr("readonly");
+			<sec:authorize access="hasRole('ADMIN')">
+				$("#input2").removeAttr("readonly");
+				$("#input3").removeAttr("readonly"); 
+				$("#input4").removeAttr("readonly");
+				$("#input5").removeAttr("readonly");
+			</sec:authorize>
+			
 			$("#password_input1, #password_input2").removeAttr("readonly");
 			
 			$("#account_update_start").addClass("d-none");
@@ -86,7 +89,7 @@
 					</div>
 
 					<label for="passwordInput1" class="form-label">계좌비밀번호</label> 
-					<input class="form-control" id="password_input1" type="text" name="account_pw" value="${account.account_pw }" readonly /> 
+					<input class="form-control" id="password_input1" type="text" name="account_pw" readonly /> 
 					<label for="passwordInput2" class="form-label">계좌비밀번호확인</label> 
 					<input class="form-control"	id="password_input2" type="text" name="account_pw_confirm" readonly />
 					<p class="form-text" id="pw_check"></p>

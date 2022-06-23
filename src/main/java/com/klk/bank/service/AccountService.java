@@ -48,6 +48,11 @@ public class AccountService {
 	}
 
 	public boolean modifyAccount(AccountDto account) {
+		
+		String encoded_password = password_encoder.encode(account.getAccount_pw());
+		
+		account.setAccount_pw(encoded_password);
+		
 		int cnt = account_mapper.updateAccount(account);
 		return cnt == 1;
 	}
@@ -59,7 +64,7 @@ public class AccountService {
 
 	public int searchCountAccount(String type, String keyword) {
 		
-		return account_mapper.selectSearchCountAccount(type, keyword);
+		return account_mapper.selectSearchCountAccount(type, "%" + keyword + "%");
 	}
 
 	public boolean hasAccountNum(String account_num) {
@@ -121,6 +126,34 @@ public class AccountService {
 
 	public List<TransferDto> getAccountHistory(String account_num) {
 		return account_mapper.selectTransferAccount(account_num);
+	}
+
+	public int searchCurrentUserCountAccount(String user_id, String type, String keyword) {
+		
+		return account_mapper.selectSearchCurrentUserCountAccount(user_id, type, "%" + keyword + "%");
+	}
+
+	public List<AccountDto> listCurrentUserAccount(AccountPageInfoDto page_info, String user_id, String type,
+			String keyword) {
+		
+		int row_per_page = page_info.getRowPerPage();
+		int from = (page_info.getCurrent_page() - 1) * row_per_page;
+		
+		return account_mapper.selectCurrentUserAccount(from, row_per_page, user_id, type, "%" + keyword + "%");
+		
+	}
+
+	public boolean accountPwCheck(String send_account_num, String send_account_pw) {
+		
+		AccountDto send_account = account_mapper.selectAccount(send_account_num);
+		
+		String encoded_pw = send_account.getAccount_pw();
+		
+		if(password_encoder.matches(send_account_pw, encoded_pw)) { 
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

@@ -27,7 +27,7 @@
                         <tr class="text-center">
                             <th>계좌번호</th>
                             <th>고객번호</th>
-                            <th>고객명</th>
+                            <th>고객ID</th>
                             <th>상품번호</th>
                             <th>비밀번호</th>
                             <th>잔고</th>
@@ -66,7 +66,7 @@
 			<form class="d-flex" action="${appRoot }/account/account_list">
 				<select name="type" class="form-select w-50">
 					<option value="account_num">계좌번호</option>
-					<option value="account_user_name">계좌주</option>
+					<option value="account_user_name">고객ID</option>
 				</select>
 
 				<input class="form-control me-2" type="search" name="keyword"
