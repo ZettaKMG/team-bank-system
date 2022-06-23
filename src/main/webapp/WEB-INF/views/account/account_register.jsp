@@ -174,32 +174,32 @@
 					<div class="form-text" id="account_num_message"></div>
 
 					<label for="password_input1" class="form-label">패스워드</label>
-					<input class="form-control" id="password_input1" type="text" name="account_pw" required />
+					<input class="form-control" id="password_input1" type="text" placeholder="숫자 4자리 입력" name="account_pw" required />
 
 					<label for="password_input2" class="form-label">패스워드 확인</label>
-					<input class="form-control" id="password_input2" type="text" name="account_pw_confirm" required />
+					<input class="form-control" id="password_input2" type="text" placeholder="숫자 4자리 입력" name="account_pw_confirm" required />
 					<p class="form-text" id="pw_check"></p>
 					
 					<label for="input2" class="form-label">유저번호</label>
 					<div class="input-group mb-3">
-						<input id="input2" class="form-control" type="text" name="account_user_id" value="${user.user_id }" required readonly />
+						<input id="input2" value="${user.user_id }" class="form-control" type="text" name="account_user_id" required readonly />
 					</div>
 
 					<label for="input3" class="form-label">상품번호</label>
 					<div class="input-group mb-3">
-						<input id="input3" class="form-control" type="text" name="account_item_id" value="${product.id }" required readonly />
+						<input id="input3" value="${product.id }" class="form-control" type="text" name="account_item_id" required readonly />
 					</div>
 					
 					<!-- DB 미반영 항목 -->
 					<label for="input4" class="form-label">상품명</label>
 					<div class="input-group mb-3">
-						<input id="input4" class="form-control" type="text" name="product_item_name" value="${product.item_name }" required readonly />
+						<input id="input4" value="${product.item_name }" class="form-control" type="text" name="product_item_name" required readonly />
 					</div>
 					
 					<!-- DB 미반영 항목 -->
 					<label for="input5" class="form-label">이율</label>
 					<div class="input-group mb-3">
-						<input id="input5" class="form-control" type="text" name="product_rate" value="${product.rate }" required readonly />
+						<input id="input5" value="${product.rate }" class="form-control" type="text" name="product_rate" required readonly />
 					</div>
 
 					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>

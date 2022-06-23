@@ -16,20 +16,7 @@
 
 <script>
 	$(document).ready(function() {
-		/*
-		$("#edit_button1").click(function() {
-			$("#item_name").removeAttr("readonly");
-			$("#item_summary").removeAttr("readonly");
-			$("#detail").removeAttr("readonly");
-			$("#sav_method").removeAttr("readonly");
-			$("#exp_period").removeAttr("readonly");
-			$("#rate").removeAttr("readonly");
-			$("#edit_submit1").removeClass("d-none");
-			$("#delete_submit1").removeClass("d-none");			
-		});
-		*/
-
-		// <!-- 수정 버튼 누를시 수정 여부 묻는 메세지 창  -->
+		/* 수정 버튼 누를시 이벤트 */
 		$("#edit_submit1").click(function(e) {
 			e.preventDefault();
 			
@@ -39,10 +26,12 @@
 				form1.attr("action1", actionAttr1);
 				
 				form1.submit();
+			} else {
+				return false;
 			}
 		});		
 		
-		// <!-- 삭제 버튼 누를시 삭제 여부 묻는 메세지 창 -->
+		/* 삭제 버튼 누를시 이벤트 */
 		$("#remove_submit1").click(function(e) {
 			e.preventDefault();
 			
@@ -52,6 +41,8 @@
 				form2.attr("action2", actionAttr2);
 				
 				form2.submit();
+			} else {
+				return false;
 			}
 		});
 	});
@@ -86,30 +77,7 @@
 <body>
 	<bank:navBar></bank:navBar>
 
-	<div class="container">
-				
-		<!-- 상품 수정 여부 modal -->
-		<!-- 
-		<c:if test="${not empty message }">			
-			<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="my_modal_lable">상품 수정 여부</h5>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
-			      </div>
-			      <div class="modal-body">
-			        <p>${message }</p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>		        
-			      </div>
-			    </div>
-			  </div>
-			</div>					
-		</c:if>
-		 -->
-				
+	<div class="container">				
 		<form role="form" id="form1" action="${appRoot }/product/edit?id=${product.id }" method="post">
 			<div class="form-group">
 			<input type="hidden" name="id" value="${product.id }" />
@@ -172,8 +140,8 @@
 			
 			<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
 			  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
-			  <button type="submit" id="edit_submit1" data-oper='modify' class="btn btn-warning">상품정보 수정</button>
-			  <button type="submit" id="remove_submit1" data-oper='remove' class="btn btn-danger">상품정보 삭제</button>
+			  <button type="button" id="edit_submit1" data-oper='modify' class="btn btn-warning">상품정보 수정</button>
+			  <button type="button" id="remove_submit1" data-oper='remove' class="btn btn-danger">상품정보 삭제</button>
 			</div>
 		</form>		
 	</div>

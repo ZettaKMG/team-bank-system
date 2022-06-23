@@ -18,13 +18,20 @@
 		/* 수정 모드 진입 여부 묻는 메세지 창 */
 		$("#into_edit_mode_button").click(function(e) {
 			e.preventDefault();
-			
-			if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) {
+						
+			if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) { // 확인 누를시 진입
 				let form1 = $("#form1");
 				let actionAttr1 = "${appRoot}/product/edit";
 				form1.attr("action1", actionAttr1);
 				
 				form1.submit();
+			} else { // 취소 누를시 현재 페이지에 그대로
+				history.back();
+				/* let form1 = $("#form1");
+				let actionAttr1 = "${appRoot}/product/detail?id=" + ${product.id};
+				form1.attr("action1", actionAttr1);
+				
+				form1.submit(); */								
 			}
 		});	
 		
@@ -32,18 +39,26 @@
 		$("#open_an_account_button").click(function(e) {
 			e.preventDefault();
 			
-			if (confirm("계좌개설 메뉴로 이동하시겠습니까?")) {
+			if (confirm("계좌개설 메뉴로 이동하시겠습니까?")) { // 확인 누를시 진입
 				let form2 = $("#form2");
-				let actionAttr2 = "${appRoot}/product/openAnAccount";
+				let actionAttr2 = "${appRoot}/account/account_register";
 				form2.attr("action2", actionAttr2);
 				
 				form2.submit();
+			} else { // 취소 누를시 현재 페이지에 그대로
+				history.back();
+				/* let form2 = $("#form2");
+				let actionAttr2 = "${appRoot}/product/detail?id=" + ${product.id};
+				form2.attr("action2", actionAttr2);
+				
+				form2.submit(); */
 			}
 		});	
 	});
 </script>
 
 <script type="text/javascript">
+	<!-- Modal 창 -->
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -87,7 +102,7 @@
 		  </div>
 		</div>		
 	</c:if>	
-	
+			
 	<div class="container">				 
 		<input type="hidden" name="id" value="${product.id }" />
 		
@@ -149,6 +164,6 @@
 		  </sec:authorize>		
 		</div>	
 	</div>
-
+	
 </body>
 </html>
