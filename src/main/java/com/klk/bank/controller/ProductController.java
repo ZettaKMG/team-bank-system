@@ -61,7 +61,7 @@ public class ProductController {
 	@PostMapping("registration")
 	public String registrationPage(ProductDto product, Principal principal, RedirectAttributes rttr) {
 				
-		product.setUser_id(principal.getName());
+//		product.setUser_id(principal.getName());
 		boolean success = productService.insertProduct(product);
 		
 		if (success) {
