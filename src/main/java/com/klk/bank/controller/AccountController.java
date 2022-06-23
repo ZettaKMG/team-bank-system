@@ -1,6 +1,7 @@
 package com.klk.bank.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.AccountPageInfoDto;
+import com.klk.bank.domain.ProductDto;
 import com.klk.bank.domain.TransferDto;
+import com.klk.bank.domain.UserDto;
 import com.klk.bank.service.AccountService;
+import com.klk.bank.service.ProductService;
+import com.klk.bank.service.UserService;
 
 @Controller
 @RequestMapping("account")
@@ -27,6 +33,12 @@ public class AccountController {
 	
 	@Autowired
 	private AccountService account_service;
+	
+	@Autowired
+	private ProductService product_service;
+	
+	@Autowired
+	private UserService user_service;
 	
 	@RequestMapping("account_list")
 	public void accountList(@RequestParam(name = "page", defaultValue = "1") int page,
@@ -54,16 +66,29 @@ public class AccountController {
 	}
 	
 	@PostMapping("account_register")
-	public String accountRegister(AccountDto account, RedirectAttributes rttr) {
+	public String accountRegister(AccountDto account, ProductDto product, UserDto user, Model model, MultipartFile[] file, RedirectAttributes rttr) {
+		System.out.println(product);
+		System.out.println(user);
 		
-		boolean success = account_service.addAccount(account);
+		model.addAttribute("product", product);
+		model.addAttribute("user", user);
+		
+		if (file != null) {
+			List<String> file_list = new ArrayList<String>();
+			for (MultipartFile f : file) {
+				file_list.add(f.getOriginalFilename());
+			}
+			account.setFile_name(file_list);
+		}
+				
+		boolean success = account_service.addAccount(account, user, product, file);
 		
 		if (success) {
 			rttr.addAttribute("message", "계좌가 개설되었습니다.");
 			return "redirect:/account/account_get";
 		} else {
 			rttr.addAttribute("message", "계좌가 개설되지 않았습니다.");
-			return "redirect:/account/account_list";
+			return "redirect:/account/account_register";
 		}
 		
 //		return "redirect:/account/account_list";

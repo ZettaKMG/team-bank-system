@@ -98,4 +98,9 @@
 	
 	</select>
 	
+	<insert id="insertFile">
+		INSERT INTO File (file_account_num, file_name)
+		VALUES (#{file_account_num}, #{file_name})
+	</insert>
+	
 </mapper>
