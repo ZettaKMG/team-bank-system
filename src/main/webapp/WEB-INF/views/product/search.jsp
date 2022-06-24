@@ -44,7 +44,7 @@
 			const term = $("#term").val();
 			const payment = $("#monthly_payment").val();
 			
-			var result = payment * term * (term + 1) / 2 * (rate / 100) / 12;				
+			var result = (payment * term) + (payment * term * (term + 1) / 2 * (rate / 100) / 12);				
 			$("#calculate_result").attr("value", result);
 						
 		});			

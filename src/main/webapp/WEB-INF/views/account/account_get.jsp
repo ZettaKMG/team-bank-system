@@ -53,6 +53,7 @@
 			if(pw1 === pw2){
 				$("#pw_check").text("패스워드가 일치합니다.");
 				pw_ok = true;
+				$("#password_input1, #password_input2").attr("readonly", "");
 			} else {
 				$("#pw_check").text("패스워드가 일치하지 않습니다.");
 			}

@@ -62,6 +62,8 @@
 		}
 	});
 </script>
+
+
 	
 <title>상품 상세정보 페이지</title>
 </head>
@@ -149,6 +151,8 @@
 		  </sec:authorize>		
 		</div>	
 	</div>
-
+	
+	
+	
 </body>
 </html>
