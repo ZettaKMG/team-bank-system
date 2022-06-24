@@ -36,10 +36,7 @@ public class ProductController {
 	
 	@Autowired
 	private AccountService accountService;
-	
-//	@Autowired
-//	private ReplyService replyService;
-	
+		
 	// 상품 조회
 	@GetMapping("search")
 	public void searchPage(@RequestParam(name = "keyword", defaultValue = "") String keyword, @RequestParam(name = "sav_method", defaultValue = "") String sav_method, @RequestParam(name = "exp_period", defaultValue = "") String exp_period, @RequestParam(name = "rate", defaultValue = "") String rate, Model model) {
@@ -75,12 +72,12 @@ public class ProductController {
 
 	// 상품 상세정보, 수정
 	@GetMapping({"detail", "edit"})
-	public void searchDetailPage(@RequestParam("id") Integer id, Model model) {
+	public void searchDetailPage(@RequestParam("id") Integer id, /*@RequestParam String user_id, UserDto user,*/ Model model) {
 		
 		ProductDto product = productService.getProductById(id);
-//		List<ReplyDto> replyList = replyService.getReplyByProductId(id);
+//		userService.getUserById(user_id);
 		model.addAttribute("product", product);
-//		model.addAttribute("reply_list", replyList);
+//		model.addAttribute("user", user);
 		
 	}
 

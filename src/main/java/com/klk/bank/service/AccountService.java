@@ -61,7 +61,7 @@ public class AccountService {
 //		this.s3.close();
 //	}
 	
-	public boolean addAccount(AccountDto account, UserDto user, ProductDto product/*, MultipartFile[] files */) {
+	public boolean addAccount(AccountDto account/*, MultipartFile[] files */) {
 		// 평문암호를 암호화(encoding)
 		String encodedPassword = password_encoder.encode(account.getAccount_pw());
 		
@@ -69,7 +69,7 @@ public class AccountService {
 		account.setAccount_pw(encodedPassword);
 		
 		// addAccount
-		int cnt = account_mapper.insertAccount(account, user, product);
+		int cnt = account_mapper.insertAccount(account);
 		
 //		addFiles(account.getAccount_user_id(), files);
 		

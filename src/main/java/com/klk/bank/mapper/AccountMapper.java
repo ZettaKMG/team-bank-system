@@ -13,7 +13,7 @@ public interface AccountMapper {
 
 	List<AccountDto> selectAllAccount(@Param("from")int from, @Param("row_per_page")int row_per_page, @Param("type") String type, @Param("keyword")String keyword);
 
-	int insertAccount(AccountDto account, UserDto user, ProductDto product);
+	int insertAccount(AccountDto account);
 
 	AccountDto selectAccount(String account_num);
 

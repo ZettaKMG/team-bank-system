@@ -61,18 +61,21 @@ public class AccountController {
 	}
 	
 	@GetMapping("account_register")
-	public void accountRegister() {
+	public void accountRegister(/*ProductDto product, UserDto user, Model model*/) {
+//		System.out.println("계좌 개설 화면.......");
+//		System.out.println("받은 데이터는 어디에?>>>?????");
+//		
+//		System.out.println(product);
+//		System.out.println(user);
+//		
+//		model.addAttribute("product", product);
+//		model.addAttribute("user", user);
 		
 	}
 	
 	@PostMapping("account_register")
-	public String accountRegister(AccountDto account, ProductDto product, UserDto user, Model model, /* MultipartFile[] file, */ RedirectAttributes rttr) {
-		System.out.println(product);
-		System.out.println(user);
-		
-		model.addAttribute("product", product);
-		model.addAttribute("user", user);
-		
+	public String accountRegister(AccountDto account, /*ProductDto product, UserDto user, Model model,*//* MultipartFile[] file, */ RedirectAttributes rttr) {
+				
 		/*
 		if (file != null) {
 			List<String> file_list = new ArrayList<String>();
@@ -82,8 +85,13 @@ public class AccountController {
 			account.setFile_name(file_list);
 		}
 		*/
+//		System.out.println(product);
+//		System.out.println(user);
+//		
+//		model.addAttribute("product", product);
+//		model.addAttribute("user", user);		
 				
-		boolean success = account_service.addAccount(account, user, product/*, file */);
+		boolean success = account_service.addAccount(account/*, file */);
 		
 		if (success) {
 			rttr.addAttribute("message", "계좌가 개설되었습니다.");
