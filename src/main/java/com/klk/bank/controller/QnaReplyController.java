@@ -1,13 +1,13 @@
 package com.klk.bank.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.klk.bank.domain.QnaReplyDto;
 import com.klk.bank.service.QnaReplyService;
@@ -33,5 +33,15 @@ public class QnaReplyController {
 		}
 		
 		return "redirect:/qnaBoard/get?id=" + dto.getQna_id();
+	}
+	
+	@PostMapping("list")
+	@ResponseBody
+	public List<QnaReplyDto> list(int qna_id, Principal principal) {
+		if (principal == null) {
+			return qnaRepService.getReplyByQnaId(qna_id);
+		} else {
+			return qnaRepService.getReplyWithOwnByQnaId(qna_id, principal.getName());
+		}
 	}
 }

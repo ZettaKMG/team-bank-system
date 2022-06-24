@@ -43,6 +43,73 @@
 				qnaForm.submit();
 			}
 		});
+		
+		// 페이지 로딩 후 댓글 목록
+		const listReply = function() {
+			const data = {qna_id : ${qna.id}};
+			$.ajax({
+				url : "${appRoot}/qnaReply/list",
+				type : "post",
+				data : data,
+				dataType : "json",
+				success : function(list) {
+					const replyListElement = $("#replyList");
+					replyListElement.empty();
+					
+					// 댓글 개수
+					$("#numOfReply1").text(list.length);
+					
+					for (let i = 0; i < list.length; i++) {
+						const replyElement = $("<li class='list-group-item' />");
+						replyElement.html(`
+							<div id="replyDisplayContainer\${list[i].id }">
+								<div class="d-flex fw-bold">
+									<i class="fa-solid fa-comment"></i>
+									<span class="mx-2">\${list[i].user_id}</span>
+									<div class="ms-auto">
+										<span class="reply-edit-toggle-button badge bg-info text-dark"
+											id="replyEditToggleButton${list[i].id }"
+											data-reply-id="\${list[i].id }">
+											<i class="fa-solid fa-pen-to-square"></i>
+										</span>
+										<span class="reply-delete-button badge bg-danger"
+											data-reply-id="\${list[i].id }">
+											<i class="fa-solid fa-trash-can"></i>
+										</span>
+									</div>
+								</div>
+								<div class="d-flex form-label">
+									<span><c:out value="\${list[i].qna_rep_content }" /></span>
+									<span class="ms-auto">\${list[i].changeTimeInserted }</span>
+								</div>
+							</div>
+
+							<div id="replyEditFormContainer\${list[i].id }"
+								style="display: none;">
+								<form action="${appRoot }/reply/modify" method="post">
+									<div class="input-group">
+										<input type="hidden" name="boardId" value="${qna.id }" />
+										<input type="hidden" name="id" value="\${list[i].id }" />
+										<input class="form-control" value="\${list[i].qna_rep_content }"
+											type="text" name="content" required />
+										<button class="btn btn-outline-secondary">
+											<i class="fa-solid fa-comment-dots"></i>
+										</button>
+									</div>
+								</form>
+							</div>
+						`);
+						replyListElement.append(replyElement);
+					}
+				}, 
+				error : function() {
+					console.log("댓글 가져오기 실패");
+				}
+			});
+		}
+		
+		// 댓글 가져오는 함수 실행
+		listReply();
 	});
 </script>
 <title>Insert title here</title>
@@ -91,6 +158,59 @@
 					<div class="alert alert-primary" style="display:none; " id="replyMessage"></div>
 				</div>
 				
+				<div class="row mt-3">
+					<div class="col">
+						<h3>댓글 <span id="numOfReply"></span> 개</h3>
+		
+						<ul id="replyList" class="list-group">
+							<%-- 
+							<c:forEach items="${replyList }" var="reply">
+								<li class="list-group-item">
+									<div id="replyDisplayContainer${reply.id }">
+										<div class="d-flex fw-bold">
+											<i class="fa-solid fa-comment"></i>
+											<span class="mx-2">${reply.user_id}</span>
+											<div class="ms-auto">
+												<span class="reply-edit-toggle-button badge bg-info text-dark"
+													id="replyEditToggleButton${reply.id }"
+													data-reply-id="${reply.id }">
+													<i class="fa-solid fa-pen-to-square"></i>
+												</span>
+												<span class="reply-delete-button badge bg-danger"
+													data-reply-id="${reply.id }">
+													<i class="fa-solid fa-trash-can"></i>
+												</span>
+											</div>
+										</div>
+										<div class="d-flex form-label">
+											<span><c:out value="${reply.qna_rep_content }" /></span>
+											<span class="ms-auto">${reply.changeTimeInserted }</span>
+										</div>
+		
+		
+									</div>
+		
+									<div id="replyEditFormContainer${reply.id }"
+										style="display: none;">
+										<form action="${appRoot }/reply/modify" method="post">
+											<div class="input-group">
+												<input type="hidden" name="boardId" value="${qna.id }" />
+												<input type="hidden" name="id" value="${reply.id }" />
+												<input class="form-control" value="${reply.qna_rep_content }"
+													type="text" name="content" required />
+												<button class="btn btn-outline-secondary">
+													<i class="fa-solid fa-comment-dots"></i>
+												</button>
+											</div>
+										</form>
+									</div>
+								</li>
+							</c:forEach> 
+							--%>
+						</ul>
+					</div>
+				</div>
+		
 			</div>
 		</div>
 	</div>
