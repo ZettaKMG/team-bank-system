@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.klk.bank.mapper.QnaReplyMapper">
+	<insert id="insertQnaReply">
+		INSERT INTO Qna_Reply(qna_id, user_id, qna_rep_content, qna_rep_parent, qna_rep_dep)
+		VALUES (#{qna_id}, #{user_id}, #{qna_rep_content}, #{qna_rep_parent}, #{qna_rep_dep})
+	</insert>
+</mapper>

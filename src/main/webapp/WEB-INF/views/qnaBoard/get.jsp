@@ -52,25 +52,45 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-10 mt-3">
-				<form id="qnaContentForm" action="" method="post">
-					<input type="hidden" name="id" value="${qna.id }"/>
-					<div>
-						<label class="form-label" for="inputTitle">제목</label>
-						<input class="form-control" type="text" name="title" id="inputTitle" value="${qna.title }" readonly/>
-					</div>
-					
-					<div>
-						<label class="form-label" for="inputText">본문</label>
-						<textarea class="form-control" name="body" id="inputText" cols="30" rows="10" readonly>${qna.body }</textarea>
-					</div>
-					
-					<div class="button-group mt-3">
-						<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
-						<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
-						<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
-						<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
-					</div>
-				</form>
+				<div>
+					<form id="qnaContentForm" action="" method="post">
+						<input type="hidden" name="id" value="${qna.id }"/>
+						<div>
+							<label class="form-label" for="inputTitle">제목</label>
+							<input class="form-control" type="text" name="title" id="inputTitle" value="${qna.title }" readonly/>
+						</div>
+						
+						<div>
+							<label class="form-label" for="inputText">본문</label>
+							<textarea class="form-control" name="body" id="inputText" cols="30" rows="10" readonly>${qna.body }</textarea>
+						</div>
+						
+						<div class="button-group mt-3">
+							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
+							<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
+							<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
+							<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
+						</div>
+					</form>
+				</div>
+				
+				<%-- 댓글 추가 form --%>
+				<div class="row mt-3">
+					<form id="addReplyForm" action="${appRoot}/qnaReply/write" method="post">
+						<div class="input-group">
+							<input type="hidden" name="qna_id" value="${qna.id }" />
+							<input id="addReplyContentInput" class="form-control" type="text" name="qna_rep_content" required />
+							<button id="addReplySubmitButton" class="btn btn-outline-secondary">
+								<i class="fa-solid fa-comment-dots"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+				
+				<div class="row mt-3">
+					<div class="alert alert-primary" style="display:none; " id="replyMessage"></div>
+				</div>
+				
 			</div>
 		</div>
 	</div>
