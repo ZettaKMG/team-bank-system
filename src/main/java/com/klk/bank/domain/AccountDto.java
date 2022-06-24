@@ -15,5 +15,5 @@ public class AccountDto {
 	private String account_pw;
 	private BigDecimal account_balance;
 	private LocalDateTime account_date;
-	private List<String> file_name;
+//	private List<String> file_name;
 }

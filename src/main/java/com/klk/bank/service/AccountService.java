@@ -37,10 +37,10 @@ public class AccountService {
 	@Autowired
 	private BCryptPasswordEncoder password_encoder;
 	
-	private S3Client s3;
-	
-	@Value("${aws.s3.bucketName}")
-	private String bucketName;
+//	private S3Client s3;
+//	
+//	@Value("${aws.s3.bucketName}")
+//	private String bucketName;
 	
 	public List<AccountDto> listAccount(AccountPageInfoDto page_info, String type, String keyword) {
 		
@@ -50,18 +50,18 @@ public class AccountService {
 		return account_mapper.selectAllAccount(from, row_per_page, type, "%" + keyword + "%");
 	}	
 	
-	@PostConstruct
-	public void init() {
-		Region region = Region.AP_NORTHEAST_2;
-		this.s3 = S3Client.builder().region(region).build();
-	}
+//	@PostConstruct
+//	public void init() {
+//		Region region = Region.AP_NORTHEAST_2;
+//		this.s3 = S3Client.builder().region(region).build();
+//	}
+//	
+//	@PreDestroy
+//	public void destroy() {
+//		this.s3.close();
+//	}
 	
-	@PreDestroy
-	public void destroy() {
-		this.s3.close();
-	}
-	
-	public boolean addAccount(AccountDto account, UserDto user, ProductDto product, MultipartFile[] files) {
+	public boolean addAccount(AccountDto account, UserDto user, ProductDto product/*, MultipartFile[] files */) {
 		// 평문암호를 암호화(encoding)
 		String encodedPassword = password_encoder.encode(account.getAccount_pw());
 		
@@ -71,11 +71,12 @@ public class AccountService {
 		// addAccount
 		int cnt = account_mapper.insertAccount(account, user, product);
 		
-		addFiles(account.getAccount_user_id(), files);
+//		addFiles(account.getAccount_user_id(), files);
 		
 		return cnt == 1;
 	}
 	
+	/*
 	private void addFiles(String account_num, MultipartFile[] files) {
 		// 파일 등록
 		if (files != null) {
@@ -126,6 +127,7 @@ public class AccountService {
 			throw new RuntimeException(e);			
 		}
 	}
+	*/
 
 	public AccountDto getAccount(String account_num) {
 		

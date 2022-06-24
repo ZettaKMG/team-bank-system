@@ -34,10 +34,10 @@ public class AppListener implements ServletContextListener {
                 
          application.setAttribute("appRoot", application.getContextPath());
         
-        
+         /*
          String image_url = "https://bucket0207-1472589630.s3.ap-northeast-2.amazonaws.com";
          application.setAttribute("image_url", image_url);
-        
+         */
     }
 	
 }

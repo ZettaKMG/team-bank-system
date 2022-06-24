@@ -66,13 +66,14 @@ public class AccountController {
 	}
 	
 	@PostMapping("account_register")
-	public String accountRegister(AccountDto account, ProductDto product, UserDto user, Model model, MultipartFile[] file, RedirectAttributes rttr) {
+	public String accountRegister(AccountDto account, ProductDto product, UserDto user, Model model, /* MultipartFile[] file, */ RedirectAttributes rttr) {
 		System.out.println(product);
 		System.out.println(user);
 		
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 		
+		/*
 		if (file != null) {
 			List<String> file_list = new ArrayList<String>();
 			for (MultipartFile f : file) {
@@ -80,8 +81,9 @@ public class AccountController {
 			}
 			account.setFile_name(file_list);
 		}
+		*/
 				
-		boolean success = account_service.addAccount(account, user, product, file);
+		boolean success = account_service.addAccount(account, user, product/*, file */);
 		
 		if (success) {
 			rttr.addAttribute("message", "계좌가 개설되었습니다.");

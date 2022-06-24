@@ -29,7 +29,7 @@ public interface AccountMapper {
 
 	List<TransferDto> selectTransferAccount(String account_num);
 
-	void insertFile(@Param("account_num") String account_num, @Param("file_name") String file_name);
+//	void insertFile(@Param("account_num") String account_num, @Param("file_name") String file_name);
 
 	
 
