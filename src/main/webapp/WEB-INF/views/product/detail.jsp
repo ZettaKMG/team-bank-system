@@ -113,9 +113,9 @@
 					<tr>					
 						<td>								
 							<div class="input-group mb-3">
-							  <span class="input-group-text" id="sav_method">상품종류</span>
+							  <span class="input-group-text" id="sav_method">상품종류
 							  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required readonly />
-							  
+							  </span>							  
 							</div>									
 						</td>	
 					</tr>
