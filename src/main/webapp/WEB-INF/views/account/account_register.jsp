@@ -137,7 +137,7 @@
 					<!-- 불러올때는 User 테이블의 user_id 컬럼값, DB에는 Account 테이블의 account_user_id 컬럼값으로 저장 -->
 					<label for="input2" class="form-label">유저번호</label>
 					<div class="input-group mb-3">
-						<input id="input2" value="${user.user_id }" class="form-control" type="text" name="account_user_id" required readonly />
+						<input id="input2" value="${principal.username }" class="form-control" type="text" name="account_user_id" required readonly />
 					</div>
 
 					<!-- 불러올때는 Product 테이블의 id 컬럼값, DB에는 Account 테이블의 account_item_id 컬럼값으로 저장 -->
