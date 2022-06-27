@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,6 +61,7 @@ public class ProductReviewController {
 		if (principal == null) {
 			return ResponseEntity.status(401).build();
 		} else {
+			
 			boolean success = product_review_service.updateProductReview(dto, principal);
 			
 			if (success) {
@@ -67,8 +70,24 @@ public class ProductReviewController {
 			
 			return ResponseEntity.status(500).body("");
 			
-		}
+		}	
+	}
+	
+	@DeleteMapping(path = "delete/{id}", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> productReviewRemove(@PathVariable("id") int id, Principal principal) {
 		
+		if (principal == null) {
+			return ResponseEntity.status(401).build();
+		} else {
+			boolean success = product_review_service.removeProductReview(id, principal);
+			
+			if (success) {
+				return ResponseEntity.ok("댓글을 삭제 하였습니다.");
+			} else {
+				return ResponseEntity.status(500).body("");
+			}
+			
+		}
 	}
 	
 }

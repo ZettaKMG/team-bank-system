@@ -21,5 +21,27 @@
 		INSERT INTO Product_rev (product_rev_item_id, product_rev_user_id, product_rev_content)
 		VALUES (#{product_rev_item_id}, #{product_rev_user_id}, #{product_rev_content})
 	</insert>
-
+	
+	<select id="selectProductReview" resultType="com.klk.bank.domain.ProductReviewDto">
+		SELECT p.id,
+			   p.product_rev_item_id,
+			   p.product_rev_user_id,
+			   p.product_rev_content,
+			   p.product_rev_inserted
+		FROM Product_rev p   
+		WHERE p.id = #{id}
+		ORDER BY id
+	</select>
+	
+	<update id="updateProductReview">
+		UPDATE Product_rev
+		SET product_rev_content = #{product_rev_content}
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteProductReview">
+		DELETE FROM Product_rev
+		WHERE id = #{id}
+	</delete>
+	
 </mapper>

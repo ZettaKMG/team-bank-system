@@ -13,4 +13,10 @@ public interface ProductReviewMapper {
 
 	int insertProductReview(ProductReviewDto dto);
 
+	ProductReviewDto selectProductReview(int id);
+
+	int updateProductReview(ProductReviewDto dto);
+
+	int deleteProductReview(int id);
+
 }

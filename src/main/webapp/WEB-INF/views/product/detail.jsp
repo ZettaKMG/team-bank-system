@@ -104,7 +104,7 @@
 											<input type="hidden" name="product_rev_item_id" value="${product.id }" />
 											<input type="hidden" name="id" value="\${list[i].id }" />
 											<input class="form-control" value="\${list[i].product_rev_content }"
-												type="text" name="content" required />
+												type="text" name="product_rev_content" required />
 											<button data-reply-id="\${list[i].id}" 
 													id ="rev_modify_submit"        
 													class="btn btn-outline-secondary">
@@ -115,17 +115,18 @@
 								</div>
 							`);
 						rev_list_element.append(rev_element);					
+						
 						$("#rev_content"+ list[i].id).text(list[i].product_rev_content);
 						
 						// own(사용자 일치여부)가 true일때만, 수정 삭제 버튼 보임
 						if (list[i].own) {
 							$("#modify_button_wrapper" + list[i].id).html(`
-								<span class="reply-edit-toggle-button badge bg-info text-dark"
+								<span class="rev_edit_toggle_button badge bg-info text-dark"
 									id="rev_edit_toggle_button\${list[i].id }"
 									data-reply-id="\${list[i].id }">
 									<i class="fa-solid fa-pen-to-square"></i>
 								</span>
-								<span class="reply-delete-button badge bg-danger"
+								<span class="rev_delete_button badge bg-danger"
 									data-reply-id="\${list[i].id }">
 									<i class="fa-solid fa-trash-can"></i>
 								</span>
@@ -135,42 +136,80 @@
 					} // end of for
 					
 					$("#rev_modify_submit").click(function(e) {
-					e.preventDefault();
+						e.preventDefault();
+						
+						const id = $(this).attr("data-reply-id");
+						const formElem = $("#rev_edit_form_container" + id).find("form");
+						const data = {
+							product_rev_item_id : formElem.find("[name=product_rev_item_id]").val(),
+							id : formElem.find("[name=id]").val(),
+							product_rev_content : formElem.find("[name=product_rev_content]").val()
+						};
+						
+						$.ajax({
+							url : "${appRoot }/product_review/modify",
+							type : "put",
+							data : JSON.stringify(data),
+							contentType : "application/json",
+							success : function(data) {
+								console.log("수정 성공");
+														
+							},
+							error : function() {
+								
+								console.log("수정 실패");
+							},
+							complete : function() {
+								// 댓글 refresh
+								list_rev();
+								console.log("수정 종료");
+							}
+						});
+					});
 					
-					const id = $(this).attr("data-reply-id");
-					const formElem = $("#rev_edit_form_container" + id).find("form");
-					const data = {
-						product_rev_item_id : formElem.find("[name=product_rev_item_id]").val(),
-						id : formElem.find("[name=id]").val(),
-						product_rev_content : formElem.find("[name=product_rev_content]").val()
-					};
+					$(".rev_edit_toggle_button").click(function() {
+						
+						const rev_id = $(this).attr("data-reply-id");
+						const display_div_id = "#rev_display_container" + rev_id;
+						const edit_form_id = "#rev_edit_form_container" + rev_id;
+												
+						$(display_div_id).hide();
+						$(edit_form_id).show();
+					});	
 					
-					$.ajax({
-						url : "${appRoot }/product_review/modify",
-						type : "put",
-						data : JSON.stringify(data),
-						contentType : "application/json",
-						success : function(data) {
-							console.log("수정 성공");
-															
-							// 댓글 refresh
-							listReply();
-						},
-						error : function() {
-							
-							console.log("수정 실패");
-						},
-						complete : function() {
-							console.log("수정 종료");
+					$(".rev_delete_button").click(function() {
+						const rev_id = $(this).attr("data-reply-id");
+						const message = "댓글을 삭제하시겠습니까?";
+						
+						if (confirm(message)) {
+														
+							$.ajax({
+								url : "${appRoot}/product_review/delete/" + rev_id,
+								type : "delete",
+								success : function(data){
+										// 댓글 list refresh
+										list_rev();
+								},
+									
+								error : function(){
+									console.log(rev_id + "댓글 삭제 중 문제 발생");
+									
+								},
+								complete : function(){
+									console.log(rev_id + "댓글 삭제 끝");
+								}
+							});
 						}
 					});
-				});
-		
+				},
+				
+				error : function() {
+					console.log("댓글 가져오기 실패");
 				}
-			
 			}); 
 		}				
-			
+		
+		list_rev();
 		
 		$("#add_rev_submit1").click(function(e) {
 			e.preventDefault();
@@ -198,9 +237,6 @@
 		
 			});
 		});	 
-		
-		list_rev();
-			
 	});
 
 </script>
@@ -320,14 +356,6 @@
 			</div>
 		</div>
 	</div>
-	
-	<%-- 댓글 삭제 --%>
-	<%-- <div class="d-none">
-		<form id="delete_rev_form1" action="${appRoot }/reply/delete" method="post">
-			<input id="replyDeleteInput1" type="text" name="id" />
-			<input type="text" name="boardId" value="${board.id }" />
-		</form>
-	</div> --%>
 	
 </body>
 </html>

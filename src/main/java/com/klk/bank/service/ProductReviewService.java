@@ -21,13 +21,31 @@ public class ProductReviewService {
 	}
 
 	public boolean addProductReview(ProductReviewDto dto) {
-		// TODO Auto-generated method stub
+		
 		return product_review_mapper.insertProductReview(dto) == 1;
 	}
 
 	public boolean updateProductReview(ProductReviewDto dto, Principal principal) {
-		// TODO Auto-generated method stub
-		return false;
+		ProductReviewDto old = product_review_mapper.selectProductReview(dto.getId());
+		
+		if(old.getProduct_rev_user_id().equals(principal.getName())) {
+			return product_review_mapper.updateProductReview(dto) == 1;
+		} else {
+			return false;
+		}
+		
+	}
+
+	public boolean removeProductReview(int id, Principal principal) {
+		ProductReviewDto old = product_review_mapper.selectProductReview(id);
+		
+		if(old.getProduct_rev_user_id().equals(principal.getName())) {
+			return product_review_mapper.deleteProductReview(id) == 1;
+		} else {
+			return false;
+		}
+		
+		
 	}
 
 }
