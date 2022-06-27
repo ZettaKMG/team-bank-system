@@ -43,7 +43,7 @@
 	});
 </script>
 
-<script type="text/javascript">
+<script>
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -63,7 +63,109 @@
 	});
 </script>
 
+<script>
+	$(function() {
+		
+		// 페이지 로딩 후 reply list 가져오는 ajax요청	
+		const list_rev = function(){
+		
+			const data = { product_rev_item_id : ${product.id} };	
+		
+			$.ajax({
+				url : "${appRoot}/product_review/list",
+				type : "get",
+				data : data,
+				success : function(list) {
+										
+					const rev_list_element = $("#rev_list1");
+					rev_list_element.empty();
+					
+					for(let i = 0; i < list.length; i++){
+						const rev_element = $("<li class='list-group-item' />");
+						
+						rev_element.html(`
+								
+								<div id="rev_display_container\${list[i].id }">
+									<div class="fw-bold">
+										<i class="fa-solid fa-comment"></i> 
+										\${list[i].inserted}
+									 	<span id="modify_button_wrapper\${list[i].id }"></span>
+									</div>
+										<span class="badge bg-light text-dark">
+										<i class="fa-solid fa-user"></i>
+										\${list[i].product_rev_user_id}
+										</span>
+							 			<span id="rev_content\${list[i].id}"></span>
+								</div>
+								
+								<div id="replyEditFormContainer\${list[i].id }" style="display: none;">
+									<form action="${appRoot}/reply/modify" method="post">
+										<div class="input-group">
+											<input type="hidden" name="boardId" value="${board.id }" />
+											<input type="hidden" name="id" value="\${list[i].id }" />
+											<input class="form-control" value="\${list[i].content }" 
+												type="text" name="content" required /> 
+											<button data-reply-id="\${list[i].id}" 
+												class="reply-modify-submit btn btn-outline-secondary">
+												<i class="fa-solid fa-comment-dots"></i></button>
+										</div>
+									</form>
+								</div>
+							`);
+						rev_list_element.append(replyElement);					
+						//댓글내용을 그냥 보여줄 경우, 수정할 때 스크립트문을 이용한 공격을 통해 보안상의 이슈가 발생할 수 있음
+						//그래서 댓글에 대한 화면을 다 구성한 후 내용을 삽입하는것으로 해결
+						$("#rev_content"+ list[i].id).text(list[i].content);
+						
+						// own이 true일 때만 수정, 삭제 버튼 보이기
+					/* 	if(list[i].own){
+							$("#modify_button_wrapper" + list[i].id).html(`<span class="reply-edit-toggle-button badge bg-info text-dark" 
+							 		id="replyEditToggleButton\${list[i].id }" 
+							 		data-reply-id="\${list[i].id }" >
+							 		<i class="fa-solid fa-pen-to-square"></i>
+						 		</span>
+							 	<span class="reply-delete-button badge bg-danger" 
+							 		data-reply-id="\${list[i].id }">
+							 		<i class="fa-solid fa-trash-can"></i>
+							 	</span>`);
+						} */
+						
+					} // end of for
+				});
+		
+			$("#add_rev_submit1").click(function(e) {
+				e.preventDefault();
+				
+				const data = $("#insert_rev_form1").serialize();
+				
+				$.ajax({
+					url : "${appRoot}/product_review/insert",
+					type : "post",
+					data : data,
+					success : function(data) {
+						// text input 초기화
+						$("#insert_rev_content_input1").val("");
+						// 모든 댓글 가져오는 ajax요청
+						list_rev();
+					},
+					
+					error : function() {
+						
+						console.log("문제 발생");
+						
+					},
+					
+					complete : function() {
+						console.log("요청 완료");
+					}
+				});
+			});	
+			
+			
+			
+	});
 
+</script>
 	
 <title>상품 상세정보 페이지</title>
 </head>
@@ -136,7 +238,7 @@
 		</div>
 		<div class="mt-3 mb-3">
 			<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
-		    <textarea class="form-control" name="detail" id="detail" rows="10" readonly>${product.detail }</textarea>
+		    <textarea class="form-control" name="detail" id="detail" rows="5" readonly>${product.detail }</textarea>
 		</div>			
 		
 		<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
@@ -152,7 +254,42 @@
 		</div>	
 	</div>
 	
+	<%-- 댓글 목록 --%>
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col">
+				<h4>상품평</h4>			
+				<ul id="rev_list1" class="list-group">
+				
+				</ul>
+			</div>
+		</div>
+	</div>
 	
+	<%-- 댓글 추가 --%>
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col">
+				<form id="insert_rev_form1">
+					<div class="input-group">
+						<input type="hidden" name="product_id" value="${product.id }" />
+						<input id="insert_rev_content_input1" class="form-control" type="text" name="content" required /> 
+						<button id="add_rev_submit1" class="btn btn-outline-secondary">
+							<i class="fa-solid fa-comment-dots"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<%-- 댓글 삭제 --%>
+	<%-- <div class="d-none">
+		<form id="delete_rev_form1" action="${appRoot }/reply/delete" method="post">
+			<input id="replyDeleteInput1" type="text" name="id" />
+			<input type="text" name="boardId" value="${board.id }" />
+		</form>
+	</div> --%>
 	
 </body>
 </html>

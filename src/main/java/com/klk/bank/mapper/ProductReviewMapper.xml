@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.klk.bank.mapper.ProductReviewMapper">
+
+<select id="selectProductReview" resultType="com.klk.bank.domain.ProductReviewDto">
+
+	SELECT id,
+		   product_rev_item_id,
+		   product_rev_user_id,
+		   product_rev_content,
+		   product_rev_inserted
+	FROM Product_rev	    
+	WHERE product_rev_item_id = #{product_rev_item_id}
+
+</select>
+
+	<insert id="insertProductReview">
+	INSERT INTO Product_rev (product_rev_item_id, product_rev_user_id, product_rev_content)
+	VALUES (#{product_rev_item_id}, #{product_rev_user_id}, #{product_rev_content})
+	</insert>
+
+</mapper>
