@@ -24,11 +24,11 @@
 				let form1 = $("#form1");
 				let actionAttr2 = "${appRoot}/product/edit";
 				form1.attr("action", actionAttr2);
-				form1.attr("method", "post");
+				/* form1.attr("method", "post"); */
 				
 				form1.submit();
-			} else {
-				//history.back();
+			} else { // 취소시 아무일도 안 일어남
+			
 			}
 		});		
 		
@@ -40,46 +40,22 @@
 				let form1 = $("#form1");
 				let actionAttr3 = "${appRoot}/product/remove";
 				form1.attr("action", actionAttr3);
-				form1.attr("method", "post");
+				/* form1.attr("method", "post"); */
 				
 				form1.submit();
-			} else {
-				//history.back();
+			} else { // 취소시 아무일도 안 일어남
+				
 			}
 		});
 	});
 </script>
-
-<!-- <script type="text/javascript">
-	$(document).ready(function() {
-		var formObj = $("form");
-		$('button').on("click", function(e) {
-			e.preventDefault();
-			
-			var operation = $(this).data("oper");
-			console.log(operation);
-			if (operation === 'remove') {
-				formObj.attr("action", "${appRoot}/product/remove");
-			} else if (operation === 'modify') {
-				// detail창으로 이동
-				// self.location = "${appRoot}/product/detail?id=" + ${product.id };
-				// return;
-			} else if (operation === 'search') {
-				// search창으로 이동
-				self.location = "${appRoot}/product/search";
-				return;
-			}
-			formObj.submit();
-		});
-	});
-</script> -->
 	
 <title>상품 상세정보 페이지</title>
 </head>
 <body>
 	<bank:navBar></bank:navBar>
 
-	<form id="form1" action="" method="">
+	<form id="form1" action="" method="post">
 	<div class="container">				
 			<div class="form-group">
 			<input type="hidden" name="id" value="${product.id }" />

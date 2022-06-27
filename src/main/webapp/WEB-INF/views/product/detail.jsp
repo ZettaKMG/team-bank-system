@@ -84,7 +84,7 @@
 		      </div>
 		      <div class="modal-body">
 		        <p>${message }</p>
-		      </div>
+		      </div> 
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>		        
 		      </div>
