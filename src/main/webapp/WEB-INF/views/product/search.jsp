@@ -40,17 +40,23 @@
 		$("#calculate").click(function(e) {
 			e.preventDefault();
 						
-			const rate = $("#yearly_rate").val();
-			const term = $("#term").val();
-			const payment = $("#monthly_payment").val();
+			const rate = Number($("#yearly_rate").val());
+			const term = Number($("#term").val());
+			const payment = Number($("#monthly_payment").val());
+			console.log(rate);
+			console.log(term);
+			console.log(payment);
 			
 			// 단리 이율 방식
 			var result1 = payment * term; // 총 월납입금
-			var result2 = payment * term * (term + 1) / 2 * (rate / 100) / 12; // 가입기간 동안의 총 이자
+			var result2 = payment * term * (term + 1) / 2 * ((rate / 100) / 12); // 가입기간 동안의 총 이자
 			var result3 = result1 + result2; // 위 두 항의 합계
 			$("#calculate_result1").attr("value", result1);
 			$("#calculate_result2").attr("value", result2);
 			$("#calculate_result3").attr("value", result3);
+			console.log(result1);
+			console.log(result2);
+			console.log(result3);
 						
 		});			
 	});
