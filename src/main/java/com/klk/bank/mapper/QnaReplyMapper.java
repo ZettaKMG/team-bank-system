@@ -18,4 +18,6 @@ public interface QnaReplyMapper {
 
 	int updateQnaReply(QnaReplyDto dto);
 
+	int deleteQnaReply(int id);
+
 }

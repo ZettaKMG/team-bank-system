@@ -42,4 +42,9 @@
 		SET qna_rep_content = #{qna_rep_content}
 		WHERE id = #{id}	
 	</update>
+	
+	<delete id="deleteQnaReply">
+		DELETE FROM Qna_Reply
+		WHERE id = #{id}
+	</delete>
 </mapper>

@@ -101,8 +101,7 @@
 						}
 					}
 					
-					// reply-edit-toggle-button 클릭시 댓글 보여주는 div 숨기고,
-					// 수정 form 보여주기
+					// reply-edit-toggle-button 클릭시 댓글 보여주는 div 숨기고, 수정 form 보여주기
 					$(".reply-edit-toggle-button").click(function() {
 						const replyId = $(this).attr("data-reply-id");
 						const displayDivId = "#replyDisplayContainer" + replyId;
@@ -133,7 +132,7 @@
 								// 메세지 보여주기
 								$("#replyMessage").show().text(data).fadeOut(3000);
 								
-								// 댓글 refresh
+								// 댓글목록 새로고침
 								listReply();
 							},
 							error : function() {
@@ -142,6 +141,30 @@
 							complete : function() {
 							}
 						});
+					});
+					
+					// reply-delete-button 클릭시 댓글 삭제
+					$(".reply-delete-button").click(function() {
+						const replyId = $(this).attr("data-reply-id");
+						const message = "댓글을 삭제하시겠습니까?";
+
+						if (confirm(message)) {
+							$.ajax({
+								url : "${appRoot}/qnaReply/delete/" + replyId,
+								type : "delete",
+								success : function(data) {
+									// 댓글 list refresh
+									listReply();
+									// 메세지 출력
+									$("#replyMessage").show().text(data).fadeOut(3000);
+								},
+								error : function() {
+									$("#replyMessage").show().text("댓글을 삭제할 수 없습니다.").fadeOut(3000);
+								},
+								complete : function() {
+								}
+							});
+						}
 					});
 				}, 
 				error : function() {
@@ -210,6 +233,14 @@
 		
 			</div>
 		</div>
+	</div>
+	
+	<%-- 댓글 삭제 form --%>
+	<div class="d-none">
+		<form id="replyDeleteForm1" action="${appRoot }/qnaReply/delete" method="post">
+			<input id="replyDeleteInput1" type="text" name="id" />
+			<input type="text" name="qna_id" value="${qna.id }" />
+		</form>
 	</div>
 </body>
 </html>

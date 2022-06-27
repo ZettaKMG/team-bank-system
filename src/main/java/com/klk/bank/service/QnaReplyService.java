@@ -39,4 +39,14 @@ public class QnaReplyService {
 		}
 	}
 
+	public boolean deleteQnaReply(int id, Principal principal) {
+		QnaReplyDto old = qnaRepMapper.selectReplyByReplyId(id);
+		
+		if(old.getUser_id().equals(principal.getName())) {
+			return qnaRepMapper.deleteQnaReply(id) == 1;			
+		} else {
+			return false;
+		}
+	}
+
 }

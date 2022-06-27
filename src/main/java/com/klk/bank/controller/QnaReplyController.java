@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -60,6 +62,22 @@ public class QnaReplyController {
 				return ResponseEntity.ok("댓글이 변경되었습니다.");
 			}
 			return ResponseEntity.status(500).body("");			
+		}		
+	}
+	
+	@DeleteMapping(path = "delete/{id}", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> delete(@PathVariable("id") int id, Principal principal) {
+		
+		if(principal == null) {
+			return ResponseEntity.status(401).build();
+		} else {
+			boolean success = qnaRepService.deleteQnaReply(id, principal);
+			
+			if (success) {
+				return ResponseEntity.ok("댓글을 삭제하였습니다.");
+			} else {
+				return ResponseEntity.status(500).body("");
+			}			
 		}		
 	}
 }
