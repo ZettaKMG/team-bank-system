@@ -3,10 +3,13 @@ package com.klk.bank.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,20 +17,25 @@ import com.klk.bank.domain.ProductReviewDto;
 import com.klk.bank.service.ProductReviewService;
 
 
-
-@RequestMapping("product_review")
 @RestController
+@RequestMapping("product_review")
 public class ProductReviewController {
 	
+	@Autowired
 	private ProductReviewService product_review_service;
 	
 	@GetMapping("list")
-	public List<ProductReviewDto> productReviewList(int product_rev_item_id) {
+	public List<ProductReviewDto> productReviewList(int product_rev_item_id, Principal principal) {
 		
-		return product_review_service.getProductReview(product_rev_item_id);	
+		if(principal == null) {
+			return product_review_service.getProductReview(product_rev_item_id, null);
+		} else {
+			return product_review_service.getProductReview(product_rev_item_id, principal.getName());
+		}
+			
 	}
 	
-	@PostMapping("insert")
+	@PostMapping(path = "insert", produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> productReviewAdd(ProductReviewDto dto, Principal principal) {
 		
 		if(principal == null) {
@@ -43,6 +51,24 @@ public class ProductReviewController {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
 			}
 		}
+	}
+	
+	@PutMapping(path = "modify", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> productReviewModify(@RequestBody ProductReviewDto dto, Principal principal) {
+
+		if (principal == null) {
+			return ResponseEntity.status(401).build();
+		} else {
+			boolean success = product_review_service.updateProductReview(dto, principal);
+			
+			if (success) {
+				return ResponseEntity.ok("댓글이 변경되었습니다.");
+			}
+			
+			return ResponseEntity.status(500).body("");
+			
+		}
+		
 	}
 	
 }

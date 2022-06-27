@@ -11,4 +11,5 @@ public class ProductReviewDto {
 	private String product_rev_user_id;
 	private String product_rev_content;
 	private LocalDateTime product_rev_inserted;
+	private boolean own;
 }
