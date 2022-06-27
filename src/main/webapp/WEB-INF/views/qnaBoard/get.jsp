@@ -57,7 +57,7 @@
 					replyListElement.empty();
 					
 					// 댓글 개수
-					$("#numOfReply1").text(list.length);
+					$("#numOfReply").text(list.length);
 					
 					for (let i = 0; i < list.length; i++) {
 						const replyElement = $("<li class='list-group-item' />");
@@ -66,17 +66,7 @@
 								<div class="d-flex fw-bold">
 									<i class="fa-solid fa-comment"></i>
 									<span class="mx-2">\${list[i].user_id}</span>
-									<div class="ms-auto">
-										<span class="reply-edit-toggle-button badge bg-info text-dark"
-											id="replyEditToggleButton${list[i].id }"
-											data-reply-id="\${list[i].id }">
-											<i class="fa-solid fa-pen-to-square"></i>
-										</span>
-										<span class="reply-delete-button badge bg-danger"
-											data-reply-id="\${list[i].id }">
-											<i class="fa-solid fa-trash-can"></i>
-										</span>
-									</div>
+									<div class="ms-auto" id="editButtonWrapper\${list[i].id }"></div>
 								</div>
 								<div class="d-flex form-label">
 									<span><c:out value="\${list[i].qna_rep_content }" /></span>
@@ -84,15 +74,13 @@
 								</div>
 							</div>
 
-							<div id="replyEditFormContainer\${list[i].id }"
-								style="display: none;">
-								<form action="${appRoot }/reply/modify" method="post">
+							<div id="replyEditFormContainer\${list[i].id }"	style="display: none;">
+								<form action="${appRoot }/qnaReply/modify" method="post">
 									<div class="input-group">
-										<input type="hidden" name="boardId" value="${qna.id }" />
+										<input type="hidden" name="qna_id" value="${qna.id }" />
 										<input type="hidden" name="id" value="\${list[i].id }" />
-										<input class="form-control" value="\${list[i].qna_rep_content }"
-											type="text" name="content" required />
-										<button class="btn btn-outline-secondary">
+										<input class="form-control" value="\${list[i].qna_rep_content }" type="text" name="qna_rep_content" required />
+										<button data-reply-id="\${list[i].id}"  class="reply-modify-submit btn btn-outline-secondary">
 											<i class="fa-solid fa-comment-dots"></i>
 										</button>
 									</div>
@@ -100,7 +88,61 @@
 							</div>
 						`);
 						replyListElement.append(replyElement);
+						
+						if (list[i].own) {
+							$("#editButtonWrapper" + list[i].id).html(`
+								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }"	data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</span>
+								<span class="reply-delete-button badge bg-danger" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-trash-can"></i>
+								</span>
+							`);
+						}
 					}
+					
+					// reply-edit-toggle-button 클릭시 댓글 보여주는 div 숨기고,
+					// 수정 form 보여주기
+					$(".reply-edit-toggle-button").click(function() {
+						const replyId = $(this).attr("data-reply-id");
+						const displayDivId = "#replyDisplayContainer" + replyId;
+						const editFormId = "#replyEditFormContainer" + replyId;
+
+						$(displayDivId).hide();
+						$(editFormId).show();
+					});
+					
+					// 댓글 수정
+					$(".reply-modify-submit").click(function(e) {
+						e.preventDefault();
+						
+						const id = $(this).attr("data-reply-id");
+						const formElem = $("#replyEditFormContainer" + id).find("form");
+						const data = {
+							qna_id : formElem.find("[name=qna_id]").val(),
+							id : formElem.find("[name=id]").val(),
+							qna_rep_content : formElem.find("[name=qna_rep_content]").val()
+						};
+						
+						$.ajax({
+							url : "${appRoot}/qnaReply/modify",
+							type : "put",
+							data : JSON.stringify(data),
+							contentType : "application/json",
+							success : function(data) {
+								// 메세지 보여주기
+								$("#replyMessage").show().text(data).fadeOut(3000);
+								
+								// 댓글 refresh
+								listReply();
+							},
+							error : function() {
+								$("#replyMessage").show().text("댓글을 수정할 수 없습니다.").fadeOut(3000);
+							},
+							complete : function() {
+							}
+						});
+					});
 				}, 
 				error : function() {
 					console.log("댓글 가져오기 실패");
@@ -162,52 +204,7 @@
 					<div class="col">
 						<h3>댓글 <span id="numOfReply"></span> 개</h3>
 		
-						<ul id="replyList" class="list-group">
-							<%-- 
-							<c:forEach items="${replyList }" var="reply">
-								<li class="list-group-item">
-									<div id="replyDisplayContainer${reply.id }">
-										<div class="d-flex fw-bold">
-											<i class="fa-solid fa-comment"></i>
-											<span class="mx-2">${reply.user_id}</span>
-											<div class="ms-auto">
-												<span class="reply-edit-toggle-button badge bg-info text-dark"
-													id="replyEditToggleButton${reply.id }"
-													data-reply-id="${reply.id }">
-													<i class="fa-solid fa-pen-to-square"></i>
-												</span>
-												<span class="reply-delete-button badge bg-danger"
-													data-reply-id="${reply.id }">
-													<i class="fa-solid fa-trash-can"></i>
-												</span>
-											</div>
-										</div>
-										<div class="d-flex form-label">
-											<span><c:out value="${reply.qna_rep_content }" /></span>
-											<span class="ms-auto">${reply.changeTimeInserted }</span>
-										</div>
-		
-		
-									</div>
-		
-									<div id="replyEditFormContainer${reply.id }"
-										style="display: none;">
-										<form action="${appRoot }/reply/modify" method="post">
-											<div class="input-group">
-												<input type="hidden" name="boardId" value="${qna.id }" />
-												<input type="hidden" name="id" value="${reply.id }" />
-												<input class="form-control" value="${reply.qna_rep_content }"
-													type="text" name="content" required />
-												<button class="btn btn-outline-secondary">
-													<i class="fa-solid fa-comment-dots"></i>
-												</button>
-											</div>
-										</form>
-									</div>
-								</li>
-							</c:forEach> 
-							--%>
-						</ul>
+						<ul id="replyList" class="list-group"></ul>
 					</div>
 				</div>
 		
