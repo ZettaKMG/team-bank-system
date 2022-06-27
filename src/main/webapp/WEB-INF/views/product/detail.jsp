@@ -96,8 +96,7 @@
 	<form id="form1" action="" method="get">	
 	<div class="container">				 
 		<input type="hidden" name="id" value="${product.id }" />
-		<input type="hidden" name="user_id" value="<c:out value='${user.user_id }' />" />
-		
+				
 		<div class="mt-5 mb-3">
 			<label for="item_name" class="form-label"><h4>상품명</h4></label>
 	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required readonly />

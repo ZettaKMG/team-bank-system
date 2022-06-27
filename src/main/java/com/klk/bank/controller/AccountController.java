@@ -62,11 +62,9 @@ public class AccountController {
 	
 	@GetMapping("account_register")
 	public void accountRegister(ProductDto product, UserDto user, Model model) {
-		System.out.println("계좌 개설 화면.......");
-		System.out.println("받은 데이터는 어디에?>>>?????");
-		
-		System.out.println(product);
-		System.out.println(user);
+				
+//		System.out.println(product);
+//		System.out.println(user);
 		
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
@@ -85,8 +83,8 @@ public class AccountController {
 			account.setFile_name(file_list);
 		}
 		*/
-		System.out.println(product);
-		System.out.println(user);
+//		System.out.println(product);
+//		System.out.println(user);
 		
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);		
@@ -94,10 +92,10 @@ public class AccountController {
 		boolean success = account_service.addAccount(account/*, file */);
 		
 		if (success) {
-			rttr.addAttribute("message", "계좌가 개설되었습니다.");
-			return "redirect:/account/account_get";
+//			rttr.addAttribute("message", "계좌가 개설되었습니다.");
+			return "redirect:/account/account_get?account_num=" + account.getAccount_num();
 		} else {
-			rttr.addAttribute("message", "계좌가 개설되지 않았습니다.");
+//			rttr.addAttribute("message", "계좌가 개설되지 않았습니다.");
 			return "redirect:/account/account_register";
 		}
 		
@@ -105,12 +103,31 @@ public class AccountController {
 	}
 	
 	@GetMapping("{account_num}")
-	public String accountGet(@PathVariable("account_num")String account_num, Model model) {
+	public String accountGet(@PathVariable("account_num")String account_num, ProductDto product, UserDto user, Model model) {
+				
 		AccountDto account = account_service.getAccount(account_num);
 		
-		model.addAttribute("account", account);
+		System.out.println(product);
+		System.out.println(user);
+		System.out.println(account);
+		
+		model.addAttribute("account", account);		
+		
+		model.addAttribute("product", product);
+		model.addAttribute("user", user);
 		
 		return "account/account_get";
+	}
+	
+	@PostMapping("account_get")
+	public void accountGet(@PathVariable("account_num") String account_num, AccountDto account, ProductDto product, UserDto user, Model model) {
+		System.out.println(product);
+		System.out.println(user);
+		System.out.println(account);
+		
+		model.addAttribute("account", account);
+		model.addAttribute("product", product);
+		model.addAttribute("user", user);
 	}
 	
 	@PostMapping("account_modify")

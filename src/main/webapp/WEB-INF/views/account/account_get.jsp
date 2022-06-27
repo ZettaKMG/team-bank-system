@@ -69,10 +69,11 @@
 
 </script>
 
-<title>Insert title here</title>
+<title>계좌 상세정보 페이지</title>
 </head>
 <body>
     <bank:navBar current="account_get"/>
+    
     <div class="container">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
@@ -84,14 +85,14 @@
 						<input id="input1" class="form-control" type="text"
 							value="${account.account_num }" readonly />
 					</div>
-
+					
 					<label for="passwordInput1" class="form-label">계좌비밀번호</label> 
-					<input class="form-control" id="password_input1" type="text" name="account_pw" value="${account.account_pw }" readonly /> 
+					<input class="form-control" id="password_input1" type="text" name="account_pw" readonly /> 
 					<label for="passwordInput2" class="form-label">계좌비밀번호확인</label> 
 					<input class="form-control"	id="password_input2" type="text" name="account_pw_confirm" readonly />
 					<p class="form-text" id="pw_check"></p>
 					
-					<label for="input2" class="form-label">고객번호</label>
+					<label for="input2" class="form-label">고객아이디</label>
 					<div class="input-group mb-3">
 						<input id="input2" class="form-control" type="text" name="account_user_id" value="${account.account_user_id }" readonly />
 					</div>
@@ -105,6 +106,18 @@
 					<div class="input-group mb-3">
 						<input id="input4" class="form-control" type="text" name="account_item_id" value="${account.account_item_id }" readonly />
 					</div>
+					
+					<%-- <!-- DB 미반영 항목 -->
+					<label for="input11" class="form-label">상품명</label>
+					<div class="input-group mb-3">
+						<input id="input11" value="${product.item_name }" class="form-control" type="text" name="product_item_name" required readonly />
+					</div>
+					
+					<!-- DB 미반영 항목 -->
+					<label for="input12" class="form-label">이율(%)</label>
+					<div class="input-group mb-3">
+						<input id="input12" value="${product.rate }" class="form-control" type="text" name="product_rate" required readonly />
+					</div> --%>
 
 					<label for="input5" class="form-label">잔고</label>
 					<div class="input-group mb-3">

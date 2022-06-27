@@ -26,8 +26,7 @@
                     <thead>
                         <tr class="text-center">
                             <th>계좌번호</th>
-                            <th>고객번호</th>
-                            <th>고객명</th>
+                            <th>고객아이디</th>                           
                             <th>상품번호</th>
                             <th>비밀번호</th>
                             <th>잔고</th>
@@ -44,7 +43,6 @@
 																		
 									<a href="${get_url }">${account.account_num }</a>
 								</td>
-								<td>${account.account_user_id }</td>
 								<td>${account.account_user_name }</td>
 								<td>${account.account_item_id }</td>
 								<td>${account.account_pw }</td>
