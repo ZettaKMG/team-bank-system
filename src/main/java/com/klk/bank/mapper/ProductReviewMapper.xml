@@ -11,13 +11,17 @@
 			   p.product_rev_user_id,
 			   p.product_rev_content,
 			   p.product_rev_inserted,
+			   p.product_rev_group_num,
+			   p.product_rev_parent_id,
+			   p.product_rev_group_depth,
+			   p.product_rev_group_end,
 			   IF (u.user_id = #{product_rev_user_id}, 1, 0) own
 		FROM Product_rev p JOIN User u ON p.product_rev_user_id = u.user_id	    
 		WHERE p.product_rev_item_id = #{product_rev_item_id}
 		ORDER BY id
 	</select>
 
-	<insert id="insertProductReview">
+	<insert id="insertProductReview" parameterType="com.klk.bank.domain.ProductReviewDto" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 		INSERT INTO Product_rev (product_rev_item_id, product_rev_user_id, product_rev_content)
 		VALUES (#{product_rev_item_id}, #{product_rev_user_id}, #{product_rev_content})
 	</insert>
@@ -27,7 +31,11 @@
 			   p.product_rev_item_id,
 			   p.product_rev_user_id,
 			   p.product_rev_content,
-			   p.product_rev_inserted
+			   p.product_rev_inserted,
+			   p.product_rev_group_num,
+			   p.product_rev_parent_id,
+			   p.product_rev_group_depth,
+			   p.product_rev_group_end
 		FROM Product_rev p   
 		WHERE p.id = #{id}
 		ORDER BY id
@@ -35,7 +43,9 @@
 	
 	<update id="updateProductReview">
 		UPDATE Product_rev
-		SET product_rev_content = #{product_rev_content}
+		SET product_rev_content = #{product_rev_content},
+			product_rev_group_num = #{product_rev_group_num},				
+			product_rev_group_end = #{product_rev_group_end}
 		WHERE id = #{id}
 	</update>
 	
@@ -43,5 +53,10 @@
 		DELETE FROM Product_rev
 		WHERE id = #{id}
 	</delete>
+	
+	<insert id="insertProductReviewReply">
+		INSERT INTO Product_rev (product_rev_item_id, product_rev_user_id, product_rev_content, product_rev_group_num, product_rev_parent_id, product_rev_group_depth, product_rev_group_end)
+		VALUES (#{product_rev_item_id}, #{product_rev_user_id}, #{product_rev_content}, #{product_rev_group_num}, #{product_rev_parent_id}, #{product_rev_group_depth}, #{product_rev_group_end})
+	</insert>
 	
 </mapper>

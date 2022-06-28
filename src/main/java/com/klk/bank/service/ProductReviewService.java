@@ -22,7 +22,11 @@ public class ProductReviewService {
 
 	public boolean addProductReview(ProductReviewDto dto) {
 		
-		return product_review_mapper.insertProductReview(dto) == 1;
+		int cnt1 = product_review_mapper.insertProductReview(dto);
+		dto.setProduct_rev_group_num(dto.getId());
+		int cnt2 = product_review_mapper.updateProductReview(dto);
+		
+		return cnt1 == 1 && cnt2 == 1;
 	}
 
 	public boolean updateProductReview(ProductReviewDto dto, Principal principal) {
@@ -46,6 +50,24 @@ public class ProductReviewService {
 		}
 		
 		
+	}
+
+	public boolean addProductReviewReply(ProductReviewDto dto) {
+		
+		ProductReviewDto parent = product_review_mapper.selectProductReview(dto.getId());
+		parent.setProduct_rev_group_end(false);
+		product_review_mapper.updateProductReview(parent);
+		
+		ProductReviewDto child = new ProductReviewDto();
+		child.setProduct_rev_item_id(dto.getProduct_rev_item_id());
+		child.setProduct_rev_user_id(dto.getProduct_rev_user_id());
+		child.setProduct_rev_content(dto.getProduct_rev_content());
+		child.setProduct_rev_parent_id(parent.getId());
+		child.setProduct_rev_group_num(parent.getProduct_rev_group_num());
+		child.setProduct_rev_group_depth(parent.getProduct_rev_group_depth() + 1);
+		child.setProduct_rev_group_end(true);
+		
+		return product_review_mapper.insertProductReviewReply(child) == 1;
 	}
 
 }

@@ -88,6 +88,10 @@
 									<div class="fw-bold">
 										<i class="fa-solid fa-comment"></i> 
 										\${list[i].product_rev_inserted}
+										<button type="button" 
+												id="rev_reply_form\${list[i].id}" 
+												data-reply-id="\${list[i].id }"
+												class="rev_reply_form btn btn-link">덧글</button>
 									 	<span id="modify_button_wrapper\${list[i].id }"></span>
 									</div>
 										<span class="badge bg-light text-dark">
@@ -95,6 +99,22 @@
 										\${list[i].product_rev_user_id}
 										</span> 
 							 			<span id="rev_content\${list[i].id}"></span>
+								</div>
+								
+								<div id="rev_reply_form_container\${list[i].id }"
+									style="display: none;">
+									<form action="${appRoot }/product_review/reply_insert" method="post">
+										<div class="input-group">
+											<input type="hidden" name="product_rev_item_id" value="${product.id }" />
+											<input type="hidden" name="id" value="\${list[i].id }" />
+											<input class="form-control" type="text" name="product_rev_content" required />
+											<button data-reply-id="\${list[i].id}" 
+													id ="rev_reply_insert_submit"        
+													class="btn btn-outline-secondary">
+												<i class="fa-solid fa-comment-dots"></i>
+											</button>
+										</div>
+									</form>
 								</div>
 								
 								<div id="rev_edit_form_container\${list[i].id }"
@@ -172,10 +192,24 @@
 						const rev_id = $(this).attr("data-reply-id");
 						const display_div_id = "#rev_display_container" + rev_id;
 						const edit_form_id = "#rev_edit_form_container" + rev_id;
+						const rev_reply_form_id = "#rev_reply_form_container" + rev_id;
 												
 						$(display_div_id).hide();
+						$(rev_reply_form_id).hide();
 						$(edit_form_id).show();
 					});	
+					
+					$(".rev_reply_form").click(function() {
+						
+						const rev_id = $(this).attr("data-reply-id");
+						const display_div_id = "#rev_display_container" + rev_id;
+						const edit_form_id = "#rev_edit_form_container" + rev_id;
+						const rev_reply_form_id = "#rev_reply_form_container" + rev_id;
+												
+						$(display_div_id).hide();
+						$(edit_form_id).hide();
+						$(rev_reply_form_id).show();
+					});
 					
 					$(".rev_delete_button").click(function() {
 						const rev_id = $(this).attr("data-reply-id");

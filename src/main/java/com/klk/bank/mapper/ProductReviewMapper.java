@@ -19,4 +19,6 @@ public interface ProductReviewMapper {
 
 	int deleteProductReview(int id);
 
+	int insertProductReviewReply(ProductReviewDto child);
+
 }

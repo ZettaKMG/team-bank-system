@@ -46,7 +46,7 @@ public class ProductReviewController {
 			dto.setProduct_rev_user_id(principal.getName());
 			
 			boolean success = product_review_service.addProductReview(dto);
-			
+							
 			if (success) {
 				return ResponseEntity.ok("새 댓글이 등록되었습니다.");
 			} else {
@@ -87,6 +87,24 @@ public class ProductReviewController {
 				return ResponseEntity.status(500).body("");
 			}
 			
+		}
+	}
+	
+	@PostMapping(path = "reply_insert", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> productReviewReplyAdd(ProductReviewDto dto, Principal principal) {
+		
+		if(principal == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		} else {
+			dto.setProduct_rev_user_id(principal.getName());
+			
+			boolean success = product_review_service.addProductReviewReply(dto);
+			
+			if (success) {
+				return ResponseEntity.ok("새 댓글이 등록되었습니다.");
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+			}
 		}
 	}
 	
