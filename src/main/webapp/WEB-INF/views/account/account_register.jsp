@@ -139,13 +139,13 @@
 					<!-- 불러올때는 User 테이블의 user_id 컬럼값, DB에는 Account 테이블의 account_user_id 컬럼값으로 저장 -->
 					<label for="input2" class="form-label">유저아이디</label>
 					<div class="input-group mb-3">
-						<input id="input2" value="${account.account_user_id }" class="form-control" type="text" name="account_user_id" scope="session" required readonly />
+						<input id="input2" value="${principal.username }" class="form-control" type="text" name="account_user_id" scope="session" required readonly />
 					</div>
 
 					<!-- 불러올때는 Product 테이블의 id 컬럼값, DB에는 Account 테이블의 account_item_id 컬럼값으로 저장 -->
 					<label for="input3" class="form-label">상품번호</label>
 					<div class="input-group mb-3">
-						<input id="input3" value="${account.account_item_id }" class="form-control" type="text" name="account_item_id" scope="session" required readonly />
+						<input id="input3" value="${product.id }" class="form-control" type="text" name="account_item_id" scope="session" required readonly />
 					</div>
 					
 					<!-- DB 미반영 항목 -->
