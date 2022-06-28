@@ -236,7 +236,9 @@
 				  </ul>
 				</c:forEach>
 			</div>	
-			<bank:pagination></bank:pagination>
+			
+			<bank:product_page_nav></bank:product_page_nav>
+			
 		</div>
 	</div>	
 	
