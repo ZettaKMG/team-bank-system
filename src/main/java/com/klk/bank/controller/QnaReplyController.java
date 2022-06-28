@@ -27,7 +27,10 @@ public class QnaReplyController {
 	@PostMapping(path = "write", produces = "text/plain;charset=UTF-8")
 	public String addQnaReply(QnaReplyDto dto, Principal principal) {
 		if(dto.getQna_rep_parent() != 0) {
+			System.out.println("부모댓글 값 : "+dto.getQna_rep_parent());
+			System.out.println("댓글 깊이 상승 전 : "+dto.getQna_rep_dep());
 			dto.setIncreseRepDep(dto.getQna_rep_dep());
+			System.out.println("댓글 깊이 상승 후 : "+dto.getQna_rep_dep());
 		}
 		
 		if(principal == null) {

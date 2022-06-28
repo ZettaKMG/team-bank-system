@@ -66,7 +66,11 @@
 								<div class="d-flex fw-bold">
 									<i class="fa-solid fa-comment"></i>
 									<span class="mx-2">\${list[i].user_id}</span>
-									<div class="ms-auto" id="editButtonWrapper\${list[i].id }"></div>
+									<div class="ms-auto" id="editButtonWrapper\${list[i].id }">
+										<button class="re-reply-toggle-button" id="reReplyBtn\${list[i].id }" data-reply-id="\${list[i].id }">
+											<i class="fa-solid fa-reply"></i><span>답글</span>
+										</button>
+									</div>
 								</div>
 								<div class="d-flex form-label">
 									<span><c:out value="\${list[i].qna_rep_content }" /></span>
@@ -86,12 +90,27 @@
 									</div>
 								</form>
 							</div>
+							
+							<%-- 댓글 추가 form --%>
+							<div class="row mt-3" id="reReplyFormDiv\${list[i].id }" style="display: none;">
+								<form id="reReplyForm\${list[i].id }" action="${appRoot}/qnaReply/write" method="post">
+									<div class="input-group">
+										<input type="hidden" name="qna_id" value="${qna.id }" />
+										<input type="hidden" name="qna_rep_dep" value="\${list[i].qna_rep_dep}"/>
+										<input type="hidden" name="qna_rep_parent" value="\${list[i].id}" />
+										<input id="addReplyContentInput" class="form-control" type="text" name="qna_rep_content" required />
+										<button id="addReplySubmitButton" class="btn btn-outline-secondary">
+											<i class="fa-solid fa-comment-dots"></i>
+										</button>
+									</div>
+								</form>
+							</div>
 						`);
 						replyListElement.append(replyElement);
 						
 						if (list[i].own) {
 							$("#editButtonWrapper" + list[i].id).html(`
-								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }"	data-reply-id="\${list[i].id }">
+								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }" data-reply-id="\${list[i].id }">
 									<i class="fa-solid fa-pen-to-square"></i>
 								</span>
 								<span class="reply-delete-button badge bg-danger" data-reply-id="\${list[i].id }">
@@ -109,6 +128,15 @@
 
 						$(displayDivId).hide();
 						$(editFormId).show();
+					});
+					
+					// 답글 버튼 클릭 시
+					$(".re-reply-toggle-button").click(function() {
+						const replyId = $(this).attr("data-reply-id");
+						const reReplyFormDiv = "#reReplyFormDiv" + replyId;
+						const reReplyForm = "#reReplyForm" + replyId;
+
+						$(reReplyFormDiv).show();
 					});
 					
 					// 댓글 수정
