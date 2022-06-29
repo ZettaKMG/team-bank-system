@@ -109,30 +109,30 @@ public class AccountService {
 //		
 //	}
 	
-	private void saveFile(String account_num, MultipartFile file) {
-		// 디렉토리 만들기
-		String path_str = "C:/imgtmp/account/" + account_num + "/";
-		File path = new File(path_str);
-		path.mkdirs();
-		
-		// 작성할 파일
-		File des = new File(path_str + file.getOriginalFilename());
-		
-		try {
-			// 파일 저장
-			file.transferTo(des);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);			
-		}
+/*private void saveFile(String account_num, MultipartFile file) {
+	// 디렉토리 만들기
+	String path_str = "C:/imgtmp/account/" + account_num + "/";
+	File path = new File(path_str);
+	path.mkdirs();
+	
+	// 작성할 파일
+	File des = new File(path_str + file.getOriginalFilename());
+	
+	try {
+		// 파일 저장
+		file.transferTo(des);
+	} catch (IllegalStateException | IOException e) {
+		e.printStackTrace();
+		throw new RuntimeException(e);			
 	}
+}*/
 	
 
 	public AccountDto getAccount(String account_num) {
-		AccountDto account = account_mapper.selectAccount(account_num);
-		List<String> file_names = account_mapper.selectFileNameByAccountNum(account_num);
-		
-		account.setFile_name(file_names);
+//		AccountDto account = account_mapper.selectAccount(account_num);
+//		//List<String> file_names = account_mapper.selectFileNameByAccountNum(account_num);
+//		
+//		account.setFile_name(file_names);
 		
 		return account_mapper.selectAccount(account_num);
 	}
@@ -167,7 +167,7 @@ public class AccountService {
 	public boolean removeAccount(String account_num) {
 		// 파일 관련 코드 추가
 		// 파일 목록 읽기
-		List<String> file_list = account_mapper.selectFileNameByAccountNum(account_num);
+		//List<String> file_list = account_mapper.selectFileNameByAccountNum(account_num);
 		
 //		removeFiles(account_num, file_list);
 		

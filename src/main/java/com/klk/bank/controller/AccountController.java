@@ -138,13 +138,13 @@ public class AccountController {
 	
 	@PostMapping("account_modify")
 	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {
-		boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
-		
-		if (success) {
-			rttr.addFlashAttribute("message", "계좌 정보가 수정되었습니다.");
-		} else {
-			rttr.addFlashAttribute("message", "계좌 정보가 수정되지 않았습니다.");
-		}
+//		//boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
+//		
+//		if (success) {
+//			rttr.addFlashAttribute("message", "계좌 정보가 수정되었습니다.");
+//		} else {
+//			rttr.addFlashAttribute("message", "계좌 정보가 수정되지 않았습니다.");
+//		}
 		
 		return "redirect:/account/" + account.getAccount_num();
 	}
