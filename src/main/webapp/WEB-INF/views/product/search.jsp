@@ -99,20 +99,24 @@
 							    <td>
 							    	<div id="exp_period" name="exp_period">
 							    	<div class="form-check form-check-inline">
-										<input ${param.exp_period == "0" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="none" value="0">
-		 							    <label class="form-check-label" for="none">없음</label>
+										<input ${param.exp_period == "period_all" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="none" value="period_all">
+		 							    <label class="form-check-label" for="none">전체</label>
 									</div>
 		                    		<div class="form-check form-check-inline">
-									    <input ${param.exp_period == "12" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="one_year" value="12">
-									    <label class="form-check-label" for="one_year">12개월</label>
+									    <input ${param.exp_period == "period1" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="one_year" value="period1">
+									    <label class="form-check-label" for="one_year">12개월 미만</label>
 									</div>
 									<div class="form-check form-check-inline">
-									    <input ${param.exp_period == "24" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="two_years" value="24">
-		 							    <label class="form-check-label" for="two_years">24개월</label>
+									    <input ${param.exp_period == "period2" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="two_years" value="period2">
+		 							    <label class="form-check-label" for="two_years">12개월 이상 ~ 24개월 미만</label>
 									</div>
 		                    		<div class="form-check form-check-inline">
-										<input ${param.exp_period == "36" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="three_years" value="36">
-									    <label class="form-check-label" for="three_years">36개월</label>
+										<input ${param.exp_period == "period3" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="three_years" value="period3">
+									    <label class="form-check-label" for="three_years">24개월 이상 ~ 36개월 미만</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input ${param.exp_period == "period4" ? "checked" : "" } class="form-check-input" type="radio" name="exp_period" id="over_years" value="period4">
+									    <label class="form-check-label" for="three_years">36개월 이상</label>
 									</div>
 							    	</div>
 							    </td>
@@ -131,7 +135,11 @@
 									</div>
 									<div class="form-check form-check-inline">
 									  <input ${param.rate == "rate2" ? "checked" : "" } class="form-check-input" type="radio" name="rate" id="opt2" value="rate2">
-		 							  <label class="form-check-label" for="opt2">연 2.1% ~</label>
+		 							  <label class="form-check-label" for="opt2">연 2.1% ~ 연 3.5%</label>
+									</div>
+									<div class="form-check form-check-inline">
+									  <input ${param.rate == "rate3" ? "checked" : "" } class="form-check-input" type="radio" name="rate" id="opt3" value="rate3">
+		 							  <label class="form-check-label" for="opt2">연 3.6% ~</label>
 									</div>
 							    	</div>
 								</td>
