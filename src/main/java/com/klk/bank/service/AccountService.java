@@ -128,14 +128,14 @@ public class AccountService {
 	}
 	
 
-	public AccountDto getAccount(String account_num) {
-		AccountDto account = account_mapper.selectAccount(account_num);
-		List<String> file_names = account_mapper.selectFileNameByAccountNum(account_num);
-		
-		account.setFile_name(file_names);
-		
-		return account_mapper.selectAccount(account_num);
-	}
+//	public AccountDto getAccount(String account_num) {
+//		AccountDto account = account_mapper.selectAccount(account_num);
+//		List<String> file_names = account_mapper.selectFileNameByAccountNum(account_num);
+//		
+//		account.setFile_name(file_names);
+//		
+//		return account_mapper.selectAccount(account_num);
+//	}
 
 
 	public boolean modifyAccount(AccountDto account) {
@@ -163,17 +163,17 @@ public class AccountService {
 		return cnt == 1;
 	}
 
-	@Transactional
-	public boolean removeAccount(String account_num) {
-		// 파일 관련 코드 추가
-		// 파일 목록 읽기
-		List<String> file_list = account_mapper.selectFileNameByAccountNum(account_num);
-		
-//		removeFiles(account_num, file_list);
-		
-		int cnt = account_mapper.deleteAccount(account_num);
-		return cnt == 1;
-	}
+//	@Transactional
+//	public boolean removeAccount(String account_num) {
+//		// 파일 관련 코드 추가
+//		// 파일 목록 읽기
+//		List<String> file_list = account_mapper.selectFileNameByAccountNum(account_num);
+//		
+////		removeFiles(account_num, file_list);
+//		
+//		int cnt = account_mapper.deleteAccount(account_num);
+//		return cnt == 1;
+//	}
 
 //	private void removeFiles(String account_num, List<String> file_list) {
 //		// s3에서 지우기
