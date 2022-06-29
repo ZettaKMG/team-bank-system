@@ -20,12 +20,19 @@
 		let idOk = false;
 		let pwOk = false;
 		let emailOk = false;
+		let nameOk = false;
+		let birthOk = false;
+		let addressOk = false;
+		let phoneOk = false;
 		
 		// 아이디 중복 확인
 		$("#checkIdButton1").click(function(e) {
 			e.preventDefault();
+			if ($('#idInput1').val() == '') {
+			      alert("아이디를 입력해주세요.");
+			      return;
+			}
 			
-			$(this).attr("disabled", "");
 			const data = {
 					user_id : $("#form1").find("[name=user_id]").val()
 			};
@@ -49,10 +56,6 @@
 				},
 				error : function() {
 					$("#idMessage1").text("중복 확인 중 문제 발생, 다시 시도해 주세요.");
-				},
-				complete : function() {
-					$("#checkIdButton1").removeAttr("disabled");
-					enableSubmit();
 				}
 			});
 		});
@@ -63,21 +66,26 @@
 			const pw2 = $("#passwordInput2").val();
 			
 			pwOk = false;
-			if (pw1 === pw2) {
+			if (pw1 === pw2 && pw1 != '' && pw2 != '') {
 				$("#passwordMessage1").text("패스워드가 일치합니다.");
 				pwOk = true;
+			} else if(pw1 === '' || pw2 === '') {
+				$("#passwordMessage1").text("패스워드를 입력해주세요.");
 			} else {
 				$("#passwordMessage1").text("패스워드가 일치하지 않습니다.");
 			}
 			
-			enableSubmit();
 		});
 		
 		// 이메일 중복 확인
 		$("#checkEmailButton1").click(function(e) {
 			e.preventDefault();
 			
-			$(this).attr("disabled", "");
+			if ($('#emailInput1').val() == '') {
+				alert("이메일을 입력해주세요.");
+				return;
+			}
+			
 			const data = {
 					user_email : $("#form1").find("[name=user_email]").val()
 			};
@@ -101,22 +109,45 @@
 				},
 				error : function() {
 					$("#emailMessage1").text("중복 확인 중 문제 발생, 다시 시도해 주세요.");
-				},
-				complete : function() {
-					$("#checkEmailButton1").removeAttr("disabled");
-					enableSubmit();
 				}
 			});
 		});
 		
-		// 회원가입 버튼 활성화/비활성화
-		const enableSubmit = function () {
-			if (idOk && pwOk && emailOk) {
-				$("#submitButton1").removeAttr("disabled");
-			} else {
-				$("#submitButton1").attr("disabled", "");
+		// 회원가입 버튼 클릭 시 입력 폼 체크
+		$("#submitButton1").click(function(e) {
+			e.preventDefault();
+			
+			if($("#nameInput1").val() != '') {
+				nameOk = true;
 			}
-		}
+			if($("#birthInput1").val() != '') {
+				birthOk = true;			
+			}
+			if($("#addressInput1").val() != '') {
+				addressOk = true;
+			}
+			if($("#phoneInput1").val() != '') {
+				phoneOk = true;
+			}
+			
+			if (idOk && pwOk && emailOk && nameOk && birthOk && addressOk && phoneOk) {
+				$("#form1").submit();				
+			} else {
+				alert("작성내용을 확인해주세요.");
+				return;
+			}
+		});
+		
+		// 중복체크 후 변경시 다시 체크
+		$("#idInput1").keyup(function() {
+			$("#idMessage1").text("중복확인 해주세요.");
+			idOk = false;
+		});
+		
+		$('#emailInput1').keyup(function() {
+			$("#emailMessage1").text("중복확인 해주세요.");
+			emailOk = false;
+		});
 	});
 </script>
 </head>
@@ -154,22 +185,22 @@
 					<label for="nameInput1" class="form-label">
 						이름
 					</label>
-					<input id="nameInput1" class="form-control" type="text" name="user_name" /> 
+					<input id="nameInput1" class="form-control" type="text" name="user_name" required/> 
 					
 					<label for="birthInput1" class="form-label">
 						생년월일
 					</label>
-					<input id="birthInput1" class="form-control" type="date" name="user_birth"/>
+					<input id="birthInput1" class="form-control" type="date" name="user_birth" required/>
 									
 					<label for="addressInput1" class="form-label">
 						주소
 					</label>
-					<input id="addressInput1" class="form-control" type="text" name="user_address" /> 
+					<input id="addressInput1" class="form-control" type="text" name="user_address" required/> 
 					
 					<label for="phoneInput1" class="form-label">
 						전화번호
 					</label>
-					<input id="phoneInput1" class="form-control" type="text" name="user_phone" /> 
+					<input id="phoneInput1" class="form-control" type="text" name="user_phone" required/> 
 					
 					<label for="emailInput1" class="form-label">
 						Email
@@ -181,7 +212,7 @@
 					
 					<div id="emailMessage1" class="form-text"></div>
 							 	
-					<button id="submitButton1" class="btn btn-primary" disabled>회원가입</button>
+					<button id="submitButton1" class="btn btn-primary">회원가입</button>
 				</form>
 			</div>
 		</div>

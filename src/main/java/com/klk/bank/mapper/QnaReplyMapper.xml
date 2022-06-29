@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.klk.bank.mapper.QnaReplyMapper">
+	<insert id="insertQnaReply">
+		INSERT INTO Qna_Reply(qna_id, user_id, qna_rep_content, qna_rep_parent, qna_rep_dep)
+		VALUES (#{qna_id}, #{user_id}, #{qna_rep_content}, #{qna_rep_parent}, #{qna_rep_dep})
+	</insert>
+	
+	<select id="selectQnaReplyByQnaId" resultType="com.klk.bank.domain.QnaReplyDto">
+		SELECT id, qna_id, user_id, qna_rep_content, qna_rep_inserted, qna_rep_parent, qna_rep_dep, IF (qna_rep_parent = 0, id, CONCAT(qna_rep_parent, ",", id)) lev
+		FROM Qna_Reply
+		WHERE qna_id = #{qna_id}
+		ORDER BY lev
+	</select>
+	
+	<select id="selectAllQnaReplyByQnaId" resultType="com.klk.bank.domain.QnaReplyDto">
+		SELECT r.id, 
+			r.qna_id, 
+			r.user_id, 
+			r.qna_rep_content, 
+			r.qna_rep_inserted, 
+			r.qna_rep_parent, 
+			r.qna_rep_dep, 
+			IF (r.qna_rep_parent = 0, r.id, CONCAT(r.qna_rep_parent, ",", r.id)) lev,  
+			IF (u.user_id = #{user_id}, 1, 0) own
+		FROM Qna_Reply r JOIN User u 
+		ON r.user_id = u.user_id
+		WHERE qna_id = #{qna_id}
+		ORDER BY lev
+	</select>
+	
+	<select id="selectReplyByReplyId" resultType="com.klk.bank.domain.QnaReplyDto">
+		SELECT id, qna_id, user_id, qna_rep_content, qna_rep_inserted, qna_rep_parent, qna_rep_dep, CONCAT(qna_rep_parent, ",", id) lev 
+		FROM Qna_Reply
+		WHERE id = #{id}
+	</select>
+	
+	<update id="updateQnaReply">
+		UPDATE Qna_Reply
+		SET qna_rep_content = #{qna_rep_content}
+		WHERE id = #{id}	
+	</update>
+	
+	<delete id="deleteQnaReply">
+		DELETE FROM Qna_Reply
+		WHERE id = #{id}
+	</delete>
+</mapper>
