@@ -30,8 +30,10 @@ public class ProductReviewController {
 	public List<ProductReviewDto> productReviewList(int product_rev_item_id, Principal principal) {
 		
 		if(principal == null) {
+						
 			return product_review_service.getProductReview(product_rev_item_id, null);
 		} else {
+			
 			return product_review_service.getProductReview(product_rev_item_id, principal.getName());
 		}
 			

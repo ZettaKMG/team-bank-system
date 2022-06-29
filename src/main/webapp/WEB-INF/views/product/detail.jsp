@@ -90,7 +90,7 @@
 						const rev_element = $("<li class='list-group-item' />");
 						
 						rev_element.html(`
-								<div id="rev_display_container\${list[i].id }">
+								<div style="margin-left :\${list[i].product_rev_group_depth * 30}px;" id="rev_display_container\${list[i].id }">
 									<div class="fw-bold">
 										<i class="fa-solid fa-comment"></i> 
 										\${list[i].product_rev_inserted}
@@ -158,7 +158,7 @@
 								</span>
 							`);
 						}
-					
+				
 					} // end of for
 					
 					$("#rev_modify_submit").click(function(e) {
