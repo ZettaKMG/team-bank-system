@@ -64,16 +64,13 @@
 						replyElement.html(`
 							<div id="replyDisplayContainer\${list[i].id }">
 								<div class="d-flex fw-bold">
-									<i class="fa-solid fa-comment"></i>
+									<span id="replyIcon\${list[i].id }"><i class="fa-solid fa-comment"></i></span>
 									<span class="mx-2">\${list[i].user_id}</span>
 									<div class="ms-auto" id="editButtonWrapper\${list[i].id }">
-										<button class="re-reply-toggle-button" id="reReplyBtn\${list[i].id }" data-reply-id="\${list[i].id }">
-											<i class="fa-solid fa-reply"></i><span>답글</span>
-										</button>
 									</div>
 								</div>
 								<div class="d-flex form-label">
-									<span><c:out value="\${list[i].qna_rep_content }" /></span>
+									<span id="replyContent\${list[i].id }"><c:out value="\${list[i].qna_rep_content }" /></span>
 									<span class="ms-auto">\${list[i].changeTimeInserted }</span>
 								</div>
 							</div>
@@ -108,7 +105,19 @@
 						`);
 						replyListElement.append(replyElement);
 						
-						if (list[i].own) {
+						if (list[i].own && list[i].qna_rep_parent == 0) {
+							$("#editButtonWrapper" + list[i].id).html(`
+								<span class="re-reply-toggle-button badge bg-success" id="reReplyBtn\${list[i].id }" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-reply"></i>
+								</span>
+								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</span>
+								<span class="reply-delete-button badge bg-danger" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-trash-can"></i>
+								</span>
+							`);
+						} else if(list[i].own) {
 							$("#editButtonWrapper" + list[i].id).html(`
 								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }" data-reply-id="\${list[i].id }">
 									<i class="fa-solid fa-pen-to-square"></i>
@@ -117,6 +126,13 @@
 									<i class="fa-solid fa-trash-can"></i>
 								</span>
 							`);
+						}
+						
+						if(list[i].qna_rep_parent != 0) {
+							$("#replyIcon" + list[i].id).html(`
+								<i class="fa-solid fa-l ms-3"></i>
+							`);
+							$("#replyContent" + list[i].id).addClass("ms-3");
 						}
 					}
 					
@@ -227,6 +243,7 @@
 						
 						<div class="button-group mt-3">
 							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
+							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/write?id=${qna.id }';" value="답글"/>
 							<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
 							<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
 							<button id="qna-remove-submit" class="btn btn-danger">삭제</button>

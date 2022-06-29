@@ -5,8 +5,8 @@
 <mapper namespace="com.klk.bank.mapper.QnaMapper">
 	
 	<insert id="insertQnaBoard" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		INSERT INTO Qna (title, body, user_id)
-		VALUES (#{title}, #{body}, #{user_id})
+		INSERT INTO Qna (title, body, user_id, qna_parent)
+		VALUES (#{title}, #{body}, #{user_id}, #{qna_parent})
 	</insert>
 	
 	<select id="selectQnaBoardAll" resultType="com.klk.bank.domain.QnaDto">

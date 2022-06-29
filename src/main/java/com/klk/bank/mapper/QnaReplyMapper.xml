@@ -9,7 +9,7 @@
 	</insert>
 	
 	<select id="selectQnaReplyByQnaId" resultType="com.klk.bank.domain.QnaReplyDto">
-		SELECT id, qna_id, user_id, qna_rep_content, qna_rep_inserted, qna_rep_parent, qna_rep_dep, CONCAT(qna_rep_parent, ",", id) lev 
+		SELECT id, qna_id, user_id, qna_rep_content, qna_rep_inserted, qna_rep_parent, qna_rep_dep, IF (qna_rep_parent = 0, id, CONCAT(qna_rep_parent, ",", id)) lev
 		FROM Qna_Reply
 		WHERE qna_id = #{qna_id}
 		ORDER BY lev
@@ -23,7 +23,7 @@
 			r.qna_rep_inserted, 
 			r.qna_rep_parent, 
 			r.qna_rep_dep, 
-			CONCAT(r.qna_rep_parent, ",", r.id) lev,  
+			IF (r.qna_rep_parent = 0, r.id, CONCAT(r.qna_rep_parent, ",", r.id)) lev,  
 			IF (u.user_id = #{user_id}, 1, 0) own
 		FROM Qna_Reply r JOIN User u 
 		ON r.user_id = u.user_id
