@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.klk.bank.domain.QnaDto;
+import com.klk.bank.domain.QnaReplyDto;
+import com.klk.bank.service.QnaReplyService;
 import com.klk.bank.service.QnaService;
 
 @Controller
@@ -19,6 +21,8 @@ public class QnaController {
 	
 	@Autowired
 	QnaService qnaService;
+	@Autowired
+	QnaReplyService qnaRepService;
 	
 	@GetMapping("list")
 	public void qnaListPage(Model model) {

@@ -26,7 +26,7 @@
 <%-- 회원정보링크 --%>
 
 <sec:authorize access="isAuthenticated()">
-	<sec:authentication property="principal" var="principal"/>
+	<sec:authentication property="principal" var="principal" scope="session"/>
 	<c:url value="/user/info" var="userInfoUrl">
 		<c:param name="user_id" value="${principal.username }" />
 	</c:url>

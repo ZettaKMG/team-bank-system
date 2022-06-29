@@ -11,6 +11,7 @@ public class QnaDto {
 	private String user_id;
 	private String title;
 	private String body;
+	private int qna_parent;
 	private LocalDateTime inserted;
 	
 	public String getNewInserted() {

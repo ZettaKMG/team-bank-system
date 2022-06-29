@@ -12,7 +12,9 @@
 			   a.account_balance, 
 			   a.account_date, 
 			   u.user_id account_user_name 
-		FROM Account a JOIN User u ON a.account_user_id = u.id
+
+    FROM Account a JOIN User u ON a.account_user_id = u.user_id
+
 		<if test="type != null">
 			<choose>
 				<when test="type == 'account_num'">
@@ -37,8 +39,10 @@
 			   a.account_balance, 
 			   a.account_date, 
 			   u.user_id account_user_name 
-		FROM Account a JOIN User u ON a.account_user_id = u.id
-		WHERE a.account_num = #{account_num}
+
+		FROM Account a JOIN User u ON a.account_user_id = u.user_id
+		WHERE account_num = #{account_num}
+
 	</select>
 	
 	<insert id="insertAccount">
@@ -98,9 +102,10 @@
 	
 	</select>
 	
+
 	<select id="selectSearchCurrentUserCountAccount" resultType="int">
 		SELECT COUNT(*)
-		FROM Account a JOIN User u ON a.account_user_id = u.id
+		FROM Account a JOIN User u ON a.account_user_id = u.user_id
 		WHERE u.user_id = #{user_id}
 		<if test="type != null">
 			<choose>
@@ -123,7 +128,7 @@
 			   a.account_balance, 
 			   a.account_date, 
 			   u.user_id account_user_name 
-		FROM Account a JOIN User u ON a.account_user_id = u.id
+		FROM Account a JOIN User u ON a.account_user_id = u.user_id
 		WHERE u.user_id = #{user_id}
 		<if test="type != null">
 			<choose>
@@ -141,4 +146,28 @@
 		LIMIT #{from}, #{row_per_page}
 	</select>
 	
+
+	<!-- <insert id="insertFile">
+		INSERT INTO File (file_account_num, file_name)
+		VALUES (#{file_account_num}, #{file_name})
+	</insert>
+	
+	<delete id="deleteFileByAccountNum">
+		DELETE FROM File
+		WHERE file_account_num = #{file_account_num}
+	</delete>
+	
+	<select id="selectFileNameByAccountNum" resultType="string">
+		SELECT file_name
+		FROM File
+		WHERE file_account_num = #{file_account_num}
+	</select>
+	
+	<delete id="deleteFileByAccountNumAndFileName">
+		DELETE FROM File
+		WHERE file_account_num = #{file_account_num}
+		  AND file_name = #{file_name}
+	</delete>
+	-->
+
 </mapper>

@@ -22,6 +22,9 @@
 			<div class="col-12 col-lg-10 mt-3">
 				<h3>문의</h3>
 				<form action="${appRoot }/qnaBoard/write" method="post">
+					<c:if test="${not empty param.id }">
+						<input type="hidden" name="qna_parent" value="<c:out value="${param.id }"></c:out>"/>
+					</c:if>
 					<div>
 						<label class="form-label" for="inputTitle">제목</label>
 						<input class="form-control" type="text" name="title" required id="inputTitle" />

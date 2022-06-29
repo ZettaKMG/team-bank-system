@@ -10,7 +10,7 @@ public class ProductDto {
 	
 	private int id;
 	
-	private String user_id;
+//	private String user_id;
 	
 	private String item_name;
 	

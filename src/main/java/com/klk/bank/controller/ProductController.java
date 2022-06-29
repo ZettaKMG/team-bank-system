@@ -12,14 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.klk.bank.domain.AccountDto;
-import com.klk.bank.domain.PageInfoDto;
 import com.klk.bank.domain.ProductDto;
-import com.klk.bank.domain.UserDto;
-import com.klk.bank.service.AccountService;
-import com.klk.bank.service.PageInfoService;
+import com.klk.bank.domain.ProductPageInfoDto;
 import com.klk.bank.service.ProductService;
-import com.klk.bank.service.UserService;
 
 @Controller
 @RequestMapping("product")
@@ -28,28 +23,36 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private PageInfoService pageInfoService;
-	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private AccountService accountService;
-	
 //	@Autowired
-//	private ReplyService replyService;
-	
+//	private UserService userService;
+//	
+//	@Autowired
+//	private AccountService accountService;
+		
 	// 상품 조회
-	@GetMapping("search")
-	public void searchPage(@RequestParam(name = "keyword", defaultValue = "") String keyword, @RequestParam(name = "sav_method", defaultValue = "") String sav_method, @RequestParam(name = "exp_period", defaultValue = "") String exp_period, @RequestParam(name = "rate", defaultValue = "") String rate, Model model) {
+	@RequestMapping("search")
+	public void searchPage(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword, @RequestParam(name = "sav_method", defaultValue = "") String sav_method, @RequestParam(name = "exp_period", defaultValue = "") String exp_period, @RequestParam(name = "rate", defaultValue = "") String rate, Model model) {
 //		System.out.println(keyword);
 //		System.out.println(sav_method);
 //		System.out.println(exp_period);
 //		System.out.println(rate);
-		List<ProductDto> list = productService.listProduct(keyword, sav_method, exp_period, rate);
+		ProductPageInfoDto page_info = new ProductPageInfoDto();
+		page_info.setCurrent_page(page);
+		
+		int total_record = productService.searchCountAccount(sav_method, exp_period, rate, keyword);
+//		System.out.println(total_record);
+		int end_page = (total_record - 1) / page_info.getRowPerPage() + 1;
+		page_info.setEnd_page(end_page);
+		
+//		System.out.println(page_info);
+		List<ProductDto> list = productService.listProduct(page_info, keyword, sav_method, exp_period, rate);
 		
 		model.addAttribute("product_list", list);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("sav_method", sav_method);
+		model.addAttribute("exp_period", exp_period);
+		model.addAttribute("rate", rate);
+		model.addAttribute("product_page_info", page_info);
 	}	
 	
 	// 상품 등록
@@ -61,7 +64,7 @@ public class ProductController {
 	@PostMapping("registration")
 	public String registrationPage(ProductDto product, Principal principal, RedirectAttributes rttr) {
 				
-		product.setUser_id(principal.getName());
+//		product.setUser_id(principal.getName());
 		boolean success = productService.insertProduct(product);
 		
 		if (success) {
@@ -75,12 +78,12 @@ public class ProductController {
 
 	// 상품 상세정보, 수정
 	@GetMapping({"detail", "edit"})
-	public void searchDetailPage(@RequestParam("id") Integer id, Model model) {
+	public void searchDetailPage(@RequestParam("id") Integer id, /*@RequestParam String user_id, UserDto user,*/ Model model) {
 		
 		ProductDto product = productService.getProductById(id);
-//		List<ReplyDto> replyList = replyService.getReplyByProductId(id);
+//		userService.getUserById(user_id);
 		model.addAttribute("product", product);
-//		model.addAttribute("reply_list", replyList);
+//		model.addAttribute("user", user);
 		
 	}
 
@@ -144,30 +147,6 @@ public class ProductController {
 //		}
 		
 		return "redirect:/product/search";
-	}	
-
-	// pagination 코드
-	@GetMapping("search_page")
-	public String pageInfoProcess(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
-		int row_per_page = 5;
-		
-		List<ProductDto> list = pageInfoService.listProductPage(page, row_per_page);
-		int total_records = pageInfoService.countProduct();
-		
-		int end = (total_records - 1) / (row_per_page) + 1;
-		
-		PageInfoDto page_info = new PageInfoDto();
-		page_info.setCurrent(page);
-		page_info.setEnd(end);
-			
-		System.out.println(page_info);
-		System.out.println(page_info.getLeft());
-		System.out.println(page_info.getRight());
-			
-		model.addAttribute("product_list", list);
-		model.addAttribute("page_info", page_info);
-		
-		return "/product/search?page=" + page;
 	}	
 	
 }

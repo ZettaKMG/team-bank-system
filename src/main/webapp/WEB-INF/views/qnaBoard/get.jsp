@@ -43,6 +43,182 @@
 				qnaForm.submit();
 			}
 		});
+		
+		// 페이지 로딩 후 댓글 목록
+		const listReply = function() {
+			const data = {qna_id : ${qna.id}};
+			$.ajax({
+				url : "${appRoot}/qnaReply/list",
+				type : "post",
+				data : data,
+				dataType : "json",
+				success : function(list) {
+					const replyListElement = $("#replyList");
+					replyListElement.empty();
+					
+					// 댓글 개수
+					$("#numOfReply").text(list.length);
+					
+					for (let i = 0; i < list.length; i++) {
+						const replyElement = $("<li class='list-group-item' />");
+						replyElement.html(`
+							<div id="replyDisplayContainer\${list[i].id }">
+								<div class="d-flex fw-bold">
+									<span id="replyIcon\${list[i].id }"><i class="fa-solid fa-comment"></i></span>
+									<span class="mx-2">\${list[i].user_id}</span>
+									<div class="ms-auto" id="editButtonWrapper\${list[i].id }">
+									</div>
+								</div>
+								<div class="d-flex form-label">
+									<span id="replyContent\${list[i].id }"><c:out value="\${list[i].qna_rep_content }" /></span>
+									<span class="ms-auto">\${list[i].changeTimeInserted }</span>
+								</div>
+							</div>
+
+							<div id="replyEditFormContainer\${list[i].id }"	style="display: none;">
+								<form action="${appRoot }/qnaReply/modify" method="post">
+									<div class="input-group">
+										<input type="hidden" name="qna_id" value="${qna.id }" />
+										<input type="hidden" name="id" value="\${list[i].id }" />
+										<input class="form-control" value="\${list[i].qna_rep_content }" type="text" name="qna_rep_content" required />
+										<button data-reply-id="\${list[i].id}"  class="reply-modify-submit btn btn-outline-secondary">
+											<i class="fa-solid fa-comment-dots"></i>
+										</button>
+									</div>
+								</form>
+							</div>
+							
+							<%-- 댓글 추가 form --%>
+							<div class="row mt-3" id="reReplyFormDiv\${list[i].id }" style="display: none;">
+								<form id="reReplyForm\${list[i].id }" action="${appRoot}/qnaReply/write" method="post">
+									<div class="input-group">
+										<input type="hidden" name="qna_id" value="${qna.id }" />
+										<input type="hidden" name="qna_rep_dep" value="\${list[i].qna_rep_dep}"/>
+										<input type="hidden" name="qna_rep_parent" value="\${list[i].id}" />
+										<input id="addReplyContentInput" class="form-control" type="text" name="qna_rep_content" required />
+										<button id="addReplySubmitButton" class="btn btn-outline-secondary">
+											<i class="fa-solid fa-comment-dots"></i>
+										</button>
+									</div>
+								</form>
+							</div>
+						`);
+						replyListElement.append(replyElement);
+						
+						if (list[i].own && list[i].qna_rep_parent == 0) {
+							$("#editButtonWrapper" + list[i].id).html(`
+								<span class="re-reply-toggle-button badge bg-success" id="reReplyBtn\${list[i].id }" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-reply"></i>
+								</span>
+								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</span>
+								<span class="reply-delete-button badge bg-danger" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-trash-can"></i>
+								</span>
+							`);
+						} else if(list[i].own) {
+							$("#editButtonWrapper" + list[i].id).html(`
+								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</span>
+								<span class="reply-delete-button badge bg-danger" data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-trash-can"></i>
+								</span>
+							`);
+						}
+						
+						if(list[i].qna_rep_parent != 0) {
+							$("#replyIcon" + list[i].id).html(`
+								<i class="fa-solid fa-l ms-3"></i>
+							`);
+							$("#replyContent" + list[i].id).addClass("ms-3");
+						}
+					}
+					
+					// reply-edit-toggle-button 클릭시 댓글 보여주는 div 숨기고, 수정 form 보여주기
+					$(".reply-edit-toggle-button").click(function() {
+						const replyId = $(this).attr("data-reply-id");
+						const displayDivId = "#replyDisplayContainer" + replyId;
+						const editFormId = "#replyEditFormContainer" + replyId;
+
+						$(displayDivId).hide();
+						$(editFormId).show();
+					});
+					
+					// 답글 버튼 클릭 시
+					$(".re-reply-toggle-button").click(function() {
+						const replyId = $(this).attr("data-reply-id");
+						const reReplyFormDiv = "#reReplyFormDiv" + replyId;
+						const reReplyForm = "#reReplyForm" + replyId;
+
+						$(reReplyFormDiv).show();
+					});
+					
+					// 댓글 수정
+					$(".reply-modify-submit").click(function(e) {
+						e.preventDefault();
+						
+						const id = $(this).attr("data-reply-id");
+						const formElem = $("#replyEditFormContainer" + id).find("form");
+						const data = {
+							qna_id : formElem.find("[name=qna_id]").val(),
+							id : formElem.find("[name=id]").val(),
+							qna_rep_content : formElem.find("[name=qna_rep_content]").val()
+						};
+						
+						$.ajax({
+							url : "${appRoot}/qnaReply/modify",
+							type : "put",
+							data : JSON.stringify(data),
+							contentType : "application/json",
+							success : function(data) {
+								// 메세지 보여주기
+								$("#replyMessage").show().text(data).fadeOut(3000);
+								
+								// 댓글목록 새로고침
+								listReply();
+							},
+							error : function() {
+								$("#replyMessage").show().text("댓글을 수정할 수 없습니다.").fadeOut(3000);
+							},
+							complete : function() {
+							}
+						});
+					});
+					
+					// reply-delete-button 클릭시 댓글 삭제
+					$(".reply-delete-button").click(function() {
+						const replyId = $(this).attr("data-reply-id");
+						const message = "댓글을 삭제하시겠습니까?";
+
+						if (confirm(message)) {
+							$.ajax({
+								url : "${appRoot}/qnaReply/delete/" + replyId,
+								type : "delete",
+								success : function(data) {
+									// 댓글 list refresh
+									listReply();
+									// 메세지 출력
+									$("#replyMessage").show().text(data).fadeOut(3000);
+								},
+								error : function() {
+									$("#replyMessage").show().text("댓글을 삭제할 수 없습니다.").fadeOut(3000);
+								},
+								complete : function() {
+								}
+							});
+						}
+					});
+				}, 
+				error : function() {
+					console.log("댓글 가져오기 실패");
+				}
+			});
+		}
+		
+		// 댓글 가져오는 함수 실행
+		listReply();
 	});
 </script>
 <title>Insert title here</title>
@@ -52,27 +228,64 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-10 mt-3">
-				<form id="qnaContentForm" action="" method="post">
-					<input type="hidden" name="id" value="${qna.id }"/>
-					<div>
-						<label class="form-label" for="inputTitle">제목</label>
-						<input class="form-control" type="text" name="title" id="inputTitle" value="${qna.title }" readonly/>
+				<div>
+					<form id="qnaContentForm" action="" method="post">
+						<input type="hidden" name="id" value="${qna.id }"/>
+						<div>
+							<label class="form-label" for="inputTitle">제목</label>
+							<input class="form-control" type="text" name="title" id="inputTitle" value="${qna.title }" readonly/>
+						</div>
+						
+						<div>
+							<label class="form-label" for="inputText">본문</label>
+							<textarea class="form-control" name="body" id="inputText" cols="30" rows="10" readonly>${qna.body }</textarea>
+						</div>
+						
+						<div class="button-group mt-3">
+							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
+							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/write?id=${qna.id }';" value="답글"/>
+							<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
+							<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
+							<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
+						</div>
+					</form>
+				</div>
+				
+				<%-- 댓글 추가 form --%>
+				<div class="row mt-3">
+					<form id="addReplyForm" action="${appRoot}/qnaReply/write" method="post">
+						<div class="input-group">
+							<input type="hidden" name="qna_id" value="${qna.id }" />
+							<input id="addReplyContentInput" class="form-control" type="text" name="qna_rep_content" required />
+							<button id="addReplySubmitButton" class="btn btn-outline-secondary">
+								<i class="fa-solid fa-comment-dots"></i>
+							</button>
+						</div>
+					</form>
+				</div>
+				
+				<div class="row mt-3">
+					<div class="alert alert-primary" style="display:none; " id="replyMessage"></div>
+				</div>
+				
+				<div class="row mt-3">
+					<div class="col">
+						<h3>댓글 <span id="numOfReply"></span> 개</h3>
+		
+						<ul id="replyList" class="list-group"></ul>
 					</div>
-					
-					<div>
-						<label class="form-label" for="inputText">본문</label>
-						<textarea class="form-control" name="body" id="inputText" cols="30" rows="10" readonly>${qna.body }</textarea>
-					</div>
-					
-					<div class="button-group mt-3">
-						<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
-						<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
-						<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
-						<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
-					</div>
-				</form>
+				</div>
+		
 			</div>
 		</div>
+	</div>
+	
+	<%-- 댓글 삭제 form --%>
+	<div class="d-none">
+		<form id="replyDeleteForm1" action="${appRoot }/qnaReply/delete" method="post">
+			<input id="replyDeleteInput1" type="text" name="id" />
+			<input type="text" name="qna_id" value="${qna.id }" />
+		</form>
 	</div>
 </body>
 </html>
