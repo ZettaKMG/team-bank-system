@@ -159,6 +159,11 @@
 					<div class="input-group mb-3">
 						<input id="input5" value="${product.rate }" class="form-control" type="text" name="product_rate" required readonly />
 					</div>
+					
+					<div class="mb-3">
+					  <label for="formFileMultiple" class="form-label">제출서류 첨부(필요시)</label>
+					  <input class="form-control" type="file" name="file" id="formFileMultiple" accept="image/*" multiple>
+					</div>
 
 					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>
 				</form>
