@@ -2,7 +2,6 @@ package com.klk.bank.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klk.bank.domain.AccountDto;
@@ -75,27 +73,14 @@ public class AccountController {
 	@GetMapping("account_register")
 	public void accountRegister(ProductDto product, Model model) {
 				
-//		System.out.println(product);
-//		System.out.println(user);
-		
 		model.addAttribute("product", product);
-//		model.addAttribute("user", user);
 		
 	}
 	
 	@PostMapping("account_register")
-	public String accountRegister(AccountDto account, Model model, MultipartFile[] file, RedirectAttributes rttr) {
-						
-//		if (file != null) {
-//			List<String> file_list = new ArrayList<String>();
-//			for (MultipartFile f : file) {
-//				file_list.add(f.getOriginalFilename());
-//			}
-//			account.setFile_name(file_list);
-//		}
-				
+	public String accountRegister(AccountDto account, Model model, RedirectAttributes rttr) {
 		
-		boolean success = account_service.addAccount(account, file);
+		boolean success = account_service.addAccount(account);
 		
 		if (success) {
 //			rttr.addAttribute("message", "계좌가 개설되었습니다.");
@@ -113,9 +98,9 @@ public class AccountController {
 				
 		AccountDto account = account_service.getAccount(account_num);
 		
-		System.out.println(product);
-		System.out.println(user);
-		System.out.println(account);
+//		System.out.println(product);
+//		System.out.println(user);
+//		System.out.println(account);
 		
 		model.addAttribute("account", account);		
 		
@@ -127,9 +112,9 @@ public class AccountController {
 	
 	@PostMapping("account_get")
 	public void accountGet(@PathVariable("account_num") String account_num, AccountDto account, ProductDto product, UserDto user, Model model) {
-		System.out.println(product);
-		System.out.println(user);
-		System.out.println(account);
+//		System.out.println(product);
+//		System.out.println(user);
+//		System.out.println(account);
 		
 		model.addAttribute("account", account);
 		model.addAttribute("product", product);
@@ -137,8 +122,8 @@ public class AccountController {
 	}
 	
 	@PostMapping("account_modify")
-	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {
-		boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
+	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) RedirectAttributes rttr) {
+		boolean success = account_service.modifyAccount(account);
 		
 		if (success) {
 			rttr.addFlashAttribute("message", "계좌 정보가 수정되었습니다.");

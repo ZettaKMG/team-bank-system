@@ -106,6 +106,29 @@
 		WHERE id = #{id}
 	</delete>
 	
+	<!-- <insert id="insertFile">
+		INSERT INTO File (file_account_num, file_name)
+		VALUES (#{file_account_num}, #{file_name})
+	</insert>
+	
+	<delete id="deleteFileByAccountNum">
+		DELETE FROM File
+		WHERE file_account_num = #{file_account_num}
+	</delete>
+	
+	<select id="selectFileNameByAccountNum" resultType="string">
+		SELECT file_name
+		FROM File
+		WHERE file_account_num = #{file_account_num}
+	</select>
+	
+	<delete id="deleteFileByAccountNumAndFileName">
+		DELETE FROM File
+		WHERE file_account_num = #{file_account_num}
+		  AND file_name = #{file_name}
+	</delete>
+	-->
+	
 	<select id="selectSearchCountProduct" resultType="int">
 		SELECT COUNT (*)
 		FROM Product p
