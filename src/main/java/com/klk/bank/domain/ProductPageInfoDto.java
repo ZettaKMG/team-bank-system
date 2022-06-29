@@ -9,11 +9,11 @@ public class ProductPageInfoDto {
 	private static final int row_per_page = 5;
 	
 	public int getLeft() {
-		return Math.max(1, current_page - 2);
+		return Math.max(1, current_page - 5);
 	}
 	
 	public int getRight() {
-		return Math.min(end_page, current_page + 2);
+		return Math.min(end_page, current_page + 5);
 	}
 	
 	public int getRowPerPage() {

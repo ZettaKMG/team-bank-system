@@ -69,6 +69,7 @@
 			
 		GROUP BY p.id
 		ORDER BY p.id DESC
+		LIMIT #{from}, #{row_per_page}
 	</select>	
 	
 	<insert id="insertProduct" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
@@ -108,48 +109,62 @@
 	<select id="selectSearchCountProduct" resultType="int">
 		SELECT COUNT (*)
 		FROM Product p
-		<!-- <![CDATA[
-		<if test="sav_method != null && exp_period != null && rate != null">
-			<choose>
-				<when test="sav_method == '예금' && exp_period == 0 && rate == rate_all">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '예금' && exp_period == 0 && rate == rate_1">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '예금' && exp_period == 0 && rate == rate_2">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 12 && rate == rate_all">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 24 && rate == rate_all">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 36 && rate == rate_all">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 12 && rate == rate1">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 24 && rate == rate1">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 36 && rate == rate1">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 12 && rate == rate2">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 24 && rate == rate2">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-				<when test="sav_method == '적금' && exp_period == 36 && rate == rate2">
-					WHERE p.item_name LIKE #{keyword}
-				</when>
-			</choose>		
+		WHERE 1 = 1	
+				
+		
+		<!-- 검색 키워드 옵션 -->
+		<if test="keyword != '%%'">
+			AND p.item_name LIKE #{keyword }			
 		</if>
-		]]> -->
+		
+		<!-- 상품 종류 옵션 -->
+		<if test="sav_method != ''">
+			AND p.sav_method = #{sav_method}
+		</if>
+		
+		<!-- 가입기간 옵션 -->		
+		<if test="exp_period == 'period1'">	
+			<![CDATA[
+				AND p.exp_period < 12		
+			]]>	
+		</if>
+		<if test="exp_period == 'period2'">	
+			<![CDATA[
+				AND p.exp_period >= 12
+				AND p.exp_period < 24				  		
+			]]>	
+		</if>
+		<if test="exp_period == 'period3'">	
+			<![CDATA[
+				AND p.exp_period >= 24
+				AND p.exp_period < 36		  		
+			]]>	
+		</if>
+		<if test="exp_period == 'period4'">	
+			<![CDATA[
+				AND p.exp_period >= 36				  		
+			]]>	
+		</if>
+		
+		<!-- 이율 옵션 -->
+		<if test="rate == 'rate1'">	
+			<![CDATA[
+				AND p.rate <= 0.02		
+			]]>	
+		</if>
+		<if test="rate == 'rate2'">	
+			<![CDATA[
+				AND p.rate > 0.02
+				AND p.rate <= 0.035				  		
+			]]>	
+		</if>
+		<if test="rate == 'rate3'">	
+			<![CDATA[
+				AND p.rate > 0.035				  		
+			]]>	
+		</if>		
+		
+		
 	</select>
 		
 	

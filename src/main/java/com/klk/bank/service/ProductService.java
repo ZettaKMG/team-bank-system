@@ -65,8 +65,8 @@ public class ProductService {
 	}
 
 	public int searchCountAccount(String sav_method, String exp_period, String rate, String keyword) {
-
-		return productMapper.selectSearchCountProduct(sav_method, exp_period, rate, keyword);
+						
+		return productMapper.selectSearchCountProduct(sav_method, exp_period, rate, "%" + keyword + "%");
 	}
 
 }

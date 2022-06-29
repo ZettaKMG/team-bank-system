@@ -14,9 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klk.bank.domain.ProductDto;
 import com.klk.bank.domain.ProductPageInfoDto;
-import com.klk.bank.service.AccountService;
 import com.klk.bank.service.ProductService;
-import com.klk.bank.service.UserService;
 
 @Controller
 @RequestMapping("product")
@@ -25,11 +23,11 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private AccountService accountService;
+//	@Autowired
+//	private UserService userService;
+//	
+//	@Autowired
+//	private AccountService accountService;
 		
 	// 상품 조회
 	@RequestMapping("search")
@@ -42,13 +40,18 @@ public class ProductController {
 		page_info.setCurrent_page(page);
 		
 		int total_record = productService.searchCountAccount(sav_method, exp_period, rate, keyword);
+//		System.out.println(total_record);
 		int end_page = (total_record - 1) / page_info.getRowPerPage() + 1;
 		page_info.setEnd_page(end_page);
 		
+//		System.out.println(page_info);
 		List<ProductDto> list = productService.listProduct(page_info, keyword, sav_method, exp_period, rate);
 		
 		model.addAttribute("product_list", list);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("sav_method", sav_method);
+		model.addAttribute("exp_period", exp_period);
+		model.addAttribute("rate", rate);
 		model.addAttribute("product_page_info", page_info);
 	}	
 	

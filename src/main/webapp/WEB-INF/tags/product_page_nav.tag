@@ -8,6 +8,9 @@
 			<c:url value="${current }" var="prev_link">
 				<c:if test="${not empty keyword }">
 					<c:param name="keyword" value="${keyword }"></c:param>
+					<c:param name="sav_method" value="${sav_method }"></c:param>
+					<c:param name="exp_period" value="${exp_period }"></c:param>
+					<c:param name="rate" value="${rate }"></c:param>
 				</c:if>
 				<c:param name="page" value="${product_page_info.current_page - 1 }"></c:param>
 			</c:url>
@@ -21,6 +24,9 @@
 			<c:url value="${current }" var="present_link">
 				<c:if test="${not empty keyword }">
 					<c:param name="keyword" value="${keyword }"></c:param>
+					<c:param name="sav_method" value="${sav_method }"></c:param>
+					<c:param name="exp_period" value="${exp_period }"></c:param>
+					<c:param name="rate" value="${rate }"></c:param>
 				</c:if>
 				<c:param name="page" value="${page_num }"></c:param>
 			</c:url>
@@ -32,6 +38,9 @@
 		<c:url value="${current }" var="next_link">
 			<c:if test="${not empty keyword }">
 				<c:param name="keyword" value="${keyword }"></c:param>
+				<c:param name="sav_method" value="${sav_method }"></c:param>
+				<c:param name="exp_period" value="${exp_period }"></c:param>
+				<c:param name="rate" value="${rate }"></c:param>
 			</c:if>
 			<c:param name="page" value="${product_page_info.current_page + 1 }"></c:param>
 		</c:url>
