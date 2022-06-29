@@ -20,6 +20,7 @@ public class ProductReviewDto {
 	private int product_rev_group_num;
 	private int product_rev_parent_id;
 	private int product_rev_group_depth;
+	private int product_rev_group_reorder;
 	private boolean product_rev_group_end = true;
 
 }

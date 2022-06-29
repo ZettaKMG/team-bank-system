@@ -103,7 +103,7 @@
 								
 								<div id="rev_reply_form_container\${list[i].id }"
 									style="display: none;">
-									<form action="${appRoot }/product_review/reply_insert" method="post">
+									<form id="reply_edit_form" action="${appRoot }/product_review/reply_insert" method="post">
 										<div class="input-group">
 											<input type="hidden" name="product_rev_item_id" value="${product.id }" />
 											<input type="hidden" name="id" value="\${list[i].id }" />
