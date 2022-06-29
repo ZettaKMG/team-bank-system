@@ -27,6 +27,14 @@ public interface AccountMapper {
 
 	List<TransferDto> selectTransferAccount(String account_num);
 
+	void insertFile(@Param("account_num") String account_num, @Param("file_name") String file_name);
+
+	void deleteFileByAccountNum(String account_num);
+
+	List<String> selectFileNameByAccountNum(String account_num);
+
+	void deleteFileByAccountNumAndFileName(@Param("account_num") String account_num, @Param("file_name") String file_name);
+
 	
 
 }

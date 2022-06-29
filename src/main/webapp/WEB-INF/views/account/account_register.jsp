@@ -32,54 +32,6 @@
 			
 		});
 		
-		/* // 로그인 한 유저번호(user_id) 가져오기
-		$("#input2").keyup(function(e) {
-			e.preventDefault();
-			
-			$.ajax({
-				url : "${appRoot}/user/info",
-				type : "post",
-				data : ${user.user_id}
-				
-			});
-		});
-		
-		// 해당 상품번호(product.id) 가져오기
-		$("#input3").keyup(function(e) {
-			e.preventDefault();
-			
-			$.ajax({
-				url : "${appRoot}/product/detail",
-				type : "post",
-				data : ${product.id}
-				
-			});
-		});
-		
-		// 해당 상품명(product.item_name) 가져오기
-		$("#input4").keyup(function(e) {
-			e.preventDefault();
-			
-			$.ajax({
-				url : "${appRoot}/product/detail",
-				type : "post",
-				data : ${product.item_name}
-				
-			});
-		});
-		
-		// 해당 상품 이율(product.rate) 가져오기
-		$("#input5").keyup(function(e) {
-			e.preventDefault();
-			
-			$.ajax({
-				url : "${appRoot}/product/detail",
-				type : "post",
-				data : ${product.rate * 100} %
-				
-			});
-		}); */
-		
 		$("#account_num_check").click(function(e) {
 			e.preventDefault();
 			
@@ -130,7 +82,9 @@
 				enable_submit();
 			});
 			
-			$("#input2").keyup(function() {
+			// 하단을 주석처리한 이유는 해당 항목들을 이제 입력하는 방식이 아닌 
+			// 불러오는 값대로 쓰기 때문에 무효처리를 해줘야 계좌개설 버튼이 활성화되서 그랬습니다...
+			/* $("#input2").keyup(function() {
 				user_num_ok = true;
 				
 				enable_submit();
@@ -140,10 +94,10 @@
 				item_num_ok = true;
 				
 				enable_submit();
-			});
+			}); */
 			
 			const enable_submit = function() {
-				if(pw_ok && account_ok && user_num_ok && item_num_ok) {
+				if(pw_ok && account_ok /* && user_num_ok && item_num_ok */) {
 					$("#account_register_execute").removeAttr("disabled");
 				} else {
 					$("#account_register_execute").attr("disabled", "");
@@ -157,16 +111,18 @@
 </head>
 <body>
 
-	<bank:navBar></bank:navBar>
+	<bank:navBar></bank:navBar>      
     
     <div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
 
 				<form action="${appRoot }/account/account_register" method="post">
+					<input type="hidden" name="id" value="${account.account_item_id }" scope="session" />
+				
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
-						<input id="input1" class="form-control" type="text" name="account_num" value="" required readonly/>
+						<input id="input1" class="form-control" type="text" name="account_num" value="" scope="session" required readonly/>
 						<!-- 정수 12자리 무작위 번호 생성 버튼 추가 -->
 						<button class="btn btn-secondary" id="account_num_create" type="button">계좌번호 생성</button>
 						<button class="btn btn-secondary" id="account_num_check" type="button">계좌번호 중복 확인</button>
@@ -174,32 +130,39 @@
 					<div class="form-text" id="account_num_message"></div>
 
 					<label for="password_input1" class="form-label">패스워드</label>
-					<input class="form-control" id="password_input1" type="text" name="account_pw" required />
+					<input class="form-control" id="password_input1" type="text" placeholder="숫자 4자리 입력" name="account_pw" scope="session" required />
 
 					<label for="password_input2" class="form-label">패스워드 확인</label>
-					<input class="form-control" id="password_input2" type="text" name="account_pw_confirm" required />
+					<input class="form-control" id="password_input2" type="text" placeholder="숫자 4자리 입력" name="account_pw_confirm" required />
 					<p class="form-text" id="pw_check"></p>
 					
-					<label for="input2" class="form-label">유저번호</label>
+					<!-- 불러올때는 User 테이블의 user_id 컬럼값, DB에는 Account 테이블의 account_user_id 컬럼값으로 저장 -->
+					<label for="input2" class="form-label">유저아이디</label>
 					<div class="input-group mb-3">
-						<input id="input2" class="form-control" type="text" name="account_user_id" value="${user.user_id }" required readonly />
+						<input id="input2" value="${principal.username }" class="form-control" type="text" name="account_user_id" scope="session" required readonly />
 					</div>
 
+					<!-- 불러올때는 Product 테이블의 id 컬럼값, DB에는 Account 테이블의 account_item_id 컬럼값으로 저장 -->
 					<label for="input3" class="form-label">상품번호</label>
 					<div class="input-group mb-3">
-						<input id="input3" class="form-control" type="text" name="account_item_id" value="${product.id }" required readonly />
+						<input id="input3" value="${product.id }" class="form-control" type="text" name="account_item_id" scope="session" required readonly />
 					</div>
 					
 					<!-- DB 미반영 항목 -->
 					<label for="input4" class="form-label">상품명</label>
 					<div class="input-group mb-3">
-						<input id="input4" class="form-control" type="text" name="product_item_name" value="${product.item_name }" required readonly />
+						<input id="input4" value="${product.item_name }" class="form-control" type="text" name="product_item_name" scope="session" required readonly />
 					</div>
 					
 					<!-- DB 미반영 항목 -->
-					<label for="input5" class="form-label">이율</label>
+					<label for="input5" class="form-label">이율(%)</label>
 					<div class="input-group mb-3">
-						<input id="input5" class="form-control" type="text" name="product_rate" value="${product.rate }" required readonly />
+						<input id="input5" value="${product.rate }" class="form-control" type="text" name="product_rate" required readonly />
+					</div>
+					
+					<div class="mb-3">
+					  <label for="formFileMultiple" class="form-label">제출서류 첨부(필요시)</label>
+					  <input class="form-control" type="file" name="file" id="formFileMultiple" accept="image/*" multiple>
 					</div>
 
 					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>

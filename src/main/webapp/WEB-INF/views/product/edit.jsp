@@ -15,68 +15,37 @@
 
 
 <script>
-	$(document).ready(function() {
-		/*
-		$("#edit_button1").click(function() {
-			$("#item_name").removeAttr("readonly");
-			$("#item_summary").removeAttr("readonly");
-			$("#detail").removeAttr("readonly");
-			$("#sav_method").removeAttr("readonly");
-			$("#exp_period").removeAttr("readonly");
-			$("#rate").removeAttr("readonly");
-			$("#edit_submit1").removeClass("d-none");
-			$("#delete_submit1").removeClass("d-none");			
-		});
-		*/
-
-		// <!-- 수정 버튼 누를시 수정 여부 묻는 메세지 창  -->
+	$(document).ready(function() {		
+		/* 수정 버튼 누를시 이벤트 */
 		$("#edit_submit1").click(function(e) {
 			e.preventDefault();
 			
 			if (confirm("상품 정보를 수정하시겠습니까?")) {
 				let form1 = $("#form1");
-				let actionAttr1 = "${appRoot}/product/edit";
-				form1.attr("action1", actionAttr1);
+				let actionAttr2 = "${appRoot}/product/edit";
+				form1.attr("action", actionAttr2);
+				/* form1.attr("method", "post"); */
 				
 				form1.submit();
+			} else { // 취소시 아무일도 안 일어남
+			
 			}
 		});		
 		
-		// <!-- 삭제 버튼 누를시 삭제 여부 묻는 메세지 창 -->
+		/* 삭제 버튼 누를시 이벤트 */
 		$("#remove_submit1").click(function(e) {
 			e.preventDefault();
 			
 			if (confirm("상품 정보를 삭제하시겠습니까?")) {
-				let form2 = $("#form2");
-				let actionAttr2 = "${appRoot}/product/remove";
-				form2.attr("action2", actionAttr2);
+				let form1 = $("#form1");
+				let actionAttr3 = "${appRoot}/product/remove";
+				form1.attr("action", actionAttr3);
+				/* form1.attr("method", "post"); */
 				
-				form2.submit();
+				form1.submit();
+			} else { // 취소시 아무일도 안 일어남
+				
 			}
-		});
-	});
-</script>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		var formObj = $("form");
-		$('button').on("click", function(e) {
-			e.preventDefault();
-			
-			var operation = $(this).data("oper");
-			console.log(operation);
-			if (operation === 'remove') {
-				formObj.attr("action", "${appRoot}/product/remove");
-			} else if (operation === 'modify') {
-				// detail창으로 이동
-				// self.location = "${appRoot}/product/detail?id=" + ${product.id };
-				// return;
-			} else if (operation === 'search') {
-				// search창으로 이동
-				self.location = "${appRoot}/product/search";
-				return;
-			}
-			formObj.submit();
 		});
 	});
 </script>
@@ -86,31 +55,8 @@
 <body>
 	<bank:navBar></bank:navBar>
 
-	<div class="container">
-				
-		<!-- 상품 수정 여부 modal -->
-		<!-- 
-		<c:if test="${not empty message }">			
-			<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="my_modal_lable">상품 수정 여부</h5>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" aria-hidden="true"></button>
-			      </div>
-			      <div class="modal-body">
-			        <p>${message }</p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>		        
-			      </div>
-			    </div>
-			  </div>
-			</div>					
-		</c:if>
-		 -->
-				
-		<form role="form" id="form1" action="${appRoot }/product/edit?id=${product.id }" method="post">
+	<form id="form1" action="" method="post">
+	<div class="container">				
 			<div class="form-group">
 			<input type="hidden" name="id" value="${product.id }" />
 			</div>
@@ -171,12 +117,12 @@
 			</div>
 			
 			<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
-			  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
-			  <button type="submit" id="edit_submit1" data-oper='modify' class="btn btn-warning">상품정보 수정</button>
-			  <button type="submit" id="remove_submit1" data-oper='remove' class="btn btn-danger">상품정보 삭제</button>
+			  <button type="button" id="return_search1" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
+			  <button type="button" id="edit_submit1" class="btn btn-warning">상품정보 수정</button>
+			  <button type="button" id="remove_submit1" class="btn btn-danger">상품정보 삭제</button>
 			</div>
-		</form>		
 	</div>
+	</form>		
 
 </body>
 </html>

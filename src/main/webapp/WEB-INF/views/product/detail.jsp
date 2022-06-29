@@ -14,17 +14,19 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script>
-	$(document).ready(function() {
+	$(document).ready(function() {		
 		/* 수정 모드 진입 여부 묻는 메세지 창 */
 		$("#into_edit_mode_button").click(function(e) {
 			e.preventDefault();
-			
-			if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) {
+						
+			if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) { // 확인 누를시 진입
 				let form1 = $("#form1");
 				let actionAttr1 = "${appRoot}/product/edit";
-				form1.attr("action1", actionAttr1);
+				form1.attr("action", actionAttr1);
 				
 				form1.submit();
+			} else { // 취소 누를시 현재 페이지에 그대로
+									
 			}
 		});	
 		
@@ -32,18 +34,21 @@
 		$("#open_an_account_button").click(function(e) {
 			e.preventDefault();
 			
-			if (confirm("계좌개설 메뉴로 이동하시겠습니까?")) {
-				let form2 = $("#form2");
-				let actionAttr2 = "${appRoot}/product/openAnAccount";
-				form2.attr("action2", actionAttr2);
+			if (confirm("계좌개설 메뉴로 이동하시겠습니까?")) { // 확인 누를시 진입
+				let form1 = $("#form1");
+				let actionAttr2 = "${appRoot}/account/account_register";
+				form1.attr("action", actionAttr2);
 				
-				form2.submit();
+				form1.submit();
+			} else { // 취소 누를시 현재 페이지에 그대로
+				
 			}
 		});	
 	});
 </script>
 
 <script type="text/javascript">
+	<!-- Modal 창 -->
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -79,7 +84,7 @@
 		      </div>
 		      <div class="modal-body">
 		        <p>${message }</p>
-		      </div>
+		      </div> 
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>		        
 		      </div>
@@ -87,10 +92,11 @@
 		  </div>
 		</div>		
 	</c:if>	
-	
+			
+	<form id="form1" action="" method="get">	
 	<div class="container">				 
 		<input type="hidden" name="id" value="${product.id }" />
-		
+				
 		<div class="mt-5 mb-3">
 			<label for="item_name" class="form-label"><h4>상품명</h4></label>
 	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required readonly />
@@ -106,8 +112,9 @@
 					<tr>					
 						<td>								
 							<div class="input-group mb-3">
-							  <span class="input-group-text" id="sav_method">상품종류</span>
+							  <span class="input-group-text" id="sav_method">상품종류
 							  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required readonly />
+							  </span>							  
 							</div>									
 						</td>	
 					</tr>
@@ -115,8 +122,9 @@
 						<tr>
 							<td>
 								<div class="input-group mb-3">
-								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period } 개월" aria-label="Username" aria-describedby="exp_period" readonly />
+								  <span class="input-group-text" id="exp_period">가입기간
+								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period }" aria-label="Username" aria-describedby="exp_period" readonly /> 개월								  
+								  </span>
 								</div>									
 							</td>
 						</tr>
@@ -124,8 +132,9 @@
 					<tr>
 						<td>								
 							<div class="input-group mb-3">
-							  <span class="input-group-text" id="rate">이율</span>
-							  <input type="text" class="form-control" name="rate" value="연 ${product.rate * 100} %" aria-label="Username" aria-describedby="rate" required readonly />
+							  <span class="input-group-text" id="rate">이율
+							  연 <input type="text" class="form-control" name="rate" value="${product.rate * 100}" aria-label="Username" aria-describedby="rate" required readonly /> %
+							  </span>
 							</div>									
 						</td>
 					</tr>
@@ -138,17 +147,18 @@
 		</div>			
 		
 		<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
-		  <button type="submit" data-oper="search" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>			  			  
+		  <button type="button" id="return_search1" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>			  			  
 	
 		  <sec:authorize access="hasAnyRole('ADMIN, PRODUCT')">
-		  	<button type="submit" id="into_edit_mode_button" data-oper="edit" onclick="location.href='${appRoot}/product/edit?id=<c:out value="${product.id }" />'" class="btn btn-warning">상품정보 수정/삭제모드</button>
-		  </sec:authorize>			  			  
+		  	<button type="button" id="into_edit_mode_button" class="btn btn-warning">상품정보 수정/삭제모드</button>
+		  </sec:authorize>	
 		
 		  <sec:authorize access="isAuthenticated()">
-		  	<button type="submit" id="open_an_account_button" data-oper="open_an_account" onclick="location.href='${appRoot}/account/account_register<%-- ?id=<c:out value="${product.id }" /> --%>'" class="btn btn-info">계좌개설하기</button>
+		  	<button type="button" id="open_an_account_button" class="btn btn-info">계좌개설하기</button>
 		  </sec:authorize>		
 		</div>	
 	</div>
-
+	</form>
+	
 </body>
 </html>
