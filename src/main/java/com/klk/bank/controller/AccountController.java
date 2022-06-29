@@ -1,6 +1,7 @@
 package com.klk.bank.controller;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +25,6 @@ import com.klk.bank.domain.ProductDto;
 import com.klk.bank.domain.TransferDto;
 import com.klk.bank.domain.UserDto;
 import com.klk.bank.service.AccountService;
-import com.klk.bank.service.ProductService;
-import com.klk.bank.service.UserService;
 
 @Controller
 @RequestMapping("account")
@@ -34,11 +33,11 @@ public class AccountController {
 	@Autowired
 	private AccountService account_service;
 	
-	@Autowired
-	private ProductService product_service;
-	
-	@Autowired
-	private UserService user_service;
+//	@Autowired
+//	private ProductService product_service;
+//	
+//	@Autowired
+//	private UserService user_service;
 	
 	@RequestMapping("account_list")
 	public void accountList(@RequestParam(name = "page", defaultValue = "1") int page,
@@ -72,19 +71,18 @@ public class AccountController {
 	}
 	
 	@PostMapping("account_register")
-	public String accountRegister(AccountDto account, Model model,/* MultipartFile[] file, */ RedirectAttributes rttr) {
+	public String accountRegister(AccountDto account, Model model, MultipartFile[] file, RedirectAttributes rttr) {
+						
+//		if (file != null) {
+//			List<String> file_list = new ArrayList<String>();
+//			for (MultipartFile f : file) {
+//				file_list.add(f.getOriginalFilename());
+//			}
+//			account.setFile_name(file_list);
+//		}
 				
-		/*
-		if (file != null) {
-			List<String> file_list = new ArrayList<String>();
-			for (MultipartFile f : file) {
-				file_list.add(f.getOriginalFilename());
-			}
-			account.setFile_name(file_list);
-		}
-		*/
-				
-		boolean success = account_service.addAccount(account/*, file */);
+		
+		boolean success = account_service.addAccount(account, file);
 		
 		if (success) {
 //			rttr.addAttribute("message", "계좌가 개설되었습니다.");
@@ -126,15 +124,27 @@ public class AccountController {
 	}
 	
 	@PostMapping("account_modify")
-	public String accountModify(AccountDto account) {
-		boolean success = account_service.modifyAccount(account);
+	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {
+		boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
+		
+		if (success) {
+			rttr.addFlashAttribute("message", "계좌 정보가 수정되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "계좌 정보가 수정되지 않았습니다.");
+		}
 		
 		return "redirect:/account/" + account.getAccount_num();
 	}
 	
 	@PostMapping("account_remove")
-	public String accountRemove(String account_num) {
+	public String accountRemove(String account_num, RedirectAttributes rttr) {
 		boolean success = account_service.removeAccount(account_num);
+		
+		if (success) {
+			rttr.addFlashAttribute("message", "계좌 정보가 삭제되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "계좌 정보가 삭제되지 않았습니다.");
+		}
 		
 		return "redirect:/account/account_list";
 	}

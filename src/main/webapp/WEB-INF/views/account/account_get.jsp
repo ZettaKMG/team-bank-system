@@ -69,6 +69,16 @@
 
 </script>
 
+<script>
+	/* 파일 추가/수정 관련 부분 */
+	$(document).ready(function() {
+		$("account_update_start").click(function() {
+			$("#add_file_input_container1").removeClass("d-none");
+			$(".remove_file_checkbox").removeClass("d-none");			
+		});
+	});
+</script>
+
 <title>계좌 상세정보 페이지</title>
 </head>
 <body>
@@ -128,6 +138,38 @@
 					<div class="input-group mb-3">
 						<input id="input6" class="form-control" type="text"
 							value="${account.account_date }" readonly />
+					</div>
+					
+					<!-- 제출된 파일 추가/수정 부분 -->
+					<c:forEach items="${account.file_name }" var="file">
+						<%
+						String file = (String) pageContext.getAttribute("file");
+						String encoded_file_name = java.net.URLEncoder.encode(file, "utf-8");
+						pageContext.setAttribute("encoded_file_name", encoded_file_name);
+						%>
+						<div class="row">
+							<div class="col-lg-1 col-12 d-flex align-items-center">
+								<div class="d-none remove_file_checkbox">
+									<div class="form-check form-switch">
+											<label class="form-check-label text-danger">
+												<input class="form-check-input delete-checkbox" type="checkbox" name="remove_file_list" value="${file }"/>
+												<i class="fa-solid fa-trash-can">파일삭제</i>
+											</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-11 col-12">
+								<div>
+									<img class="img-fluid img-thumbnail" src="${image_url }/account/${account.account_num }/${encoded_file_name }" alt="" />
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					
+					<div id="add_file_input_container1" class="my-3 d-none">
+						<label for="file_input1" class="form-label"></label>
+						파일 추가
+						<input id="file_input1" class="form-control mb-3" type="file" accept="image/*" multiple="multiple" name="add_file_list" />
 					</div>
 
 					<button id="account_withdraw_deposit" class="mt-3 btn btn-info" form="form2" type="submit">계좌이력</button>
