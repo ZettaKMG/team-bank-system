@@ -5,6 +5,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,31 +34,42 @@ public class AccountController {
 	
 	@Autowired
 	private AccountService account_service;
-	
-//	@Autowired
-//	private ProductService product_service;
-//	
-//	@Autowired
-//	private UserService user_service;
-	
+
 	@RequestMapping("account_list")
 	public void accountList(@RequestParam(name = "page", defaultValue = "1") int page,
 							@RequestParam(name = "type", defaultValue = "") String type,
 							@RequestParam(name = "keyword", defaultValue = "") String keyword, 
+							HttpServletRequest req,
+							Principal principal,
 							Model model) {
 		
 		AccountPageInfoDto page_info = new AccountPageInfoDto();
 		page_info.setCurrent_page(page);
 		
-		int total_record = account_service.searchCountAccount(type, keyword);
-		int end_page = (total_record - 1) / page_info.getRowPerPage() + 1;
-		page_info.setEnd_page(end_page);
-						
-		List<AccountDto> account_list = account_service.listAccount(page_info, type, keyword);
-				
-		model.addAttribute("account_list", account_list);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("account_page_info", page_info);
+		if(req.isUserInRole("ROLE_USER")) {
+			
+			int total_record = account_service.searchCurrentUserCountAccount(principal.getName(), type, keyword);
+			int end_page = (total_record - 1) / page_info.getRowPerPage() + 1;
+			page_info.setEnd_page(end_page);
+			
+			List<AccountDto> account_list = account_service.listCurrentUserAccount(page_info, principal.getName(), type, keyword);
+			
+			model.addAttribute("account_list", account_list);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("account_page_info", page_info);
+			
+		} else {
+			
+			int total_record = account_service.searchCountAccount(type, keyword);
+			int end_page = (total_record - 1) / page_info.getRowPerPage() + 1;
+			page_info.setEnd_page(end_page);
+			
+			List<AccountDto> account_list = account_service.listAccount(page_info, type, keyword);
+			
+			model.addAttribute("account_list", account_list);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("account_page_info", page_info);
+		}
 	}
 	
 	@GetMapping("account_register")
@@ -165,8 +178,9 @@ public class AccountController {
 	@ResponseBody
 	public String sendAccountPwCheck(String send_account_num, String send_account_pw) {
 		
-		AccountDto send_account = account_service.getAccount(send_account_num);
-		if(send_account.getAccount_pw().equals(send_account_pw)) {
+		boolean success = account_service.accountPwCheck(send_account_num, send_account_pw);
+		
+		if(success) {
 			return "ok";
 		} else {
 			return "notOk";
@@ -196,10 +210,12 @@ public class AccountController {
 	
 	@PostMapping(path = "account_send_check", produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> accountSendCheck(String send_account_num){
+				
 		boolean exist = account_service.hasAccountNum(send_account_num);
 				
 		if(exist) {
 			AccountDto send_account = account_service.getAccount(send_account_num);
+			
 			return ResponseEntity.ok(send_account.getAccount_balance().toPlainString());	
 		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");

@@ -45,6 +45,7 @@
 				},
 				error : function() {
 					$("#account1_num_message").text("없는계좌번호 입니다. 다시 시도해 주세요.");
+					$("#send_enable_cost").text("");
 				},
 				complete : function() {
 					$("#account1_num_check").removeAttr("disabled");
@@ -152,7 +153,7 @@
 						case "ok" :
 							$("#account_pw_check_result").text("비밀번호가 일치합니다.");
 							$("#account_transfer_notice").text("계좌이체를 실행하시겠습니까?");
-							$("#account_transter_submit").removeClass("d-none");
+							$("#account_transfer_submit").removeClass("d-none");
 							break;
 						case "notOk" : 
 							$("#account_pw_check_result").text("비밀번호가 일치하지 않습니다.");
@@ -167,6 +168,10 @@
 				}
 
 			});
+		});
+		
+		$("#account_pw_cancel, #account_transfer_cancel").click(function() {
+			$("#account_pw_input1").val("");
 		});
 		
 		const enable_submit = function() {
@@ -240,7 +245,7 @@
 				</div>
 				<div class="modal-footer">
 					<button id="account_pw_check1" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal2">확인</button>
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+					<button id="account_pw_cancel" type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>
 		</div>
@@ -259,8 +264,8 @@
 					<p id="account_transfer_notice"></p>	 
 				</div>
 				<div class="modal-footer">
-					<button id="account_transter_submit" form="form1" type="submit" class="btn btn-primary d-none">진행</button>
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+					<button id="account_transfer_submit" form="form1" type="submit" class="btn btn-primary d-none">진행</button>
+					<button id="account_transfer_cancel" type="button" class="btn btn-danger" data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>
 		</div>

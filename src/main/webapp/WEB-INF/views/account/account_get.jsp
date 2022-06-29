@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix = "bank" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
@@ -19,11 +20,13 @@
 		let pw_ok = false;
 		
 		$("#account_update_start").click(function() {
-			$("#input2").removeAttr("readonly");
-			$("#input3").removeAttr("readonly"); 
-			$("#input4").removeAttr("readonly");
-			$("#input5").removeAttr("readonly");
-			$("#input6").removeAttr("readonly");
+			<sec:authorize access="hasRole('ADMIN')">
+				$("#input2").removeAttr("readonly");
+				$("#input3").removeAttr("readonly"); 
+				$("#input4").removeAttr("readonly");
+				$("#input5").removeAttr("readonly");
+			</sec:authorize>
+			
 			$("#password_input1, #password_input2").removeAttr("readonly");
 			
 			$("#account_update_start").addClass("d-none");
@@ -50,6 +53,7 @@
 			if(pw1 === pw2){
 				$("#pw_check").text("패스워드가 일치합니다.");
 				pw_ok = true;
+				$("#password_input1, #password_input2").attr("readonly", "");
 			} else {
 				$("#pw_check").text("패스워드가 일치하지 않습니다.");
 			}

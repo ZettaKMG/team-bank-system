@@ -12,7 +12,9 @@
 			   a.account_balance, 
 			   a.account_date, 
 			   u.user_id account_user_name 
-		FROM Account a JOIN User u ON a.account_user_id = u.user_id
+
+    FROM Account a JOIN User u ON a.account_user_id = u.user_id
+
 		<if test="type != null">
 			<choose>
 				<when test="type == 'account_num'">
@@ -20,8 +22,8 @@
 					ORDER BY a.account_num 
 				</when>
 				<when test="type == 'account_user_name'">
-					WHERE u.user_name LIKE #{keyword}
-					ORDER BY u.user_name
+					WHERE u.user_id LIKE #{keyword}
+					ORDER BY u.user_id
 				</when>
 			</choose>
 		</if>
@@ -37,8 +39,10 @@
 			   a.account_balance, 
 			   a.account_date, 
 			   u.user_id account_user_name 
+
 		FROM Account a JOIN User u ON a.account_user_id = u.user_id
 		WHERE account_num = #{account_num}
+
 	</select>
 	
 	<insert id="insertAccount">
@@ -69,7 +73,7 @@
 					WHERE a.account_num LIKE #{keyword}
 				</when>
 				<when test="type == 'account_user_name'">
-					WHERE u.user_name LIKE #{keyword}
+					WHERE u.user_id LIKE #{keyword}
 				</when>
 			</choose>
 		</if>
@@ -98,7 +102,52 @@
 	
 	</select>
 	
-	<insert id="insertFile">
+
+	<select id="selectSearchCurrentUserCountAccount" resultType="int">
+		SELECT COUNT(*)
+		FROM Account a JOIN User u ON a.account_user_id = u.user_id
+		WHERE u.user_id = #{user_id}
+		<if test="type != null">
+			<choose>
+				<when test="type == 'account_num'">
+					AND a.account_num LIKE #{keyword}
+				</when>
+				<when test="type == 'account_user_name'">
+					AND u.user_id LIKE #{keyword}
+				</when>
+			</choose>
+		</if>
+		
+	</select>
+	
+	<select id="selectCurrentUserAccount" resultType="com.klk.bank.domain.AccountDto">
+		SELECT a.account_num,
+			   a.account_user_id, 
+			   a.account_item_id, 
+			   a.account_pw, 
+			   a.account_balance, 
+			   a.account_date, 
+			   u.user_id account_user_name 
+		FROM Account a JOIN User u ON a.account_user_id = u.user_id
+		WHERE u.user_id = #{user_id}
+		<if test="type != null">
+			<choose>
+				<when test="type == 'account_num'">
+					AND a.account_num LIKE #{keyword}
+					ORDER BY a.account_num 
+				</when>
+				<when test="type == 'account_user_name'">
+					
+					ORDER BY u.user_id
+				</when>
+			</choose>
+		</if>
+		
+		LIMIT #{from}, #{row_per_page}
+	</select>
+	
+
+	<!-- <insert id="insertFile">
 		INSERT INTO File (file_account_num, file_name)
 		VALUES (#{file_account_num}, #{file_name})
 	</insert>
@@ -119,5 +168,6 @@
 		WHERE file_account_num = #{file_account_num}
 		  AND file_name = #{file_name}
 	</delete>
-	
+	-->
+
 </mapper>

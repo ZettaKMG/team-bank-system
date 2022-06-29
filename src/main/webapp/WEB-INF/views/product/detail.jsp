@@ -47,8 +47,9 @@
 	});
 </script>
 
-<script type="text/javascript">
+<script>
 	<!-- Modal 창 -->
+
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -66,6 +67,218 @@
 			$("#my_modal").modal("show");
 		}
 	});
+</script>
+
+<script>
+	$(function() {
+		
+		// 상품평 list가져오는 메소드
+		const list_rev = function(){
+		
+			const data = { product_rev_item_id : ${product.id} };	
+			
+			$.ajax({
+				url : "${appRoot}/product_review/list",
+				type : "get",
+				data : data,
+				success : function(list) {
+					
+					const rev_list_element = $("#rev_list1");
+					rev_list_element.empty();
+					
+					for(let i = 0; i < list.length; i++){
+						const rev_element = $("<li class='list-group-item' />");
+						
+						rev_element.html(`
+								<div id="rev_display_container\${list[i].id }">
+									<div class="fw-bold">
+										<i class="fa-solid fa-comment"></i> 
+										\${list[i].product_rev_inserted}
+										<button type="button" 
+												id="rev_reply_form\${list[i].id}" 
+												data-reply-id="\${list[i].id }"
+												class="rev_reply_form btn btn-link">덧글</button>
+									 	<span id="modify_button_wrapper\${list[i].id }"></span>
+									</div>
+										<span class="badge bg-light text-dark">
+										<i class="fa-solid fa-user"></i>
+										\${list[i].product_rev_user_id}
+										</span> 
+							 			<span id="rev_content\${list[i].id}"></span>
+								</div>
+								
+								<div id="rev_reply_form_container\${list[i].id }"
+									style="display: none;">
+									<form id="reply_edit_form" action="${appRoot }/product_review/reply_insert" method="post">
+										<div class="input-group">
+											<input type="hidden" name="product_rev_item_id" value="${product.id }" />
+											<input type="hidden" name="id" value="\${list[i].id }" />
+											<input class="form-control" type="text" name="product_rev_content" required />
+											<button data-reply-id="\${list[i].id}" 
+													id ="rev_reply_insert_submit"        
+													class="btn btn-outline-secondary">
+												<i class="fa-solid fa-comment-dots"></i>
+											</button>
+										</div>
+									</form>
+								</div>
+								
+								<div id="rev_edit_form_container\${list[i].id }"
+									style="display: none;">
+									<form action="${appRoot }/product_review/modify" method="post">
+										<div class="input-group">
+											<input type="hidden" name="product_rev_item_id" value="${product.id }" />
+											<input type="hidden" name="id" value="\${list[i].id }" />
+											<input class="form-control" value="\${list[i].product_rev_content }"
+												type="text" name="product_rev_content" required />
+											<button data-reply-id="\${list[i].id}" 
+													id ="rev_modify_submit"        
+													class="btn btn-outline-secondary">
+												<i class="fa-solid fa-comment-dots"></i>
+											</button>
+										</div>
+									</form>
+								</div>
+							`);
+						rev_list_element.append(rev_element);					
+						
+						$("#rev_content"+ list[i].id).text(list[i].product_rev_content);
+						
+						// own(사용자 일치여부)가 true일때만, 수정 삭제 버튼 보임
+						if (list[i].own) {
+							$("#modify_button_wrapper" + list[i].id).html(`
+								<span class="rev_edit_toggle_button badge bg-info text-dark"
+									id="rev_edit_toggle_button\${list[i].id }"
+									data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</span>
+								<span class="rev_delete_button badge bg-danger"
+									data-reply-id="\${list[i].id }">
+									<i class="fa-solid fa-trash-can"></i>
+								</span>
+							`);
+						}
+					
+					} // end of for
+					
+					$("#rev_modify_submit").click(function(e) {
+						e.preventDefault();
+						
+						const id = $(this).attr("data-reply-id");
+						const formElem = $("#rev_edit_form_container" + id).find("form");
+						const data = {
+							product_rev_item_id : formElem.find("[name=product_rev_item_id]").val(),
+							id : formElem.find("[name=id]").val(),
+							product_rev_content : formElem.find("[name=product_rev_content]").val()
+						};
+						
+						$.ajax({
+							url : "${appRoot }/product_review/modify",
+							type : "put",
+							data : JSON.stringify(data),
+							contentType : "application/json",
+							success : function(data) {
+								console.log("수정 성공");
+														
+							},
+							error : function() {
+								
+								console.log("수정 실패");
+							},
+							complete : function() {
+								// 댓글 refresh
+								list_rev();
+								console.log("수정 종료");
+							}
+						});
+					});
+					
+					$(".rev_edit_toggle_button").click(function() {
+						
+						const rev_id = $(this).attr("data-reply-id");
+						const display_div_id = "#rev_display_container" + rev_id;
+						const edit_form_id = "#rev_edit_form_container" + rev_id;
+						const rev_reply_form_id = "#rev_reply_form_container" + rev_id;
+												
+						$(display_div_id).hide();
+						$(rev_reply_form_id).hide();
+						$(edit_form_id).show();
+					});	
+					
+					$(".rev_reply_form").click(function() {
+						
+						const rev_id = $(this).attr("data-reply-id");
+						const display_div_id = "#rev_display_container" + rev_id;
+						const edit_form_id = "#rev_edit_form_container" + rev_id;
+						const rev_reply_form_id = "#rev_reply_form_container" + rev_id;
+												
+						$(display_div_id).hide();
+						$(edit_form_id).hide();
+						$(rev_reply_form_id).show();
+					});
+					
+					$(".rev_delete_button").click(function() {
+						const rev_id = $(this).attr("data-reply-id");
+						const message = "댓글을 삭제하시겠습니까?";
+						
+						if (confirm(message)) {
+														
+							$.ajax({
+								url : "${appRoot}/product_review/delete/" + rev_id,
+								type : "delete",
+								success : function(data){
+										// 댓글 list refresh
+										list_rev();
+								},
+									
+								error : function(){
+									console.log(rev_id + "댓글 삭제 중 문제 발생");
+									
+								},
+								complete : function(){
+									console.log(rev_id + "댓글 삭제 끝");
+								}
+							});
+						}
+					});
+				},
+				
+				error : function() {
+					console.log("댓글 가져오기 실패");
+				}
+			}); 
+		}				
+		
+		list_rev();
+		
+		$("#add_rev_submit1").click(function(e) {
+			e.preventDefault();
+			
+			const data = $("#insert_rev_form1").serialize();
+				
+			$.ajax({
+				url : "${appRoot}/product_review/insert",
+				type : "post",
+				data : data,
+				success : function(data) {
+					// text input 초기화
+					$("#insert_rev_content_input1").val("");
+					// 모든 댓글 가져오는 ajax요청
+					list_rev();
+				},
+
+				error : function() {
+					console.log("문제 발생");
+				},
+	
+				complete : function() {
+					console.log("요청 완료");
+				}
+		
+			});
+		});	 
+	});
+
 </script>
 	
 <title>상품 상세정보 페이지</title>
@@ -143,7 +356,7 @@
 		</div>
 		<div class="mt-3 mb-3">
 			<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
-		    <textarea class="form-control" name="detail" id="detail" rows="10" readonly>${product.detail }</textarea>
+		    <textarea class="form-control" name="detail" id="detail" rows="2" readonly>${product.detail }</textarea>
 		</div>			
 		
 		<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
@@ -158,7 +371,36 @@
 		  </sec:authorize>		
 		</div>	
 	</div>
-	</form>
+</form>    
+	
+	<%-- 댓글 목록 --%>
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col">
+				<h4>상품평</h4>			
+				<ul id="rev_list1" class="list-group">
+				
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<%-- 댓글 추가 --%>
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col">
+				<form id="insert_rev_form1" method="post">
+					<div class="input-group">
+						<input type="hidden" name="product_rev_item_id" value="${product.id }" />
+						<input id="insert_rev_content_input1" class="form-control" type="text" name="product_rev_content" required /> 
+						<button id="add_rev_submit1" class="btn btn-outline-secondary">
+							<i class="fa-solid fa-comment-dots"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	
 </body>
 </html>

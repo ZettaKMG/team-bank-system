@@ -75,6 +75,7 @@
 				if(pw1 === pw2){
 					$("#pw_check").text("패스워드가 일치합니다.");
 					pw_ok = true;
+					$("#password_input1, #password_input2").attr("disabled", "");
 				} else {
 					$("#pw_check").text("패스워드가 일치하지 않습니다.");
 				}
@@ -99,6 +100,7 @@
 			const enable_submit = function() {
 				if(pw_ok && account_ok /* && user_num_ok && item_num_ok */) {
 					$("#account_register_execute").removeAttr("disabled");
+					
 				} else {
 					$("#account_register_execute").attr("disabled", "");
 				}

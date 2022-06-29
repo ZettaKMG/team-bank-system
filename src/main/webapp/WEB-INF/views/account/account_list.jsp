@@ -64,7 +64,7 @@
 			<form class="d-flex" action="${appRoot }/account/account_list">
 				<select name="type" class="form-select w-50">
 					<option value="account_num">계좌번호</option>
-					<option value="account_user_name">계좌주</option>
+					<option value="account_user_name">고객ID</option>
 				</select>
 
 				<input class="form-control me-2" type="search" name="keyword"

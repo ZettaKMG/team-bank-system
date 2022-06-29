@@ -27,13 +27,19 @@ public interface AccountMapper {
 
 	List<TransferDto> selectTransferAccount(String account_num);
 
-	void insertFile(@Param("account_num") String account_num, @Param("file_name") String file_name);
 
-	void deleteFileByAccountNum(String account_num);
+	int selectSearchCurrentUserCountAccount(@Param("type")String type, @Param("user_id")String user_id,  @Param("keyword")String keyword);
 
-	List<String> selectFileNameByAccountNum(String account_num);
+	List<AccountDto> selectCurrentUserAccount(@Param("from")int from, @Param("row_per_page")int row_per_page, @Param("user_id")String user_id, @Param("type") String type, @Param("keyword")String keyword);
 
-	void deleteFileByAccountNumAndFileName(@Param("account_num") String account_num, @Param("file_name") String file_name);
+	//void insertFile(@Param("account_num") String account_num, @Param("file_name") String file_name);
+
+	//void deleteFileByAccountNum(String account_num);
+
+	//List<String> selectFileNameByAccountNum(String account_num);
+
+	//void deleteFileByAccountNumAndFileName(@Param("account_num") String account_num, @Param("file_name") String file_name);
+
 
 	
 

@@ -9,7 +9,6 @@
 <c:url value="/product/registration" var="registrationUrl" />
 
 <!-- 회원 정보 관련 링크 -->
-
 <c:url value="/user/list" var="userListUrl"></c:url>
 <c:url value="/user/info" var="userInfoUrl"></c:url>
 <c:url value="/user/signup" var="signUpUrl"></c:url>
@@ -121,14 +120,14 @@
 						<c:when test="${not empty principal.username }">
 							<div class="grid">					 
 							  <div class="g-col-3 g-start-9">								  	
-							  	<input class="form-control" type="text" value="${principal.username } 님 환영합니다!" aria-label="readonly input example" readonly>
+							  	<input class="form-control text-center" type="text" value="${principal.username } 님 환영합니다!" aria-label="readonly input example" readonly>
 							  </div>
 							</div>
 						</c:when>									
 						<c:when test="${empty principal.username }">
 							<div class="grid">					 
 							  <div class="g-col-3 g-start-9">
-							  	<input class="form-control" type="text" value="비로그인 상태입니다" aria-label="readonly input example" readonly>
+							  	<input class="form-control text-center" type="text" value="비로그인 상태입니다" aria-label="readonly input example" readonly>
 							  </div>
 							</div>
 						</c:when>		

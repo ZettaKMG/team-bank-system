@@ -6,9 +6,16 @@
     },
     "outline": {
       
+    },
+    "browser-extension": {
+      
+    },
+    "jquery-extension": {
+      
     }
   },
   "libs": [
-    "browser"
+    "browser",
+    "jquery"
   ]
 }
