@@ -50,7 +50,7 @@
 			const pw2 = $("#password_input2").val();
 			
 			pw_ok = false;
-			if(pw1 === pw2){
+			if((pw1 != "") && (pw2 != "") && (pw1 === pw2)){
 				$("#pw_check").text("패스워드가 일치합니다.");
 				pw_ok = true;
 				$("#password_input1, #password_input2").attr("readonly", "");
