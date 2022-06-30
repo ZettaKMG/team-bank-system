@@ -50,7 +50,7 @@ public class ProductReviewController {
 			boolean success = product_review_service.addProductReview(dto);
 							
 			if (success) {
-				return ResponseEntity.ok("새 댓글이 등록되었습니다.");
+				return ResponseEntity.ok("상품평이 등록되었습니다.");
 			} else {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
 			}
@@ -67,7 +67,7 @@ public class ProductReviewController {
 			boolean success = product_review_service.updateProductReview(dto, principal);
 			
 			if (success) {
-				return ResponseEntity.ok("댓글이 변경되었습니다.");
+				return ResponseEntity.ok("글이 변경되었습니다.");
 			}
 			
 			return ResponseEntity.status(500).body("");
@@ -84,7 +84,7 @@ public class ProductReviewController {
 			boolean success = product_review_service.removeProductReview(id, principal);
 			
 			if (success) {
-				return ResponseEntity.ok("댓글을 삭제 하였습니다.");
+				return ResponseEntity.ok("상품평을 삭제 하였습니다.");
 			} else {
 				return ResponseEntity.status(500).body("");
 			}

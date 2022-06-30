@@ -94,10 +94,14 @@
 									<div class="fw-bold">
 										<i class="fa-solid fa-comment"></i> 
 										\${list[i].product_rev_inserted}
+										
+										<sec:authorize access="isAuthenticated()">
 										<button type="button" 
 												id="rev_reply_form\${list[i].id}" 
 												data-reply-id="\${list[i].id }"
 												class="rev_reply_form btn btn-link">덧글</button>
+										</sec:authorize>		
+											
 									 	<span id="modify_button_wrapper\${list[i].id }"></span>
 									</div>
 										<span class="badge bg-light text-dark">
@@ -109,14 +113,13 @@
 								
 								<div id="rev_reply_form_container\${list[i].id }"
 									style="display: none;">
-									<form id="reply_edit_form" action="${appRoot }/product_review/reply_insert" method="post">
+									<form action="${appRoot }/product_review/reply_insert" method="post">
 										<div class="input-group">
 											<input type="hidden" name="product_rev_item_id" value="${product.id }" />
 											<input type="hidden" name="id" value="\${list[i].id }" />
 											<input class="form-control" type="text" name="product_rev_content" required />
 											<button data-reply-id="\${list[i].id}" 
-													id ="rev_reply_insert_submit"        
-													class="btn btn-outline-secondary">
+													class="rev_reply_insert_submit btn btn-outline-secondary">
 												<i class="fa-solid fa-comment-dots"></i>
 											</button>
 										</div>
@@ -132,8 +135,7 @@
 											<input class="form-control" value="\${list[i].product_rev_content }"
 												type="text" name="product_rev_content" required />
 											<button data-reply-id="\${list[i].id}" 
-													id ="rev_modify_submit"        
-													class="btn btn-outline-secondary">
+													class="rev_modify_submit btn btn-outline-secondary">
 												<i class="fa-solid fa-comment-dots"></i>
 											</button>
 										</div>
@@ -161,7 +163,7 @@
 				
 					} // end of for
 					
-					$("#rev_modify_submit").click(function(e) {
+					$(".rev_modify_submit").click(function(e) {
 						e.preventDefault();
 						
 						const id = $(this).attr("data-reply-id");
@@ -193,6 +195,37 @@
 						});
 					});
 					
+					$(".rev_reply_insert_submit").click(function(e) {
+						e.preventDefault();
+						
+						const id = $(this).attr("data-reply-id");
+						const formElem = $("#rev_reply_form_container" + id).find("form");
+						const data = formElem.serialize();
+										
+						$.ajax({
+								url : "${appRoot}/product_review/reply_insert",
+								type : "post",
+								data : data,
+								
+								success : function(data) {
+									// text input 초기화
+									formElem.find("[name=product_rev_content]").val("");
+									$("#insert_rev_container").removeClass("d-none");
+									// 모든 댓글 가져오는 ajax요청
+									list_rev();
+								},
+
+								error : function() {
+									console.log("문제 발생");
+								},
+					
+								complete : function() {
+									console.log("요청 완료");
+								}
+						});
+					});
+					
+					
 					$(".rev_edit_toggle_button").click(function() {
 						
 						const rev_id = $(this).attr("data-reply-id");
@@ -201,8 +234,8 @@
 						const rev_reply_form_id = "#rev_reply_form_container" + rev_id;
 												
 						$(display_div_id).hide();
-						$(rev_reply_form_id).hide();
 						$(edit_form_id).show();
+						$(rev_reply_form_id).hide();
 					});	
 					
 					$(".rev_reply_form").click(function() {
@@ -214,6 +247,7 @@
 												
 						$(display_div_id).hide();
 						$(edit_form_id).hide();
+						$("#insert_rev_container").addClass("d-none");
 						$(rev_reply_form_id).show();
 					});
 					
@@ -386,7 +420,7 @@
 	</div>
 	
 	<%-- 댓글 추가 --%>
-	<div class="container mt-3">
+	<div id="insert_rev_container" class="container mt-3">
 		<div class="row">
 			<div class="col">
 				<form id="insert_rev_form1" method="post">
