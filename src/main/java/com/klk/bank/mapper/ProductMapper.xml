@@ -132,8 +132,7 @@
 	<select id="selectSearchCountProduct" resultType="int">
 		SELECT COUNT (*)
 		FROM Product p
-		WHERE 1 = 1	
-				
+		WHERE 1 = 1					
 		
 		<!-- 검색 키워드 옵션 -->
 		<if test="keyword != '%%'">
@@ -185,10 +184,7 @@
 			<![CDATA[
 				AND p.rate > 0.035				  		
 			]]>	
-		</if>		
-		
-		
-	</select>
-		
+		</if>				
+	</select>		
 	
 </mapper>

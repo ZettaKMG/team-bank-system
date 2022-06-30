@@ -16,14 +16,6 @@ public class ProductService {
 	@Autowired
 	private ProductMapper productMapper;
 	
-//	@Autowired
-//	private ReplyMapper replyMapper;
-
-//	public List<ProductDto> listProduct(String keyword, String sav_method, String exp_period, String rate) {
-//		
-//		return productMapper.selectProductAll("%" + keyword + "%", sav_method, exp_period, rate);
-//	}
-	
 	public List<ProductDto> listProduct(ProductPageInfoDto page_info, String keyword, String sav_method, String exp_period, String rate) {
 
 		int row_per_page = page_info.getRowPerPage();
@@ -57,9 +49,6 @@ public class ProductService {
 
 	@Transactional
 	public boolean deleteProduct(int id) {
-		
-//		// Reply 테이블 삭제
-//		replyMapper.deleteByProductId(id);
 		
 		return productMapper.deleteProduct(id) == 1;
 	}

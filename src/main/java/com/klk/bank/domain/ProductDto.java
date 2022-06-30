@@ -11,8 +11,8 @@ public class ProductDto {
 	
 	private int id;
 	
-//	private String user_id;
-	
+	private String user_id;
+		
 	private String item_name;
 	
 	private String summary;
@@ -25,7 +25,9 @@ public class ProductDto {
 	
 	private String detail;
 	
-	private LocalDateTime date;
+	private LocalDateTime date;	
+
+	private String account_num;
 	
 	private List<String> file_name;
 	
