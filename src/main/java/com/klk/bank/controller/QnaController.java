@@ -37,6 +37,9 @@ public class QnaController {
 	
 	@PostMapping("write")
 	public String qnaWrite(QnaDto qna, Principal principal) {
+		if(qna.getQna_parent() != 0) {
+			qna.setIncreseQnaDep(qna.getQna_dep());
+		}
 		qna.setUser_id(principal.getName());
 		qnaService.insertQnaBoard(qna);
 		return "redirect:/qnaBoard/get?id=" + qna.getId();

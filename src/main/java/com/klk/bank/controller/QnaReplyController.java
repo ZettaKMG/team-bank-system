@@ -25,19 +25,19 @@ public class QnaReplyController {
 	QnaReplyService qnaRepService;
 	
 	@PostMapping(path = "write", produces = "text/plain;charset=UTF-8")
-	public String addQnaReply(QnaReplyDto dto, Principal principal) {
-		if(dto.getQna_rep_parent() != 0) {
-			dto.setIncreseRepDep(dto.getQna_rep_dep());
+	public String addQnaReply(QnaReplyDto qnaRep, Principal principal) {
+		if(qnaRep.getQna_rep_parent() != 0) {
+			qnaRep.setIncreseRepDep(qnaRep.getQna_rep_dep());
 		}
 		
 		if(principal == null) {
 			System.out.println("로그인이 필요합니다.");
 		} else {
-			dto.setUser_id(principal.getName());
-			qnaRepService.insertQnaReply(dto);
+			qnaRep.setUser_id(principal.getName());
+			qnaRepService.insertQnaReply(qnaRep);
 		}
 		
-		return "redirect:/qnaBoard/get?id=" + dto.getQna_id();
+		return "redirect:/qnaBoard/get?id=" + qnaRep.getQna_id();
 	}
 	
 	@PostMapping("list")

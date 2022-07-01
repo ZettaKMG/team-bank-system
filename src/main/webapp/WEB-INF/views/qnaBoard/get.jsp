@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script>
@@ -65,8 +66,7 @@
 					for (let i = 0; i < list.length; i++) {
 						const replyElement = $("<li class='list-group-item' />");
 						replyElement.html(`
-							// 댓글 div
-							<div style="margin-left :\${list[i].qna_rep_dep * 30}px;" id="replyDisplayContainer\${list[i].id }">
+							<div style="margin-left :\${list[i].qna_rep_dep * 10}px;" id="replyDisplayContainer\${list[i].id }">
 								<div class="d-flex fw-bold">
 									<span id="replyIcon\${list[i].id }"><i class="fa-solid fa-comment"></i></span>
 									<span class="mx-2">\${list[i].user_id}</span>
@@ -79,7 +79,6 @@
 								</div>
 							</div>
 							
-							// 댓글 수정 form
 							<div id="replyEditFormContainer\${list[i].id }"	style="display: none;">
 								<form action="${appRoot }/qnaReply/modify" method="post">
 									<div class="input-group">
@@ -93,7 +92,6 @@
 								</form>
 							</div>
 							
-							// 댓글의 답글 form
 							<div class="row mt-3" id="reReplyFormDiv\${list[i].id }" style="display: none;">
 								<form id="reReplyForm\${list[i].id }" action="${appRoot}/qnaReply/write" method="post">
 									<div class="input-group">
@@ -135,7 +133,7 @@
 						// 댓글이 대댓글일 때 아이콘 모양 변경
 						if(list[i].qna_rep_parent != 0) {
 							$("#replyIcon" + list[i].id).html(`
-								<i class="fa-solid fa-l ms-3"></i>
+								<i class="bi bi-arrow-return-right"></i>
 							`);
 						}
 						
@@ -248,7 +246,7 @@
 						
 						<div class="button-group mt-3">
 							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
-							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/write?id=${qna.id }';" value="답글"/>
+							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/write?id=${qna.id }&dep=${qna.qna_dep }';" value="답글"/>
 							<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
 							<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
 							<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
