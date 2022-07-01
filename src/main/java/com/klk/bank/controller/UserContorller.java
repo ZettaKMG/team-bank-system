@@ -29,7 +29,7 @@ public class UserContorller {
 	@GetMapping("login")
 	public void loginPage(String error, String logout, Model model) {
 		if(error != null) {
-			model.addAttribute("error", "로그인 오류, 계정을 확인해 주세요.");
+			model.addAttribute("LoginFailMessage", "로그인 오류, 계정을 확인해 주세요.");
 		}
 		if(logout != null) {
 			model.addAttribute("logout", "로그아웃 되었습니다.");

@@ -20,15 +20,16 @@
 
 	<div class="container">
 		<div class="row justify-content-center">
+			<c:if test="${not empty LoginFailMessage}">
+				<div class="alert alert-danger mt-3" >
+					<p> Error : <c:out value="${LoginFailMessage}"/> </p>
+				</div>
+			</c:if>
 			<div class="col-12 col-lg-4">
 			
 				<h1>로그인</h1>
-				<h3><c:out value="${error }"></c:out></h3>
 				<h3><c:out value="${logout }"></c:out></h3>
-				<c:if test="${LoginFailMessage!=null}">
-					<p> Error : <c:out value="${LoginFailMessage}"/> </p>
-				</c:if>
-				<form action="${appRoot }/login" method="post">
+				<form action="${appRoot }/user/login" method="post">
 					<div class="row">
 						<label for="userIdInput1" class="form-label">
 							ID 
