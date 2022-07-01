@@ -11,9 +11,7 @@ import com.klk.bank.mapper.ProductReviewMapper;
 
 @Service
 public class ProductReviewService {
-	
-	private int reOrder = 0;
-	
+		
 	@Autowired
 	private ProductReviewMapper product_review_mapper;
 	
@@ -66,7 +64,6 @@ public class ProductReviewService {
 		child.setProduct_rev_content(dto.getProduct_rev_content());
 		child.setProduct_rev_parent_id(parent.getId());
 		child.setProduct_rev_group_num(parent.getProduct_rev_group_num());
-		child.setProduct_rev_group_reorder(parent.getProduct_rev_group_reorder() + 1);
 		child.setProduct_rev_group_depth(parent.getProduct_rev_group_depth() + 1);
 		child.setProduct_rev_group_end(true);
 		

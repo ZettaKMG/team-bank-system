@@ -28,10 +28,9 @@ public class ProductDto {
 	private LocalDateTime date;	
 
 	private String account_num;
+		
 	
-	private List<String> file_name;
-	
-	private boolean hasFile;
+//	private boolean hasFile;
 	
 	public String getPrettyDate() {
 		// 상품정보 올린지 24시간 이내면 시간만

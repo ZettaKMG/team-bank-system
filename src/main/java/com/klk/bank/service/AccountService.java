@@ -1,17 +1,29 @@
 package com.klk.bank.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.AccountPageInfoDto;
 import com.klk.bank.domain.TransferDto;
 import com.klk.bank.mapper.AccountMapper;
+
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
 public class AccountService {
@@ -19,8 +31,24 @@ public class AccountService {
 	@Autowired
 	private AccountMapper account_mapper;
 	
+	private S3Client s3;
+	
+	@Value("${aws.s3.bucketName}")
+	private String bucketName;
+	
 	@Autowired
 	private BCryptPasswordEncoder password_encoder;
+	
+	@PostConstruct
+	public void init() {
+		Region region = Region.AP_NORTHEAST_2;
+		this.s3 = S3Client.builder().region(region).build();
+	}
+	
+	@PreDestroy
+	public void destroy() {
+		this.s3.close();
+	}
 		
 	public List<AccountDto> listAccount(AccountPageInfoDto page_info, String type, String keyword) {
 		
@@ -28,9 +56,9 @@ public class AccountService {
 		int from = (page_info.getCurrent_page() - 1) * row_per_page;
 		
 		return account_mapper.selectAllAccount(from, row_per_page, type, "%" + keyword + "%");
-	}	
+	}		
 	
-	public boolean addAccount(AccountDto account) {
+	public boolean addAccount(AccountDto account, MultipartFile[] files) {
 		// 평문암호를 암호화(encoding)
 		String encodedPassword = password_encoder.encode(account.getAccount_pw());
 		
@@ -39,10 +67,44 @@ public class AccountService {
 		
 		// addAccount
 		int cnt = account_mapper.insertAccount(account);
+		
+		addFiles(account.getAccount_num(), files);
 				
 		return cnt == 1;
 	}
+	
+	private void addFiles(String account_num, MultipartFile[] files) {
+		// 파일 등록 
+		if (files != null) {
+			for (MultipartFile file : files) {
+				if (file.getSize() > 0) {
+					account_mapper.insertFile(account_num, file.getOriginalFilename());
+					saveFileAwsS3(account_num, file); // s3에 업로드
+				}
+			}
+		}
+	}
 		
+	private void saveFileAwsS3(String account_num, MultipartFile file) {
+		String key = "account/" + account_num + "/" + file.getOriginalFilename();
+		
+		PutObjectRequest put_object_request = PutObjectRequest.builder()
+				.acl(ObjectCannedACL.PUBLIC_READ)
+				.bucket(bucketName)
+				.key(key)
+				.build();
+		
+		RequestBody request_body;
+		try {
+			request_body = RequestBody.fromInputStream(file.getInputStream(), file.getSize());
+			s3.putObject(put_object_request, request_body);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}		
+		
+	}	
 
 	public AccountDto getAccount(String account_num) {
 		AccountDto account = account_mapper.selectAccount(account_num);

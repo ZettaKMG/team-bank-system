@@ -19,6 +19,8 @@ public interface AccountMapper {
 
 	int deleteAccount(String account_num);
 
+	void insertFile(@Param("account_num") String account_num, @Param("file_name") String file_name);	
+	
 	int selectSearchCountAccount(@Param("type") String type, @Param("keyword")String keyword);
 
 	int countAccountNum(String account_num);
@@ -29,6 +31,7 @@ public interface AccountMapper {
 
 	int selectSearchCurrentUserCountAccount(@Param("type")String type, @Param("user_id")String user_id,  @Param("keyword")String keyword);
 
-	List<AccountDto> selectCurrentUserAccount(@Param("from")int from, @Param("row_per_page")int row_per_page, @Param("user_id")String user_id, @Param("type") String type, @Param("keyword")String keyword);	
+	List<AccountDto> selectCurrentUserAccount(@Param("from")int from, @Param("row_per_page")int row_per_page, @Param("user_id")String user_id, @Param("type") String type, @Param("keyword")String keyword);
+
 
 }

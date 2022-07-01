@@ -145,7 +145,7 @@
 					</div>
 					
 					<!-- 제출된 파일 추가/수정 부분 -->
-					<c:forEach items="${account.file_name }" var="file">
+					<%-- <c:forEach items="${file_submit.file_name }" var="file">
 						<%
 						String file = (String) pageContext.getAttribute("file");
 						String encoded_file_name = java.net.URLEncoder.encode(file, "utf-8");
@@ -168,7 +168,7 @@
 								</div>
 							</div>
 						</div>
-					</c:forEach>
+					</c:forEach> --%>
 					
 					<div id="add_file_input_container1" class="my-3 d-none">
 						<label for="file_input1" class="form-label"></label>

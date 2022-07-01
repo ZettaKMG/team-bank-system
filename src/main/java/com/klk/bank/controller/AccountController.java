@@ -2,6 +2,7 @@ package com.klk.bank.controller;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.klk.bank.domain.AccountDto;
@@ -71,16 +73,27 @@ public class AccountController {
 	}
 	
 	@GetMapping("account_register")
-	public void accountRegister(ProductDto product, Model model) {
+	public void accountRegister(AccountDto account, ProductDto product, Model model) {
 				
+		model.addAttribute("account", account);
 		model.addAttribute("product", product);
 		
 	}
 	
 	@PostMapping("account_register")
-	public String accountRegister(AccountDto account, Model model, RedirectAttributes rttr) {
+	public String accountRegister(AccountDto account, ProductDto product,  MultipartFile[] file, Principal principal, Model model, RedirectAttributes rttr) {
 		
-		boolean success = account_service.addAccount(account);
+		if (file != null) {
+			List<String> file_list = new ArrayList<String>();
+			for (MultipartFile f : file) {
+				file_list.add(f.getOriginalFilename());
+			}
+			
+			account.setFile_name(file_list);			
+		}
+		
+		account.setAccount_num(principal.getName());
+		boolean success = account_service.addAccount(account, file);
 		
 		if (success) {
 //			rttr.addAttribute("message", "계좌가 개설되었습니다.");

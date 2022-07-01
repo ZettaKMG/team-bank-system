@@ -119,7 +119,7 @@
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
 
-				<form action="${appRoot }/account/account_register" method="post">
+				<form action="${appRoot }/account/account_register" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${account.account_item_id }" scope="session" />
 				
 					<label for="input1" class="form-label">계좌번호</label>
@@ -164,7 +164,7 @@
 					
 					<div class="mb-3">
 					  <label for="formFileMultiple" class="form-label">제출서류 첨부(필요시)</label>
-					  <input class="form-control" type="file" name="file" id="formFileMultiple" accept="image/*" multiple>
+					  <input class="form-control" type="file" name="file" id="formFileMultiple" accept="image/*" multiple="multiple">
 					</div>
 
 					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>

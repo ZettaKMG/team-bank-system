@@ -64,6 +64,11 @@
 		WHERE account_num = #{account_num}
 	</delete>
 	
+	<insert id="insertFile">
+	INSERT INTO File (file_account_num, file_name) 
+	VALUES (#{account_num}, #{file_name})
+	</insert>
+	
 	<select id="selectSearchCountAccount" resultType = "int">
 		SELECT COUNT(*)
 		FROM Account a JOIN User u ON a.account_user_id = u.id
