@@ -127,8 +127,8 @@ public class UserContorller {
 				rttr.addFlashAttribute("message", "회원 정보가 수정되지 않았습니다.");
 			}
 			
-			rttr.addFlashAttribute("user", userDto); // model object
-			rttr.addAttribute("user_id", userDto.getUser_id()); // query string
+			rttr.addFlashAttribute("user", userDto);
+			rttr.addAttribute("user_id", userDto.getUser_id());
 			
 			return "redirect:/user/info";
 		} else {

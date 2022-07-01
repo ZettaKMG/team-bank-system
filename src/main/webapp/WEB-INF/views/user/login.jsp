@@ -25,7 +25,9 @@
 				<h1>로그인</h1>
 				<h3><c:out value="${error }"></c:out></h3>
 				<h3><c:out value="${logout }"></c:out></h3>
-				
+				<c:if test="${LoginFailMessage!=null}">
+					<p> Error : <c:out value="${LoginFailMessage}"/> </p>
+				</c:if>
 				<form action="${appRoot }/login" method="post">
 					<div class="row">
 						<label for="userIdInput1" class="form-label">

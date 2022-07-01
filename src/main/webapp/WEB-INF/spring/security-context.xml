@@ -7,12 +7,27 @@
 
 	<!-- 652쪽 -->
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	
+	<bean id="loginFailHandler" class="com.klk.bank.handler.LoginFailHandler"></bean>
+	<bean id="accessFailHandler" class="com.klk.bank.handler.AccessFailHandler"></bean>
 	<security:http>
 		<security:csrf disabled="true" />
 		<security:form-login />
 	    <security:form-login always-use-default-target="true" login-page="/user/login" default-target-url="/home" />
 		<security:logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true"/>
+		
+		<!-- 로그인 핸들러 작업 중 
+	    <security:form-login username-parameter="username"
+							password-parameter="password" 
+							always-use-default-target="true" 
+							login-processing-url="/user/login" 
+							login-page="/user/login" 
+							default-target-url="/home" 
+							authentication-failure-handler-ref="loginFailHandler"/>
+		<security:logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true" delete-cookies="true"/>
+		<security:access-denied-handler ref="accessFailHandler"/>
+		 -->
+		
+		
 	    <!-- 
 		<security:remember-me/>
 		
