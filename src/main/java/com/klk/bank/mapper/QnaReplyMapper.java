@@ -10,8 +10,6 @@ public interface QnaReplyMapper {
 
 	void insertQnaReply(QnaReplyDto dto);
 
-	List<QnaReplyDto> selectQnaReplyByQnaId(@Param("qna_id")int qna_id);
-
 	List<QnaReplyDto> selectAllQnaReplyByQnaId(@Param("qna_id")int qna_id, @Param("user_id")String user_id);
 
 	QnaReplyDto selectReplyByReplyId(int id);

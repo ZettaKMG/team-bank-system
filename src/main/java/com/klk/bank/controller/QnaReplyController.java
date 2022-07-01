@@ -44,7 +44,7 @@ public class QnaReplyController {
 	@ResponseBody
 	public List<QnaReplyDto> list(int qna_id, Principal principal) {
 		if (principal == null) {
-			return qnaRepService.getReplyByQnaId(qna_id);
+			return qnaRepService.getReplyWithOwnByQnaId(qna_id, null);
 		} else {
 			return qnaRepService.getReplyWithOwnByQnaId(qna_id, principal.getName());
 		}

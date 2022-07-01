@@ -15,6 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script>
 	$(document).ready(function() {
+		// 문의 글 수정 버튼 클릭 시 readonly 제한 해제 및 수정 버튼 변경
 		$("#qna-modify-button").click(function() {
 			$("#qna-modify-button").addClass("d-none");
 			$("#inputTitle").removeAttr("readonly");
@@ -22,6 +23,7 @@
 			$("#qna-modify-submit").removeClass("d-none");
 		});
 		
+		// 문의 글 수정 완료 버튼 클릭 시 confirm창 최종 확인 후 수정
 		$("#qna-modify-submit").click(function(e) {
 			e.preventDefault();
 			
@@ -33,6 +35,7 @@
 			}
 		});
 		
+		// 문의 글 삭제 버튼 클릭 시 confirm창 최종 확인 후 삭제
 		$("#qna-remove-submit").click(function(e) {
 			e.preventDefault();
 			
@@ -62,7 +65,8 @@
 					for (let i = 0; i < list.length; i++) {
 						const replyElement = $("<li class='list-group-item' />");
 						replyElement.html(`
-							<div id="replyDisplayContainer\${list[i].id }">
+							// 댓글 div
+							<div style="margin-left :\${list[i].qna_rep_dep * 30}px;" id="replyDisplayContainer\${list[i].id }">
 								<div class="d-flex fw-bold">
 									<span id="replyIcon\${list[i].id }"><i class="fa-solid fa-comment"></i></span>
 									<span class="mx-2">\${list[i].user_id}</span>
@@ -74,7 +78,8 @@
 									<span class="ms-auto">\${list[i].changeTimeInserted }</span>
 								</div>
 							</div>
-
+							
+							// 댓글 수정 form
 							<div id="replyEditFormContainer\${list[i].id }"	style="display: none;">
 								<form action="${appRoot }/qnaReply/modify" method="post">
 									<div class="input-group">
@@ -88,7 +93,7 @@
 								</form>
 							</div>
 							
-							<%-- 댓글 추가 form --%>
+							// 댓글의 답글 form
 							<div class="row mt-3" id="reReplyFormDiv\${list[i].id }" style="display: none;">
 								<form id="reReplyForm\${list[i].id }" action="${appRoot}/qnaReply/write" method="post">
 									<div class="input-group">
@@ -105,7 +110,8 @@
 						`);
 						replyListElement.append(replyElement);
 						
-						if (list[i].own && list[i].qna_rep_parent == 0) {
+						if (list[i].own) {
+							// 로그인 한 사람의 댓글일 때 답글, 수정, 삭제 버튼 보여줌
 							$("#editButtonWrapper" + list[i].id).html(`
 								<span class="re-reply-toggle-button badge bg-success" id="reReplyBtn\${list[i].id }" data-reply-id="\${list[i].id }">
 									<i class="fa-solid fa-reply"></i>
@@ -117,26 +123,25 @@
 									<i class="fa-solid fa-trash-can"></i>
 								</span>
 							`);
-						} else if(list[i].own) {
+						} else {
+							// 다른사람의 댓글일 때 답글 버튼만 보여줌
 							$("#editButtonWrapper" + list[i].id).html(`
-								<span class="reply-edit-toggle-button badge bg-info text-dark" id="replyEditToggleButton\${list[i].id }" data-reply-id="\${list[i].id }">
-									<i class="fa-solid fa-pen-to-square"></i>
-								</span>
-								<span class="reply-delete-button badge bg-danger" data-reply-id="\${list[i].id }">
-									<i class="fa-solid fa-trash-can"></i>
-								</span>
+									<span class="re-reply-toggle-button badge bg-success" id="reReplyBtn\${list[i].id }" data-reply-id="\${list[i].id }">
+										<i class="fa-solid fa-reply"></i>
+									</span>
 							`);
 						}
 						
+						// 댓글이 대댓글일 때 아이콘 모양 변경
 						if(list[i].qna_rep_parent != 0) {
 							$("#replyIcon" + list[i].id).html(`
 								<i class="fa-solid fa-l ms-3"></i>
 							`);
-							$("#replyContent" + list[i].id).addClass("ms-3");
 						}
-					}
+						
+					} // for문 마지막
 					
-					// reply-edit-toggle-button 클릭시 댓글 보여주는 div 숨기고, 수정 form 보여주기
+					// 댓글 수정 버튼 클릭시 댓글 보여주는 div 숨기고, 수정 form 보여주기
 					$(".reply-edit-toggle-button").click(function() {
 						const replyId = $(this).attr("data-reply-id");
 						const displayDivId = "#replyDisplayContainer" + replyId;
@@ -146,7 +151,7 @@
 						$(editFormId).show();
 					});
 					
-					// 답글 버튼 클릭 시
+					// 답글 버튼 클릭 시 답글form 보여줌
 					$(".re-reply-toggle-button").click(function() {
 						const replyId = $(this).attr("data-reply-id");
 						const reReplyFormDiv = "#reReplyFormDiv" + replyId;
@@ -155,7 +160,7 @@
 						$(reReplyFormDiv).show();
 					});
 					
-					// 댓글 수정
+					// 댓글 수정완료 버튼 클릭 시 댓글 수정
 					$(".reply-modify-submit").click(function(e) {
 						e.preventDefault();
 						
@@ -187,7 +192,7 @@
 						});
 					});
 					
-					// reply-delete-button 클릭시 댓글 삭제
+					// 댓글 삭제 버튼 클릭시 댓글 삭제
 					$(".reply-delete-button").click(function() {
 						const replyId = $(this).attr("data-reply-id");
 						const message = "댓글을 삭제하시겠습니까?";
