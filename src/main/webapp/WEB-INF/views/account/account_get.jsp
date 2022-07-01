@@ -19,6 +19,7 @@
 	$(function () {
 		let pw_ok = false;
 		
+		// 계좌수정시작버튼 클릭시
 		$("#account_update_start").click(function() {
 			<sec:authorize access="hasRole('ADMIN')">
 				$("#input2").removeAttr("readonly");
@@ -32,6 +33,7 @@
 			$("#account_update_start").addClass("d-none");
 		});
 		
+		// 계좌삭제실행버튼 클릭시
 		$("#account_delete_execute").click(function(e) {
 			e.preventDefault();
 			
@@ -45,6 +47,7 @@
 			}
 		});
 		
+		// 패스워드체크
 		$("#password_input1, #password_input2").keyup(function() {
 			const pw1 = $("#password_input1").val();
 			const pw2 = $("#password_input2").val();
@@ -61,6 +64,7 @@
 			enable_submit();
 		});
 		
+		// 모든내용이 잘 실행했는지 체크하는 메소드
 		const enable_submit = function() {
 			if(pw_ok) {
 				$("#account_update_execute").removeAttr("disabled");
@@ -88,6 +92,7 @@
 <body>
     <bank:navBar current="account_get"/>
     
+    <%-- 계좌 상세 정보 화면 --%>
     <div class="container">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
@@ -185,6 +190,7 @@
 		</div>
     </div>
 	
+	<%-- 계좌 조회 요청--%>
 	<form id="form2" action="${appRoot }/account/account_history" method="post">
 		<input type="hidden" name="account_num" value="${account.account_num }"/>
 	</form>   

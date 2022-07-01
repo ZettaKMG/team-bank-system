@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"	referrerpolicy="no-referrer"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
@@ -74,9 +75,10 @@
 		
 		// 상품평 list가져오는 메소드
 		const list_rev = function(){
-		
+			// 리스트에 쓰이는 데이터 : 상품id
 			const data = { product_rev_item_id : ${product.id} };	
 			
+			// 상품평, 상품평대댓글 list (ajax)
 			$.ajax({
 				url : "${appRoot}/product_review/list",
 				type : "get",
@@ -89,28 +91,39 @@
 					for(let i = 0; i < list.length; i++){
 						const rev_element = $("<li class='list-group-item' />");
 						
+						// 대댓글 표시하는 icon : 미리 조건 설정 후 html에 그리게 만듬
+						let reply_icon = "";
+						if (list[i].product_rev_group_depth > 0) {
+							reply_icon = `<i class="bi bi-arrow-return-right"></i>`;
+						}
+						
 						rev_element.html(`
+								<%-- 댓글 화면 구성 --%>
 								<div style="margin-left :\${list[i].product_rev_group_depth * 30}px;" id="rev_display_container\${list[i].id }">
 									<div class="fw-bold">
+										\${reply_icon}					
 										<i class="fa-solid fa-comment"></i> 
 										\${list[i].product_rev_inserted}
 										
 										<sec:authorize access="isAuthenticated()">
-										<button type="button" 
-												id="rev_reply_form\${list[i].id}" 
-												data-reply-id="\${list[i].id }"
-												class="rev_reply_form btn btn-link">덧글</button>
+										<span class="rev_reply_form badge bg-success" 
+											  id="rev_reply_form\${list[i].id }" 
+											  data-reply-id="\${list[i].id }">
+											  <i class="fa-solid fa-reply"></i>
+										</span>
 										</sec:authorize>		
-											
-									 	<span id="modify_button_wrapper\${list[i].id }"></span>
+								<%-- 댓글 수정 삭제 버튼 : 권한이 있으면 html에 그리게함 --%>												
+								 	<span id="modify_button_wrapper\${list[i].id }"></span>
 									</div>
 										<span class="badge bg-light text-dark">
 										<i class="fa-solid fa-user"></i>
 										\${list[i].product_rev_user_id}
 										</span> 
+								<%-- 댓글 내용 : css공격을 받을 수 있어서 내용을 나중에 삽입하는 방식으로 만듬--%>		
 							 			<span id="rev_content\${list[i].id}"></span>
 								</div>
 								
+								<%-- 대댓글 작성화면 --%>
 								<div id="rev_reply_form_container\${list[i].id }"
 									style="display: none;">
 									<form action="${appRoot }/product_review/reply_insert" method="post">
@@ -126,6 +139,7 @@
 									</form>
 								</div>
 								
+								<%-- 댓글 수정화면--%>
 								<div id="rev_edit_form_container\${list[i].id }"
 									style="display: none;">
 									<form action="${appRoot }/product_review/modify" method="post">
@@ -144,6 +158,7 @@
 							`);
 						rev_list_element.append(rev_element);					
 						
+						// 댓글내용 삽입
 						$("#rev_content"+ list[i].id).text(list[i].product_rev_content);
 						
 						// own(사용자 일치여부)가 true일때만, 수정 삭제 버튼 보임
@@ -163,9 +178,11 @@
 				
 					} // end of for
 					
+					//상품평수정글쓰기버튼 클릭시 
 					$(".rev_modify_submit").click(function(e) {
 						e.preventDefault();
 						
+						// 넘겨줄 data가공
 						const id = $(this).attr("data-reply-id");
 						const formElem = $("#rev_edit_form_container" + id).find("form");
 						const data = {
@@ -195,6 +212,7 @@
 						});
 					});
 					
+					//상품평대댓글쓰기버튼 클릭시
 					$(".rev_reply_insert_submit").click(function(e) {
 						e.preventDefault();
 						
@@ -225,7 +243,7 @@
 						});
 					});
 					
-					
+					//상품평, 상품평대댓글 수정버튼 클릭시
 					$(".rev_edit_toggle_button").click(function() {
 						
 						const rev_id = $(this).attr("data-reply-id");
@@ -238,19 +256,19 @@
 						$(rev_reply_form_id).hide();
 					});	
 					
+					//상품평대댓글버튼 클릭시
 					$(".rev_reply_form").click(function() {
 						
 						const rev_id = $(this).attr("data-reply-id");
-						const display_div_id = "#rev_display_container" + rev_id;
 						const edit_form_id = "#rev_edit_form_container" + rev_id;
 						const rev_reply_form_id = "#rev_reply_form_container" + rev_id;
 												
-						$(display_div_id).hide();
 						$(edit_form_id).hide();
 						$("#insert_rev_container").addClass("d-none");
 						$(rev_reply_form_id).show();
 					});
 					
+					//상품평, 상품평대댓글 삭제버튼 클릭시
 					$(".rev_delete_button").click(function() {
 						const rev_id = $(this).attr("data-reply-id");
 						const message = "댓글을 삭제하시겠습니까?";
@@ -285,6 +303,7 @@
 		
 		list_rev();
 		
+		// 상품평글쓰기버튼 클릭시
 		$("#add_rev_submit1").click(function(e) {
 			e.preventDefault();
 			
@@ -319,7 +338,6 @@
 </head>
 <body>
 	<bank:navBar></bank:navBar>
-	
 	<!-- 상품 수정 여부 표시 modal -->
 	<c:if test="${not empty message }">
 		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
@@ -407,7 +425,7 @@
 	</div>
 </form>    
 	
-	<%-- 댓글 목록 --%>
+	<%-- 댓글 목록 화면 --%>
 	<div class="container mt-3">
 		<div class="row">
 			<div class="col">
@@ -419,7 +437,7 @@
 		</div>
 	</div>
 	
-	<%-- 댓글 추가 --%>
+	<%-- 댓글 추가 화면 --%>
 	<div id="insert_rev_container" class="container mt-3">
 		<div class="row">
 			<div class="col">
