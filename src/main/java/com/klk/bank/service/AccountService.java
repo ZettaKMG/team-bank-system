@@ -2,6 +2,7 @@ package com.klk.bank.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,7 @@ import com.klk.bank.mapper.AccountMapper;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -58,18 +60,19 @@ public class AccountService {
 		return account_mapper.selectAllAccount(from, row_per_page, type, "%" + keyword + "%");
 	}		
 	
-	public boolean addAccount(AccountDto account, MultipartFile[] files) {
+	public boolean addAccount(AccountDto account, MultipartFile[] file) {
 		// 평문암호를 암호화(encoding)
+		System.out.println(account);
 		String encodedPassword = password_encoder.encode(account.getAccount_pw());
 		
 		// 암호화된 암호를 다시 세팅
 		account.setAccount_pw(encodedPassword);
 		
+		addFiles(account.getAccount_num(), file);
+
 		// addAccount
 		int cnt = account_mapper.insertAccount(account);
-		
-		addFiles(account.getAccount_num(), files);
-				
+						
 		return cnt == 1;
 	}
 	
@@ -107,13 +110,30 @@ public class AccountService {
 	}	
 
 	public AccountDto getAccount(String account_num) {
-		AccountDto account = account_mapper.selectAccount(account_num);
+		
 				
 		return account_mapper.selectAccount(account_num);
+	}	
+	
+	public List<String> selectFileByAccount(String account_num) {
+		
+		return account_mapper.selectFileNameByAccount(account_num);
 	}
 
-
-	public boolean modifyAccount(AccountDto account) {
+	public boolean modifyAccount(AccountDto account, ArrayList<String> remove_file_list, MultipartFile[] add_file_list) {
+		
+		if (remove_file_list != null) {
+			for (String file_name : remove_file_list) {
+				deleteFromAwsS3(account.getAccount_num(), file_name);
+				account_mapper.deleteFileByAccountNumAndFileName(account.getAccount_num(), file_name);
+			}
+		}
+		
+		if (add_file_list != null) {
+			// File 테이블에 추가된 파일 insert
+			// s3에 upload
+			addFiles(account.getAccount_num(), add_file_list);
+		}
 		
 		String encoded_password = password_encoder.encode(account.getAccount_pw());
 		
@@ -125,9 +145,36 @@ public class AccountService {
 
 	@Transactional
 	public boolean removeAccount(String account_num) {
-				
+		// 파일 목록 읽기
+		List<String> file_list = account_mapper.selectFileNameByAccount(account_num);
+		
+		removeFiles(account_num, file_list);
+		
 		int cnt = account_mapper.deleteAccount(account_num);
 		return cnt == 1;
+	}
+	
+	private void removeFiles(String account_num, List<String> file_list) {
+		// s3에서 지우기
+		for (String file_name : file_list) {
+			deleteFromAwsS3(account_num, file_name);
+		}
+		
+		// 파일테이블 삭제
+		account_mapper.deleteFileByAccountNum(account_num);
+		
+	}
+
+	private void deleteFromAwsS3(String account_num, String file_name) {
+		String key = "account/" + account_num + "/" + file_name;
+		
+		DeleteObjectRequest delete_object_request = DeleteObjectRequest.builder()
+																	 .bucket(bucketName)
+																	 .key(key)
+																	 .build();
+		
+		s3.deleteObject(delete_object_request);
+		
 	}
 
 	public int searchCountAccount(String type, String keyword) {

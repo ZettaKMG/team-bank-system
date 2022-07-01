@@ -92,7 +92,8 @@ public class AccountController {
 			account.setFile_name(file_list);			
 		}
 		
-		account.setAccount_num(principal.getName());
+		System.out.println(account);
+//		account.setAccount_num(principal.getName());
 		boolean success = account_service.addAccount(account, file);
 		
 		if (success) {
@@ -107,15 +108,15 @@ public class AccountController {
 	}
 	
 	@GetMapping("{account_num}")
-	public String accountGet(@PathVariable("account_num")String account_num, ProductDto product, UserDto user, Model model) {
-				
+	public String accountGet(@PathVariable("account_num") String account_num, ProductDto product, UserDto user, Model model) {
+		
+		
 		AccountDto account = account_service.getAccount(account_num);
-		
-//		System.out.println(product);
-//		System.out.println(user);
-//		System.out.println(account);
-		
+		List<String> file_list = account_service.selectFileByAccount(account_num);
+	
+		account.setFile_name(file_list);
 		model.addAttribute("account", account);		
+		
 		
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
@@ -130,13 +131,14 @@ public class AccountController {
 //		System.out.println(account);
 		
 		model.addAttribute("account", account);
+				
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 	}
 	
 	@PostMapping("account_modify")
-	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) RedirectAttributes rttr) {
-		boolean success = account_service.modifyAccount(account);
+	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {
+		boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
 		
 		if (success) {
 			rttr.addFlashAttribute("message", "계좌 정보가 수정되었습니다.");
