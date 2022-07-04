@@ -41,6 +41,7 @@ public class AccountService {
 //	@Value("${aws.s3.bucketName}")
 //	private String bucketName;
 	
+	//계좌리스트
 	public List<AccountDto> listAccount(AccountPageInfoDto page_info, String type, String keyword) {
 		
 		int row_per_page = page_info.getRowPerPage();
@@ -59,7 +60,7 @@ public class AccountService {
 //	public void destroy() {
 //		this.s3.close();
 //	}
-	
+	//계좌추가
 	public boolean addAccount(AccountDto account, MultipartFile[] files) {
 		// 평문암호를 암호화(encoding)
 		String encodedPassword = password_encoder.encode(account.getAccount_pw());
@@ -109,35 +110,35 @@ public class AccountService {
 //		
 //	}
 	
-	private void saveFile(String account_num, MultipartFile file) {
-		// 디렉토리 만들기
-		String path_str = "C:/imgtmp/account/" + account_num + "/";
-		File path = new File(path_str);
-		path.mkdirs();
-		
-		// 작성할 파일
-		File des = new File(path_str + file.getOriginalFilename());
-		
-		try {
-			// 파일 저장
-			file.transferTo(des);
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);			
-		}
-	}
+/*private void saveFile(String account_num, MultipartFile file) {
+	// 디렉토리 만들기
+	String path_str = "C:/imgtmp/account/" + account_num + "/";
+	File path = new File(path_str);
+	path.mkdirs();
 	
-
+	// 작성할 파일
+	File des = new File(path_str + file.getOriginalFilename());
+	
+	try {
+		// 파일 저장
+		file.transferTo(des);
+	} catch (IllegalStateException | IOException e) {
+		e.printStackTrace();
+		throw new RuntimeException(e);			
+	}
+}*/
+	
+	//계좌정보보기
 	public AccountDto getAccount(String account_num) {
-		AccountDto account = account_mapper.selectAccount(account_num);
-		List<String> file_names = account_mapper.selectFileNameByAccountNum(account_num);
-		
-		account.setFile_name(file_names);
+//		AccountDto account = account_mapper.selectAccount(account_num);
+//		//List<String> file_names = account_mapper.selectFileNameByAccountNum(account_num);
+//		
+//		account.setFile_name(file_names);
 		
 		return account_mapper.selectAccount(account_num);
 	}
 
-
+	//계좌수정
 	public boolean modifyAccount(AccountDto account) {
 		
 		String encoded_password = password_encoder.encode(account.getAccount_pw());
@@ -163,11 +164,12 @@ public class AccountService {
 		return cnt == 1;
 	}
 
+	// 계좌 삭제
 	@Transactional
 	public boolean removeAccount(String account_num) {
 		// 파일 관련 코드 추가
 		// 파일 목록 읽기
-		List<String> file_list = account_mapper.selectFileNameByAccountNum(account_num);
+		//List<String> file_list = account_mapper.selectFileNameByAccountNum(account_num);
 		
 //		removeFiles(account_num, file_list);
 		
@@ -196,16 +198,19 @@ public class AccountService {
 //		s3.deleteObject(deleteObjectRequest);
 //		
 //	}
-
+	
+	//검색어에 따른 모든계좌갯수
 	public int searchCountAccount(String type, String keyword) {
 		
 		return account_mapper.selectSearchCountAccount(type, "%" + keyword + "%");
 	}
-
+	
+	//계좌존재여부
 	public boolean hasAccountNum(String account_num) {
 		return account_mapper.countAccountNum(account_num) > 0;
 	}
-			
+	
+	//계좌이체
 	@Transactional
 	public boolean transferAccount(String send_account_num, String send_account_cost, String account_num) {
 		
@@ -258,16 +263,19 @@ public class AccountService {
 			return (cnt1 == 1) && (cnt2 == 1);
 		}
 	}
-
+	
+	//계좌이력출력
 	public List<TransferDto> getAccountHistory(String account_num) {
 		return account_mapper.selectTransferAccount(account_num);
 	}
-
+	
+	//현재사용자의 검색어에 따른 계좌갯수
 	public int searchCurrentUserCountAccount(String user_id, String type, String keyword) {
 		
 		return account_mapper.selectSearchCurrentUserCountAccount(user_id, type, "%" + keyword + "%");
 	}
-
+	
+	//현재사용자의 계좌리스트
 	public List<AccountDto> listCurrentUserAccount(AccountPageInfoDto page_info, String user_id, String type,
 			String keyword) {
 		
@@ -277,7 +285,8 @@ public class AccountService {
 		return account_mapper.selectCurrentUserAccount(from, row_per_page, user_id, type, "%" + keyword + "%");
 		
 	}
-
+	
+	//계좌비밀번호 체크
 	public boolean accountPwCheck(String send_account_num, String send_account_pw) {
 		
 		AccountDto send_account = account_mapper.selectAccount(send_account_num);
