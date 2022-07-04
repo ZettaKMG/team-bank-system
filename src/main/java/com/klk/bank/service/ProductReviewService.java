@@ -12,16 +12,16 @@ import com.klk.bank.mapper.ProductReviewMapper;
 @Service
 public class ProductReviewService {
 	
-	private int reOrder = 0;
-	
 	@Autowired
 	private ProductReviewMapper product_review_mapper;
 	
+	//상품평리스트
 	public List<ProductReviewDto> getProductReview(int product_rev_item_id, String product_rev_user_id) {
 		
 		return product_review_mapper.selectAllProductReview(product_rev_item_id, product_rev_user_id);
 	}
-
+	
+	//상품평추가
 	public boolean addProductReview(ProductReviewDto dto) {
 		
 		int cnt1 = product_review_mapper.insertProductReview(dto);
@@ -30,7 +30,8 @@ public class ProductReviewService {
 		
 		return cnt1 == 1 && cnt2 == 1;
 	}
-
+	
+	//상품평수정
 	public boolean updateProductReview(ProductReviewDto dto, Principal principal) {
 		ProductReviewDto old = product_review_mapper.selectProductReview(dto.getId());
 		
@@ -41,7 +42,8 @@ public class ProductReviewService {
 		}
 		
 	}
-
+	
+	//상품평삭제
 	public boolean removeProductReview(int id, Principal principal) {
 		ProductReviewDto old = product_review_mapper.selectProductReview(id);
 		
@@ -54,6 +56,7 @@ public class ProductReviewService {
 		
 	}
 
+	//상품평댓글추가
 	public boolean addProductReviewReply(ProductReviewDto dto) {
 		
 		ProductReviewDto parent = product_review_mapper.selectProductReview(dto.getId());
