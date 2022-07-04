@@ -158,7 +158,9 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="mt-5 col-12 col-lg-6">
-				<h1>회원 가입</h1>
+				<figure class="text-center">
+					<h1>회원 가입</h1>
+				</figure>
 				
 				<form id="form1" action="${appRoot }/user/signup" method="post">
 					<label for="idInput1" class="form-label">
