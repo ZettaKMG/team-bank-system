@@ -164,10 +164,12 @@
 						<input id="file_input1" class="form-control mb-3" type="file" accept="image/*" multiple="multiple" name="add_file_list" />
 					</div>
 
-					<button id="account_withdraw_deposit" class="mt-3 btn btn-info" form="form2" type="submit">계좌이력</button>
-					<button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button>
-					<button id="account_update_execute" class="mt-3 btn btn-success" disabled="disabled">계좌수정완료</button>
-					<button id="account_delete_execute" class="mt-3 btn btn-danger">계좌삭제</button>
+					<div class="mt-1 gap-1 d-md-flex justify-content-md-center">
+						<button id="account_withdraw_deposit" class="mt-3 btn btn-info" form="form2" type="submit">계좌이력</button>
+						<button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button>
+						<button id="account_update_execute" class="mt-3 btn btn-success" disabled="disabled">계좌수정완료</button>
+						<button id="account_delete_execute" class="mt-3 btn btn-danger">계좌삭제</button>
+					</div>
 				</form>
 			</div>
 		</div>

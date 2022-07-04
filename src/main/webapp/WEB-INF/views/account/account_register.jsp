@@ -155,7 +155,9 @@
 					  <input class="form-control" type="file" name="file" id="formFileMultiple" accept="image/*" multiple="multiple">
 					</div>
 
-					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>
+					<div class="mt-1 d-md-flex justify-content-md-center">
+						<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>
+					</div>
 				</form>
 			</div>
 		</div>

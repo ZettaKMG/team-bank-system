@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "bank" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -189,13 +190,17 @@
 	});
 </script>
 
-<title>Insert title here</title>
+<title>계좌이체 페이지</title>
 </head>
 <body>
 
-<%-- 계좌이체 화면 --%>
+	<bank:navBar></bank:navBar>
+
+	<%-- 계좌이체 화면 --%>	
 	<div class="container">
-		<div class="row justify-content-center">
+		<div class="row mt-5"></div>
+		<div class="row mt-5"></div>
+		<div class="row mt-5 justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
 				<form id="form1" action="${appRoot }/account/account_transfer" method="post">
 				<label for="input1" class="form-label">보내는사람</label>
@@ -236,7 +241,7 @@
 		</div>
 	</div>
 
-<%-- 비밀번호 체크 모달 --%>
+	<%-- 비밀번호 체크 모달 --%>
 	<div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="ModalLabel1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -256,7 +261,7 @@
 		</div>
 	</div> 
 
-<%-- 계좌이체 모달 --%>
+	<%-- 계좌이체 모달 --%>
 	<div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="ModalLabel2" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -276,8 +281,5 @@
 		</div>
 	</div>
 
-	
-
 </body>
-
 </html>
