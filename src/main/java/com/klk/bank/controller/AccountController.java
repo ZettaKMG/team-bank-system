@@ -137,7 +137,11 @@ public class AccountController {
 	}
 	
 	@PostMapping("account_modify")
-	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {
+	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, @RequestParam(name = "add_file_list", required = false) MultipartFile[] add_file_list, RedirectAttributes rttr) {
+		
+//		System.out.println(add_file_list);
+//		System.out.println(add_file_list.length);
+		System.out.println(remove_file_list);
 		boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
 		
 		if (success) {
