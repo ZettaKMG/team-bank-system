@@ -53,7 +53,7 @@
 	});
 </script>
 
-<title>상품조회 페이지</title>
+<title>klk은행의 상품들을 소개합니다!</title>
 </head>
 <body>
 
