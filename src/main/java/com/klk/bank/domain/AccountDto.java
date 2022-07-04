@@ -16,5 +16,6 @@ public class AccountDto {
 	private BigDecimal account_balance;
 	private LocalDateTime account_date;
 	private List<String> file_name;
-	private boolean hasFile;
+	private boolean has_file;
+	
 }

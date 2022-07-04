@@ -27,7 +27,8 @@
 		$("#account_num_create").click(function(e) {
 			e.preventDefault();
 			// 2000억 이상 4000억 미만의 정수
-			var account_num = Math.floor((Math.random()+1)*200000000000);			
+			var account_num = Math.floor((Math.random()+1)*200000000000);
+			account_num = account_num + "";
 			$("#input1").attr("value", account_num);
 			
 		});
@@ -123,12 +124,12 @@
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
 
-				<form action="${appRoot }/account/account_register" method="post">
-					<input type="hidden" name="id" value="${account.account_item_id }" scope="session" />
+				<form action="${appRoot }/account/account_register" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="id" value="${product.id }" scope="session" />
 				
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
-						<input id="input1" class="form-control" type="text" name="account_num" value="" scope="session" required readonly/>
+						<input id="input1" class="form-control" type="text" name="account_num" scope="session" required readonly/>
 						<!-- 정수 12자리 무작위 번호 생성 버튼 추가 -->
 						<button class="btn btn-secondary" id="account_num_create" type="button">계좌번호 생성</button>
 						<button class="btn btn-secondary" id="account_num_check" type="button">계좌번호 중복 확인</button>
@@ -168,7 +169,7 @@
 					
 					<div class="mb-3">
 					  <label for="formFileMultiple" class="form-label">제출서류 첨부(필요시)</label>
-					  <input class="form-control" type="file" name="file" id="formFileMultiple" accept="image/*" multiple>
+					  <input class="form-control" type="file" name="file" id="formFileMultiple" accept="image/*" multiple="multiple">
 					</div>
 
 					<button id="account_register_execute" class="mt-3 btn btn-primary" type="submit" disabled>계좌등록</button>

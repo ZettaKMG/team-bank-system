@@ -11,10 +11,9 @@
 			   a.account_pw, 
 			   a.account_balance, 
 			   a.account_date, 
-			   u.user_id account_user_name 
+			   u.user_id account_user_name
 
-    FROM Account a JOIN User u ON a.account_user_id = u.user_id
-
+    	FROM Account a JOIN User u ON a.account_user_id = u.user_id
 		<if test="type != null">
 			<choose>
 				<when test="type == 'account_num'">
@@ -28,7 +27,7 @@
 			</choose>
 		</if>
 		
-		LIMIT #{from}, #{row_per_page}
+		LIMIT #{from}, #{row_per_page}		
 	</select>
 	
 	<select id="selectAccount" resultType="com.klk.bank.domain.AccountDto">
@@ -38,10 +37,9 @@
 			   a.account_pw, 
 			   a.account_balance, 
 			   a.account_date, 
-			   u.user_id account_user_name 
-
+			   u.user_id account_user_name
 		FROM Account a JOIN User u ON a.account_user_id = u.user_id
-		WHERE account_num = #{account_num}
+		WHERE a.account_num = #{account_num}
 
 	</select>
 	
@@ -64,9 +62,31 @@
 		WHERE account_num = #{account_num}
 	</delete>
 	
+	<insert id="insertFile" useGeneratedKeys="false" keyColumn="file_name" keyProperty="file_name">
+		INSERT INTO File (file_account_num, file_name) 
+		VALUES (#{account_num}, #{file_name})
+	</insert>
+	
+	<select id="selectFileNameByAccount" resultType="string">
+		SELECT file_name
+		FROM File
+		WHERE file_account_num = #{account_num}
+	</select>
+	
+	<delete id="deleteFileByAccountNum">
+		DELETE FROM File
+		WHERE file_account_num = #{account_num}
+	</delete>
+	
+	<delete id="deleteFileByAccountNumAndFileName">
+		DELETE FROM File
+		WHERE file_account_num = #{account_num}
+	      AND file_name = #{file_name}
+	</delete>
+	
 	<select id="selectSearchCountAccount" resultType = "int">
 		SELECT COUNT(*)
-		FROM Account a JOIN User u ON a.account_user_id = u.id
+		FROM Account a JOIN User u ON a.account_user_id = u.user_id
 		<if test="type != null">
 			<choose>
 				<when test="type == 'account_num'">
@@ -145,29 +165,5 @@
 		
 		LIMIT #{from}, #{row_per_page}
 	</select>
-	
-
-	<!-- <insert id="insertFile">
-		INSERT INTO File (file_account_num, file_name)
-		VALUES (#{file_account_num}, #{file_name})
-	</insert>
-	
-	<delete id="deleteFileByAccountNum">
-		DELETE FROM File
-		WHERE file_account_num = #{file_account_num}
-	</delete>
-	
-	<select id="selectFileNameByAccountNum" resultType="string">
-		SELECT file_name
-		FROM File
-		WHERE file_account_num = #{file_account_num}
-	</select>
-	
-	<delete id="deleteFileByAccountNumAndFileName">
-		DELETE FROM File
-		WHERE file_account_num = #{file_account_num}
-		  AND file_name = #{file_name}
-	</delete>
-	-->
 
 </mapper>

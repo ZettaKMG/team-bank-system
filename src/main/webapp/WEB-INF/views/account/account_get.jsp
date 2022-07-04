@@ -25,8 +25,11 @@
 				$("#input2").removeAttr("readonly");
 				$("#input3").removeAttr("readonly"); 
 				$("#input4").removeAttr("readonly");
-				$("#input5").removeAttr("readonly");
+				$("#input5").removeAttr("readonly");				
 			</sec:authorize>
+			
+			$("#add_file_input_container1").removeClass("d-none");
+			$(".remove_file_checkbox").removeClass("d-none");	
 			
 			$("#password_input1, #password_input2").removeAttr("readonly");
 			
@@ -77,15 +80,6 @@
 
 </script>
 
-<script>
-	/* 파일 추가/수정 관련 부분 */
-	$(document).ready(function() {
-		$("account_update_start").click(function() {
-			$("#add_file_input_container1").removeClass("d-none");
-			$(".remove_file_checkbox").removeClass("d-none");			
-		});
-	});
-</script>
 
 <title>계좌 상세정보 페이지</title>
 </head>
@@ -97,7 +91,7 @@
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
 			
-				<form action="${appRoot }/account/account_modify" id="form1" method="post">
+				<form action="${appRoot }/account/account_modify" id="form1" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="account_num" value="${account.account_num }"/>
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
@@ -157,19 +151,20 @@
 						pageContext.setAttribute("encoded_file_name", encoded_file_name);
 						%>
 						<div class="row">
-							<div class="col-lg-1 col-12 d-flex align-items-center">
-								<div class="d-none remove_file_checkbox">
-									<div class="form-check form-switch">
-											<label class="form-check-label text-danger">
-												<input class="form-check-input delete-checkbox" type="checkbox" name="remove_file_list" value="${file }"/>
-												<i class="fa-solid fa-trash-can">파일삭제</i>
-											</label>
-									</div>
+							<div class="col d-flex align-items-center">
+								<div class="col-3 justify-content-center">
+									<img class="img-fluid img-thumbnail"
+										src="${image_url }/account/${account.account_num }/${encoded_file_name }"
+										alt="" />
 								</div>
-							</div>
-							<div class="col-lg-11 col-12">
-								<div>
-									<img class="img-fluid img-thumbnail" src="${image_url }/account/${account.account_num }/${encoded_file_name }" alt="" />
+								<div class="remove_file_checkbox d-none">
+									<div class="form-check form-switch">
+										<label class="form-check-label text-danger">
+											<input class="form-check-input delete-checkbox"
+												type="checkbox" name="remove_file_list" value="${file }" />
+											<i class="fa-solid fa-trash-can">파일삭제</i>
+										</label>
+									</div>
 								</div>
 							</div>
 						</div>

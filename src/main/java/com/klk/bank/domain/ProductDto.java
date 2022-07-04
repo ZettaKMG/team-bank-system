@@ -2,6 +2,7 @@ package com.klk.bank.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -10,8 +11,8 @@ public class ProductDto {
 	
 	private int id;
 	
-//	private String user_id;
-	
+	private String user_id;
+		
 	private String item_name;
 	
 	private String summary;
@@ -24,7 +25,12 @@ public class ProductDto {
 	
 	private String detail;
 	
-	private LocalDateTime date;
+	private LocalDateTime date;	
+
+	private String account_num;
+		
+	
+//	private boolean hasFile;
 	
 	public String getPrettyDate() {
 		// 상품정보 올린지 24시간 이내면 시간만

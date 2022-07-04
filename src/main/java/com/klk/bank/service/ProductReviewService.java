@@ -11,7 +11,6 @@ import com.klk.bank.mapper.ProductReviewMapper;
 
 @Service
 public class ProductReviewService {
-	
 	@Autowired
 	private ProductReviewMapper product_review_mapper;
 	
