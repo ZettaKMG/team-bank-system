@@ -249,10 +249,14 @@
 						
 						<div class="button-group mt-3">
 							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/list';" value="목록" />
-							<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/write?id=${qna.id }&dep=${qna.qna_dep }';" value="답글"/>
-							<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
-							<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
-							<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
+							<sec:authorize access="hasAnyRole('ADMIN, PRODUCT, SERVICE')">
+								<input type="button" class="btn btn-outline-primary" onclick="location.href='${appRoot }/qnaBoard/write?id=${qna.id }&dep=${qna.qna_dep }';" value="답글"/>
+							</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+								<input type="button" id="qna-modify-button" class="btn btn-primary" value="수정" />
+								<button id="qna-modify-submit" class="btn btn-primary d-none" >수정 완료</button> 
+								<button id="qna-remove-submit" class="btn btn-danger">삭제</button>
+							</sec:authorize>
 						</div>
 					</form>
 				</div>

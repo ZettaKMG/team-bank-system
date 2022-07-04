@@ -17,8 +17,7 @@
 		<security:logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true"/>
 		 -->
 		
-		<!-- 로그인 핸들러 작업 중 
-		 -->
+		<!-- 로그인 핸들러 -->
 	    <security:form-login username-parameter="username"
 							password-parameter="password" 
 							always-use-default-target="true" 
