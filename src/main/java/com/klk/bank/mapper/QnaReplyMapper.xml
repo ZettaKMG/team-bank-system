@@ -69,4 +69,9 @@
 		DELETE FROM Qna_Reply
 		WHERE qna_id = #{qna_id}
 	</delete>
+	
+	<delete id="deleteRepByUserId">
+		DELETE FROM Qna_Reply
+		WHERE user_id = #{user_id}
+	</delete>
 </mapper>

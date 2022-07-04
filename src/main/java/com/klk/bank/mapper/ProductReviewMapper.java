@@ -21,4 +21,8 @@ public interface ProductReviewMapper {
 
 	int insertProductReviewReply(ProductReviewDto dto);
 
+	int deleteProductReviewByProductId(int product_rev_item_id);
+
+	void deleteProductReviewByUserId(String user_id);
+
 }

@@ -65,4 +65,9 @@
 		DELETE FROM Qna
 		WHERE id = #{id}
 	</delete>
+	
+	<delete id="deleteQnaBoardByUserId">
+		DELETE FROM Qna
+		WHERE user_id = #{user_id}
+	</delete>
 </mapper>

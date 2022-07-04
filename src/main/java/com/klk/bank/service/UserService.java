@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.klk.bank.domain.UserDto;
+import com.klk.bank.mapper.ProductReviewMapper;
+import com.klk.bank.mapper.QnaMapper;
+import com.klk.bank.mapper.QnaReplyMapper;
 import com.klk.bank.mapper.UserMapper;
 
 @Service
@@ -15,6 +18,15 @@ public class UserService {
 	
 	@Autowired
 	UserMapper userMapper;
+	
+	@Autowired
+	private ProductReviewMapper productReviewMapper;
+	
+	@Autowired
+	private QnaMapper qnaMapper;
+	
+	@Autowired
+	private QnaReplyMapper qnaRepMapper;
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
@@ -71,7 +83,16 @@ public class UserService {
 		String encodedPw = user.getUser_pw();
 
 		if (passwordEncoder.matches(rawPw, encodedPw)) {
-
+			
+			// 상품평 삭제
+			productReviewMapper.deleteProductReviewByUserId(userDto.getUser_id());
+			
+			// qna댓글 삭제
+			qnaRepMapper.deleteRepByUserId(userDto.getUser_id());
+			
+			// qna본글 삭제
+			qnaMapper.deleteQnaBoardByUserId(userDto.getUser_id());
+			
 			// 권한 테이블 삭제
 			userMapper.deleteAuthById(userDto.getUser_id());
 

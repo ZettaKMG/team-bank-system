@@ -82,4 +82,14 @@
 		VALUES (#{product_rev_item_id}, #{product_rev_user_id}, #{product_rev_content}, #{product_rev_group_num}, #{product_rev_parent_id}, #{product_rev_group_depth}, #{product_rev_group_end})
 	</insert>
 	
+	<delete id="deleteProductReviewByProductId">
+		DELETE FROM Product_rev
+		WHERE product_rev_item_id = #{product_rev_item_id}
+	</delete>
+	
+	<delete id="deleteProductReviewByUserId">
+		DELETE FROM Product_rev
+		WHERE product_rev_user_id = #{user_id}
+	</delete>
+	
 </mapper>
