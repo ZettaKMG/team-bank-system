@@ -232,6 +232,9 @@
 		<div class="row justify-content-center">
 			<div class="col-12 col-lg-10 mt-3">
 				<div>
+					<c:if test="${not empty message }">
+						<div class="alert alert-primary">${message }</div>
+					</c:if>
 					<form id="qnaContentForm" action="" method="post">
 						<input type="hidden" name="id" value="${qna.id }"/>
 						<div>

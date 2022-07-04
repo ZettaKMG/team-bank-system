@@ -18,4 +18,6 @@ public interface QnaReplyMapper {
 
 	int deleteQnaReply(int id);
 
+	void deleteRepByQnaId(@Param("qna_id")int qna_id);
+
 }
