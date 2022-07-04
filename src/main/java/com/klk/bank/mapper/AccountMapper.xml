@@ -11,7 +11,7 @@
 			   a.account_pw, 
 			   a.account_balance, 
 			   a.account_date, 
-			   u.user_id account_user_name 
+			   u.user_id account_user_name
 
     	FROM Account a JOIN User u ON a.account_user_id = u.user_id
 		<if test="type != null">

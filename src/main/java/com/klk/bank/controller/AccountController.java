@@ -130,8 +130,7 @@ public class AccountController {
 //		System.out.println(user);
 //		System.out.println(account);
 		
-		model.addAttribute("account", account);
-				
+		model.addAttribute("account", account);				
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 	}
@@ -139,9 +138,6 @@ public class AccountController {
 	@PostMapping("account_modify")
 	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, @RequestParam(name = "add_file_list", required = false) MultipartFile[] add_file_list, RedirectAttributes rttr) {
 		
-//		System.out.println(add_file_list);
-//		System.out.println(add_file_list.length);
-		System.out.println(remove_file_list);
 		boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
 		
 		if (success) {

@@ -120,14 +120,15 @@ public class AccountService {
 		return account_mapper.selectFileNameByAccount(account_num);
 	}
 
+	@Transactional
 	public boolean modifyAccount(AccountDto account, ArrayList<String> remove_file_list, MultipartFile[] add_file_list) {
-		
+				
 		if (remove_file_list != null) {
 			for (String file_name : remove_file_list) {
 				deleteFromAwsS3(account.getAccount_num(), file_name);
 				account_mapper.deleteFileByAccountNumAndFileName(account.getAccount_num(), file_name);
 			}
-		}
+		}		
 		
 		if (add_file_list != null) {
 			// File 테이블에 추가된 파일 insert
