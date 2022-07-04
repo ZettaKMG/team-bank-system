@@ -16,7 +16,7 @@
 <title>Insert title here</title>
 <script>
 	$(document).ready(function() {
-		// 중복, 암호 확인 변수
+		// 중복, 암호 확인, 미입력 확인 변수
 		let idOk = false;
 		let pwOk = false;
 		let emailOk = false;
@@ -138,12 +138,13 @@
 			}
 		});
 		
-		// 중복체크 후 변경시 다시 체크
+		// ID 중복체크 후 변경시 다시 체크
 		$("#idInput1").keyup(function() {
 			$("#idMessage1").text("중복확인 해주세요.");
 			idOk = false;
 		});
 		
+		// Email 중복체크 후 변경시 다시 체크
 		$('#emailInput1').keyup(function() {
 			$("#emailMessage1").text("중복확인 해주세요.");
 			emailOk = false;

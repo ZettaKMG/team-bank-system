@@ -19,10 +19,6 @@ public class QnaReplyService {
 		qnaRepMapper.insertQnaReply(dto);
 	}
 
-	public List<QnaReplyDto> getReplyByQnaId(int qna_id) {
-		return qnaRepMapper.selectQnaReplyByQnaId(qna_id);
-	}
-
 	public List<QnaReplyDto> getReplyWithOwnByQnaId(int qna_id, String user_id) {
 		return qnaRepMapper.selectAllQnaReplyByQnaId(qna_id, user_id);
 	}

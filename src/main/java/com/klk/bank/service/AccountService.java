@@ -127,7 +127,7 @@ public class AccountService {
 		throw new RuntimeException(e);			
 	}
 }*/
-	
+
 	//계좌정보보기
 	public AccountDto getAccount(String account_num) {
 //		AccountDto account = account_mapper.selectAccount(account_num);
@@ -176,6 +176,7 @@ public class AccountService {
 		int cnt = account_mapper.deleteAccount(account_num);
 		return cnt == 1;
 	}
+
 
 //	private void removeFiles(String account_num, List<String> file_list) {
 //		// s3에서 지우기

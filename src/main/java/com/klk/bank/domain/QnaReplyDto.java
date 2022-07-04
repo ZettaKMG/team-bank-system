@@ -14,7 +14,6 @@ public class QnaReplyDto {
 	private LocalDateTime qna_rep_inserted;
 	private int qna_rep_parent;
 	private int qna_rep_dep;
-	private String lev;
 	private boolean own;
 	
 	public void setIncreseRepDep(int depth) {

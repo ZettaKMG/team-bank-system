@@ -110,7 +110,7 @@ public class AccountController {
 		
 //		return "redirect:/account/account_list";
 	}
-	
+
 	//계좌정보
 	@GetMapping("{account_num}")
 	public String accountGet(@PathVariable("account_num")String account_num, ProductDto product, UserDto user, Model model) {
@@ -140,7 +140,7 @@ public class AccountController {
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 	}
-	
+
 	//계좌수정
 	@PostMapping("account_modify")
 	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {

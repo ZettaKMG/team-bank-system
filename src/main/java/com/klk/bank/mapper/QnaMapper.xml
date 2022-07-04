@@ -5,18 +5,52 @@
 <mapper namespace="com.klk.bank.mapper.QnaMapper">
 	
 	<insert id="insertQnaBoard" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-		INSERT INTO Qna (title, body, user_id, qna_parent)
-		VALUES (#{title}, #{body}, #{user_id}, #{qna_parent})
+		INSERT INTO Qna (title, body, user_id, qna_parent, qna_dep)
+		VALUES (#{title}, #{body}, #{user_id}, #{qna_parent}, #{qna_dep})
 	</insert>
 	
 	<select id="selectQnaBoardAll" resultType="com.klk.bank.domain.QnaDto">
-		SELECT id, title, user_id, inserted
-		FROM Qna
-		ORDER BY id DESC
+		WITH RECURSIVE cte AS (
+			SELECT q.id, 
+				q.user_id, 
+				q.title, 
+				q.body, 
+				q.inserted, 
+   	        	q.qna_parent,
+				q.qna_dep, 
+				CAST(LPAD(ROW_NUMBER() OVER(ORDER BY q.id DESC), 8, '0') AS CHAR(99)) ord
+			FROM Qna q   
+   	    	WHERE q.qna_dep = 0
+        
+   	    	UNION ALL
+        
+	        SELECT q.id, 
+				q.user_id, 
+				q.title, 
+				q.body, 
+				q.inserted, 
+   	        	q.qna_parent,
+				q.qna_dep,
+				CONCAT(ord, LPAD(q.id, 8, '0')) ord
+			FROM Qna q    
+			INNER JOIN cte c ON q.qna_parent = c.id
+		)
+		SELECT ROW_NUMBER() OVER(ORDER BY ord) rownumber,
+			c.id, 
+			c.user_id, 
+			c.title, 
+			c.body, 
+			c.inserted, 
+       		c.qna_parent,
+			c.qna_dep,
+        	COUNT(DISTINCT r.id) num_of_reply
+		FROM cte c LEFT OUTER JOIN Qna_Reply r ON r.qna_id = c.id JOIN User u ON c.user_id = u.user_id
+   		GROUP BY c.id
+		ORDER BY rownumber
 	</select>
 	
 	<select id="selectQnaBoardById" resultType="com.klk.bank.domain.QnaDto">
-		SELECT id, title, body, user_id
+		SELECT id, title, body, user_id, qna_parent, qna_dep
 		FROM Qna
 		WHERE id = #{id}
 	</select>

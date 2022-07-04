@@ -24,6 +24,7 @@
 				<form action="${appRoot }/qnaBoard/write" method="post">
 					<c:if test="${not empty param.id }">
 						<input type="hidden" name="qna_parent" value="<c:out value="${param.id }"></c:out>"/>
+						<input type="hidden" name="qna_dep" value="<c:out value="${param.dep }"></c:out>"/>
 					</c:if>
 					<div>
 						<label class="form-label" for="inputTitle">제목</label>
