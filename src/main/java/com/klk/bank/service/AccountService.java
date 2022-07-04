@@ -51,7 +51,8 @@ public class AccountService {
 	public void destroy() {
 		this.s3.close();
 	}
-		
+
+	//계좌리스트
 	public List<AccountDto> listAccount(AccountPageInfoDto page_info, String type, String keyword) {
 		
 		int row_per_page = page_info.getRowPerPage();
@@ -60,9 +61,9 @@ public class AccountService {
 		return account_mapper.selectAllAccount(from, row_per_page, type, "%" + keyword + "%");
 	}		
 	
-	public boolean addAccount(AccountDto account, MultipartFile[] file) {
-		// 평문암호를 암호화(encoding)
-		System.out.println(account);
+  //계좌추가
+	public boolean addAccount(AccountDto account, MultipartFile[] file) {	
+		// 평문암호를 암호화(encoding)		
 		String encodedPassword = password_encoder.encode(account.getAccount_pw());
 		
 		// 암호화된 암호를 다시 세팅
@@ -109,8 +110,8 @@ public class AccountService {
 		
 	}	
 
-	public AccountDto getAccount(String account_num) {
-		
+	//계좌정보보기
+	public AccountDto getAccount(String account_num) {		
 				
 		return account_mapper.selectAccount(account_num);
 	}	
@@ -144,6 +145,7 @@ public class AccountService {
 		return cnt == 1;
 	}
 
+	// 계좌 삭제
 	@Transactional
 	public boolean removeAccount(String account_num) {
 		// 파일 목록 읽기
@@ -178,15 +180,19 @@ public class AccountService {
 		
 	}
 
+	
+	//검색어에 따른 모든계좌갯수
 	public int searchCountAccount(String type, String keyword) {
 		
 		return account_mapper.selectSearchCountAccount(type, "%" + keyword + "%");
 	}
-
+	
+	//계좌존재여부
 	public boolean hasAccountNum(String account_num) {
 		return account_mapper.countAccountNum(account_num) > 0;
 	}
-			
+	
+	//계좌이체
 	@Transactional
 	public boolean transferAccount(String send_account_num, String send_account_cost, String account_num) {
 		
@@ -239,16 +245,19 @@ public class AccountService {
 			return (cnt1 == 1) && (cnt2 == 1);
 		}
 	}
-
+	
+	//계좌이력출력
 	public List<TransferDto> getAccountHistory(String account_num) {
 		return account_mapper.selectTransferAccount(account_num);
 	}
-
+	
+	//현재사용자의 검색어에 따른 계좌갯수
 	public int searchCurrentUserCountAccount(String user_id, String type, String keyword) {
 		
 		return account_mapper.selectSearchCurrentUserCountAccount(user_id, type, "%" + keyword + "%");
 	}
-
+	
+	//현재사용자의 계좌리스트
 	public List<AccountDto> listCurrentUserAccount(AccountPageInfoDto page_info, String user_id, String type,
 			String keyword) {
 		
@@ -258,7 +267,8 @@ public class AccountService {
 		return account_mapper.selectCurrentUserAccount(from, row_per_page, user_id, type, "%" + keyword + "%");
 		
 	}
-
+	
+	//계좌비밀번호 체크
 	public boolean accountPwCheck(String send_account_num, String send_account_pw) {
 		
 		AccountDto send_account = account_mapper.selectAccount(send_account_num);

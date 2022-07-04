@@ -19,6 +19,8 @@
 </head>
 <body>
 	<bank:navBar current="account_history"/>
+	
+	<%-- 계좌 입출금 내역 화면 --%>
 	<div class="container">
         <div class="row">
             <div class="col">

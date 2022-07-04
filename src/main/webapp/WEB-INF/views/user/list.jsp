@@ -147,9 +147,6 @@
 			<div class="col-12 col-lg-10">			
 
 				<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
-					<div class="lh-1 d-flex">
-						<h1 class="h6 text-white">회원 목록</h1>
-					</div>
 					<div>
 						<select class="form-select mx-2" name="selectUserRole" id="selectUserRole" >
 							<option value="ALL">전체</option>
@@ -159,7 +156,10 @@
 							<option value="ROLE_USER">일반 회원</option>
 						</select>
 					</div>
-					<div class="d-flex">
+					<div class="d-flex mx-3">
+						<h1 class="h6 text-white">회원 목록</h1>
+					</div>
+					<div class="d-flex ms-auto">
 				      	<input id="idSearchInput" type="search" class="form-control mx-3" name="keyword"/>
 				      	<button id="idSearchBtn" class="btn btn-outline-light"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>

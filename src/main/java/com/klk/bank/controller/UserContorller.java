@@ -26,10 +26,11 @@ public class UserContorller {
 	@Autowired
 	UserService userService;
 	
+	// 로그인
 	@GetMapping("login")
 	public void loginPage(String error, String logout, Model model) {
 		if(error != null) {
-			model.addAttribute("error", "로그인 오류, 계정을 확인해 주세요.");
+			model.addAttribute("LoginFailMessage", "로그인 오류, 계정을 확인해 주세요.");
 		}
 		if(logout != null) {
 			model.addAttribute("logout", "로그아웃 되었습니다.");
@@ -44,6 +45,7 @@ public class UserContorller {
 	@GetMapping("signup")
 	public void signupPage() {}
 	
+	// 회원 가입
 	@PostMapping("signup")
 	public String signupProcess(UserDto userDto, RedirectAttributes rttr) {
 		boolean success = userService.addUser(userDto);
@@ -58,6 +60,7 @@ public class UserContorller {
 		}
 	}
 	
+	// 아이디 중복 체크
 	@GetMapping(path="check", params="user_id")
 	@ResponseBody
 	public String idCheck(String user_id) {
@@ -69,6 +72,8 @@ public class UserContorller {
 			return "available";
 		}
 	}
+	
+	// 이메일 중복 체크
 	@GetMapping(path="check", params="user_email")
 	@ResponseBody
 	public String emailCheck(String user_email) {
@@ -81,18 +86,21 @@ public class UserContorller {
 		}
 	}
 	
+	// 회원 목록 페이지
 	@GetMapping("list")
 	public void userListPage(Model model, @RequestParam(name = "role", defaultValue = "") String role) {
 		List<UserDto> userList = userService.getUserList(role);
 		model.addAttribute("userList", userList);	
 	}
 	
+	// ajax 회원 리스트 불러오기
 	@PostMapping("list")
 	@ResponseBody
 	public List<UserDto> list(@RequestParam(name = "role", defaultValue = "") String role) {
 		return userService.getUserList(role);
 	}
 	
+	// 회원 ID 검색 기능
 	@PostMapping("search")
 	@ResponseBody
 	public List<UserDto> searchUserList(@RequestParam(name = "role", defaultValue = "") String role, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
@@ -101,7 +109,9 @@ public class UserContorller {
 	
 	@GetMapping("info")
 	public String getUser(String user_id, Principal principal, HttpServletRequest request, Model model) {
+		// 본인인지 관리자 권한을 가지고 있는지 확인
 		if (hasAuthOrAdmin(user_id, principal, request)) {
+			// 회원 정보 불러오기
 			UserDto userDto = userService.getUserById(user_id);
 			model.addAttribute("user", userDto);
 			
@@ -117,8 +127,9 @@ public class UserContorller {
 	
 	@PostMapping("modify")
 	public String modifyUser(UserDto userDto, String oldPassword, Principal principal, HttpServletRequest request, RedirectAttributes rttr) {
-				
+		// 본인인지 관리자 권한을 가지고 있는지 확인		
 		if(hasAuthOrAdmin(userDto.getUser_id(), principal, request)) {
+			// 회원 정보 변경 진행
 			boolean success = userService.modifyUser(userDto, oldPassword);
 			
 			if(success) {
@@ -127,8 +138,8 @@ public class UserContorller {
 				rttr.addFlashAttribute("message", "회원 정보가 수정되지 않았습니다.");
 			}
 			
-			rttr.addFlashAttribute("user", userDto); // model object
-			rttr.addAttribute("user_id", userDto.getUser_id()); // query string
+			rttr.addFlashAttribute("user", userDto);
+			rttr.addAttribute("user_id", userDto.getUser_id());
 			
 			return "redirect:/user/info";
 		} else {
@@ -138,8 +149,9 @@ public class UserContorller {
 	
 	@PostMapping("remove")
 	public String removeMember(UserDto userDto, Principal principal, HttpServletRequest request, RedirectAttributes rttr) {
-		
+		// 본인인지 관리자 권한을 가지고 있는지 확인
 		if(hasAuthOrAdmin(userDto.getUser_id(), principal, request)) {
+			// 회원 탈퇴 진행
 			boolean success = userService.removeUser(userDto);
 			
 			if(success) {
@@ -154,6 +166,7 @@ public class UserContorller {
 		}
 	}
 	
+	// 로그인한 유저의 권한 확인 메소드
 	@PostMapping("auth")
 	public String modifyAuth(@RequestParam("user_id") String user_id, @RequestParam("user_role") String user_role) {
 		userService.modifyUserRole(user_id, user_role);

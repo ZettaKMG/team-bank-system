@@ -17,7 +17,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<bank:navBar current="account_list"/>
+    
+    <%-- 계좌 리스트 화면 --%>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -57,8 +60,10 @@
         </div>
     </div>
 	
+	<%-- 계좌 pagenation tag --%>
 	<bank:account_page_nav current="account_list"/>
 
+	<%-- 계좌 검색 화면 --%>
 	<nav class="navbar navbar-light bg-light">
 		<div class="container-fluid justify-content-center">
 			<form class="d-flex" action="${appRoot }/account/account_list">

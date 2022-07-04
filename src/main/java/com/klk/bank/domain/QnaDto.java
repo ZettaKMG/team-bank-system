@@ -12,6 +12,8 @@ public class QnaDto {
 	private String title;
 	private String body;
 	private int qna_parent;
+	private int qna_dep;
+	private int num_of_reply;
 	private LocalDateTime inserted;
 	
 	public String getNewInserted() {
@@ -23,5 +25,9 @@ public class QnaDto {
 		} else {
 			return inserted.toLocalDate().toString();
 		}
+	}
+	
+	public void setIncreseQnaDep(int depth) {
+		this.qna_dep = depth + 1;
 	}
 }

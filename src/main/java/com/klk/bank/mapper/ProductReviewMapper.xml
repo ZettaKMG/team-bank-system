@@ -6,6 +6,7 @@
 <mapper namespace="com.klk.bank.mapper.ProductReviewMapper">
 
 	<select id="selectAllProductReview" resultType="com.klk.bank.domain.ProductReviewDto">
+		WITH RECURSIVE cte AS (
 		SELECT p.id,
 			   p.product_rev_item_id,
 			   p.product_rev_user_id,
@@ -15,10 +16,33 @@
 			   p.product_rev_parent_id,
 			   p.product_rev_group_depth,
 			   p.product_rev_group_end,
-			   IF (u.user_id = #{product_rev_user_id}, 1, 0) own
-		FROM Product_rev p JOIN User u ON p.product_rev_user_id = u.user_id	    
-		WHERE p.product_rev_item_id = #{product_rev_item_id}
-		ORDER BY id
+               CAST(LPAD(ROW_NUMBER() OVER(ORDER BY p.id), 8, '0') AS CHAR(99)) ord
+		FROM Product_rev p   
+        WHERE product_rev_group_depth = 0
+        
+        UNION ALL
+        SELECT p.id,
+			   p.product_rev_item_id,
+			   p.product_rev_user_id,
+			   p.product_rev_content,
+			   p.product_rev_inserted,
+			   p.product_rev_group_num,
+			   p.product_rev_parent_id,
+			   p.product_rev_group_depth,
+			   p.product_rev_group_end,
+               CONCAT(ord, LPAD(p.id, 8, '0')) ord
+		FROM Product_rev p   
+		INNER JOIN cte c ON p.product_rev_parent_id = c.id
+)
+	SELECT ROW_NUMBER() OVER(ORDER BY ord) rownumber,
+		   c.id, c.product_rev_item_id,
+		   c.product_rev_user_id, c.product_rev_content, 
+	       c.product_rev_inserted, c.product_rev_group_num, 
+	       c.product_rev_parent_id, c.product_rev_group_depth,
+		   c.product_rev_group_end, IF (u.user_id = #{product_rev_user_id}, 1, 0) own 
+	FROM cte c JOIN User u ON c.product_rev_user_id = u.user_id
+	WHERE c.product_rev_item_id = #{product_rev_item_id}
+	ORDER BY rownumber;
 	</select>
 
 	<insert id="insertProductReview" parameterType="com.klk.bank.domain.ProductReviewDto" useGeneratedKeys="true" keyProperty="id" keyColumn="id">

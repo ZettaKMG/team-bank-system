@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class ProductReviewDto {
+	private int rownumber;
 	private int id;
 	private int product_rev_item_id;
 	private String product_rev_user_id;

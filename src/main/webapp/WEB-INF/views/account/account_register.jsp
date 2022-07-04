@@ -33,6 +33,7 @@
 			
 		});
 		
+		// 계좌번호존재여부 체크버튼 클릭시
 		$("#account_num_check").click(function(e) {
 			e.preventDefault();
 			
@@ -68,12 +69,13 @@
 				
 			});
 			
+			// 계좌등록 비밀번호 체크
 			$("#password_input1, #password_input2").keyup(function() {
 				const pw1 = $("#password_input1").val();
 				const pw2 = $("#password_input2").val();
 				
 				pw_ok = false;
-				if(pw1 === pw2){
+				if((pw1 != "") && (pw2 != "") && (pw1 === pw2)){
 					$("#pw_check").text("패스워드가 일치합니다.");
 					pw_ok = true;
 					$("#password_input1, #password_input2").attr("readonly", "");
@@ -98,6 +100,7 @@
 				enable_submit();
 			}); */
 			
+			// 모든내용이 잘 실행했는지 체크하는 메소드
 			const enable_submit = function() {
 				if(pw_ok && account_ok /* && user_num_ok && item_num_ok */) {
 					$("#account_register_execute").removeAttr("disabled");
@@ -116,6 +119,7 @@
 
 	<bank:navBar></bank:navBar>      
     
+    <%-- 계좌 등록 화면 --%>
     <div class="container mt-5">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
