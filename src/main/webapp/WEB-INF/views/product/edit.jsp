@@ -20,11 +20,10 @@
 		$("#edit_submit1").click(function(e) {
 			e.preventDefault();
 			
-			if (confirm("상품 정보를 수정하시겠습니까?")) {
+			if (confirm("상품 정보를 수정하시겠습니까?")) { // 확인시 수정 내용 적용
 				let form1 = $("#form1");
 				let actionAttr2 = "${appRoot}/product/edit";
 				form1.attr("action", actionAttr2);
-				/* form1.attr("method", "post"); */
 				
 				form1.submit();
 			} else { // 취소시 아무일도 안 일어남
@@ -36,11 +35,10 @@
 		$("#remove_submit1").click(function(e) {
 			e.preventDefault();
 			
-			if (confirm("상품 정보를 삭제하시겠습니까?")) {
+			if (confirm("상품 정보를 삭제하시겠습니까?")) { // 확인시 삭제
 				let form1 = $("#form1");
 				let actionAttr3 = "${appRoot}/product/remove";
 				form1.attr("action", actionAttr3);
-				/* form1.attr("method", "post"); */
 				
 				form1.submit();
 			} else { // 취소시 아무일도 안 일어남
@@ -79,7 +77,6 @@
 		    <div class="mt-3">
 				<table class="table table-borderless">					  
 					<tbody class="table-group-divider">
-						<!-- 상품코드로 상품종류 구분 가능하니 그냥 상품코드->상품종류로 통합 -->
 						<tr>					
 							<td>								
 								<div class="input-group mb-3">

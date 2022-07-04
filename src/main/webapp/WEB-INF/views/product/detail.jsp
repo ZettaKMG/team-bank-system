@@ -46,11 +46,8 @@
 			}
 		});	
 	});
-</script>
-
-<script>
+	
 	<!-- Modal 창 -->
-
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -68,9 +65,7 @@
 			$("#my_modal").modal("show");
 		}
 	});
-</script>
-
-<script>
+	
 	$(function() {
 		
 		// 상품평 list가져오는 메소드
@@ -331,13 +326,14 @@
 			});
 		});	 
 	});
-
 </script>
 	
 <title>상품 상세정보 페이지</title>
 </head>
 <body>
+
 	<bank:navBar></bank:navBar>
+	
 	<!-- 상품 수정 여부 표시 modal -->
 	<c:if test="${not empty message }">
 		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
@@ -373,7 +369,6 @@
 	    <div class="mt-3">
 			<table class="table table-borderless">					  
 				<tbody class="table-group-divider">
-					<!-- 상품코드로 상품종류 구분 가능하니 그냥 상품코드->상품종류로 통합 -->
 					<tr>					
 						<td>								
 							<div class="input-group mb-3">

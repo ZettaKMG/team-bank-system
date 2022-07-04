@@ -86,23 +86,9 @@
 				enable_submit();
 			});
 			
-			// 하단을 주석처리한 이유는 해당 항목들을 이제 입력하는 방식이 아닌 
-			// 불러오는 값대로 쓰기 때문에 무효처리를 해줘야 계좌개설 버튼이 활성화되서 그랬습니다...
-			/* $("#input2").keyup(function() {
-				user_num_ok = true;
-				
-				enable_submit();
-			});
-			
-			$("#input3").keyup(function() {
-				item_num_ok = true;
-				
-				enable_submit();
-			}); */
-			
 			// 모든내용이 잘 실행했는지 체크하는 메소드
 			const enable_submit = function() {
-				if(pw_ok && account_ok /* && user_num_ok && item_num_ok */) {
+				if(pw_ok && account_ok) {
 					$("#account_register_execute").removeAttr("disabled");
 					
 				} else {
@@ -130,7 +116,6 @@
 					<label for="input1" class="form-label">계좌번호</label>
 					<div class="input-group mb-3">
 						<input id="input1" class="form-control" type="text" name="account_num" scope="session" required readonly/>
-						<!-- 정수 12자리 무작위 번호 생성 버튼 추가 -->
 						<button class="btn btn-secondary" id="account_num_create" type="button">계좌번호 생성</button>
 						<button class="btn btn-secondary" id="account_num_check" type="button">계좌번호 중복 확인</button>
 					</div>
@@ -143,13 +128,11 @@
 					<input class="form-control" id="password_input2" type="text" placeholder="숫자 4자리 입력" name="account_pw_confirm" required />
 					<p class="form-text" id="pw_check"></p>
 					
-					<!-- 불러올때는 User 테이블의 user_id 컬럼값, DB에는 Account 테이블의 account_user_id 컬럼값으로 저장 -->
 					<label for="input2" class="form-label">유저아이디</label>
 					<div class="input-group mb-3">
 						<input id="input2" value="${principal.username }" class="form-control" type="text" name="account_user_id" scope="session" required readonly />
 					</div>
 
-					<!-- 불러올때는 Product 테이블의 id 컬럼값, DB에는 Account 테이블의 account_item_id 컬럼값으로 저장 -->
 					<label for="input3" class="form-label">상품번호</label>
 					<div class="input-group mb-3">
 						<input id="input3" value="${product.id }" class="form-control" type="text" name="account_item_id" scope="session" required readonly />

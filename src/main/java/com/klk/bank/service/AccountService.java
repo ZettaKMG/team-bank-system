@@ -61,7 +61,7 @@ public class AccountService {
 		return account_mapper.selectAllAccount(from, row_per_page, type, "%" + keyword + "%");
 	}		
 	
-  //계좌추가
+    //계좌추가
 	public boolean addAccount(AccountDto account, MultipartFile[] file) {	
 		// 평문암호를 암호화(encoding)		
 		String encodedPassword = password_encoder.encode(account.getAccount_pw());
@@ -77,8 +77,8 @@ public class AccountService {
 		return cnt == 1;
 	}
 	
+	// 파일 등록 
 	private void addFiles(String account_num, MultipartFile[] files) {
-		// 파일 등록 
 		if (files != null) {
 			for (MultipartFile file : files) {
 				if (file.getSize() > 0) {
@@ -89,6 +89,7 @@ public class AccountService {
 		}
 	}
 		
+	// AWS에 파일 저장하기
 	private void saveFileAwsS3(String account_num, MultipartFile file) {
 		String key = "account/" + account_num + "/" + file.getOriginalFilename();
 		
@@ -106,8 +107,7 @@ public class AccountService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new RuntimeException(e);
-		}		
-		
+		}				
 	}	
 
 	//계좌정보보기
@@ -121,6 +121,7 @@ public class AccountService {
 		return account_mapper.selectFileNameByAccount(account_num);
 	}
 
+	// 계좌정보 수정하기(파일 수정/삭제 기능 포함)
 	@Transactional
 	public boolean modifyAccount(AccountDto account, ArrayList<String> remove_file_list, MultipartFile[] add_file_list) {
 				
@@ -132,8 +133,6 @@ public class AccountService {
 		}		
 		
 		if (add_file_list != null) {
-			// File 테이블에 추가된 파일 insert
-			// s3에 upload
 			addFiles(account.getAccount_num(), add_file_list);
 		}
 		
@@ -157,17 +156,16 @@ public class AccountService {
 		return cnt == 1;
 	}
 	
-	private void removeFiles(String account_num, List<String> file_list) {
-		// s3에서 지우기
+	// 첨부한 파일 삭제하기
+	private void removeFiles(String account_num, List<String> file_list) {		
 		for (String file_name : file_list) {
 			deleteFromAwsS3(account_num, file_name);
-		}
+		}		
 		
-		// 파일테이블 삭제
-		account_mapper.deleteFileByAccountNum(account_num);
-		
+		account_mapper.deleteFileByAccountNum(account_num);		
 	}
 
+	// AWS에 첨부된 파일 삭제하기
 	private void deleteFromAwsS3(String account_num, String file_name) {
 		String key = "account/" + account_num + "/" + file_name;
 		

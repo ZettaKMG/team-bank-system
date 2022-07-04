@@ -43,12 +43,13 @@ public class ProductController {
 		model.addAttribute("product_page_info", page_info);
 	}	
 	
-	// 상품 등록
+	// 상품 등록(전)
 	@GetMapping("registration")
 	public void registrationPage() {
 		
 	}
 	
+	// 상품 등록(후)
 	@PostMapping("registration")
 	public String registrationPage(ProductDto product, RedirectAttributes rttr) {
 				
@@ -63,7 +64,7 @@ public class ProductController {
 		return "redirect:/product/search";
 	}
 
-	// 상품 상세정보, 수정
+	// 상품 상세정보 불러오기 및 수정(전)
 	@GetMapping({"detail", "edit"})
 	public void searchDetailPage(@RequestParam("id") Integer id, Model model) {
 		
@@ -72,41 +73,34 @@ public class ProductController {
 		
 	}
 	
-	// 상품 수정
+	// 상품 수정(후)
 	@PostMapping("edit")
 	public String editPage(ProductDto product, Principal principal, RedirectAttributes rttr) {
+						
+		boolean success = productService.updateProduct(product);
 		
-		// 상품 정보 얻기
-		ProductDto oldProduct = productService.getProductById(product.getId());
-					
-			boolean success = productService.updateProduct(product);
-			
-			if (success) {
-				rttr.addFlashAttribute("message", "상품 정보가 수정되었습니다.");
-			} else {
-				rttr.addFlashAttribute("message", "상품 정보가 수정되지 않았습니다.");
-			}
+		if (success) {
+			rttr.addFlashAttribute("message", "상품 정보가 수정되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "상품 정보가 수정되지 않았습니다.");
+		}
 					
 		rttr.addAttribute("id", product.getId());
 		
-		return "redirect:/product/detail";
-		
+		return "redirect:/product/detail";		
 	}
 	
 	// 상품 삭제
 	@PostMapping("remove")
 	public String remove(ProductDto product, Principal principal, RedirectAttributes rttr) {
+					
+		boolean success = productService.deleteProduct(product.getId());
 		
-		// 상품 정보 얻기
-		ProductDto oldProduct = productService.getProductById(product.getId());
-			
-			boolean success = productService.deleteProduct(product.getId());
-			
-			if (success) {
-				rttr.addFlashAttribute("message", "상품 정보가 삭제되었습니다.");
-			} else {
-				rttr.addFlashAttribute("message", "상품 정보가 삭제되지 않았습니다.");
-			}
+		if (success) {
+			rttr.addFlashAttribute("message", "상품 정보가 삭제되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "상품 정보가 삭제되지 않았습니다.");
+		}
 		
 		return "redirect:/product/search";
 	}	

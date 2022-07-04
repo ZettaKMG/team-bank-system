@@ -96,24 +96,18 @@ public class AccountController {
 		}
 		
 		System.out.println(account);
-//		account.setAccount_num(principal.getName());
 		boolean success = account_service.addAccount(account, file);
 		
 		if (success) {
-//			rttr.addAttribute("message", "계좌가 개설되었습니다.");
 			return "redirect:/account/" + account.getAccount_num();
 		} else {
-//			rttr.addAttribute("message", "계좌가 개설되지 않았습니다.");
 			return "redirect:/account/account_register";
-		}
-		
-//		return "redirect:/account/account_list";
+		}		
 	}
 
 	//계좌정보
 	@GetMapping("{account_num}")
-	public String accountGet(@PathVariable("account_num") String account_num, ProductDto product, UserDto user, Model model) {
-		
+	public String accountGet(@PathVariable("account_num") String account_num, ProductDto product, UserDto user, Model model) {		
 		
 		AccountDto account = account_service.getAccount(account_num);
 		List<String> file_list = account_service.selectFileByAccount(account_num);
@@ -130,11 +124,7 @@ public class AccountController {
 	
 	//계좌정보
 	@PostMapping("account_get")
-	public void accountGet(@PathVariable("account_num") String account_num, AccountDto account, ProductDto product, UserDto user, Model model) {
-//		System.out.println(product);
-//		System.out.println(user);
-//		System.out.println(account);
-		
+	public void accountGet(@PathVariable("account_num") String account_num, AccountDto account, ProductDto product, UserDto user, Model model) {		
 		model.addAttribute("account", account);				
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);

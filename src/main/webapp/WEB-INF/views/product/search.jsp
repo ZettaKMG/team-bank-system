@@ -32,10 +32,8 @@
 			$("#my_modal").modal("show");
 		}
 	});
-</script>
 
-<!-- 상품 만기도래시 예상 수령액 계산 -->
-<script>
+	<!-- 상품 만기도래시 예상 수령액 계산 -->
 	$(function() {
 		$("#calculate").click(function(e) {
 			e.preventDefault();
@@ -58,9 +56,10 @@
 <title>상품조회 페이지</title>
 </head>
 <body>
+
 	<bank:navBar></bank:navBar>
 
-	<!-- 상품목록 조회 조건선택 -->
+	<!-- 상품목록 검색조건선택 -->
 	<div class="container">
 		<div class="border border-success p-1 mt-5">
 			<figure class="text-center">
