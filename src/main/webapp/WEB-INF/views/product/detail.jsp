@@ -359,52 +359,52 @@
 		<input type="hidden" name="id" value="${product.id }" />
 				
 		<div class="mt-5 mb-3">
-			<label for="item_name" class="form-label"><h4>상품명</h4></label>
-	  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required readonly />
+			<div class="input-group">
+			  <span class="input-group-text"><strong>상품명</strong></span>
+			  <textarea class="form-control" name="item_name" id="item_name" rows="1" required readonly>${product.item_name }</textarea>
+			</div>	
 		</div>
 		<div class="mt-1 mb-3">
-			<label for="summary" class="form-label"><h4>상품요약</h4></label>
-	  		<input type="text" class="form-control" name="summary" id="summary" value="${product.summary }" required readonly />
+			<div class="input-group">
+			  <span class="input-group-text"><strong>상품요약</strong></span>
+			  <textarea class="form-control" name="summary" id="summary" rows="2" required readonly>${product.summary }</textarea>
+			</div>
 		</div>
 	    <div class="mt-3">
-			<table class="table table-borderless">					  
-				<tbody class="table-group-divider">
-					<tr>					
-						<td>								
-							<div class="input-group mb-3">
-							  <span class="input-group-text" id="sav_method">상품종류
-							  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required readonly />
-							  </span>							  
-							</div>									
-						</td>	
-					</tr>
-					<c:if test="${product.exp_period != 0 }">
-						<tr>
-							<td>
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="exp_period">가입기간
-								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period }" aria-label="Username" aria-describedby="exp_period" readonly /> 개월								  
-								  </span>
-								</div>									
-							</td>
-						</tr>
-					</c:if>								
-					<tr>
-						<td>								
-							<div class="input-group mb-3">
-							  <span class="input-group-text" id="rate">이율
-							  연 <input type="text" class="form-control" name="rate" value="${product.rate * 100}" aria-label="Username" aria-describedby="rate" required readonly /> %
-							  </span>
-							</div>									
-						</td>
-					</tr>
-				</tbody>					
-			</table>					
-		</div>
-		<div class="mt-3 mb-3">
-			<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
-		    <textarea class="form-control" name="detail" id="detail" rows="2" readonly>${product.detail }</textarea>
+		    <div class="row justify-content-md-center">
+			    <div class="col col-lg-2">
+			      <div class="input-group mb-3">
+					  <span class="input-group-text" id="sav_method"><strong>상품종류</strong>
+					  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required readonly />
+					  </span>							  
+					</div>
+			    </div>
+			    <div class="col col-lg-2">
+			      <c:if test="${product.exp_period != 0 }">						
+					<div class="input-group mb-3">
+					  <span class="input-group-text" id="exp_period"><strong>가입기간</strong>
+					  <input type="text" class="form-control" name="exp_period" value="${product.exp_period }" aria-label="Username" aria-describedby="exp_period" readonly /> 개월								  
+					  </span>
+					</div>					
+				  </c:if>
+			    </div>
+			    <div class="col col-lg-2">
+			      <div class="input-group mb-3">
+					  <span class="input-group-text" id="rate"><strong>연 이율</strong>
+					  	<input type="text" class="form-control" name="rate" value="${product.rate * 100}" aria-label="Username" aria-describedby="rate" required readonly /> %
+					  </span>
+				  </div>	
+			    </div>
+		  	</div>
+		</div>						
+	   
+		<div class="mt-1 mb-3">
+			<div class="input-group">
+			  <span class="input-group-text"><strong>상품 상세내용</strong></span>
+			  <textarea class="form-control" name="detail" id="detail" rows="5" readonly>${product.detail }</textarea>
+			</div>		    
 		</div>			
+	 </div>
 		
 		<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
 		  <button type="button" id="return_search1" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>			  			  
@@ -417,14 +417,14 @@
 		  	<button type="button" id="open_an_account_button" class="btn btn-info">계좌개설하기</button>
 		  </sec:authorize>		
 		</div>	
-	</div>
+	
 	</form>    
 	
 	<%-- 댓글 목록 화면 --%>
 	<div class="container mt-3">
 		<div class="row">
 			<div class="col">
-				<h4>상품평</h4>			
+				<h5>상품평</h5>			
 				<ul id="rev_list1" class="list-group">
 				
 				</ul>

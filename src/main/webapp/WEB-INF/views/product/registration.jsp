@@ -18,72 +18,60 @@
 <body>
 	<bank:navBar current="registration"></bank:navBar>
 	
-	<div class="container">
-		<form role="form" action="${appRoot }/product/registration" method="post">
-			<div class="form-group">
+	<form role="form" action="${appRoot }/product/registration" method="post">
+		<div class="container">						
 			<div class="mt-5 mb-3">
-				<label for="item_name" class="form-label"><h4>상품명</h4></label>
-		  		<input type="text" class="form-control" name="item_name" id="item_name" required />
+				<div class="input-group">
+				  <span class="input-group-text"><strong>상품명</strong></span>
+				  <textarea class="form-control" name="item_name" id="item_name" rows="1" required></textarea>
+				</div>	
 			</div>
-			</div>
-			<div class="form-group">
 			<div class="mt-1 mb-3">
-				<label for="summary" class="form-label"><h4>상품요약</h4></label>
-		  		<input type="text" class="form-control" name="summary" id="summary" required />
+				<div class="input-group">
+				  <span class="input-group-text"><strong>상품요약</strong></span>
+				  <textarea class="form-control" name="summary" id="summary" rows="2" required></textarea>
+				</div>
 			</div>
-			</div>
-			
 		    <div class="mt-3">
-				<table class="table table-borderless">					  
-					<tbody class="table-group-divider">
-						<tr>					
-							<td>
-								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
-								<div class="form-group">
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="sav_method">상품종류</span>
-								  <input type="text" class="form-control" name="sav_method" placeholder="예금/적금" aria-label="Username" aria-describedby="sav_method" required />
-								</div>
-								</div>
-							</td>	
-						</tr>
-						<tr>
-							<td>
-								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
-								<div class="form-group">
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" placeholder="0(예금)/12/24/36(개월 단위로 작성, 숫자만)" aria-label="Username" aria-describedby="exp_period" />
-								</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<!-- check 타입이 생각보다 지저분해보여서 간단하게 input text 타입으로 바꿈 -->
-								<div class="form-group">
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="rate">이율</span>
-								  <input type="text" class="form-control" name="rate" placeholder="소수로 표시, 0.5%->0.005(숫자만)" aria-label="Username" aria-describedby="rate" required />
-								</div>
-								</div>
-							</td>
-						</tr>
-					</tbody>					
-				</table>					
+			    <div class="row justify-content-md-center">
+				    <div class="col col-lg-3">
+				      <div class="input-group mb-3">
+						  <span class="input-group-text" id="sav_method"><strong>상품종류</strong>
+						  <input type="text" class="form-control" name="sav_method" placeholder="예금/적금" aria-label="Username" aria-describedby="sav_method" required />
+						  </span>							  
+						</div>
+				    </div>
+				    <div class="col col-lg-3">
+				      <c:if test="${product.exp_period != 0 }">						
+						<div class="input-group mb-3">
+						  <span class="input-group-text" id="exp_period"><strong>가입기간</strong>
+						  <input type="text" class="form-control" name="exp_period" placeholder="숫자, 예금은 0" aria-label="Username" aria-describedby="exp_period" /> 개월								  
+						  </span>
+						</div>					
+					  </c:if>
+				    </div>
+				    <div class="col col-lg-3">
+				      <div class="input-group mb-3">
+						  <span class="input-group-text" id="rate"><strong>연 이율</strong>
+						  	<input type="text" class="form-control" name="rate" placeholder="소수, 0.5%->0.005" aria-label="Username" aria-describedby="rate" required /> %
+						  </span>
+					  </div>	
+				    </div>
+			  	</div>
+			</div>			
+							
+			<div class="mt-1 mb-3">
+				<div class="input-group">
+				  <span class="input-group-text"><strong>상품 상세내용</strong></span>
+				  <textarea class="form-control" name="detail" id="detail" rows="10"></textarea>
+				</div>		    
 			</div>
-			<div class="form-group">
-			<div class="mt-3 mb-3">
-				<label for="item_detail" class="form-label"><h4>상품 상세내용</h4></label>
-			    <textarea class="form-control" name="detail" id="item_detail" rows="10"></textarea>
-			</div>
-			</div>
-			<div class="mt-1 d-md-flex justify-content-md-center">
-			    <button type="submit" class="btn btn-success">상품등록</button>
-			</div>		
+		</div>
 		
-		</form>
-	</div>
+		<div class="mt-1 d-md-flex justify-content-md-center">
+		    <button type="submit" class="btn btn-success">상품등록</button>
+		</div>		
+	</form>
 
 </body>
 </html>

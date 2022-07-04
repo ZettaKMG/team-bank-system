@@ -225,10 +225,10 @@
 					    <small class="text-muted">
 					    	<c:choose>
 					    		<c:when test="${product.exp_period != 0 }">
-					    			이율 : <strong><c:out value="연 ${product.rate * 100 }%, " /></strong>
+					    			연 이율 : <strong><c:out value="${product.rate * 100 }%, " /></strong>
 					    		</c:when>
 					    		<c:otherwise>
-					    			이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong>
+					    			연 이율 : <strong><c:out value="${product.rate * 100 }%" /></strong>
 					    		</c:otherwise>
 					    	</c:choose>
 					    </small>
