@@ -25,27 +25,32 @@
 					<p> Error : <c:out value="${LoginFailMessage}"/> </p>
 				</div>
 			</c:if>
-			<div class="col-12 col-lg-4">
 			
-				<h1>로그인</h1>
+			<div class="mt-5 col-12 col-lg-4">	
+				<div class="mt-1 d-md-flex justify-content-md-center">		
+					<h1>로그인</h1>
+				</div>
 				<h3><c:out value="${logout }"></c:out></h3>
-				<form action="${appRoot }/user/login" method="post">
+				<form action="${appRoot }/user/login" method="post">					
+					
 					<div class="row">
 						<label for="userIdInput1" class="form-label">
-							ID 
+							<strong>ID</strong> 
 						</label>
 						<input id="userIdInput1" class="form-control" type="text" name="username"/>
 					</div>
 					
 					<div class="row">
 						<label for="userPwInput1" class="form-label">
-							Password
+							<strong>Password</strong>
 						</label>
 						<input id="userPwInput1" class="form-control" type="password" name="password"/>
 					</div>
 					
-					<div class="form-check mt-3">
-						<input class="btn btn-primary" type="submit" value="로그인"/>
+					<div class="mt-1 d-md-flex justify-content-md-center">
+						<div class="form-check mt-3">
+							<input class="btn btn-primary" type="submit" value="로그인"/>
+						</div>
 					</div>
 				</form>
 			</div>
