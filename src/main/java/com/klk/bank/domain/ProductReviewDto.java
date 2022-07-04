@@ -10,6 +10,7 @@ import lombok.Data;
 
 @Data
 public class ProductReviewDto {
+	private int rownumber;
 	private int id;
 	private int product_rev_item_id;
 	private String product_rev_user_id;
@@ -20,7 +21,6 @@ public class ProductReviewDto {
 	private int product_rev_group_num;
 	private int product_rev_parent_id;
 	private int product_rev_group_depth;
-	private int product_rev_group_reorder;
 	private boolean product_rev_group_end = true;
 
 }

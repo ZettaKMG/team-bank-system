@@ -21,6 +21,7 @@
 		let account2_ok = false;
 		let send_cost_ok = false;
 		
+		// 보내는사람 계좌일치버튼 클릭시
 		$("#account1_num_check").click(function(e) {
 			e.preventDefault();
 			
@@ -54,6 +55,7 @@
 			});
 		});	
 		
+		// 송금가능한 금액체크버튼 클릭시
 		$("#send_cost_check").click(function(e) {
 			e.preventDefault();
 			
@@ -99,6 +101,7 @@
 			
 		});
 		
+		// 받는사람 계좌일치버튼 클릭시
 		$("#account2_num_check").click(function(e) {
 				e.preventDefault();
 				
@@ -135,6 +138,7 @@
 				});
 		});	
 		
+		//보내는사람 계좌비밀번호 확인버튼(모달창) 클릭시
 		$("#account_pw_check1").click(function(e) {
 			e.preventDefault();
 			
@@ -189,6 +193,7 @@
 </head>
 <body>
 
+<%-- 계좌이체 화면 --%>
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
@@ -231,7 +236,7 @@
 		</div>
 	</div>
 
-<!-- 비밀번호 체크 모달 -->
+<%-- 비밀번호 체크 모달 --%>
 	<div class="modal fade" id="Modal1" tabindex="-1" aria-labelledby="ModalLabel1" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -251,7 +256,7 @@
 		</div>
 	</div> 
 
-<!-- 계좌이체 모달 -->
+<%-- 계좌이체 모달 --%>
 	<div class="modal fade" id="Modal2" tabindex="-1" aria-labelledby="ModalLabel2" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

@@ -35,6 +35,7 @@ public class AccountController {
 	@Autowired
 	private AccountService account_service;
 
+	//계좌 리스트
 	@RequestMapping("account_list")
 	public void accountList(@RequestParam(name = "page", defaultValue = "1") int page,
 							@RequestParam(name = "type", defaultValue = "") String type,
@@ -72,6 +73,7 @@ public class AccountController {
 		}
 	}
 	
+	//계좌 등록(등록 전)
 	@GetMapping("account_register")
 	public void accountRegister(ProductDto product, Model model) {
 				
@@ -83,6 +85,7 @@ public class AccountController {
 		
 	}
 	
+	//계좌 등록(등록 후)
 	@PostMapping("account_register")
 	public String accountRegister(AccountDto account, Model model, MultipartFile[] file, RedirectAttributes rttr) {
 						
@@ -107,24 +110,26 @@ public class AccountController {
 		
 //		return "redirect:/account/account_list";
 	}
+
+	//계좌정보
+	@GetMapping("{account_num}")
+	public String accountGet(@PathVariable("account_num")String account_num, ProductDto product, UserDto user, Model model) {
+				
+		AccountDto account = account_service.getAccount(account_num);
+		
+		System.out.println(product);
+		System.out.println(user);
+		System.out.println(account);
+		
+		model.addAttribute("account", account);		
+		
+		model.addAttribute("product", product);
+		model.addAttribute("user", user);
+		
+		return "account/account_get";
+	}
 	
-//	@GetMapping("{account_num}")
-//	public String accountGet(@PathVariable("account_num")String account_num, ProductDto product, UserDto user, Model model) {
-//				
-//		AccountDto account = account_service.getAccount(account_num);
-//		
-//		System.out.println(product);
-//		System.out.println(user);
-//		System.out.println(account);
-//		
-//		model.addAttribute("account", account);		
-//		
-//		model.addAttribute("product", product);
-//		model.addAttribute("user", user);
-//		
-//		return "account/account_get";
-//	}
-	
+	//계좌정보
 	@PostMapping("account_get")
 	public void accountGet(@PathVariable("account_num") String account_num, AccountDto account, ProductDto product, UserDto user, Model model) {
 		System.out.println(product);
@@ -135,33 +140,36 @@ public class AccountController {
 		model.addAttribute("product", product);
 		model.addAttribute("user", user);
 	}
-	
-//	@PostMapping("account_modify")
-//	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {
-//		boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
+
+	//계좌수정
+	@PostMapping("account_modify")
+	public String accountModify(AccountDto account, @RequestParam(name = "remove_file_list", required = false) ArrayList<String> remove_file_list, MultipartFile[] add_file_list, RedirectAttributes rttr) {
+//		//boolean success = account_service.modifyAccount(account, remove_file_list, add_file_list);
 //		
 //		if (success) {
 //			rttr.addFlashAttribute("message", "계좌 정보가 수정되었습니다.");
 //		} else {
 //			rttr.addFlashAttribute("message", "계좌 정보가 수정되지 않았습니다.");
 //		}
-//		
-//		return "redirect:/account/" + account.getAccount_num();
-//	}
+		
+		return "redirect:/account/" + account.getAccount_num();
+	}
 	
-//	@PostMapping("account_remove")
-//	public String accountRemove(String account_num, RedirectAttributes rttr) {
-//		boolean success = account_service.removeAccount(account_num);
-//		
-//		if (success) {
-//			rttr.addFlashAttribute("message", "계좌 정보가 삭제되었습니다.");
-//		} else {
-//			rttr.addFlashAttribute("message", "계좌 정보가 삭제되지 않았습니다.");
-//		}
-//		
-//		return "redirect:/account/account_list";
-//	}
+	//계좌삭제
+	@PostMapping("account_remove")
+	public String accountRemove(String account_num, RedirectAttributes rttr) {
+		boolean success = account_service.removeAccount(account_num);
+		
+		if (success) {
+			rttr.addFlashAttribute("message", "계좌 정보가 삭제되었습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "계좌 정보가 삭제되지 않았습니다.");
+		}
+		
+		return "redirect:/account/account_list";
+	}
 	
+	//계좌일치여부체크
 	@PostMapping(path = "account_check", params = "account_num")
 	@ResponseBody
 	public String accountCheck(String account_num) {
@@ -174,6 +182,7 @@ public class AccountController {
 		}
 	}
 	
+	//계좌비밀번호일치여부체크
 	@PostMapping(path = "account_pw_check", params = {"send_account_num", "send_account_pw"})
 	@ResponseBody
 	public String sendAccountPwCheck(String send_account_num, String send_account_pw) {
@@ -188,46 +197,50 @@ public class AccountController {
 		
 	}
 	
-//	@PostMapping(path = "send_cost_check", params = {"send_account_num", "send_account_cost"})
-//	@ResponseBody
-//	public String sendCostCheck(String send_account_num, String send_account_cost){
-//		boolean exist = account_service.hasAccountNum(send_account_num);
-//				
-//		if(exist) {
-//			AccountDto send_account = account_service.getAccount(send_account_num);
-//			BigDecimal b1 = new BigDecimal(send_account_cost);
-//			
-//			int cnt1 = send_account.getAccount_balance().compareTo(b1);
-//			if(cnt1 < 0) {
-//				return "notOk";
-//			} else {
-//				return "ok";
-//			}			
-//		} 
-//		
-//		return "";
-//	}
+	//계좌잔액사용가능여부체크
+	@PostMapping(path = "send_cost_check", params = {"send_account_num", "send_account_cost"})
+	@ResponseBody
+	public String sendCostCheck(String send_account_num, String send_account_cost){
+		boolean exist = account_service.hasAccountNum(send_account_num);
+				
+		if(exist) {
+			AccountDto send_account = account_service.getAccount(send_account_num);
+			BigDecimal b1 = new BigDecimal(send_account_cost);
+			
+			int cnt1 = send_account.getAccount_balance().compareTo(b1);
+			if(cnt1 < 0) {
+				return "notOk";
+			} else {
+				return "ok";
+			}			
+		} 
+		
+		return "";
+	}
 	
-//	@PostMapping(path = "account_send_check", produces = "text/plain;charset=UTF-8")
-//	public ResponseEntity<String> accountSendCheck(String send_account_num){
-//				
-//		boolean exist = account_service.hasAccountNum(send_account_num);
-//				
-//		if(exist) {
-//			AccountDto send_account = account_service.getAccount(send_account_num);
-//			
-//			return ResponseEntity.ok(send_account.getAccount_balance().toPlainString());	
-//		} else {
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
-//		}
-//		
-//	}
+	//계좌잔액확인
+	@PostMapping(path = "account_send_check", produces = "text/plain;charset=UTF-8")
+	public ResponseEntity<String> accountSendCheck(String send_account_num){
+				
+		boolean exist = account_service.hasAccountNum(send_account_num);
+				
+		if(exist) {
+			AccountDto send_account = account_service.getAccount(send_account_num);
+			
+			return ResponseEntity.ok(send_account.getAccount_balance().toPlainString());	
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+		}
+		
+	}
 	
+	//계좌이체(실행 전)
 	@GetMapping("account_transfer")
 	public void accountTransfer() {
 		
 	}
 	
+	//계좌이체(실행 후)
 	@PostMapping("account_transfer")
 	public String accountTransfer(String send_account_num, String send_account_cost, String account_num) {
 		boolean success = account_service.transferAccount(send_account_num, send_account_cost, account_num);
@@ -235,6 +248,7 @@ public class AccountController {
 		return "redirect:/account/account_list";
 	}
 	
+	//계좌이력
 	@PostMapping("account_history")
 	public void accountHistory(String account_num, Model model) {
 		List<TransferDto> list = account_service.getAccountHistory(account_num);

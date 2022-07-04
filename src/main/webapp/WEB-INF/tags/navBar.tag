@@ -4,21 +4,21 @@
 <%@ attribute name = "current" %>
 
 
-<!-- 상품 게시판 관련 링크 -->
+<%-- 상품 게시판 관련 링크 --%>
 <c:url value="/product/search" var="searchUrl" />
 <c:url value="/product/registration" var="registrationUrl" />
 
-<!-- 회원 정보 관련 링크 -->
+<%-- 회원 정보 관련 링크 --%>
 <c:url value="/user/list" var="userListUrl"></c:url>
 <c:url value="/user/info" var="userInfoUrl"></c:url>
 <c:url value="/user/signup" var="signUpUrl"></c:url>
 <c:url value="/user/login" var="loginUrl"></c:url>
 <c:url value="/logout" var="logoutUrl"></c:url>
 
-<!-- 문의 관련 링크 -->
+<%-- 문의 관련 링크 --%>
 <c:url value="/qnaBoard/list" var="qnaUrl"></c:url>
 
-<!-- 계좌 관련 링크 -->
+<%-- 계좌 관련 링크 --%>
 <c:url value="/account/account_list" var="accountListUrl"></c:url>
 <c:url value="/account/account_register" var="accountRegUrl"></c:url>
 <c:url value="/account/account_transfer" var="accountTransUrl"></c:url>
@@ -52,9 +52,9 @@
 								<a class="dropdown-item" href="${searchUrl }">상품조회</a>
 							</li>
 							<sec:authorize access="hasAnyRole('ADMIN, PRODUCT')">
-								<li>
-									<a class="dropdown-item" href="${registrationUrl }">상품등록</a>
-								</li>
+							<li>
+								<a class="dropdown-item" href="${registrationUrl }">상품등록</a>
+							</li>
 							</sec:authorize>
 						</ul>
 					</li>
@@ -114,7 +114,7 @@
 			        </sec:authorize>
 										
 				</ul>
-				<!-- 로그인시에는 "로그인한 ID 님 환영합니다!!!" 메세지를, 비로그인시에는 "비로그인 상태입니다!"메세지 출력  -->
+				<%-- 로그인시에는 "로그인한 ID 님 환영합니다!!!" 메세지를, 비로그인시에는 "비로그인 상태입니다!"메세지 출력  --%>
 				<div class="d-flex justify-content-right">
 					<c:choose>	
 						<c:when test="${not empty principal.username }">
