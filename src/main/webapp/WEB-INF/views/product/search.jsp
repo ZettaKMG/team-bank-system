@@ -50,20 +50,20 @@
 			$("#calculate_result2").attr("value", result2);
 			$("#calculate_result3").attr("value", result3);			
 		});			
-	});
+	});	
 </script>
 
-<title>klk은행의 상품들을 소개합니다!</title>
+<title>klk은행에 오신 것을 환영합니다!</title>
 </head>
 <body>
 
 	<bank:navBar></bank:navBar>
-
+	
 	<!-- 상품목록 검색조건선택 -->
 	<div class="container">
 		<div class="border border-success p-1 mt-5">
 			<figure class="text-center">
-				<h2>상 품 목 록 조 회</h2>
+				<h2>상 품 목 록 검 색</h2>
 			</figure>
 			<form id="condition_search" action="${appRoot }/product/search" method="get">
 				<div class="mt-3">
