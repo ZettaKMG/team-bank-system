@@ -61,16 +61,94 @@
 				</div>
 			</div>
 			<div class="col-12 col-lg-3 p-2">
-				<div>
-					<h1>개인 메뉴</h1>				
-				</div>
+				<c:choose>
+					<c:when test="${not empty principal.username }">
+						<div class="mx-5">
+							<div class="row align-center">
+								<h5><i class="bi bi-person-bounding-box"></i> ${principal.username }</h5>			
+							</div>
+							<div class="row mt-5">
+								<div class="col">
+									<button class="btn btn-outline-dark" onClick="location.href='${appRoot }/user/info?user_id=${principal.username }'">내 정보</button>
+								</div>
+								<div class="col">
+									<c:choose>
+										<c:when test="${accountNum != 0 }">
+											<button class="btn btn-outline-dark" onClick="location.href='${appRoot }/account/account_list'">내 계좌</button>						
+										</c:when>
+										<c:when test="${accountNum == 0 }">
+											<sec:authorize access="hasRole('ROLE_USER')">
+												<button class="btn btn-outline-dark" onClick="location.href='${appRoot }/product/search'">계좌 개설</button>
+											</sec:authorize>
+										</c:when>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+					</c:when>
+					<c:when test="${empty principal.username }">
+						<div style="text-align: center">
+							<h4>로그인이 필요합니다.</h4>
+						</div>
+						<div class="mt-5" style="text-align: center">
+							<button class="btn btn-outline-primary" onClick="location.href='${appRoot}/user/login'">로그인</button>
+						</div>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
-		<div class="row d-flex mt-3">
-			<div class="col-6 border">
-				<h1>컨텐츠1</h1>
+
+		<div class="row mt-3 text-center border">
+			<div class="d-flex mt-3">
+				<h5>상품</h5>
+				<a href="${appRoot }/product/search" class="ms-auto">
+					<small>more..</small>
+				</a>
 			</div>
-			<div class="col-6 border">
+			
+			<c:forEach items="${productList }" var="product">
+				<div class="col">
+					<div class="card mb-4 rounded-3 shadow-sm">
+						<div class="card-header py-3">
+							<h5 class="my-0 fw-normal"><c:out value="${product.item_name }" /></h4>
+						</div>
+						<div class="card-body">
+							<h6 class="card-title pricing-card-title">
+								상품 종류 : <c:out value="${product.sav_method }" />
+							</h6>
+							<ul class="list-unstyled mt-3 mb-4">
+								<li>
+									<c:choose>
+						    			<c:when test="${product.exp_period != 0 }">
+						    				이율 : <strong><c:out value="연 ${product.rate * 100 }%, " /></strong>
+						    			</c:when>
+						    			<c:otherwise>
+						    				이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong>
+						    			</c:otherwise>
+						    		</c:choose>
+					    		</li>
+								<li>
+									<c:if test="${product.exp_period != 0 }">
+						   				가입기간 : <c:out value="${product.exp_period }개월" />
+					    			</c:if>
+								</li>
+								<li>
+									<c:out value="${product.summary }" />
+								</li>
+							</ul>
+							<c:url value="/product/detail" var="detail_url">
+					  			<c:param name="id" value="${product.id }"></c:param>
+					 		</c:url>
+							<button type="button" class="w-100 btn btn-lg btn-outline-primary" onClick="location.href='${detail_url }'">가입하기</button>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+		
+		
+		<div class="row d-flex mt-3">
+			<div class="col-12 border">
 				<div class="d-flex mt-3">
 					<div class="justify-content-center">
 						<h5>문의 게시판</h5>
@@ -104,73 +182,7 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="row mt-3 text-center border">
-			<div class="d-flex mt-3">
-				<h5>상품</h5>
-				<small class="ms-auto">more..</small>
-			</div>
-			<div class="col">
-				<div class="card mb-4 rounded-3 shadow-sm">
-					<div class="card-header py-3">
-						<h4 class="my-0 fw-normal">상품1</h4>
-					</div>
-					<div class="card-body">
-						<h1 class="card-title pricing-card-title">
-							$0
-							<small class="text-muted fw-light">/mo</small>
-						</h1>
-						<ul class="list-unstyled mt-3 mb-4">
-							<li>설명1</li>
-							<li>설명2</li>
-							<li>설명3</li>
-							<li>설명4</li>
-						</ul>
-						<button type="button" class="w-100 btn btn-lg btn-outline-primary">가입하기</button>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card mb-4 rounded-3 shadow-sm">
-					<div class="card-header py-3">
-						<h4 class="my-0 fw-normal">상품2</h4>
-					</div>
-					<div class="card-body">
-						<h1 class="card-title pricing-card-title">
-							$15
-							<small class="text-muted fw-light">/mo</small>
-						</h1>
-						<ul class="list-unstyled mt-3 mb-4">
-							<li>설명1</li>
-							<li>설명2</li>
-							<li>설명3</li>
-							<li>설명4</li>
-						</ul>
-						<button type="button" class="w-100 btn btn-lg btn-outline-primary">가입하기</button>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card mb-4 rounded-3 shadow-sm">
-					<div class="card-header py-3">
-						<h4 class="my-0 fw-normal">상품3</h4>
-					</div>
-					<div class="card-body">
-						<h1 class="card-title pricing-card-title">
-							$29
-							<small class="text-muted fw-light">/mo</small>
-						</h1>
-						<ul class="list-unstyled mt-3 mb-4">
-							<li>설명1</li>
-							<li>설명2</li>
-							<li>설명3</li>
-							<li>설명4</li>
-						</ul>
-						<button type="button" class="w-100 btn btn-lg btn-outline-primary">가입하기</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 
 </body>
