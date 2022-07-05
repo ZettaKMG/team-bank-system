@@ -194,12 +194,11 @@
 </head>
 <body>
 
-	<bank:navBar></bank:navBar>
-
 	<%-- 계좌이체 화면 --%>	
 	<div class="container">
 		<div class="row mt-5"></div>
 		<div class="row mt-5"></div>
+		<div class="row mt-3"></div>
 		<div class="row mt-5 justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
 				<form id="form1" action="${appRoot }/account/account_transfer" method="post">
@@ -234,8 +233,9 @@
 					<button class="btn btn-secondary" type="button" id="account2_num_check">계좌확인</button>
 				</div>
 				<div class="form-text" id="account2_num_message"></div>
-				
-				<button id="account_transfer_execute" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal1" type="button" disabled>계좌이체</button>
+				<figure class="text-center">
+					<button id="account_transfer_execute" class="mt-3 btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal1" type="button" disabled>계좌이체</button>
+				</figure>
 				</form>
 			</div>
 		</div>
