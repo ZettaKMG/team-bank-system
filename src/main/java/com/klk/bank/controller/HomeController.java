@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.klk.bank.domain.ProductDto;
 import com.klk.bank.domain.QnaDto;
 import com.klk.bank.mapper.ProductMapper;
+import com.klk.bank.mapper.QnaMapper;
 import com.klk.bank.service.AccountService;
 import com.klk.bank.service.QnaService;
 
@@ -29,6 +30,9 @@ public class HomeController {
 	
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
+	QnaMapper qnaMapper;
 	
 	@Autowired
 	ProductMapper productMapper;
@@ -47,12 +51,10 @@ public class HomeController {
 			model.addAttribute("accountNum", accountNum);
 		}
 		
-		List<QnaDto> qnaList = qnaService.qnaBoardList();
+		List<QnaDto> qnaList = qnaMapper.selectQnaBoardAll(0, 5);
 		model.addAttribute("qnaList", qnaList);
 		
-		int from = 0;
-		int row_per_page = 3;
-		List<ProductDto> productList = productMapper.selectProductAll(from, row_per_page, "%%", "", "", "");
+		List<ProductDto> productList = productMapper.selectProductAll(0, 3, "%%", "", "", "");
 		model.addAttribute("productList", productList);
 		return "home";
 	}

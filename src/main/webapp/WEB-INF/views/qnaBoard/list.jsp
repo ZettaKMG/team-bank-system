@@ -18,7 +18,7 @@
 </head>
 <body>
 	<bank:navBar current="qnaList"></bank:navBar>
-	<div class="container">
+	<div class="container mt-3">
 		<div class="row">
 			<div class="col">
 				<table class="table">
@@ -65,6 +65,8 @@
 				</sec:authorize>
 			</div>
 		</div>
+		
+		<bank:qna_page_nav></bank:qna_page_nav>
 	</div>
 </body>
 </html>
