@@ -119,18 +119,6 @@
 					<div class="input-group mb-3">
 						<input id="input4" class="form-control" type="text" name="account_item_id" value="${account.account_item_id }" readonly />
 					</div>
-					
-					<%-- <!-- DB 미반영 항목 -->
-					<label for="input11" class="form-label">상품명</label>
-					<div class="input-group mb-3">
-						<input id="input11" value="${product.item_name }" class="form-control" type="text" name="product_item_name" required readonly />
-					</div>
-					
-					<!-- DB 미반영 항목 -->
-					<label for="input12" class="form-label">이율(%)</label>
-					<div class="input-group mb-3">
-						<input id="input12" value="${product.rate }" class="form-control" type="text" name="product_rate" required readonly />
-					</div> --%>
 
 					<label for="input5" class="form-label">잔고</label>
 					<div class="input-group mb-3">
@@ -146,9 +134,9 @@
 					<!-- 제출된 파일 추가/수정 부분 -->
 					<c:forEach items="${account.file_name }" var="file">
 						<%
-						String file = (String) pageContext.getAttribute("file");
-						String encoded_file_name = java.net.URLEncoder.encode(file, "utf-8");
-						pageContext.setAttribute("encoded_file_name", encoded_file_name);
+							String file = (String) pageContext.getAttribute("file");
+							String encoded_file_name = java.net.URLEncoder.encode(file, "utf-8");
+							pageContext.setAttribute("encoded_file_name", encoded_file_name);
 						%>
 						<div class="row">
 							<div class="col d-flex align-items-center">
@@ -176,10 +164,12 @@
 						<input id="file_input1" class="form-control mb-3" type="file" accept="image/*" multiple="multiple" name="add_file_list" />
 					</div>
 
-					<button id="account_withdraw_deposit" class="mt-3 btn btn-info" form="form2" type="submit">계좌이력</button>
-					<button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button>
-					<button id="account_update_execute" class="mt-3 btn btn-success" disabled="disabled">계좌수정완료</button>
-					<button id="account_delete_execute" class="mt-3 btn btn-danger">계좌삭제</button>
+					<div class="mt-1 gap-1 d-md-flex justify-content-md-center">
+						<button id="account_withdraw_deposit" class="mt-3 btn btn-info" form="form2" type="submit">계좌이력</button>
+						<button id="account_update_start" class="mt-3 btn btn-primary" type="button" >계좌수정시작</button>
+						<button id="account_update_execute" class="mt-3 btn btn-success" disabled="disabled">계좌수정완료</button>
+						<button id="account_delete_execute" class="mt-3 btn btn-danger">계좌삭제</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -188,8 +178,7 @@
 	<%-- 계좌 조회 요청--%>
 	<form id="form2" action="${appRoot }/account/account_history" method="post">
 		<input type="hidden" name="account_num" value="${account.account_num }"/>
-	</form>   
-   
+	</form>      
    
 </body>
 </html>

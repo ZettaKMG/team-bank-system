@@ -20,11 +20,10 @@
 		$("#edit_submit1").click(function(e) {
 			e.preventDefault();
 			
-			if (confirm("상품 정보를 수정하시겠습니까?")) {
+			if (confirm("상품 정보를 수정하시겠습니까?")) { // 확인시 수정 내용 적용
 				let form1 = $("#form1");
 				let actionAttr2 = "${appRoot}/product/edit";
 				form1.attr("action", actionAttr2);
-				/* form1.attr("method", "post"); */
 				
 				form1.submit();
 			} else { // 취소시 아무일도 안 일어남
@@ -36,11 +35,10 @@
 		$("#remove_submit1").click(function(e) {
 			e.preventDefault();
 			
-			if (confirm("상품 정보를 삭제하시겠습니까?")) {
+			if (confirm("상품 정보를 삭제하시겠습니까?")) { // 확인시 삭제
 				let form1 = $("#form1");
 				let actionAttr3 = "${appRoot}/product/remove";
 				form1.attr("action", actionAttr3);
-				/* form1.attr("method", "post"); */
 				
 				form1.submit();
 			} else { // 취소시 아무일도 안 일어남
@@ -57,70 +55,60 @@
 
 	<form id="form1" action="" method="post">
 	<div class="container">				
-			<div class="form-group">
-			<input type="hidden" name="id" value="${product.id }" />
+		<input type="hidden" name="id" value="${product.id }" />
+				
+		<div class="mt-5 mb-3">
+			<div class="input-group">
+			  <span class="input-group-text"><strong>상품명</strong></span>
+			  <textarea class="form-control" name="item_name" id="item_name" rows="1" required>${product.item_name }</textarea>
+			</div>	
+		</div>
+		<div class="mt-1 mb-3">
+			<div class="input-group">
+			  <span class="input-group-text"><strong>상품요약</strong></span>
+			  <textarea class="form-control" name="summary" id="summary" rows="2" required>${product.summary }</textarea>
 			</div>
+		</div>
+	    <div class="mt-3">
+		    <div class="row justify-content-md-center">
+			    <div class="col col-lg-2">
+			      <div class="input-group mb-3">
+					  <span class="input-group-text" id="sav_method"><strong>상품종류</strong>
+					  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required />
+					  </span>							  
+					</div>
+			    </div>
+			    <div class="col col-lg-2">
+			      <c:if test="${product.exp_period != 0 }">						
+					<div class="input-group mb-3">
+					  <span class="input-group-text" id="exp_period"><strong>가입기간</strong>
+					  <input type="text" class="form-control" name="exp_period" value="${product.exp_period }" aria-label="Username" aria-describedby="exp_period" /> 개월								  
+					  </span>
+					</div>					
+				  </c:if>
+			    </div>
+			    <div class="col col-lg-2">
+			      <div class="input-group mb-3">
+					  <span class="input-group-text" id="rate"><strong>연 이율</strong>
+					  	<input type="text" class="form-control" name="rate" value="${product.rate * 100}" aria-label="Username" aria-describedby="rate" required /> %
+					  </span>
+				  </div>	
+			    </div>
+		  	</div>
+		</div>			
+						
+		<div class="mt-1 mb-3">
+			<div class="input-group">
+			  <span class="input-group-text"><strong>상품 상세내용</strong></span>
+			  <textarea class="form-control" name="detail" id="detail" rows="10">${product.detail }</textarea>
+			</div>		    
+		</div>
+	</div>
 			
-			<div class="form-group">
-			<div class="mt-5 mb-3">
-				<label for="item_name" class="form-label"><h4>상품명</h4></label>
-		  		<input type="text" class="form-control" name="item_name" id="item_name" value="${product.item_name }" required />
-			</div>
-			</div>
-			
-			<div class="form-group">
-			<div class="mt-1 mb-3">
-				<label for="summary" class="form-label"><h4>상품요약</h4></label>
-		  		<input type="text" class="form-control" name="summary" id="summary" value="${product.summary }" required />
-			</div>
-			</div>
-			
-			<div class="form-group">
-		    <div class="mt-3">
-				<table class="table table-borderless">					  
-					<tbody class="table-group-divider">
-						<!-- 상품코드로 상품종류 구분 가능하니 그냥 상품코드->상품종류로 통합 -->
-						<tr>					
-							<td>								
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="sav_method">상품종류</span>
-								  <input type="text" class="form-control" name="sav_method" value="${product.sav_method }" aria-label="Username" aria-describedby="sav_method" required />
-								</div>									
-							</td>	
-						</tr>
-						<tr>
-							<td>								
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="exp_period">가입기간</span>
-								  <input type="text" class="form-control" name="exp_period" value="${product.exp_period }" aria-label="Username" aria-describedby="exp_period" />
-								</div>									
-							</td>
-						</tr>
-						<tr>
-							<td>								
-								<div class="input-group mb-3">
-								  <span class="input-group-text" id="rate">이율</span>
-								  <input type="text" class="form-control" name="rate" value="${product.rate }" aria-label="Username" aria-describedby="rate" required />
-								</div>									
-							</td>
-						</tr>
-					</tbody>					
-				</table>					
-			</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="mt-3 mb-3">
-					<label for="detail" class="form-label"><h4>상품 상세내용</h4></label>
-				    <textarea class="form-control" name="detail" id="detail" rows="10">${product.detail }</textarea>
-				</div>
-			</div>
-			
-			<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
-			  <button type="button" id="return_search1" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
-			  <button type="button" id="edit_submit1" class="btn btn-warning">상품정보 수정</button>
-			  <button type="button" id="remove_submit1" class="btn btn-danger">상품정보 삭제</button>
-			</div>
+	<div class="mt-1 d-md-flex justify-content-md-center gap-2" role="group" aria-label="Basic mixed styles example">
+	  <button type="button" id="return_search1" onclick="location.href='${appRoot}/product/search'" class="btn btn-primary">상품목록</button>
+	  <button type="button" id="edit_submit1" class="btn btn-warning">상품정보 수정</button>
+	  <button type="button" id="remove_submit1" class="btn btn-danger">상품정보 삭제</button>
 	</div>
 	</form>		
 

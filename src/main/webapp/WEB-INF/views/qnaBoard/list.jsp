@@ -18,7 +18,7 @@
 </head>
 <body>
 	<bank:navBar current="qnaList"></bank:navBar>
-	<div class="container">
+	<div class="container mt-3">
 		<div class="row">
 			<div class="col">
 				<table class="table">
@@ -55,13 +55,18 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<div class="submit-button-group">
-					<form action="${appRoot }/qnaBoard/write">
-						<button class="btn btn-primary" type="submit"><i class="fa-solid fa-pencil"></i> 글쓰기</button>
-					</form>
-				</div>
+				
+				<sec:authorize access="isAuthenticated()">
+					<div class="submit-button-group">
+						<form action="${appRoot }/qnaBoard/write">
+							<button class="btn btn-primary" type="submit"><i class="fa-solid fa-pencil"></i> 글쓰기</button>
+						</form>
+					</div>
+				</sec:authorize>
 			</div>
 		</div>
+		
+		<bank:qna_page_nav></bank:qna_page_nav>
 	</div>
 </body>
 </html>
