@@ -9,9 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.klk.bank.domain.QnaDto;
-import com.klk.bank.domain.QnaReplyDto;
+import com.klk.bank.domain.QnaPageInfoDto;
 import com.klk.bank.service.QnaReplyService;
 import com.klk.bank.service.QnaService;
 
@@ -26,9 +27,17 @@ public class QnaController {
 	
 	// 문의게시판 페이지
 	@GetMapping("list")
-	public void qnaListPage(Model model) {
-		List<QnaDto> list = qnaService.qnaBoardList();
+	public void qnaListPage(@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+		QnaPageInfoDto page_info = new QnaPageInfoDto();
+		page_info.setCurrent_page(page);
+		
+		int total_record = qnaService.countAllQnaList();
+		int end_page = (total_record - 1) / page_info.getRowPerPage() + 1;
+		page_info.setEnd_page(end_page);
+		
+		List<QnaDto> list = qnaService.qnaBoardList(page_info);
 		model.addAttribute("qnaList", list);
+		model.addAttribute("qna_page_info", page_info);
 	}
 	
 	// 문의글 작성 페이지

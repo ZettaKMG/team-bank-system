@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.klk.bank.domain.QnaDto;
+import com.klk.bank.domain.QnaPageInfoDto;
 import com.klk.bank.mapper.QnaMapper;
 import com.klk.bank.mapper.QnaReplyMapper;
 
@@ -23,8 +24,12 @@ public class QnaService {
 		qnaMapper.insertQnaBoard(qna);
 	}
 
-	public List<QnaDto> qnaBoardList() {
-		return qnaMapper.selectQnaBoardAll();
+	public List<QnaDto> qnaBoardList(QnaPageInfoDto page_info) {
+		
+		int row_per_page = page_info.getRowPerPage();
+		int from = (page_info.getCurrent_page() - 1) * row_per_page;
+		
+		return qnaMapper.selectQnaBoardAll(from, row_per_page);
 	}
 
 	public QnaDto getQnaBoardById(int id) {
@@ -41,6 +46,10 @@ public class QnaService {
 		qnaRepMapper.deleteRepByQnaId(qna.getId());
 		// 글 삭제
 		qnaMapper.deleteQnaBoard(qna);
+	}
+
+	public int countAllQnaList() {
+		return qnaMapper.selectCountAllQna();
 	}
 	
 	

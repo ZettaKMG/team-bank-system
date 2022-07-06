@@ -121,6 +121,9 @@
 									<i class="fa-solid fa-trash-can"></i>
 								</span>
 							`);
+						} else if(${empty principal.username}) {
+							// 비로그인일때 아무 버튼도 보이지 않음
+							$("#editButtonWrapper" + list[i].id).html(``);
 						} else {
 							// 다른사람의 댓글일 때 답글 버튼만 보여줌
 							$("#editButtonWrapper" + list[i].id).html(`
@@ -262,17 +265,34 @@
 				</div>
 				
 				<%-- 댓글 추가 form --%>
-				<div class="row mt-3">
-					<form id="addReplyForm" action="${appRoot}/qnaReply/write" method="post">
-						<div class="input-group">
-							<input type="hidden" name="qna_id" value="${qna.id }" />
-							<input id="addReplyContentInput" class="form-control" type="text" name="qna_rep_content" required />
-							<button id="addReplySubmitButton" class="btn btn-outline-secondary">
-								<i class="fa-solid fa-comment-dots"></i>
-							</button>
+				
+				<c:choose>
+					<c:when test="${not empty principal.username}">
+						<div class="row mt-3">
+							<form id="addReplyForm" action="${appRoot}/qnaReply/write" method="post">
+								<div class="input-group">
+									<input type="hidden" name="qna_id" value="${qna.id }" />
+									<input id="addReplyContentInput" class="form-control" type="text" name="qna_rep_content" required />
+									<sec:authorize access="isAuthenticated()">
+										<button id="addReplySubmitButton" class="btn btn-outline-secondary">
+											<i class="fa-solid fa-comment-dots"></i>
+										</button>
+									</sec:authorize>
+								</div>
+							</form>
 						</div>
-					</form>
-				</div>
+					</c:when>
+					<c:when test="${empty principal.username }">
+						<div class="row mt-3">
+							<div class="input-group">
+								<input id="addReplyContentInput" class="form-control" type="text" name="qna_rep_content" readonly placeholder="로그인이 필요합니다."/>
+								<button id="addReplySubmitButton" class="btn btn-outline-secondary" disabled>
+									<i class="fa-solid fa-comment-dots"></i>
+								</button>
+							</div>
+						</div>
+					</c:when>
+				</c:choose>
 				
 				<div class="row mt-3">
 					<div class="alert alert-primary" style="display:none; " id="replyMessage"></div>

@@ -47,12 +47,18 @@
 		FROM cte c LEFT OUTER JOIN Qna_Reply r ON r.qna_id = c.id JOIN User u ON c.user_id = u.user_id
    		GROUP BY c.id
 		ORDER BY rownumber
+		LIMIT #{from}, #{row_per_page}
 	</select>
 	
 	<select id="selectQnaBoardById" resultType="com.klk.bank.domain.QnaDto">
 		SELECT id, title, body, user_id, qna_parent, qna_dep
 		FROM Qna
 		WHERE id = #{id}
+	</select>
+	
+	<select id="selectCountAllQna" resultType="int">
+		SELECT COUNT(*)
+		FROM Qna
 	</select>
 	
 	<update id="updateQnaBoard">
