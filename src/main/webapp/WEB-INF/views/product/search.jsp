@@ -13,8 +13,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<!-- modal창 보여주기 -->
 <script type="text/javascript">
+	<!-- modal창 보여주기 -->
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -33,9 +33,9 @@
 		}
 	});
 
-	<!-- 상품 만기도래시 예상 수령액 계산 -->
 	$(function() {
-		$("#calculate").click(function(e) {
+		<!-- 상품 만기도래시 예상 수령액 계산(세금 공제 전) -->
+		$("#calculate_before").click(function(e) {
 			e.preventDefault();
 						
 			const rate = Number($("#yearly_rate").val());
@@ -50,7 +50,24 @@
 			$("#calculate_result2").attr("value", result2);
 			$("#calculate_result3").attr("value", result3);			
 		});			
-	});			
+	
+		<!-- 상품 만기도래시 예상 수령액 계산(세금 공제 후) -->
+		$("#calculate_after").click(function(e) {
+			e.preventDefault();
+						
+			const rate = Number($("#yearly_rate").val());
+			const term = Number($("#term").val());
+			const payment = Number($("#monthly_payment").val());			
+
+			// 단리 이율 방식
+			var result1 = payment * term; // 총 월납입금
+			var result2 = payment * term * (term + 1) / 2 * ((rate / 100) / 12) * (1 - 0.154); // 가입기간 동안의 총 이자
+			var result3 = result1 + result2; // 위 두 항의 합계
+			$("#calculate_result1").attr("value", result1);
+			$("#calculate_result2").attr("value", result2);
+			$("#calculate_result3").attr("value", result3);			
+		});			
+	});
 </script>
 
 <title>klk은행에 오신 것을 환영합니다!</title>
@@ -205,9 +222,16 @@
 						  <span class="input-group-text" id="basic-addon1">예상수령액(원)</span>
 						  <input id="calculate_result3" type="text" name="result" value="" class="form-control" readonly >
 						</div>
+						<div class="mt-1 d-grid gap-2 mx-auto">
+						  <figure class="text-center">
+						    <button id="calculate_before" type="button" class="btn btn-secondary">계산(공제 전)</button>						 
+						    <button id="calculate_after" type="button" class="btn btn-secondary">계산(공제 후)</button>
+						  </figure>
+						</div>
 						<div class="mt-1">
 						  <figure class="text-center">
-						    <button id="calculate" type="button" class="btn btn-secondary">계산하기</button>
+						  	<p><strong>* 공제 비율 : 이자소득세 15.4%를 적용</strong></p>
+						  	<p><strong>** 공제 전 금액 결과는 비과세 상품에 해당</strong></p>
 						  </figure>
 						</div>
 					</div>
