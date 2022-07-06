@@ -137,7 +137,7 @@
 		$("#idSearchBtn").click(userSearch);
 	});
 </script>
-<title>Insert title here</title>
+<title>회원 목록</title>
 </head>
 <body>
 	<bank:navBar current="userList"></bank:navBar>
