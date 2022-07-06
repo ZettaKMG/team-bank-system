@@ -28,25 +28,25 @@
 						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
 					</div>
 					<div class="carousel-inner">
-						<div class="carousel-item active">
+						<div class="carousel-item active" onclick="javascript:location.href='${appRoot}/product/search'" style="cursor: pointer">
 							<img src="https://drive.google.com/uc?id=1LnBl978Jsq9IQSIHRsvjmmFm9Jdr-x0h" class="d-block w-100" alt="...">
 							<div class="carousel-caption d-none d-md-block">
 								<h5>이벤트1</h5>
-								<p>Some representative placeholder content for the first slide.</p>
+								<p>상품 가입 이벤트1</p>
 							</div>
 						</div>
-						<div class="carousel-item">
+						<div class="carousel-item" onclick="javascript:location.href='${appRoot}/product/search'" style="cursor: pointer">
 							<img src="https://drive.google.com/uc?id=1LnBl978Jsq9IQSIHRsvjmmFm9Jdr-x0h" class="d-block w-100" alt="...">
 							<div class="carousel-caption d-none d-md-block">
 								<h5>이벤트2</h5>
-								<p>Some representative placeholder content for the second slide.</p>
+								<p>상품 가입 이벤트2</p>
 							</div>
 						</div>
-						<div class="carousel-item">
+						<div class="carousel-item" onclick="javascript:location.href='${appRoot}/product/search'" style="cursor: pointer">
 							<img src="https://drive.google.com/uc?id=1LnBl978Jsq9IQSIHRsvjmmFm9Jdr-x0h" class="d-block w-100" alt="...">
 							<div class="carousel-caption d-none d-md-block">
 								<h5>이벤트3</h5>
-								<p>Some representative placeholder content for the third slide.</p>
+								<p>상품 가입 이벤트3</p>
 							</div>
 						</div>
 					</div>
@@ -60,10 +60,10 @@
 					</button>
 				</div>
 			</div>
-			<div class="col-12 col-lg-3 p-2">
+			<div class="col-12 col-lg-3 p-2 border">
 				<c:choose>
 					<c:when test="${not empty principal.username }">
-						<div class="mx-5">
+						<div class="mx-5 mt-3">
 							<div class="row align-center">
 								<h5><i class="bi bi-person-bounding-box"></i> ${principal.username }</h5>			
 							</div>
