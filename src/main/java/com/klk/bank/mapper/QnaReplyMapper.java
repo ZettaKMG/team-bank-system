@@ -20,4 +20,6 @@ public interface QnaReplyMapper {
 
 	void deleteRepByQnaId(@Param("qna_id")int qna_id);
 
+	void deleteRepByUserId(String user_id);
+
 }

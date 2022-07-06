@@ -18,6 +18,10 @@ public interface QnaMapper {
 
 	void deleteQnaBoard(QnaDto qna);
 
+
+	void deleteQnaBoardByUserId(String user_id);
+
 	int selectCountAllQna();
+
 
 }
