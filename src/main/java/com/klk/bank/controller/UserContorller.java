@@ -29,13 +29,17 @@ public class UserContorller {
 	
 	// 로그인
 	@GetMapping("login")
-	public void loginPage(String error, String logout, Model model) {
+	public String loginPage(String error, String logout, Model model, Principal principal) {
+		if(principal != null) {
+			return "redirect:/";
+		}
 		if(error != null) {
 			model.addAttribute("LoginFailMessage", "로그인 오류, 계정을 확인해 주세요.");
 		}
 		if(logout != null) {
 			model.addAttribute("logout", "로그아웃 되었습니다.");
-		}		
+		}
+		return null;
 	}
 	
 	@GetMapping("logout")
