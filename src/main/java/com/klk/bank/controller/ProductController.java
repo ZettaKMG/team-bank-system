@@ -97,10 +97,8 @@ public class ProductController {
 		boolean success = productService.deleteProduct(product.getId());
 		
 		if (success) {
-			System.out.println("삭제 성공");
 			rttr.addFlashAttribute("message", "상품 정보가 삭제되었습니다.");
 		} else {
-			System.out.println("삭제 실패");
 			rttr.addFlashAttribute("message", "상품 정보가 삭제되지 않았습니다.");
 		}
 		
