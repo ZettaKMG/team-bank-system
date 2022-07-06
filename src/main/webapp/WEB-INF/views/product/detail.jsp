@@ -433,6 +433,7 @@
 	</div>
 	
 	<%-- 댓글 추가 화면 --%>
+	<sec:authorize access="isAuthenticated()">
 	<div id="insert_rev_container" class="container mt-3">
 		<div class="row">
 			<div class="col">
@@ -448,6 +449,7 @@
 			</div>
 		</div>
 	</div>
+	</sec:authorize>
 	
 </body>
 </html>

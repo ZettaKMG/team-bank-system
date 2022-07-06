@@ -197,10 +197,11 @@
 	<%-- 계좌이체 화면 --%>	
 	<div class="container">
 		<div class="row mt-5"></div>
-		<div class="row mt-5"></div>
+		<div class="row mt-5"><h4 class="text-center">계좌이체</h4></div>
 		<div class="row mt-3"></div>
 		<div class="row mt-5 justify-content-center">
 			<div class="border border-info col-12 col-lg-6">
+				
 				<form id="form1" action="${appRoot }/account/account_transfer" method="post">
 				<label for="input1" class="form-label">보내는사람</label>
 				<div class="input-group mb-3">

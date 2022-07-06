@@ -235,7 +235,7 @@ public class AccountController {
 	public String accountTransfer(String send_account_num, String send_account_cost, String account_num) {
 		boolean success = account_service.transferAccount(send_account_num, send_account_cost, account_num);
 		
-		return "redirect:/account/account_list";
+		return "redirect:/";
 	}
 	
 	//계좌이력
