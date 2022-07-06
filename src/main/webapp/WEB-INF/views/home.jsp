@@ -78,7 +78,7 @@
 										</c:when>
 										<c:when test="${accountNum == 0 }">
 											<sec:authorize access="hasRole('ROLE_USER')">
-												<button class="btn btn-outline-dark" onClick="location.href='${appRoot }/product/search'">계좌 개설</button>
+												<button class="btn btn-outline-dark" onClick="location.href='${appRoot }/product/search'">새 계좌 개설</button>
 											</sec:authorize>
 										</c:when>
 									</c:choose>

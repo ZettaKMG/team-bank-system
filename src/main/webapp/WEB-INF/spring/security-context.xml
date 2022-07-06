@@ -59,7 +59,7 @@
 		<security:intercept-url pattern="/product/remove" access="hasAnyRole('ADMIN, PRODUCT')"/>
 		
 		<!-- 계좌정보 등록/수정/삭제 권한 관련 설정(총괄 관리자, 해당유저에게만 권한 부여) -->
-		<security:intercept-url pattern="/account/account_list" access="hasAnyRole('ADMIN, PRODUCT, SERVICE')"/>
+		<security:intercept-url pattern="/account/account_list" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/account/account_get" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/account/account_modify" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/account/account_remove" access="isAuthenticated()"/>

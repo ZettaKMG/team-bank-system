@@ -47,7 +47,7 @@ public class HomeController {
 	public String home(Locale locale, Model model, Principal principal) {
 		
 		if(principal != null) {
-			int accountNum = accountService.searchCurrentUserCountAccount(principal.getName(), "", "");
+			int accountNum = accountService.searchCurrentUserCountAccount("", principal.getName(), "");
 			model.addAttribute("accountNum", accountNum);
 		}
 		
