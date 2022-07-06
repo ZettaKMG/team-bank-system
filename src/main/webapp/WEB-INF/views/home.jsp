@@ -88,7 +88,7 @@
 					</c:when>
 					<c:when test="${empty principal.username }">
 						<div style="text-align: center">
-							<h4>로그인이 필요합니다.</h4>
+							<h5>로그인이 필요합니다.</h5>
 						</div>
 						<div class="mt-5" style="text-align: center">
 							<button class="btn btn-outline-primary" onClick="location.href='${appRoot}/user/login'">로그인</button>
@@ -110,7 +110,7 @@
 				<div class="col">
 					<div class="card mb-4 rounded-3 shadow-sm">
 						<div class="card-header py-3">
-							<h5 class="my-0 fw-normal"><c:out value="${product.item_name }" /></h4>
+							<h5 class="my-0 fw-normal"><c:out value="${product.item_name }" /></h5>
 						</div>
 						<div class="card-body">
 							<h6 class="card-title pricing-card-title">
@@ -118,19 +118,10 @@
 							</h6>
 							<ul class="list-unstyled mt-3 mb-4">
 								<li>
-									<c:choose>
-						    			<c:when test="${product.exp_period != 0 }">
-						    				이율 : <strong><c:out value="연 ${product.rate * 100 }%, " /></strong>
-						    			</c:when>
-						    			<c:otherwise>
-						    				이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong>
-						    			</c:otherwise>
-						    		</c:choose>
+						    		이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong>
 					    		</li>
 								<li>
-									<c:if test="${product.exp_period != 0 }">
-						   				가입기간 : <c:out value="${product.exp_period }개월" />
-					    			</c:if>
+					   				가입기간 : <c:out value="${product.exp_period }개월" />
 								</li>
 								<li>
 									<c:out value="${product.summary }" />

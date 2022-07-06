@@ -20,7 +20,7 @@
 	<bank:navBar current="qnaList"></bank:navBar>
 	<div class="container mt-3">
 		<h3>문의 게시판</h3>
-		<div class="row">
+		<div class="row mt-3">
 			<div class="col">
 				<table class="table">
 					<thead>

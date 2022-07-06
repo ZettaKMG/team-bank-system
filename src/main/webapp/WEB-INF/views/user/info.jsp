@@ -125,19 +125,17 @@
 
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12 col-lg-10">
+			<div class="col">
 			
-				<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
-					<div class="lh-1 d-flex">
-						<h1 class="h6 text-white">회원 정보</h1>
-					</div>
+				<div class="lh-1 d-flex mt-3">
+					<h3>회원 정보</h3>
 				</div>
 				
 				<div>
 					<p>${message }</p>
 				</div>
 				
-				<div>
+				<div class="mt-3">
 					<label for="idInput1" class="form-label">
 						ID
 					</label>
