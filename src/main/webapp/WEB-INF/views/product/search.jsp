@@ -212,15 +212,15 @@
 						</div>
 						<div class="input-group mt-3">
 						  <span class="input-group-text" id="basic-addon1">월납입금 총액(원)</span>
-						  <input id="calculate_result1" type="text" name="result" value="" class="form-control" readonly >
+						  <input id="calculate_result1" type="text" name="result" class="form-control" readonly >
 						</div>
 						<div class="input-group mt-1">
 						  <span class="input-group-text" id="basic-addon1">총 이자액(원)</span>
-						  <input id="calculate_result2" type="text" name="result" value="" class="form-control" readonly >
+						  <input id="calculate_result2" type="text" name="result" class="form-control" readonly >
 						</div>
 						<div class="input-group mt-1">
 						  <span class="input-group-text" id="basic-addon1">예상수령액(원)</span>
-						  <input id="calculate_result3" type="text" name="result" value="" class="form-control" readonly >
+						  <input id="calculate_result3" type="text" name="result" class="form-control" readonly >
 						</div>
 						<div class="mt-1 d-grid gap-2 mx-auto">
 						  <figure class="text-center">
