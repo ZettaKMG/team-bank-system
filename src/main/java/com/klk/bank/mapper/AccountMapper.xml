@@ -36,9 +36,8 @@
 			   a.account_item_id, 
 			   a.account_pw, 
 			   a.account_balance, 
-			   a.account_date, 
-			   u.user_id account_user_name
-		FROM Account a JOIN User u ON a.account_user_id = u.user_id
+			   a.account_date
+		FROM Account a 
 		WHERE a.account_num = #{account_num}
 
 	</select>
