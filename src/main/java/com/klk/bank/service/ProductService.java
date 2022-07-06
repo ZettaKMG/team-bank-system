@@ -16,6 +16,7 @@ public class ProductService {
 	@Autowired
 	private ProductMapper productMapper;
 	
+	// 상품목록 전체 불러오기(페이지네이션 적용)
 	public List<ProductDto> listProduct(ProductPageInfoDto page_info, String keyword, String sav_method, String exp_period, String rate) {
 
 		int row_per_page = page_info.getRowPerPage();
@@ -24,35 +25,38 @@ public class ProductService {
 		return productMapper.selectProductAll(from, row_per_page, "%" + keyword + "%", sav_method, exp_period, rate);
 	}
 
+	// 상품 정보 등록하기
 	@Transactional
 	public boolean insertProduct(ProductDto product) {
-		// 상품 정보 등록
 		int count = productMapper.insertProduct(product);
 		
 		return count == 1;
 	}
 
+	// 상품 상세정보 불러오기
 	public ProductDto getProductById(int id) {
 		ProductDto product = productMapper.selectProductById(id);		
 		
 		return product;
 	}
 
+	// 상품 정보 수정하기
 	@Transactional
 	public boolean updateProduct(ProductDto product) {
 
-		// Product 테이블 update
 		int count = productMapper.updateProduct(product);
 		
 		return count == 1;
 	}
 
+	// 상품 정보 삭제하기
 	@Transactional
 	public boolean deleteProduct(int id) {
 		
 		return productMapper.deleteProduct(id) == 1;
 	}
 
+	// 상품 정보 조건검색 반영(페이지네이션 적용)
 	public int searchCountAccount(String sav_method, String exp_period, String rate, String keyword) {
 						
 		return productMapper.selectSearchCountProduct(sav_method, exp_period, rate, "%" + keyword + "%");

@@ -24,7 +24,6 @@
 <c:url value="/account/account_transfer" var="accountTransUrl"></c:url>
 
 <%-- 회원정보링크 --%>
-
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal" var="principal" scope="session"/>
 	<c:url value="/user/info" var="userInfoUrl">

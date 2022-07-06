@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-<title>Insert title here</title>
+<title>klk은행의 회원이 되어보세요!</title>
 <script>
 	$(document).ready(function() {
 		// 중복, 암호 확인, 미입력 확인 변수
@@ -157,8 +157,10 @@
 
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12 col-lg-6">
-				<h1>회원 가입</h1>
+			<div class="mt-5 col-12 col-lg-6">
+				<figure class="text-center">
+					<h1>회원 가입</h1>
+				</figure>
 				
 				<form id="form1" action="${appRoot }/user/signup" method="post">
 					<label for="idInput1" class="form-label">
@@ -212,8 +214,10 @@
 					</div>
 					
 					<div id="emailMessage1" class="form-text"></div>
-							 	
-					<button id="submitButton1" class="btn btn-primary">회원가입</button>
+					
+					<div class="mt-1 d-md-flex justify-content-md-center">		 	
+						<button id="submitButton1" class="btn btn-primary">회원가입</button>
+					</div>
 				</form>
 			</div>
 		</div>

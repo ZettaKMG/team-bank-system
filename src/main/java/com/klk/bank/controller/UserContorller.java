@@ -3,6 +3,7 @@ package com.klk.bank.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,6 +157,12 @@ public class UserContorller {
 			
 			if(success) {
 				rttr.addFlashAttribute("message", "탈퇴되었습니다.");
+				// 탈퇴 처리된 계정이 로그인된 것처럼 보이는 현상 방지
+				try {
+					request.logout();
+				} catch (ServletException e) {
+					e.printStackTrace();
+				}
 				return "redirect:/user/login";
 			} else {
 				rttr.addAttribute("user_id", userDto.getUser_id());
