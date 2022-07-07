@@ -65,7 +65,7 @@
 		<security:intercept-url pattern="/account/account_remove" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/account/account_history" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/account/{account_num}" access="isAuthenticated()"/>
-		
+		<security:intercept-url pattern="/account/account_register" access="isAuthenticated()"/>
 	</security:http>
 	
 	<!-- 1. 인증 2. 권한 체크 -->
