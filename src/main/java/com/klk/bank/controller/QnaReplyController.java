@@ -35,7 +35,6 @@ public class QnaReplyController {
 		
 		// 로그인 되어있는지 확인
 		if(principal == null) {
-			System.out.println("로그인이 필요합니다.");
 		} else {
 			qnaRep.setUser_id(principal.getName());
 			qnaRepService.insertQnaReply(qnaRep);
