@@ -21,8 +21,8 @@ import com.klk.bank.service.ProductService;
 public class ProductController {
 	
 	@Autowired
-	private ProductService productService;	
-		
+	private ProductService productService;
+			
 	// 상품 조회
 	@RequestMapping("search")
 	public void searchPage(@RequestParam(name = "page", defaultValue = "1") int page, @RequestParam(name = "keyword", defaultValue = "") String keyword, @RequestParam(name = "sav_method", defaultValue = "") String sav_method, @RequestParam(name = "exp_period", defaultValue = "") String exp_period, @RequestParam(name = "rate", defaultValue = "") String rate, Model model) {

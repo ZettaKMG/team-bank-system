@@ -59,9 +59,11 @@ public class ProductService {
 	public boolean deleteProduct(int id) {
 		
 		// 상품평 상품id로 삭제
-		int cnt1 = productReviewMapper.deleteProductReviewByProductId(id);		
-		int cnt2 = productMapper.deleteProduct(id);
-		return cnt1 == 1 && cnt2 == 1;
+		productReviewMapper.deleteProductReviewByProductId(id);
+		 
+		int cnt = productMapper.deleteProduct(id);
+		
+		return cnt == 1;
 	}
 
 	// 상품 정보 조건검색 반영(페이지네이션 적용)
