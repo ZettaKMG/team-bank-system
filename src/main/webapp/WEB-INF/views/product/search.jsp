@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-	<!-- modal창 보여주기 -->
+	<%-- modal창 보여주기 --%>
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -34,7 +34,7 @@
 	});
 
 	$(function() {
-		<!-- 상품 만기도래시 예상 수령액 계산(세금 공제 전) -->
+		<%-- 상품 만기도래시 예상 수령액 계산(세금 공제 전) --%>
 		$("#calculate_before").click(function(e) {
 			e.preventDefault();
 						
@@ -51,7 +51,7 @@
 			$("#calculate_result3").attr("value", result3);			
 		});			
 	
-		<!-- 상품 만기도래시 예상 수령액 계산(세금 공제 후) -->
+		<%-- 상품 만기도래시 예상 수령액 계산(세금 공제 후) --%>
 		$("#calculate_after").click(function(e) {
 			e.preventDefault();
 						
@@ -76,7 +76,7 @@
 
 	<bank:navBar></bank:navBar>
 	
-	<!-- 상품목록 검색조건선택 -->	
+	<%-- 상품목록 검색조건선택 --%>	
 	<div class="container mt-3">
 		<figure class="text-center">
 			<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample1" role="button" aria-controls="offcanvasExample">
@@ -184,7 +184,7 @@
 			  </div>
 			</div>
 			
-		    <!-- 상품 가입 만기일 도래시 예상 수령액 계산 메뉴 -->	
+		    <%-- 상품 가입 만기일 도래시 예상 수령액 계산 메뉴 --%>	
 			<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample2" role="button" aria-controls="offcanvasExample">
 			  예상수령액 계산
 			</a>
@@ -241,7 +241,7 @@
 		</figure>
 	</div>
 			
-	<!-- 상품목록 조회 결과표시(조건 선택 안하면 그냥 전체 결과 표시) -->
+	<%-- 상품목록 조회 결과표시(조건 선택 안하면 그냥 전체 결과 표시) --%>
 	<div class="container">
 		<div class="border border-success p-3 mt-3">
 			<figure class="text-center">
@@ -286,7 +286,7 @@
 		</div>
 	</div>	
 	
-	<!-- 상품 등록/삭제 여부 표시 modal -->
+	<%-- 상품 등록/삭제 여부 표시 modal --%>
 	<c:if test="${not empty message }">
 		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
 		  <div class="modal-dialog">

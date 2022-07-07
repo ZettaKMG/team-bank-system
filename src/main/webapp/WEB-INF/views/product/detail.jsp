@@ -47,7 +47,7 @@
 		});	
 	});
 	
-	<!-- Modal 창 -->
+	<%-- Modal 창 --%>
 	$(document).ready(function(){
 		var result = '<c:out value="${message}"/>';
 		
@@ -334,7 +334,7 @@
 
 	<bank:navBar></bank:navBar>
 	
-	<!-- 상품 수정 여부 표시 modal -->
+	<%-- 상품 수정 여부 표시 modal --%>
 	<c:if test="${not empty message }">
 		<div class="modal" id="my_modal" tabindex="-1" role="dialog" area-labelledby="my_modal_lable" aria-hidden="true">
 		  <div class="modal-dialog">

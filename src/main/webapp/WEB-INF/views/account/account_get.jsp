@@ -131,7 +131,7 @@
 							value="${account.account_date }" readonly />
 					</div>
 					
-					<!-- 제출된 파일 추가/수정 부분 -->
+					<%-- 제출된 파일 추가/수정 부분 --%>
 					<c:forEach items="${account.file_name }" var="file">
 						<%
 							String file = (String) pageContext.getAttribute("file");

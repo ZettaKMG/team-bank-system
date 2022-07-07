@@ -222,7 +222,6 @@ public class AccountService {
 			
 			AccountDto account2 = account_mapper.selectAccount(account_num);
 			
-			System.out.println(account2);
 			
 			transfer_send.setTrans_account_num(send_account_num);
 			transfer_send.setTrans_cost(b1);

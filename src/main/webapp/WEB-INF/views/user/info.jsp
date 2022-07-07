@@ -196,7 +196,7 @@
 		</div>
 	</div>
 	
-	<!-- remove Modal -->
+	<%-- remove Modal --%>
 	<div class="modal fade" id="removeModal" tabindex="-1"
 		aria-labelledby="removeModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -223,7 +223,7 @@
 		</div>
 	</div>
 	
-	<!-- edit Modal -->
+	<%-- edit Modal --%>
 	<div class="modal fade" id="modifyModal" tabindex="-1"
 		aria-labelledby="modifyModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -254,7 +254,7 @@
 		</div>
 	</div>
 	
-	<!-- auth Modal -->
+	<%-- auth Modal --%>
 	<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

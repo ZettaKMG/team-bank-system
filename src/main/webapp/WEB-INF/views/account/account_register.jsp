@@ -138,13 +138,13 @@
 						<input id="input3" value="${product.id }" class="form-control" type="text" name="account_item_id" scope="session" required readonly />
 					</div>
 					
-					<!-- DB 미반영 항목 -->
+					<%-- DB 미반영 항목 --%>
 					<label for="input4" class="form-label">상품명</label>
 					<div class="input-group mb-3">
 						<input id="input4" value="${product.item_name }" class="form-control" type="text" name="product_item_name" scope="session" required readonly />
 					</div>
 					
-					<!-- DB 미반영 항목 -->
+					<%-- DB 미반영 항목 --%>
 					<label for="input5" class="form-label">이율(%)</label>
 					<div class="input-group mb-3">
 						<input id="input5" value="${product.rate }" class="form-control" type="text" name="product_rate" required readonly />

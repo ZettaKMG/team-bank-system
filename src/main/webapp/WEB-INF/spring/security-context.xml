@@ -5,17 +5,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<!-- 652쪽 -->
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	<bean id="loginFailHandler" class="com.klk.bank.handler.LoginFailHandler"></bean>
 	<bean id="accessFailHandler" class="com.klk.bank.handler.AccessFailHandler"></bean>
 	<security:http>
 		<security:csrf disabled="true" />
-		<!-- 
-		<security:form-login />
-	    <security:form-login always-use-default-target="true" login-page="/user/login" default-target-url="/home" />
-		<security:logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true"/>
-		 -->
 		
 		<!-- 로그인 핸들러 -->
 	    <security:form-login username-parameter="username"
@@ -27,25 +21,6 @@
 							authentication-failure-handler-ref="loginFailHandler"/>
 		<security:logout logout-url="/logout" logout-success-url="/user/login" invalidate-session="true" delete-cookies="true"/>
 		<security:access-denied-handler ref="accessFailHandler"/>
-		
-		
-	    <!-- 
-		<security:remember-me/>
-		
-		access 속성 작성 법 (673~674)	
-		게시글 권한 설정 create, update, delete
-		<security:intercept-url pattern="/board/insert" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/board/modify" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/board/delete" access="isAuthenticated()"/>
-		
-		댓글 권한 설정 create, update, delete
-		<security:intercept-url pattern="/reply/insert" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/reply/modify" access="isAuthenticated()"/>
-		<security:intercept-url pattern="/reply/delete" access="isAuthenticated()"/>
-		
-		회원정보 권한 설정 read, update, delete
-		<security:intercept-url pattern="/member/initpw"  access="hasRole('ADMIN')"/>
-		 -->
 		
 		<!-- 상품정보 등록/수정/삭제 권한 관련 설정(총괄 관리자, 상품정보 관리자에게만 권한 부여) --> 
 		<security:intercept-url pattern="/user/list" access="hasAnyRole('ADMIN, PRODUCT, SERVICE')"/>
