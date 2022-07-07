@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-	<title>Home</title>
+<title>Home</title>
 </head>
 <body>
 <bank:navBar></bank:navBar>
@@ -28,25 +28,25 @@
 						<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
 					</div>
 					<div class="carousel-inner">
-						<div class="carousel-item active">
+						<div class="carousel-item active" onclick="javascript:location.href='${appRoot}/product/search'" style="cursor: pointer">
 							<img src="https://drive.google.com/uc?id=1LnBl978Jsq9IQSIHRsvjmmFm9Jdr-x0h" class="d-block w-100" alt="...">
 							<div class="carousel-caption d-none d-md-block">
 								<h5>이벤트1</h5>
-								<p>Some representative placeholder content for the first slide.</p>
+								<p>상품 가입 이벤트1</p>
 							</div>
 						</div>
-						<div class="carousel-item">
+						<div class="carousel-item" onclick="javascript:location.href='${appRoot}/product/search'" style="cursor: pointer">
 							<img src="https://drive.google.com/uc?id=1LnBl978Jsq9IQSIHRsvjmmFm9Jdr-x0h" class="d-block w-100" alt="...">
 							<div class="carousel-caption d-none d-md-block">
 								<h5>이벤트2</h5>
-								<p>Some representative placeholder content for the second slide.</p>
+								<p>상품 가입 이벤트2</p>
 							</div>
 						</div>
-						<div class="carousel-item">
+						<div class="carousel-item" onclick="javascript:location.href='${appRoot}/product/search'" style="cursor: pointer">
 							<img src="https://drive.google.com/uc?id=1LnBl978Jsq9IQSIHRsvjmmFm9Jdr-x0h" class="d-block w-100" alt="...">
 							<div class="carousel-caption d-none d-md-block">
 								<h5>이벤트3</h5>
-								<p>Some representative placeholder content for the third slide.</p>
+								<p>상품 가입 이벤트3</p>
 							</div>
 						</div>
 					</div>
@@ -60,10 +60,10 @@
 					</button>
 				</div>
 			</div>
-			<div class="col-12 col-lg-3 p-2">
+			<div class="col-12 col-lg-3 p-2 border">
 				<c:choose>
 					<c:when test="${not empty principal.username }">
-						<div class="mx-5">
+						<div class="mx-5 mt-3">
 							<div class="row align-center">
 								<h5><i class="bi bi-person-bounding-box"></i> ${principal.username }</h5>			
 							</div>
@@ -78,7 +78,7 @@
 										</c:when>
 										<c:when test="${accountNum == 0 }">
 											<sec:authorize access="hasRole('ROLE_USER')">
-												<button class="btn btn-outline-dark" onClick="location.href='${appRoot }/product/search'">계좌 개설</button>
+												<button class="btn btn-outline-dark" onClick="location.href='${appRoot }/product/search'">새 계좌 개설</button>
 											</sec:authorize>
 										</c:when>
 									</c:choose>
@@ -88,7 +88,7 @@
 					</c:when>
 					<c:when test="${empty principal.username }">
 						<div style="text-align: center">
-							<h4>로그인이 필요합니다.</h4>
+							<h5>로그인이 필요합니다.</h5>
 						</div>
 						<div class="mt-5" style="text-align: center">
 							<button class="btn btn-outline-primary" onClick="location.href='${appRoot}/user/login'">로그인</button>
@@ -110,7 +110,7 @@
 				<div class="col">
 					<div class="card mb-4 rounded-3 shadow-sm">
 						<div class="card-header py-3">
-							<h5 class="my-0 fw-normal"><c:out value="${product.item_name }" /></h4>
+							<h5 class="my-0 fw-normal"><c:out value="${product.item_name }" /></h5>
 						</div>
 						<div class="card-body">
 							<h6 class="card-title pricing-card-title">
@@ -118,19 +118,10 @@
 							</h6>
 							<ul class="list-unstyled mt-3 mb-4">
 								<li>
-									<c:choose>
-						    			<c:when test="${product.exp_period != 0 }">
-						    				이율 : <strong><c:out value="연 ${product.rate * 100 }%, " /></strong>
-						    			</c:when>
-						    			<c:otherwise>
-						    				이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong>
-						    			</c:otherwise>
-						    		</c:choose>
+						    		이율 : <strong><c:out value="연 ${product.rate * 100 }%" /></strong>
 					    		</li>
 								<li>
-									<c:if test="${product.exp_period != 0 }">
-						   				가입기간 : <c:out value="${product.exp_period }개월" />
-					    			</c:if>
+					   				가입기간 : <c:out value="${product.exp_period }개월" />
 								</li>
 								<li>
 									<c:out value="${product.summary }" />

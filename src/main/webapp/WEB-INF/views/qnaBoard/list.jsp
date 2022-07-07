@@ -14,12 +14,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-<title>Insert title here</title>
+<title>문의 게시판</title>
 </head>
 <body>
 	<bank:navBar current="qnaList"></bank:navBar>
 	<div class="container mt-3">
-		<div class="row">
+		<h3>문의 게시판</h3>
+		<div class="row mt-3">
 			<div class="col">
 				<table class="table">
 					<thead>

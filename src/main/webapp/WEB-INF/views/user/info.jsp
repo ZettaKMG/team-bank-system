@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-<title>Insert title here</title>
+<title>회원 정보 확인</title>
 <script>
 	$(document).ready(function() {
 		
@@ -125,19 +125,17 @@
 
 	<div class="container">
 		<div class="row justify-content-center">
-			<div class="col-12 col-lg-10">
+			<div class="col">
 			
-				<div class="d-flex align-items-center p-3 my-3 text-white bg-primary rounded shadow-sm">
-					<div class="lh-1 d-flex">
-						<h1 class="h6 text-white">회원 정보</h1>
-					</div>
+				<div class="lh-1 d-flex mt-3">
+					<h3>회원 정보</h3>
 				</div>
 				
 				<div>
 					<p>${message }</p>
 				</div>
 				
-				<div>
+				<div class="mt-3">
 					<label for="idInput1" class="form-label">
 						ID
 					</label>

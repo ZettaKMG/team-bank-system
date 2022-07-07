@@ -19,11 +19,9 @@ public class AccessFailHandler implements AccessDeniedHandler{
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		System.out.println("access fail handler");
 		if(accessDeniedException instanceof AccessDeniedException) {
-			request.setAttribute("LoginFailMessage", "접근 권한이 없는 계정입니다.");
+			request.setAttribute("accessFailMessage", "접근 권한이 없는 계정입니다.");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/user/login.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect(request.getContextPath());
 	}
 }

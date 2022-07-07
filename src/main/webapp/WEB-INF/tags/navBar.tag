@@ -57,24 +57,24 @@
 							</sec:authorize>
 						</ul>
 					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="account"
-							role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							계좌 </a>
-						<ul class="dropdown-menu" aria-labelledby="account">
-
-							<sec:authorize access="isAuthenticated()">
-								<li>
-									<a class="dropdown-item" href="${accountListUrl }">계좌조회</a>
-								</li>
-							</sec:authorize>
-							<sec:authorize access="hasAnyRole('ADMIN, SERVICE')">
-								<li>
-									<a class="dropdown-item" href="${accountRegUrl }">계좌등록</a>
-								</li>
-							</sec:authorize>
-						</ul>
-					</li>
+					<sec:authorize access="isAuthenticated()">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="account"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								계좌 </a>
+							<ul class="dropdown-menu" aria-labelledby="account">
+	
+									<li>
+										<a class="dropdown-item" href="${accountListUrl }">계좌조회</a>
+									</li>
+								<sec:authorize access="hasAnyRole('ADMIN, SERVICE')">
+									<li>
+										<a class="dropdown-item" href="${accountRegUrl }">계좌등록</a>
+									</li>
+								</sec:authorize>
+							</ul>
+						</li>
+					</sec:authorize>
 					
 					<li class="nav-item">
 						<a class="nav-link" ${current == 'transfer' ? 'active' : '' } href="${accountTransUrl }">계좌이체</a>
