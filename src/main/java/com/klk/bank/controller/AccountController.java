@@ -95,7 +95,6 @@ public class AccountController {
 			account.setFile_name(file_list);			
 		}
 		
-		System.out.println(account);
 		boolean success = account_service.addAccount(account, file);
 		
 		if (success) {
@@ -159,7 +158,7 @@ public class AccountController {
 		return "redirect:/account/account_list";
 	}
 	
-	//계좌일치여부체크
+	//계좌이체 (받는 사람 계좌 일치여부체크)
 	@PostMapping(path = "account_check", params = "account_num")
 	@ResponseBody
 	public String accountCheck(String account_num) {
@@ -187,7 +186,7 @@ public class AccountController {
 		
 	}
 	
-	//계좌잔액사용가능여부체크
+	//계좌 이체 (보내는 사람 계좌 잔액값 비교)
 	@PostMapping(path = "send_cost_check", params = {"send_account_num", "send_account_cost"})
 	@ResponseBody
 	public String sendCostCheck(String send_account_num, String send_account_cost){
@@ -208,7 +207,7 @@ public class AccountController {
 		return "";
 	}
 	
-	//계좌잔액확인
+	//계좌 이체 (보내는 사람 계좌 존재시 잔액리턴)
 	@PostMapping(path = "account_send_check", produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> accountSendCheck(String send_account_num){
 				
@@ -235,7 +234,7 @@ public class AccountController {
 	public String accountTransfer(String send_account_num, String send_account_cost, String account_num) {
 		boolean success = account_service.transferAccount(send_account_num, send_account_cost, account_num);
 		
-		return "redirect:/account/account_list";
+		return "redirect:/";
 	}
 	
 	//계좌이력
