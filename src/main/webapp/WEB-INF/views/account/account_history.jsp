@@ -38,7 +38,7 @@
 
                     <tbody>
 						<c:forEach items="${account_history }" var="transfer">
-							<tr class="text-center">
+							<tr class="text-center"> 
 								
 								<td>${transfer.trans_id}</td>
 								<td>${transfer.trans_account_num}</td>

@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
 
 <script>
-	$(function() {
+	$(function() { 
 		
 		let account1_ok = false;
 		let account2_ok = false;

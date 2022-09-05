@@ -17,7 +17,7 @@
         crossorigin="anonymous"></script>
 
 <script>
-	$(function() {
+	$(function() { 
 		let account_ok = false;
 		let pw_ok = false;
 		let user_num_ok = false;

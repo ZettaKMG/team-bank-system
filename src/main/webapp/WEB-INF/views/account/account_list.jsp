@@ -60,7 +60,7 @@
         </div>
     </div>
 	
-	<%-- 계좌 pagenation tag --%>
+	<%-- 계좌 pagenation tag --%> 
 	<bank:account_page_nav current="account_list"/>
 
 	<%-- 계좌 검색 화면 --%>

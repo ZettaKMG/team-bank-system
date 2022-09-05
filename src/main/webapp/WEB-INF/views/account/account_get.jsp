@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
 
 <script>
-	$(function () {
+	$(function () { 
 		let pw_ok = false;
 		
 		// 계좌수정시작버튼 클릭시
