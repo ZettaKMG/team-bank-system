@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.klk.bank.domain.ProductDto;
 
-public interface ProductMapper {
+public interface ProductMapper { 
 
 	List<ProductDto> selectProductAll(@Param("from") int from, @Param("row_per_page") int row_per_page, @Param("keyword") String keyword, @Param("sav_method") String sav_method, @Param("exp_period") String exp_period, @Param("rate") String rate);
 

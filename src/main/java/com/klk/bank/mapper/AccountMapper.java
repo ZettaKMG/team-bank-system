@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.klk.bank.domain.AccountDto;
 import com.klk.bank.domain.TransferDto;
 
-public interface AccountMapper {
+public interface AccountMapper { 
 
 	List<AccountDto> selectAllAccount(@Param("from")int from, @Param("row_per_page")int row_per_page, @Param("type") String type, @Param("keyword")String keyword);
 

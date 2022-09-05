@@ -11,7 +11,7 @@
 			   p.sav_method,
 			   p.rate,
 			   p.exp_period,
-			   p.date
+			   p.date 
 		FROM Product p		
 		WHERE 1 = 1		
 		

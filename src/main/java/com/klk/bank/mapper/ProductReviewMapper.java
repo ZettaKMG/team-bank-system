@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.klk.bank.domain.ProductReviewDto;
 
-public interface ProductReviewMapper {
+public interface ProductReviewMapper { 
 
 	List<ProductReviewDto> selectAllProductReview(@Param("product_rev_item_id") int product_rev_item_id,
 												  @Param("product_rev_user_id") String product_rev_user_id);

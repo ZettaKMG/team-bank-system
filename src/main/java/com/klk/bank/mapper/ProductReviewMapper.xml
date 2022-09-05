@@ -17,7 +17,7 @@
 			   p.product_rev_group_depth,
 			   p.product_rev_group_end,
                CAST(LPAD(ROW_NUMBER() OVER(ORDER BY p.id), 8, '0') AS CHAR(99)) ord
-		FROM Product_rev p   
+		FROM Product_rev p    
         WHERE product_rev_group_depth = 0
         
         UNION ALL
