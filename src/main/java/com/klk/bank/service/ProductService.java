@@ -12,7 +12,7 @@ import com.klk.bank.mapper.ProductMapper;
 import com.klk.bank.mapper.ProductReviewMapper;
 
 @Service
-public class ProductService {
+public class ProductService {  
 
 	@Autowired
 	private ProductMapper productMapper;

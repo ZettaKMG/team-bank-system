@@ -14,7 +14,7 @@ import com.klk.bank.mapper.QnaReplyMapper;
 import com.klk.bank.mapper.UserMapper;
 
 @Service
-public class UserService {
+public class UserService { 
 	
 	@Autowired
 	UserMapper userMapper;

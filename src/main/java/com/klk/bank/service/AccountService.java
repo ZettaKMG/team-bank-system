@@ -28,7 +28,7 @@ import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
-public class AccountService {
+public class AccountService { 
 	
 	@Autowired
 	private AccountMapper account_mapper;
