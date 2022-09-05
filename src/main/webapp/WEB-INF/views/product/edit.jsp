@@ -17,7 +17,7 @@
 <script>
 	$(document).ready(function() {		
 		/* 수정 버튼 누를시 이벤트 */
-		$("#edit_submit1").click(function(e) {
+		$("#edit_submit1").click(function(e) { 
 			e.preventDefault();
 			
 			if (confirm("상품 정보를 수정하시겠습니까?")) { // 확인시 수정 내용 적용

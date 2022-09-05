@@ -17,7 +17,7 @@
 <script>
 	$(document).ready(function() {		
 		/* 수정 모드 진입 여부 묻는 메세지 창 */
-		$("#into_edit_mode_button").click(function(e) {
+		$("#into_edit_mode_button").click(function(e) { 
 			e.preventDefault();
 						
 			if (confirm("상품 정보 수정/삭제모드로 진입하시겠습니까?")) { // 확인 누를시 진입

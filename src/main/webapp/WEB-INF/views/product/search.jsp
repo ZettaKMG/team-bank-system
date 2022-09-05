@@ -15,7 +15,7 @@
 
 <script type="text/javascript">
 	<%-- modal창 보여주기 --%>
-	$(document).ready(function(){
+	$(document).ready(function(){ 
 		var result = '<c:out value="${message}"/>';
 		
 		check_modal(result);
