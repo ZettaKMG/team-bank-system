@@ -7,7 +7,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class ProductDto {
+public class ProductDto { 
 	
 	private int id;	
 	private String user_id;		

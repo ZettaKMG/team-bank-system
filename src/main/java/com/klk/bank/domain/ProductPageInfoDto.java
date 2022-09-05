@@ -3,7 +3,7 @@ package com.klk.bank.domain;
 import lombok.Data;
 
 @Data
-public class ProductPageInfoDto {	
+public class ProductPageInfoDto {
 	private int current_page;
 	private int end_page;
 	private static final int row_per_page = 5;
