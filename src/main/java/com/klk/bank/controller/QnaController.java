@@ -18,7 +18,7 @@ import com.klk.bank.service.QnaService;
 
 @Controller
 @RequestMapping("qnaBoard")
-public class QnaController {
+public class QnaController { 
 	
 	@Autowired
 	QnaService qnaService;

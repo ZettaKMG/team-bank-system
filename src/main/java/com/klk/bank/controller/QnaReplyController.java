@@ -19,7 +19,7 @@ import com.klk.bank.service.QnaReplyService;
 
 @Controller
 @RequestMapping("qnaReply")
-public class QnaReplyController {
+public class QnaReplyController { 
 	
 	@Autowired
 	QnaReplyService qnaRepService;

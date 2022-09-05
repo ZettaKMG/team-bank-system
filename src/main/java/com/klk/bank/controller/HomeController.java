@@ -23,7 +23,7 @@ import com.klk.bank.service.QnaService;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class HomeController { 
 	
 	@Autowired
 	QnaService qnaService;

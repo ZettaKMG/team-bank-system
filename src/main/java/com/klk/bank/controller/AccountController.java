@@ -30,7 +30,7 @@ import com.klk.bank.service.AccountService;
 
 @Controller
 @RequestMapping("account")
-public class AccountController {
+public class AccountController { 
 	
 	@Autowired
 	private AccountService account_service;

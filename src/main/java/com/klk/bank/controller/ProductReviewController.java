@@ -21,7 +21,7 @@ import com.klk.bank.service.ProductReviewService;
 
 @RestController
 @RequestMapping("product_review")
-public class ProductReviewController {
+public class ProductReviewController { 
 	
 	@Autowired
 	private ProductReviewService product_review_service;

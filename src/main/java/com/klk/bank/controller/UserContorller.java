@@ -22,7 +22,7 @@ import com.klk.bank.service.UserService;
 
 @Controller
 @RequestMapping("user")
-public class UserContorller {
+public class UserContorller { 
 	
 	@Autowired
 	UserService userService;

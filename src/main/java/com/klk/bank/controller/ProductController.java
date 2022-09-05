@@ -18,7 +18,7 @@ import com.klk.bank.service.ProductService;
 
 @Controller
 @RequestMapping("product")
-public class ProductController {
+public class ProductController { 
 	
 	@Autowired
 	private ProductService productService;
