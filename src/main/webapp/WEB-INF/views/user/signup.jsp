@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
 <title>klk은행의 회원이 되어보세요!</title>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function() { 
 		// 중복, 암호 확인, 미입력 확인 변수
 		let idOk = false;
 		let pwOk = false;

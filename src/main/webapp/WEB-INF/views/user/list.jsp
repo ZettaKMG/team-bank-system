@@ -15,7 +15,7 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"	referrerpolicy="no-referrer"></script>
 	
 <script>
-	$(document).ready(function() {
+	$(document).ready(function() { 
 		// select box 변경에 따라 회원 목록 변경
 		const listUser = function() {
 			var data = {role : $("#selectUserRole").val()};

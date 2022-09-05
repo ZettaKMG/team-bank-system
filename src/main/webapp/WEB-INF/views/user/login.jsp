@@ -28,7 +28,7 @@
 			
 			<div class="mt-5 col-12 col-lg-4">	
 				<div class="mt-1 d-md-flex justify-content-md-center">		
-					<h1>로그인</h1>
+					<h1>로그인</h1> 
 				</div>
 				<h3><c:out value="${logout }"></c:out></h3>
 				<form action="${appRoot }/user/login" method="post">					
